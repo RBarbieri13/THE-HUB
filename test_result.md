@@ -139,6 +139,9 @@ backend:
       - working: true
         agent: "main"
         comment: "FIXED: Updated backend query to use name-based joins with skill_snap_counts.offense_snaps. Updated frontend to remove % formatting. Now displays actual snap counts (77, 60, 50, etc.) instead of percentages."
+      - working: true
+        agent: "testing"
+        comment: "VERIFIED WORKING: Comprehensive testing confirms snap counts now display as numerical values (61, 48, 78, 37, 47, 46, etc.) for both 2024 and 2025 seasons across multiple weeks. Name-based joins between weekly_stats and skill_snap_counts working correctly. COALESCE fallback logic functioning properly. Fix is successful."
 
 frontend:
   - task: "Remove top menu bar with summary cards"
