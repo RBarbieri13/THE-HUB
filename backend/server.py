@@ -257,7 +257,7 @@ def load_nfl_data_sync(seasons: List[int]) -> Dict[str, int]:
                     
                     # Insert into database
                     conn.execute("DELETE FROM snap_counts WHERE season = ?", [season])
-                    conn.register('snaps_df', snap_counts)
+                    conn.register('snaps_df', snap_counts_pd)
                     conn.execute("""
                         INSERT INTO snap_counts 
                         SELECT 
@@ -277,7 +277,7 @@ def load_nfl_data_sync(seasons: List[int]) -> Dict[str, int]:
                         FROM snaps_df
                     """)
                     
-                    snap_records_count = len(snap_counts)
+                    snap_records_count = len(snap_counts_pd)
                     total_records += snap_records_count
                     logging.info(f"Loaded {snap_records_count} snap count records for season {season}")
                     
