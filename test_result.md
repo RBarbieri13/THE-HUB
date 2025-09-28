@@ -111,9 +111,9 @@ backend:
     implemented: true
     working: false
     file: "server.py"
-    stuck_count: 1
+    stuck_count: 2
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "main"
@@ -121,6 +121,9 @@ backend:
       - working: false
         agent: "main"
         comment: "IMPLEMENTED: Fixed backend query to join with draftkings_pricing table for actual salaries. However RapidAPI returns 404 errors for all weeks - API endpoint may have changed or key may be invalid. Backend logic is correct but data source is unavailable."
+      - working: false
+        agent: "testing"
+        comment: "CONFIRMED BROKEN: Comprehensive testing shows Tank01 'getDFSsalaries' endpoint returns 404 for ALL weeks/seasons (2024-2025). Database has 0 pricing records. Web research indicates this endpoint may be deprecated/renamed. Backend logic is correct but API source is unavailable. Need alternative DFS salary API (SportsDataIO, Entitysport, or Sportradar)."
 
   - task: "Fix snap count display to show numerical values"
     implemented: true
