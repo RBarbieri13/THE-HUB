@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/select';
 import { Badge } from './components/ui/badge';
 import { Input } from './components/ui/input';
-import { RefreshCw, TrendingUp, Users, Calendar, Search, Filter, Star, BarChart3, Settings, Download, DollarSign } from 'lucide-react';
+import { RefreshCw, TrendingUp, Users, Calendar, Search, Filter, Star, BarChart3, Settings, Download, DollarSign, Database, Clock } from 'lucide-react';
 import { Toaster } from './components/ui/sonner';
 import { toast } from 'sonner';
 import '@/App.css';
@@ -62,9 +62,9 @@ const FantasyDashboard = () => {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [loadingPricing, setLoadingPricing] = useState(false);
   const [summary, setSummary] = useState(null);
   const [selectedPlayerType, setSelectedPlayerType] = useState('all');
-  const [dkPricing, setDkPricing] = useState({});
   const [filters, setFilters] = useState({
     season: '2023',
     week: 'all',
@@ -356,17 +356,25 @@ const FantasyDashboard = () => {
     animateRows: true
   }), []);
 
-  // Fetch DraftKings pricing
-  const fetchDraftKingsPricing = async () => {
+  // Load historical DraftKings pricing
+  const loadHistoricalPricing = async () => {
+    setLoadingPricing(true);
     try {
-      const response = await axios.get(`${API}/draftkings-pricing`);
-      if (response.data.success && response.data.data) {
-        setDkPricing(response.data.data);
-        toast.success('DraftKings pricing updated');
+      toast.info('Loading historical DraftKings pricing data...');
+      const response = await axios.post(`${API}/load-historical-pricing`);
+      
+      if (response.data.success) {
+        toast.success(`Successfully loaded ${response.data.records_processed} pricing records`);
+        await fetchSummary();
+        await fetchPlayers();
+      } else {
+        toast.error('Failed to load historical pricing data');
       }
     } catch (error) {
-      console.error('Error fetching DraftKings pricing:', error);
-      toast.error('Failed to fetch DraftKings pricing');
+      console.error('Error loading historical pricing:', error);
+      toast.error('Failed to load historical DraftKings pricing');
+    } finally {
+      setLoadingPricing(false);
     }
   };
 
@@ -429,7 +437,6 @@ const FantasyDashboard = () => {
         toast.success(`Successfully loaded ${response.data.records_loaded} records`);
         await fetchSummary();
         await fetchPlayers();
-        await fetchDraftKingsPricing();
       } else {
         toast.error('Failed to refresh data');
       }
@@ -445,7 +452,6 @@ const FantasyDashboard = () => {
   useEffect(() => {
     fetchSummary();
     fetchPlayers();
-    fetchDraftKingsPricing();
   }, []);
 
   // Refetch when filters change
@@ -502,10 +508,11 @@ const FantasyDashboard = () => {
                 size="sm" 
                 variant="outline" 
                 className="text-xs h-8"
-                onClick={fetchDraftKingsPricing}
+                onClick={loadHistoricalPricing}
+                disabled={loadingPricing}
               >
-                <DollarSign className="h-3 w-3 mr-1" />
-                Update DK Prices
+                <Database className={`h-3 w-3 mr-1 ${loadingPricing ? 'animate-spin' : ''}`} />
+                {loadingPricing ? 'Loading...' : 'Load Historical Pricing'}
               </Button>
               <Button size="sm" variant="outline" className="text-xs h-8">
                 <Download className="h-3 w-3 mr-1" />
@@ -531,9 +538,9 @@ const FantasyDashboard = () => {
       </div>
 
       <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        {/* Summary Cards */}
+        {/* Enhanced Summary Cards */}
         {summary && (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
             <Card className="p-3">
               <div className="flex items-center justify-between">
                 <div>
@@ -559,6 +566,19 @@ const FantasyDashboard = () => {
             <Card className="p-3">
               <div className="flex items-center justify-between">
                 <div>
+                  <p className="text-xs font-medium text-gray-600">DK Pricing</p>
+                  <p className="text-lg font-bold text-green-700">
+                    {summary.total_pricing_records?.toLocaleString() || '0'}
+                  </p>
+                  <p className="text-xs text-gray-500">Cached salaries</p>
+                </div>
+                <DollarSign className="h-4 w-4 text-green-500" />
+              </div>
+            </Card>
+            
+            <Card className="p-3">
+              <div className="flex items-center justify-between">
+                <div>
                   <p className="text-xs font-medium text-gray-600">Current Weeks</p>
                   <p className="text-lg font-bold text-gray-900">
                     {summary.weeks_available.length > 0 ? `1-${Math.max(...summary.weeks_available)}` : 'None'}
@@ -572,11 +592,13 @@ const FantasyDashboard = () => {
             <Card className="p-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-xs font-medium text-gray-600">Positions</p>
-                  <p className="text-lg font-bold text-gray-900">4</p>
-                  <p className="text-xs text-gray-500">QB, RB, WR, TE</p>
+                  <p className="text-xs font-medium text-gray-600">Pricing Coverage</p>
+                  <p className="text-lg font-bold text-blue-700">
+                    {summary.players_with_pricing?.toLocaleString() || '0'}
+                  </p>
+                  <p className="text-xs text-gray-500">Players with DK data</p>
                 </div>
-                <Search className="h-4 w-4 text-gray-400" />
+                <Clock className="h-4 w-4 text-blue-500" />
               </div>
             </Card>
           </div>
@@ -723,6 +745,11 @@ const FantasyDashboard = () => {
                 <Badge variant="outline" className="text-xs px-2 py-0.5">
                   {players.length} players
                 </Badge>
+                {summary && summary.pricing_coverage && summary.pricing_coverage.length > 0 && (
+                  <Badge variant="secondary" className="text-xs px-2 py-0.5">
+                    Latest DK: S{summary.pricing_coverage[0].season} W{summary.pricing_coverage[0].week}
+                  </Badge>
+                )}
               </div>
               <div className="flex items-center space-x-2">
                 <Button size="sm" variant="outline" className="text-xs h-8">
@@ -740,7 +767,7 @@ const FantasyDashboard = () => {
               </div>
             </div>
             <CardDescription className="text-xs">
-              Comprehensive NFL player statistics with DraftKings PPR fantasy scoring
+              Comprehensive NFL player statistics with DraftKings PPR fantasy scoring and cached historical pricing
             </CardDescription>
           </CardHeader>
           <CardContent className="p-0">

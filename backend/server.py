@@ -8,7 +8,7 @@ from pathlib import Path
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timezone, date, timedelta
 import duckdb
 import nflreadpy as nfl
 import pandas as pd
@@ -17,7 +17,7 @@ from concurrent.futures import ThreadPoolExecutor
 import traceback
 import requests
 import json
-from datetime import date
+import time
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -89,6 +89,9 @@ NFL_TEAMS = {
 RAPIDAPI_KEY = "31cd7fd5cfmsh0039d0aaa4b3cf4p187526jsn4273673a1752"
 RAPIDAPI_HOST = "tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com"
 
+# Offensive positions to track
+OFFENSIVE_POSITIONS = ['QB', 'RB', 'WR', 'TE', 'K']
+
 # Models
 class PlayerStats(BaseModel):
     player_id: str
@@ -123,6 +126,18 @@ class DraftKingsResponse(BaseModel):
     data: Optional[Dict] = None
     message: str
     timestamp: datetime
+    records_processed: Optional[int] = 0
+
+class DraftKingsPricing(BaseModel):
+    player_id: Optional[str] = None
+    player_name: str
+    team: str
+    position: str
+    season: int
+    week: int
+    salary: int
+    dk_player_id: Optional[str] = None
+    created_at: datetime
 
 def calculate_fantasy_points(stats: Dict) -> float:
     """Calculate DraftKings PPR fantasy points"""
@@ -156,59 +171,185 @@ def calculate_fantasy_points(stats: Dict) -> float:
     
     return round(points, 2)
 
-def fetch_draftkings_pricing(date_str: str = None) -> Dict:
-    """Fetch DraftKings pricing from RapidAPI"""
-    if not date_str:
-        date_str = date.today().strftime('%Y%m%d')
-    
-    url = f"https://{RAPIDAPI_HOST}/getNFLDFS"
+def fetch_draftkings_salaries(season: int, week: int) -> Dict:
+    """Fetch DraftKings salaries from RapidAPI for specific season/week"""
+    url = f"https://{RAPIDAPI_HOST}/getDFSsalaries"
     
     querystring = {
-        "date": date_str,
-        "includeTeamDefense": "true"
+        "week": str(week),
+        "season": str(season),
+        "site": "draftkings"
     }
     
     headers = {
         "x-rapidapi-key": RAPIDAPI_KEY,
-        "x-rapidapi-host": RAPIDAPI_HOST
+        "x-rapidapi-host": RAPIDAPI_HOST,
+        "Content-Type": "application/json"
     }
     
     try:
-        response = requests.get(url, headers=headers, params=querystring, timeout=10)
+        response = requests.get(url, headers=headers, params=querystring, timeout=15)
         response.raise_for_status()
         
         data = response.json()
-        logging.info(f"DraftKings API response received for date {date_str}")
+        logging.info(f"DraftKings API response received for season {season}, week {week}")
         
-        # Process the data to create player salary mapping
-        salary_map = {}
-        if 'body' in data and isinstance(data['body'], list):
-            for player in data['body']:
-                if 'playerName' in player and 'salary' in player:
-                    name = player['playerName']
-                    salary = player['salary']
-                    salary_map[name] = f"${salary/1000:.1f}k" if salary >= 1000 else f"${salary}"
+        processed_data = []
+        if 'body' in data and 'draftkings' in data['body']:
+            for player in data['body']['draftkings']:
+                # Filter for offensive positions only
+                position = player.get('pos', '').upper()
+                if position in OFFENSIVE_POSITIONS:
+                    # Parse salary (handle both string and numeric)
+                    salary_raw = player.get('salary', 0)
+                    if isinstance(salary_raw, str):
+                        salary = int(salary_raw.replace('$', '').replace(',', '')) if salary_raw else 0
+                    else:
+                        salary = int(salary_raw) if salary_raw else 0
+                    
+                    processed_data.append({
+                        'player_name': player.get('longName', ''),
+                        'team': player.get('team', '').upper(),
+                        'position': position,
+                        'salary': salary,
+                        'dk_player_id': player.get('playerID', ''),
+                        'season': season,
+                        'week': week
+                    })
         
         return {
             'success': True,
-            'data': salary_map,
-            'raw_data': data
+            'data': processed_data,
+            'count': len(processed_data)
         }
         
     except requests.exceptions.RequestException as e:
-        logging.error(f"Error fetching DraftKings pricing: {e}")
+        logging.error(f"Error fetching DraftKings salaries for {season} week {week}: {e}")
         return {
             'success': False,
             'error': str(e),
-            'data': {}
+            'data': []
         }
     except Exception as e:
-        logging.error(f"Unexpected error in DraftKings API: {e}")
+        logging.error(f"Unexpected error in DraftKings API for {season} week {week}: {e}")
         return {
             'success': False,
             'error': str(e),
-            'data': {}
+            'data': []
         }
+
+def is_pricing_cached(season: int, week: int) -> bool:
+    """Check if pricing data is already cached for a specific season/week"""
+    try:
+        result = conn.execute(
+            "SELECT COUNT(*) FROM draftkings_pricing WHERE season = ? AND week = ?",
+            [season, week]
+        ).fetchone()
+        return result[0] > 0
+    except Exception as e:
+        logging.error(f"Error checking pricing cache: {e}")
+        return False
+
+def cache_draftkings_pricing(pricing_data: List[Dict], season: int, week: int) -> int:
+    """Cache DraftKings pricing data to database"""
+    try:
+        # Delete existing data for this season/week
+        conn.execute(
+            "DELETE FROM draftkings_pricing WHERE season = ? AND week = ?",
+            [season, week]
+        )
+        
+        # Insert new data
+        cached_count = 0
+        for player in pricing_data:
+            try:
+                conn.execute("""
+                    INSERT INTO draftkings_pricing 
+                    (player_name, team, position, season, week, salary, dk_player_id, created_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                """, [
+                    player['player_name'],
+                    player['team'],
+                    player['position'],
+                    player['season'],
+                    player['week'],
+                    player['salary'],
+                    player['dk_player_id'],
+                    datetime.now(timezone.utc)
+                ])
+                cached_count += 1
+            except Exception as e:
+                logging.error(f"Error inserting pricing data for {player['player_name']}: {e}")
+                continue
+        
+        logging.info(f"Cached {cached_count} DraftKings pricing records for season {season}, week {week}")
+        return cached_count
+        
+    except Exception as e:
+        logging.error(f"Error caching DraftKings pricing: {e}")
+        return 0
+
+def load_historical_draftkings_data(start_season: int = 2024, end_season: int = 2025) -> Dict:
+    """Load historical DraftKings data for all weeks from start_season to current"""
+    total_cached = 0
+    total_weeks_processed = 0
+    errors = []
+    
+    current_date = datetime.now()
+    current_season = current_date.year if current_date.month >= 9 else current_date.year - 1
+    
+    for season in range(start_season, end_season + 1):
+        # Determine max week for each season
+        if season < current_season:
+            max_week = 18  # Full season for past years
+        elif season == current_season:
+            # For current season, estimate current week (rough calculation)
+            if current_date.month >= 9:  # Season started
+                weeks_since_start = (current_date - datetime(season, 9, 1)).days // 7
+                max_week = min(max(weeks_since_start, 1), 18)
+            else:
+                max_week = 1
+        else:
+            continue  # Future seasons
+        
+        for week in range(1, max_week + 1):
+            # Skip if already cached (unless it's current week of current season)
+            if season == current_season and week == max_week:
+                # Always refresh current week
+                pass
+            elif is_pricing_cached(season, week):
+                logging.info(f"Skipping cached data for season {season}, week {week}")
+                continue
+            
+            try:
+                logging.info(f"Fetching DraftKings data for season {season}, week {week}")
+                result = fetch_draftkings_salaries(season, week)
+                
+                if result['success'] and result['data']:
+                    cached = cache_draftkings_pricing(result['data'], season, week)
+                    total_cached += cached
+                    logging.info(f"Successfully cached {cached} records for season {season}, week {week}")
+                else:
+                    error_msg = f"No data for season {season}, week {week}: {result.get('error', 'Unknown error')}"
+                    errors.append(error_msg)
+                    logging.warning(error_msg)
+                
+                total_weeks_processed += 1
+                
+                # Rate limiting - wait between requests
+                time.sleep(1)
+                
+            except Exception as e:
+                error_msg = f"Error processing season {season}, week {week}: {str(e)}"
+                errors.append(error_msg)
+                logging.error(error_msg)
+                continue
+    
+    return {
+        'total_cached': total_cached,
+        'weeks_processed': total_weeks_processed,
+        'errors': errors
+    }
 
 def init_database():
     """Initialize DuckDB tables"""
@@ -273,6 +414,33 @@ def init_database():
             )
         """)
         
+        # Create DraftKings pricing table
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS draftkings_pricing (
+                id INTEGER PRIMARY KEY,
+                player_name VARCHAR NOT NULL,
+                team VARCHAR NOT NULL,
+                position VARCHAR NOT NULL,
+                season INTEGER NOT NULL,
+                week INTEGER NOT NULL,
+                salary INTEGER NOT NULL,
+                dk_player_id VARCHAR,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                UNIQUE(player_name, team, season, week)
+            )
+        """)
+        
+        # Create index for faster queries
+        conn.execute("""
+            CREATE INDEX IF NOT EXISTS idx_dk_pricing_season_week 
+            ON draftkings_pricing(season, week)
+        """)
+        
+        conn.execute("""
+            CREATE INDEX IF NOT EXISTS idx_dk_pricing_player 
+            ON draftkings_pricing(player_name, team)
+        """)
+        
         logging.info("Database initialized successfully")
     except Exception as e:
         logging.error(f"Error initializing database: {e}")
@@ -282,10 +450,6 @@ def load_nfl_data_sync(seasons: List[int]) -> Dict[str, int]:
     """Load NFL data synchronously for async wrapper"""
     try:
         total_records = 0
-        
-        # Fetch DraftKings pricing for recent date
-        dk_pricing = fetch_draftkings_pricing()
-        salary_map = dk_pricing.get('data', {}) if dk_pricing.get('success') else {}
         
         for season in seasons:
             logging.info(f"Loading data for season {season}")
@@ -311,11 +475,6 @@ def load_nfl_data_sync(seasons: List[int]) -> Dict[str, int]:
                         filtered_stats['fantasy_points'] = filtered_stats.apply(
                             lambda row: calculate_fantasy_points(row.to_dict()), axis=1
                         )
-                    
-                    # Add DraftKings salary data
-                    filtered_stats['dk_salary'] = filtered_stats['player_display_name'].map(
-                        lambda name: salary_map.get(name, None)
-                    )
                     
                     # Create unique ID for each record
                     filtered_stats['id'] = filtered_stats.apply(
@@ -348,7 +507,7 @@ def load_nfl_data_sync(seasons: List[int]) -> Dict[str, int]:
                             COALESCE(rushing_fumbles_lost, 0) + COALESCE(receiving_fumbles_lost, 0) as fumbles_lost,
                             fantasy_points,
                             NULL as snap_percentage,
-                            dk_salary,
+                            NULL as dk_salary,
                             CURRENT_TIMESTAMP as created_at
                         FROM stats_df
                     """)
@@ -422,6 +581,32 @@ def load_nfl_data_sync(seasons: List[int]) -> Dict[str, int]:
             )
         """)
         
+        # Update weekly_stats with DraftKings salaries from cached data
+        conn.execute("""
+            UPDATE weekly_stats 
+            SET dk_salary = (
+                SELECT CASE 
+                    WHEN dp.salary >= 10000 THEN '$' || (dp.salary / 1000.0) || 'k'
+                    WHEN dp.salary >= 1000 THEN '$' || ROUND(dp.salary / 1000.0, 1) || 'k'
+                    ELSE '$' || dp.salary
+                END
+                FROM draftkings_pricing dp 
+                WHERE UPPER(TRIM(dp.player_name)) = UPPER(TRIM(weekly_stats.player_name))
+                  AND dp.team = weekly_stats.team 
+                  AND dp.season = weekly_stats.season 
+                  AND dp.week = weekly_stats.week
+                  AND dp.position = weekly_stats.position
+            )
+            WHERE EXISTS (
+                SELECT 1 FROM draftkings_pricing dp 
+                WHERE UPPER(TRIM(dp.player_name)) = UPPER(TRIM(weekly_stats.player_name))
+                  AND dp.team = weekly_stats.team 
+                  AND dp.season = weekly_stats.season 
+                  AND dp.week = weekly_stats.week
+                  AND dp.position = weekly_stats.position
+            )
+        """)
+        
         return {"total_records": total_records}
         
     except Exception as e:
@@ -433,6 +618,11 @@ async def load_nfl_data(seasons: List[int]) -> Dict[str, int]:
     """Load NFL data asynchronously"""
     loop = asyncio.get_event_loop()
     return await loop.run_in_executor(executor, load_nfl_data_sync, seasons)
+
+async def load_historical_pricing_async() -> Dict:
+    """Load historical DraftKings pricing asynchronously"""
+    loop = asyncio.get_event_loop()
+    return await loop.run_in_executor(executor, load_historical_draftkings_data)
 
 # API Endpoints
 @api_router.get("/")
@@ -523,6 +713,7 @@ async def get_stats_summary():
         # Get total records
         total_stats = conn.execute("SELECT COUNT(*) FROM weekly_stats").fetchone()[0]
         total_snaps = conn.execute("SELECT COUNT(*) FROM snap_counts").fetchone()[0]
+        total_pricing = conn.execute("SELECT COUNT(*) FROM draftkings_pricing").fetchone()[0]
         
         # Get seasons available
         seasons = conn.execute("SELECT DISTINCT season FROM weekly_stats ORDER BY season DESC").fetchall()
@@ -554,13 +745,32 @@ async def get_stats_summary():
             WHERE snap_percentage IS NOT NULL AND snap_percentage > 0
         """).fetchone()[0]
         
+        # Get DraftKings pricing statistics
+        pricing_stats = conn.execute("""
+            SELECT COUNT(*) as players_with_pricing
+            FROM weekly_stats 
+            WHERE dk_salary IS NOT NULL
+        """).fetchone()[0]
+        
+        # Get pricing coverage by season/week
+        pricing_coverage = conn.execute("""
+            SELECT season, week, COUNT(*) as pricing_count
+            FROM draftkings_pricing 
+            GROUP BY season, week
+            ORDER BY season DESC, week DESC
+            LIMIT 10
+        """).fetchall()
+        
         return {
             "total_player_stats": total_stats,
             "total_snap_counts": total_snaps,
+            "total_pricing_records": total_pricing,
             "players_with_snap_data": snap_stats,
+            "players_with_pricing": pricing_stats,
             "seasons_available": seasons,
             "weeks_available": weeks,
             "position_counts": {row[0]: row[1] for row in position_counts},
+            "pricing_coverage": [{"season": row[0], "week": row[1], "count": row[2]} for row in pricing_coverage],
             "last_updated": datetime.now(timezone.utc).isoformat()
         }
         
@@ -593,18 +803,65 @@ async def refresh_data(
             detail=f"Error refreshing data: {str(e)}"
         )
 
-@api_router.get("/draftkings-pricing", response_model=DraftKingsResponse)
-async def get_draftkings_pricing(
-    date_str: Optional[str] = Query(None, description="Date in YYYYMMDD format")
-):
-    """Get DraftKings pricing from RapidAPI"""
+@api_router.post("/load-historical-pricing", response_model=DraftKingsResponse)
+async def load_historical_pricing():
+    """Load historical DraftKings pricing data from 2024 to current"""
     try:
-        result = fetch_draftkings_pricing(date_str)
+        logging.info("Starting historical DraftKings pricing data load")
+        
+        result = await load_historical_pricing_async()
         
         return DraftKingsResponse(
-            success=result['success'],
-            data=result.get('data'),
-            message="DraftKings pricing fetched successfully" if result['success'] else f"Error: {result.get('error', 'Unknown error')}",
+            success=True,
+            message=f"Successfully loaded historical pricing data. Cached {result['total_cached']} records from {result['weeks_processed']} weeks.",
+            records_processed=result['total_cached'],
+            data={
+                'weeks_processed': result['weeks_processed'],
+                'errors': result['errors'][:5]  # Show first 5 errors
+            },
+            timestamp=datetime.now(timezone.utc)
+        )
+        
+    except Exception as e:
+        logging.error(f"Error loading historical pricing: {e}")
+        logging.error(traceback.format_exc())
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Error loading historical pricing: {str(e)}"
+        )
+
+@api_router.get("/draftkings-pricing", response_model=DraftKingsResponse)
+async def get_draftkings_pricing(
+    season: Optional[int] = Query(None, description="Season year"),
+    week: Optional[int] = Query(None, description="Week number")
+):
+    """Get cached DraftKings pricing data"""
+    try:
+        query = "SELECT * FROM draftkings_pricing WHERE 1=1"
+        params = []
+        
+        if season:
+            query += " AND season = ?"
+            params.append(season)
+        
+        if week:
+            query += " AND week = ?"
+            params.append(week)
+        
+        query += " ORDER BY season DESC, week DESC, salary DESC LIMIT 100"
+        
+        result = conn.execute(query, params).fetchall()
+        columns = [desc[0] for desc in conn.description]
+        
+        pricing_data = []
+        for row in result:
+            pricing_data.append(dict(zip(columns, row)))
+        
+        return DraftKingsResponse(
+            success=True,
+            data={'pricing': pricing_data},
+            message=f"Retrieved {len(pricing_data)} pricing records",
+            records_processed=len(pricing_data),
             timestamp=datetime.now(timezone.utc)
         )
         
