@@ -184,7 +184,7 @@ def load_nfl_data_sync(seasons: List[int]) -> Dict[str, int]:
             # Load player stats
             try:
                 player_stats = nfl.load_player_stats(seasons=[season])
-                logging.info(f\"Player stats type: {type(player_stats)}, length: {len(player_stats) if player_stats is not None else 'None'}\")
+                logging.info(f"Player stats type: {type(player_stats)}, length: {len(player_stats) if player_stats is not None else 'None'}")
                 
                 if player_stats is not None and len(player_stats) > 0:
                     # Filter for relevant positions
