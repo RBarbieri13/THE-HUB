@@ -139,16 +139,19 @@ backend:
 
 frontend:
   - task: "Remove top menu bar with summary cards"
-    implemented: false
-    working: false
+    implemented: true
+    working: true
     file: "App.js"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "main"
         comment: "Need to identify and remove Total Records, Seasons, Current Weeks summary cards from UI."
+      - working: true
+        agent: "main"
+        comment: "COMPLETED: Removed the summary cards row containing Total Records, Snap Records, Snap Coverage, DK Pricing, and Current Weeks. UI now has more space for the data grid."
 
 metadata:
   created_by: "main_agent"
