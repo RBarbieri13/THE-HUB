@@ -284,7 +284,7 @@ def load_snap_counts_for_seasons(seasons: List[int]) -> Dict:
                             INSERT INTO snap_counts 
                             SELECT 
                                 id,
-                                COALESCE(pfr_player_id, player_id) as player_id,
+                                COALESCE(pfr_player_id, '') as player_id,
                                 player as player_name,
                                 team,
                                 season,
@@ -296,8 +296,8 @@ def load_snap_counts_for_seasons(seasons: List[int]) -> Dict:
                                 COALESCE(st_snaps, 0) as st_snaps,
                                 COALESCE(st_pct, 0.0) as st_pct,
                                 position,
-                                COALESCE(pfr_game_id, game_id) as game_id,
-                                opponent as opponent_team,
+                                COALESCE(pfr_game_id, game_id, '') as game_id,
+                                COALESCE(opponent, '') as opponent_team,
                                 CURRENT_TIMESTAMP as created_at
                             FROM snap_counts_df
                         """)
