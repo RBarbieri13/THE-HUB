@@ -171,3 +171,5 @@ test_plan:
 agent_communication:
   - agent: "main"
     message: "Completed root cause analysis. Found DraftKings data loading issue (timestamps instead of salaries) and snap count display mismatch (percentages vs numerical values). Starting systematic fixes."
+  - agent: "main"
+    message: "PROGRESS UPDATE: Successfully fixed snap counts (now shows numerical values 77,60,50) and removed top menu bar. DraftKings pricing API integration failing with 404 errors - RapidAPI endpoint may have changed or API key invalid. Need to test backend comprehensively."
