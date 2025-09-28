@@ -205,9 +205,9 @@ const FantasyDashboard = () => {
       const params = new URLSearchParams();
       
       if (filters.season) params.append('season', filters.season);
-      if (filters.week) params.append('week', filters.week);
-      if (filters.position) params.append('position', filters.position);
-      if (filters.team) params.append('team', filters.team);
+      if (filters.week && filters.week !== 'all') params.append('week', filters.week);
+      if (filters.position && filters.position !== 'all') params.append('position', filters.position);
+      if (filters.team && filters.team !== 'all') params.append('team', filters.team);
       params.append('limit', '1000');
       
       const response = await axios.get(`${API}/players?${params.toString()}`);
