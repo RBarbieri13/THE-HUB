@@ -800,9 +800,16 @@ async def get_players(
                 ws.targets,
                 ws.fumbles_lost,
                 ws.fantasy_points,
-                ws.snap_percentage,
-                ws.dk_salary
+                COALESCE(sc.offense_snaps, CAST(ws.snap_percentage * 100 AS INTEGER)) as snap_percentage,
+                COALESCE(dp.salary, NULL) as dk_salary
             FROM weekly_stats ws
+            LEFT JOIN skill_snap_counts sc ON ws.player_id = sc.player_id 
+                AND ws.season = sc.season 
+                AND ws.week = sc.week
+            LEFT JOIN draftkings_pricing dp ON ws.player_name = dp.player_name 
+                AND ws.team = dp.team
+                AND ws.season = dp.season 
+                AND ws.week = dp.week
             WHERE 1=1
         """
         
