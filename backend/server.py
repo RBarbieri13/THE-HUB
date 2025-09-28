@@ -111,9 +111,9 @@ class PlayerStats(BaseModel):
     receiving_tds: Optional[int] = 0
     fumbles_lost: Optional[int] = 0
     fantasy_points: Optional[float] = 0
-    snap_percentage: Optional[float] = None
+    snap_percentage: Optional[int] = None
     targets: Optional[int] = 0
-    dk_salary: Optional[str] = None
+    dk_salary: Optional[int] = None
 
 class RefreshResponse(BaseModel):
     success: bool
