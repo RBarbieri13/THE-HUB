@@ -410,7 +410,7 @@ const FantasyDashboard = () => {
                     <SelectValue placeholder="All positions" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All positions</SelectItem>
+                    <SelectItem value="all">All positions</SelectItem>
                     <SelectItem value="QB">Quarterback</SelectItem>
                     <SelectItem value="RB">Running Back</SelectItem>
                     <SelectItem value="WR">Wide Receiver</SelectItem>
