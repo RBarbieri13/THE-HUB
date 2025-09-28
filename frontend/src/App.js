@@ -143,7 +143,7 @@ const FantasyDashboard = () => {
           type: 'numericColumn',
           cellRenderer: (params) => (
             <span className="text-xs font-medium text-indigo-700">
-              {params.value && params.value > 0 ? `${Math.round(params.value)}%` : '-'}
+              {params.value && params.value > 0 ? Math.round(params.value) : '-'}
             </span>
           )
         },
