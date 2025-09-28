@@ -426,7 +426,7 @@ const FantasyDashboard = () => {
                     <SelectValue placeholder="All teams" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All teams</SelectItem>
+                    <SelectItem value="all">All teams</SelectItem>
                     {/* Popular teams */}
                     <SelectItem value="KC">Kansas City Chiefs</SelectItem>
                     <SelectItem value="BUF">Buffalo Bills</SelectItem>
