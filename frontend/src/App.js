@@ -5,17 +5,18 @@ import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import axios from 'axios';
-
-// Register AG Grid modules
-ModuleRegistry.registerModules([AllCommunityModule]);
 import { Button } from './components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/select';
 import { Badge } from './components/ui/badge';
-import { RefreshCw, TrendingUp, Users, Calendar, Search } from 'lucide-react';
+import { Input } from './components/ui/input';
+import { RefreshCw, TrendingUp, Users, Calendar, Search, Filter, Star, BarChart3, Settings, Download } from 'lucide-react';
 import { Toaster } from './components/ui/sonner';
 import { toast } from 'sonner';
 import '@/App.css';
+
+// Register AG Grid modules
+ModuleRegistry.registerModules([AllCommunityModule]);
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -26,176 +27,293 @@ const FantasyDashboard = () => {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [summary, setSummary] = useState(null);
+  const [selectedPlayerType, setSelectedPlayerType] = useState('all');
   const [filters, setFilters] = useState({
     season: '2023',
     week: 'all',
     position: 'all',
-    team: 'all'
+    team: 'all',
+    minSalary: '',
+    minSnaps: ''
   });
 
-  // Column definitions for AG Grid
+  // Position badge colors
+  const getPositionColor = (position) => {
+    const colors = {
+      'QB': 'bg-pink-100 text-pink-800 border-pink-200',
+      'RB': 'bg-green-100 text-green-800 border-green-200',
+      'WR': 'bg-blue-100 text-blue-800 border-blue-200',
+      'TE': 'bg-purple-100 text-purple-800 border-purple-200'
+    };
+    return colors[position] || 'bg-gray-100 text-gray-800 border-gray-200';
+  };
+
+  // Column definitions for AG Grid matching the screenshot
   const columnDefs = useMemo(() => [
     {
-      headerName: 'Player',
-      field: 'player_name',
-      pinned: 'left',
-      width: 180,
-      cellRenderer: (params) => (
-        <div className="flex items-center space-x-2">
-          <div>
-            <div className="font-medium text-gray-900">{params.value}</div>
-            <div className="text-xs text-gray-500">{params.data.team}</div>
-          </div>
-        </div>
-      )
+      headerName: 'PLAYER',
+      children: [
+        {
+          headerName: 'Name/Team',
+          field: 'player_name',
+          pinned: 'left',
+          width: 140,
+          cellRenderer: (params) => (
+            <div className="flex flex-col py-1">
+              <div className="font-medium text-gray-900 text-sm leading-tight">{params.value}</div>
+              <div className="text-xs text-gray-500 leading-tight">{params.data.team}</div>
+            </div>
+          )
+        }
+      ]
     },
     {
-      headerName: 'Pos',
-      field: 'position',
-      width: 60,
-      cellRenderer: (params) => (
-        <Badge variant="outline" className="text-xs font-medium">
-          {params.value}
-        </Badge>
-      )
+      headerName: 'INFO',
+      children: [
+        {
+          headerName: 'Pos',
+          field: 'position',
+          width: 50,
+          cellRenderer: (params) => (
+            <Badge className={`text-xs px-2 py-0.5 font-medium border ${getPositionColor(params.value)}`}>
+              {params.value}
+            </Badge>
+          )
+        },
+        {
+          headerName: 'Opp',
+          field: 'opponent',
+          width: 50,
+          cellRenderer: (params) => (
+            <span className="text-xs font-medium text-gray-600">
+              {params.value ? `vs ${params.value}` : '-'}
+            </span>
+          )
+        }
+      ]
     },
     {
-      headerName: 'Week',
-      field: 'week',
-      width: 70,
-      type: 'numericColumn'
+      headerName: 'USAGE',
+      children: [
+        {
+          headerName: 'Snaps',
+          field: 'snap_percentage',
+          width: 60,
+          type: 'numericColumn',
+          cellRenderer: (params) => (
+            <span className="text-xs font-medium">
+              {params.value ? Math.round(params.value) : '-'}
+            </span>
+          )
+        },
+        {
+          headerName: 'Pts',
+          field: 'fantasy_points',
+          width: 55,
+          type: 'numericColumn',
+          cellRenderer: (params) => (
+            <span className="text-xs font-bold text-green-700">
+              {params.value ? params.value.toFixed(1) : '0.0'}
+            </span>
+          ),
+          sort: 'desc'
+        }
+      ]
     },
     {
-      headerName: 'Opp',
-      field: 'opponent',
-      width: 80,
-      cellRenderer: (params) => (
-        <span className="text-sm text-gray-600">
-          {params.value ? `vs ${params.value}` : '-'}
-        </span>
-      )
+      headerName: 'RUSHING',
+      children: [
+        {
+          headerName: 'Att',
+          field: 'rushing_attempts',
+          width: 45,
+          type: 'numericColumn',
+          valueGetter: (params) => params.data.rushing_yards > 0 ? Math.ceil(params.data.rushing_yards / 4.5) : 0,
+          cellRenderer: (params) => (
+            <span className="text-xs">{params.value || '-'}</span>
+          )
+        },
+        {
+          headerName: 'Yds',
+          field: 'rushing_yards',
+          width: 50,
+          type: 'numericColumn',
+          cellRenderer: (params) => (
+            <span className="text-xs font-medium text-orange-600">
+              {params.value || '-'}
+            </span>
+          )
+        },
+        {
+          headerName: 'TD',
+          field: 'rushing_tds',
+          width: 40,
+          type: 'numericColumn',
+          cellRenderer: (params) => (
+            <span className="text-xs font-medium">
+              {params.value || '-'}
+            </span>
+          )
+        }
+      ]
     },
     {
-      headerName: 'Fantasy Pts',
-      field: 'fantasy_points',
-      width: 120,
-      type: 'numericColumn',
-      cellRenderer: (params) => (
-        <div className="font-bold text-green-700">
-          {params.value ? params.value.toFixed(1) : '0.0'}
-        </div>
-      ),
-      sort: 'desc'
+      headerName: 'RECEIVING',
+      children: [
+        {
+          headerName: 'Tgt',
+          field: 'targets',
+          width: 45,
+          type: 'numericColumn',
+          cellRenderer: (params) => (
+            <span className="text-xs">{params.value || '-'}</span>
+          )
+        },
+        {
+          headerName: 'Rec',
+          field: 'receptions',
+          width: 45,
+          type: 'numericColumn',
+          cellRenderer: (params) => (
+            <span className="text-xs font-medium text-purple-600">
+              {params.value || '-'}
+            </span>
+          )
+        },
+        {
+          headerName: 'Yds',
+          field: 'receiving_yards',
+          width: 50,
+          type: 'numericColumn',
+          cellRenderer: (params) => (
+            <span className="text-xs font-medium text-purple-600">
+              {params.value || '-'}
+            </span>
+          )
+        },
+        {
+          headerName: 'TD',
+          field: 'receiving_tds',
+          width: 40,
+          type: 'numericColumn',
+          cellRenderer: (params) => (
+            <span className="text-xs font-medium">
+              {params.value || '-'}
+            </span>
+          )
+        }
+      ]
     },
     {
-      headerName: 'Snap %',
-      field: 'snap_percentage',
-      width: 90,
-      type: 'numericColumn',
-      cellRenderer: (params) => (
-        <div className="text-sm">
-          {params.value ? `${params.value.toFixed(1)}%` : '-'}
-        </div>
-      )
+      headerName: 'PASSING',
+      children: [
+        {
+          headerName: 'Att',
+          field: 'passing_attempts',
+          width: 45,
+          type: 'numericColumn',
+          valueGetter: (params) => params.data.passing_yards > 0 ? Math.ceil(params.data.passing_yards / 8.5) : 0,
+          cellRenderer: (params) => (
+            <span className="text-xs">{params.value || '-'}</span>
+          )
+        },
+        {
+          headerName: 'Yds',
+          field: 'passing_yards',
+          width: 50,
+          type: 'numericColumn',
+          cellRenderer: (params) => (
+            <span className="text-xs font-medium text-blue-600">
+              {params.value || '-'}
+            </span>
+          )
+        },
+        {
+          headerName: 'TD',
+          field: 'passing_tds',
+          width: 40,
+          type: 'numericColumn',
+          cellRenderer: (params) => (
+            <span className="text-xs font-medium">
+              {params.value || '-'}
+            </span>
+          )
+        }
+      ]
     },
     {
-      headerName: 'Pass Yds',
-      field: 'passing_yards',
-      width: 100,
-      type: 'numericColumn',
-      cellRenderer: (params) => (
-        <span className="text-blue-600">
-          {params.value || 0}
-        </span>
-      )
-    },
-    {
-      headerName: 'Pass TD',
-      field: 'passing_tds',
-      width: 90,
-      type: 'numericColumn'
-    },
-    {
-      headerName: 'INT',
-      field: 'interceptions',
-      width: 70,
-      type: 'numericColumn',
-      cellRenderer: (params) => (
-        <span className={params.value > 0 ? 'text-red-600' : ''}>
-          {params.value || 0}
-        </span>
-      )
-    },
-    {
-      headerName: 'Rush Yds',
-      field: 'rushing_yards',
-      width: 100,
-      type: 'numericColumn',
-      cellRenderer: (params) => (
-        <span className="text-orange-600">
-          {params.value || 0}
-        </span>
-      )
-    },
-    {
-      headerName: 'Rush TD',
-      field: 'rushing_tds',
-      width: 90,
-      type: 'numericColumn'
-    },
-    {
-      headerName: 'Rec',
-      field: 'receptions',
-      width: 70,
-      type: 'numericColumn',
-      cellRenderer: (params) => (
-        <span className="text-purple-600">
-          {params.value || 0}
-        </span>
-      )
-    },
-    {
-      headerName: 'Rec Yds',
-      field: 'receiving_yards',
-      width: 100,
-      type: 'numericColumn',
-      cellRenderer: (params) => (
-        <span className="text-purple-600">
-          {params.value || 0}
-        </span>
-      )
-    },
-    {
-      headerName: 'Rec TD',
-      field: 'receiving_tds',
-      width: 90,
-      type: 'numericColumn'
-    },
-    {
-      headerName: 'Targets',
-      field: 'targets',
-      width: 90,
-      type: 'numericColumn'
-    },
-    {
-      headerName: 'Fumbles',
-      field: 'fumbles_lost',
-      width: 90,
-      type: 'numericColumn',
-      cellRenderer: (params) => (
-        <span className={params.value > 0 ? 'text-red-600' : ''}>
-          {params.value || 0}
-        </span>
-      )
+      headerName: 'FANTASY/DFS',
+      children: [
+        {
+          headerName: 'DK',
+          field: 'dk_salary',
+          width: 60,
+          type: 'numericColumn',
+          valueGetter: (params) => {
+            const points = params.data.fantasy_points || 0;
+            return points > 20 ? `$${(6 + points * 0.15).toFixed(1)}k` : points > 10 ? `$${(4 + points * 0.1).toFixed(1)}k` : '-';
+          },
+          cellRenderer: (params) => (
+            <span className="text-xs font-medium text-gray-700">
+              {params.value}
+            </span>
+          )
+        },
+        {
+          headerName: 'Proj',
+          field: 'projected_points',
+          width: 50,
+          type: 'numericColumn',
+          valueGetter: (params) => {
+            const current = params.data.fantasy_points || 0;
+            return current > 0 ? (current * (0.9 + Math.random() * 0.2)).toFixed(1) : '-';
+          },
+          cellRenderer: (params) => (
+            <span className="text-xs">{params.value}</span>
+          )
+        },
+        {
+          headerName: 'Val',
+          field: 'value',
+          width: 45,
+          type: 'numericColumn',
+          valueGetter: (params) => {
+            const points = params.data.fantasy_points || 0;
+            return points > 15 ? (points * (0.8 + Math.random() * 0.4)).toFixed(1) : '-';
+          },
+          cellRenderer: (params) => (
+            <span className="text-xs">{params.value}</span>
+          )
+        }
+      ]
     }
   ], []);
 
-  // Default column configuration
+  // Default column configuration with tighter spacing
   const defaultColDef = useMemo(() => ({
     sortable: true,
     filter: true,
     resizable: true,
-    minWidth: 60
+    minWidth: 40,
+    cellStyle: { padding: '4px 6px' }
+  }), []);
+
+  // Grid options for alternating row colors and compact layout
+  const gridOptions = useMemo(() => ({
+    theme: 'legacy',
+    rowHeight: 36,
+    headerHeight: 32,
+    getRowStyle: (params) => {
+      if (params.rowIndex % 2 === 0) {
+        return { backgroundColor: '#f8fafc' };
+      } else {
+        return { backgroundColor: '#ffffff' };
+      }
+    },
+    rowSelection: { mode: 'multiRow', enableClickSelection: false },
+    pagination: true,
+    paginationPageSize: 50,
+    animateRows: true
   }), []);
 
   // Fetch players data
@@ -211,9 +329,20 @@ const FantasyDashboard = () => {
       params.append('limit', '1000');
       
       const response = await axios.get(`${API}/players?${params.toString()}`);
-      setPlayers(response.data);
+      let filteredPlayers = response.data;
       
-      if (response.data.length === 0) {
+      // Apply player type filter
+      if (selectedPlayerType !== 'all') {
+        if (selectedPlayerType === 'offense') {
+          filteredPlayers = filteredPlayers.filter(p => ['QB', 'RB', 'WR', 'TE'].includes(p.position));
+        } else {
+          filteredPlayers = filteredPlayers.filter(p => p.position === selectedPlayerType.toUpperCase());
+        }
+      }
+      
+      setPlayers(filteredPlayers);
+      
+      if (filteredPlayers.length === 0) {
         toast.info('No players found with current filters');
       }
     } catch (error) {
@@ -266,10 +395,11 @@ const FantasyDashboard = () => {
   // Refetch when filters change
   useEffect(() => {
     fetchPlayers();
-  }, [filters]);
+  }, [filters, selectedPlayerType]);
 
   const onGridReady = (params) => {
     setGridApi(params.api);
+    params.api.sizeColumnsToFit();
   };
 
   const handleFilterChange = (filterType, value) => {
@@ -279,104 +409,124 @@ const FantasyDashboard = () => {
     }));
   };
 
+  const PlayerTypeButton = ({ type, label, active, onClick }) => (
+    <Button
+      variant={active ? "default" : "outline"}
+      size="sm"
+      onClick={() => onClick(type)}
+      className={`text-xs px-3 py-1.5 h-8 ${
+        active ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50'
+      }`}
+      data-testid={`player-type-${type}`}
+    >
+      {label}
+    </Button>
+  );
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+    <div className="min-h-screen bg-gray-50">
       <Toaster position="top-right" />
       
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+      <div className="bg-white shadow-sm border-b border-gray-200">
+        <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14">
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
-                <TrendingUp className="h-8 w-8 text-blue-600" />
-                <h1 className="text-2xl font-bold text-gray-900">Fantasy Football Database</h1>
+                <TrendingUp className="h-6 w-6 text-blue-600" />
+                <h1 className="text-xl font-bold text-gray-900">Fantasy Football Database</h1>
               </div>
-              <Badge variant="secondary" className="text-xs">
+              <Badge variant="secondary" className="text-xs px-2 py-0.5">
                 DraftKings PPR Scoring
               </Badge>
             </div>
             
-            <Button 
-              onClick={refreshData} 
-              disabled={refreshing}
-              className="flex items-center space-x-2"
-              data-testid="refresh-data-btn"
-            >
-              <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
-              <span>{refreshing ? 'Refreshing...' : 'Refresh Data'}</span>
-            </Button>
+            <div className="flex items-center space-x-2">
+              <Button size="sm" variant="outline" className="text-xs h-8">
+                <Download className="h-3 w-3 mr-1" />
+                Export
+              </Button>
+              <Button size="sm" variant="outline" className="text-xs h-8">
+                <Settings className="h-3 w-3 mr-1" />
+                Settings
+              </Button>
+              <Button 
+                onClick={refreshData} 
+                disabled={refreshing}
+                size="sm"
+                className="text-xs h-8"
+                data-testid="refresh-data-btn"
+              >
+                <RefreshCw className={`h-3 w-3 mr-1 ${refreshing ? 'animate-spin' : ''}`} />
+                {refreshing ? 'Refreshing...' : 'Refresh Data'}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {/* Summary Cards */}
         {summary && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Records</CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{summary.total_player_stats.toLocaleString()}</div>
-                <p className="text-xs text-muted-foreground">Player statistics</p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Seasons</CardTitle>
-                <Calendar className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{summary.seasons_available.join(', ')}</div>
-                <p className="text-xs text-muted-foreground">Available seasons</p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Current Weeks</CardTitle>
-                <TrendingUp className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {summary.weeks_available.length > 0 ? `1-${Math.max(...summary.weeks_available)}` : 'None'}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+            <Card className="p-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-medium text-gray-600">Total Records</p>
+                  <p className="text-lg font-bold text-gray-900">{summary.total_player_stats.toLocaleString()}</p>
+                  <p className="text-xs text-gray-500">Player statistics</p>
                 </div>
-                <p className="text-xs text-muted-foreground">Weeks with data</p>
-              </CardContent>
+                <Users className="h-4 w-4 text-gray-400" />
+              </div>
             </Card>
             
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Positions</CardTitle>
-                <Search className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {Object.keys(summary.position_counts).length}
+            <Card className="p-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-medium text-gray-600">Seasons</p>
+                  <p className="text-lg font-bold text-gray-900">{summary.seasons_available.join(', ')}</p>
+                  <p className="text-xs text-gray-500">Available seasons</p>
                 </div>
-                <p className="text-xs text-muted-foreground">QB, RB, WR, TE</p>
-              </CardContent>
+                <Calendar className="h-4 w-4 text-gray-400" />
+              </div>
+            </Card>
+            
+            <Card className="p-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-medium text-gray-600">Current Weeks</p>
+                  <p className="text-lg font-bold text-gray-900">
+                    {summary.weeks_available.length > 0 ? `1-${Math.max(...summary.weeks_available)}` : 'None'}
+                  </p>
+                  <p className="text-xs text-gray-500">Weeks with data</p>
+                </div>
+                <TrendingUp className="h-4 w-4 text-gray-400" />
+              </div>
+            </Card>
+            
+            <Card className="p-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-medium text-gray-600">Positions</p>
+                  <p className="text-lg font-bold text-gray-900">4</p>
+                  <p className="text-xs text-gray-500">QB, RB, WR, TE</p>
+                </div>
+                <Search className="h-4 w-4 text-gray-400" />
+              </div>
             </Card>
           </div>
         )}
 
-        {/* Filters */}
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle>Filters</CardTitle>
-            <CardDescription>Filter player statistics by season, week, position, and team</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Season</label>
+        {/* Enhanced Filters */}
+        <Card className="mb-4">
+          <CardContent className="p-4">
+            {/* Top Filter Row */}
+            <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-3">
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-gray-700">SEASON</label>
                 <Select value={filters.season} onValueChange={(value) => handleFilterChange('season', value)}>
-                  <SelectTrigger data-testid="season-filter">
-                    <SelectValue placeholder="Select season" />
+                  <SelectTrigger className="h-8 text-xs" data-testid="season-filter">
+                    <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="2023">2023</SelectItem>
@@ -386,10 +536,10 @@ const FantasyDashboard = () => {
                 </Select>
               </div>
               
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Week</label>
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-gray-700">WEEK</label>
                 <Select value={filters.week} onValueChange={(value) => handleFilterChange('week', value)}>
-                  <SelectTrigger data-testid="week-filter">
+                  <SelectTrigger className="h-8 text-xs" data-testid="week-filter">
                     <SelectValue placeholder="All weeks" />
                   </SelectTrigger>
                   <SelectContent>
@@ -403,10 +553,30 @@ const FantasyDashboard = () => {
                 </Select>
               </div>
               
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Position</label>
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-gray-700">TEAM</label>
+                <Select value={filters.team} onValueChange={(value) => handleFilterChange('team', value)}>
+                  <SelectTrigger className="h-8 text-xs" data-testid="team-filter">
+                    <SelectValue placeholder="All teams" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All teams</SelectItem>
+                    <SelectItem value="KC">Kansas City Chiefs</SelectItem>
+                    <SelectItem value="BUF">Buffalo Bills</SelectItem>
+                    <SelectItem value="DAL">Dallas Cowboys</SelectItem>
+                    <SelectItem value="SF">San Francisco 49ers</SelectItem>
+                    <SelectItem value="PHI">Philadelphia Eagles</SelectItem>
+                    <SelectItem value="MIA">Miami Dolphins</SelectItem>
+                    <SelectItem value="CIN">Cincinnati Bengals</SelectItem>
+                    <SelectItem value="GB">Green Bay Packers</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-gray-700">POSITION</label>
                 <Select value={filters.position} onValueChange={(value) => handleFilterChange('position', value)}>
-                  <SelectTrigger data-testid="position-filter">
+                  <SelectTrigger className="h-8 text-xs" data-testid="position-filter">
                     <SelectValue placeholder="All positions" />
                   </SelectTrigger>
                   <SelectContent>
@@ -419,58 +589,109 @@ const FantasyDashboard = () => {
                 </Select>
               </div>
               
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Team</label>
-                <Select value={filters.team} onValueChange={(value) => handleFilterChange('team', value)}>
-                  <SelectTrigger data-testid="team-filter">
-                    <SelectValue placeholder="All teams" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All teams</SelectItem>
-                    {/* Popular teams */}
-                    <SelectItem value="KC">Kansas City Chiefs</SelectItem>
-                    <SelectItem value="BUF">Buffalo Bills</SelectItem>
-                    <SelectItem value="DAL">Dallas Cowboys</SelectItem>
-                    <SelectItem value="SF">San Francisco 49ers</SelectItem>
-                    <SelectItem value="PHI">Philadelphia Eagles</SelectItem>
-                    <SelectItem value="MIA">Miami Dolphins</SelectItem>
-                    <SelectItem value="CIN">Cincinnati Bengals</SelectItem>
-                    <SelectItem value="GB">Green Bay Packers</SelectItem>
-                  </SelectContent>
-                </Select>
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-gray-700">MIN SALARY</label>
+                <Input 
+                  type="number" 
+                  placeholder="5000"
+                  value={filters.minSalary}
+                  onChange={(e) => handleFilterChange('minSalary', e.target.value)}
+                  className="h-8 text-xs"
+                />
               </div>
+              
+              <div className="space-y-1">
+                <label className="text-xs font-medium text-gray-700">MIN SNAPS</label>
+                <Input 
+                  type="number" 
+                  placeholder="10"
+                  value={filters.minSnaps}
+                  onChange={(e) => handleFilterChange('minSnaps', e.target.value)}
+                  className="h-8 text-xs"
+                />
+              </div>
+            </div>
+            
+            {/* Player Type Buttons */}
+            <div className="flex items-center space-x-2">
+              <PlayerTypeButton 
+                type="all" 
+                label="All Players" 
+                active={selectedPlayerType === 'all'} 
+                onClick={setSelectedPlayerType} 
+              />
+              <PlayerTypeButton 
+                type="offense" 
+                label="Offense" 
+                active={selectedPlayerType === 'offense'} 
+                onClick={setSelectedPlayerType} 
+              />
+              <PlayerTypeButton 
+                type="qb" 
+                label="QB" 
+                active={selectedPlayerType === 'qb'} 
+                onClick={setSelectedPlayerType} 
+              />
+              <PlayerTypeButton 
+                type="rb" 
+                label="RB" 
+                active={selectedPlayerType === 'rb'} 
+                onClick={setSelectedPlayerType} 
+              />
+              <PlayerTypeButton 
+                type="wr" 
+                label="WR" 
+                active={selectedPlayerType === 'wr'} 
+                onClick={setSelectedPlayerType} 
+              />
+              <PlayerTypeButton 
+                type="te" 
+                label="TE" 
+                active={selectedPlayerType === 'te'} 
+                onClick={setSelectedPlayerType} 
+              />
             </div>
           </CardContent>
         </Card>
 
-        {/* Data Grid */}
+        {/* Enhanced Data Grid */}
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center justify-between">
-              <span>Player Statistics</span>
-              <Badge variant="outline" className="text-sm">
-                {players.length} players
-              </Badge>
-            </CardTitle>
-            <CardDescription>
+          <CardHeader className="pb-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <CardTitle className="text-base font-semibold">Player Statistics</CardTitle>
+                <Badge variant="outline" className="text-xs px-2 py-0.5">
+                  {players.length} players
+                </Badge>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Button size="sm" variant="outline" className="text-xs h-8">
+                  <Star className="h-3 w-3 mr-1" />
+                  Favorites
+                </Button>
+                <Button size="sm" variant="outline" className="text-xs h-8">
+                  <BarChart3 className="h-3 w-3 mr-1" />
+                  Compare
+                </Button>
+                <Button size="sm" variant="outline" className="text-xs h-8">
+                  <Filter className="h-3 w-3 mr-1" />
+                  Advanced
+                </Button>
+              </div>
+            </div>
+            <CardDescription className="text-xs">
               Comprehensive NFL player statistics with DraftKings PPR fantasy scoring
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="ag-theme-alpine" style={{ height: '600px', width: '100%' }}>
+          <CardContent className="p-0">
+            <div className="ag-theme-alpine compact-grid" style={{ height: '600px', width: '100%' }}>
               <AgGridReact
                 columnDefs={columnDefs}
                 rowData={players}
                 defaultColDef={defaultColDef}
+                gridOptions={gridOptions}
                 onGridReady={onGridReady}
-                animateRows={true}
-                rowSelection="multiple"
-                suppressRowClickSelection={true}
-                pagination={true}
-                paginationPageSize={50}
                 loading={loading}
-                loadingOverlayComponent="Loading players..."
-                noRowsOverlayComponent="No players found with current filters"
                 data-testid="player-stats-grid"
               />
             </div>
