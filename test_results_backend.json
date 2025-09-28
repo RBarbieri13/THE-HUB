@@ -1,0 +1,213 @@
+{
+  "total_tests": 15,
+  "passed": 13,
+  "failed": 2,
+  "results": [
+    {
+      "test_name": "API Health Check",
+      "success": true,
+      "details": "API is responding: Fantasy Football Database API",
+      "timestamp": "2025-09-28T23:19:53.215518",
+      "data": null
+    },
+    {
+      "test_name": "Stats Summary",
+      "success": true,
+      "details": "Database contains 13289 player stats, 14095 snap records, 0 pricing records",
+      "timestamp": "2025-09-28T23:19:53.229974",
+      "data": null
+    },
+    {
+      "test_name": "Snap Count Fix 2024 Week 1",
+      "success": true,
+      "details": "Found 10 players with numerical snap counts",
+      "timestamp": "2025-09-28T23:19:53.240767",
+      "data": [
+        {
+          "player": "Saquon Barkley",
+          "snap_count": 61
+        },
+        {
+          "player": "Jayden Reed",
+          "snap_count": 48
+        },
+        {
+          "player": "Cooper Kupp",
+          "snap_count": 78
+        }
+      ]
+    },
+    {
+      "test_name": "Snap Count Fix 2024 Week 2",
+      "success": true,
+      "details": "Found 9 players with numerical snap counts",
+      "timestamp": "2025-09-28T23:19:53.251273",
+      "data": [
+        {
+          "player": "Alvin Kamara",
+          "snap_count": 37
+        },
+        {
+          "player": "De'Von Achane",
+          "snap_count": 47
+        },
+        {
+          "player": "Marvin Harrison Jr.",
+          "snap_count": 46
+        }
+      ]
+    },
+    {
+      "test_name": "Snap Count Fix 2024 Week 3",
+      "success": true,
+      "details": "Found 10 players with numerical snap counts",
+      "timestamp": "2025-09-28T23:19:53.261237",
+      "data": [
+        {
+          "player": "Jauan Jennings",
+          "snap_count": 60
+        },
+        {
+          "player": "Saquon Barkley",
+          "snap_count": 58
+        },
+        {
+          "player": "Kyren Williams",
+          "snap_count": 52
+        }
+      ]
+    },
+    {
+      "test_name": "Snap Count Fix 2025 Week 1",
+      "success": true,
+      "details": "Found 10 players with numerical snap counts",
+      "timestamp": "2025-09-28T23:19:53.272555",
+      "data": [
+        {
+          "player": "Josh Allen",
+          "snap_count": 85
+        },
+        {
+          "player": "Justin Fields",
+          "snap_count": 64
+        },
+        {
+          "player": "Daniel Jones",
+          "snap_count": 73
+        }
+      ]
+    },
+    {
+      "test_name": "Snap Count Fix 2025 Week 2",
+      "success": true,
+      "details": "Found 10 players with numerical snap counts",
+      "timestamp": "2025-09-28T23:19:53.282705",
+      "data": [
+        {
+          "player": "Amon-Ra St. Brown",
+          "snap_count": 50
+        },
+        {
+          "player": "Malik Nabers",
+          "snap_count": 66
+        },
+        {
+          "player": "Ja'Marr Chase",
+          "snap_count": 66
+        }
+      ]
+    },
+    {
+      "test_name": "Snap Count Fix 2025 Week 3",
+      "success": true,
+      "details": "Found 10 players with numerical snap counts",
+      "timestamp": "2025-09-28T23:19:53.296887",
+      "data": [
+        {
+          "player": "Tre Tucker",
+          "snap_count": 62
+        },
+        {
+          "player": "Jonathan Taylor",
+          "snap_count": 45
+        },
+        {
+          "player": "David Montgomery",
+          "snap_count": 25
+        }
+      ]
+    },
+    {
+      "test_name": "DraftKings Existing Data",
+      "success": false,
+      "details": "Found 0 existing pricing records",
+      "timestamp": "2025-09-28T23:19:53.305375",
+      "data": null
+    },
+    {
+      "test_name": "DraftKings Pricing Load",
+      "success": false,
+      "details": "No records loaded. Errors: ['No data for season 2024, week 1: 404 Client Error: Not Found for url: https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getDFSsalaries?week=1&season=2024&site=draftkings', 'No data for season 2024, week 2: 404 Client Error: Not Found for url: https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getDFSsalaries?week=2&season=2024&site=draftkings', 'No data for season 2024, week 3: 404 Client Error: Not Found for url: https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getDFSsalaries?week=3&season=2024&site=draftkings']",
+      "timestamp": "2025-09-28T23:20:17.810631",
+      "data": [
+        "No data for season 2024, week 1: 404 Client Error: Not Found for url: https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getDFSsalaries?week=1&season=2024&site=draftkings",
+        "No data for season 2024, week 2: 404 Client Error: Not Found for url: https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getDFSsalaries?week=2&season=2024&site=draftkings",
+        "No data for season 2024, week 3: 404 Client Error: Not Found for url: https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getDFSsalaries?week=3&season=2024&site=draftkings",
+        "No data for season 2024, week 4: 404 Client Error: Not Found for url: https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getDFSsalaries?week=4&season=2024&site=draftkings",
+        "No data for season 2024, week 5: 404 Client Error: Not Found for url: https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getDFSsalaries?week=5&season=2024&site=draftkings"
+      ]
+    },
+    {
+      "test_name": "Snap Counts Endpoint",
+      "success": true,
+      "details": "Retrieved 10 snap count records",
+      "timestamp": "2025-09-28T23:20:17.821558",
+      "data": null
+    },
+    {
+      "test_name": "Snap Count Data Structure",
+      "success": true,
+      "details": "All required fields present",
+      "timestamp": "2025-09-28T23:20:17.821581",
+      "data": {
+        "id": "2024_1_BUF_Josh_Allen",
+        "player_id": "AlleJo02",
+        "player_name": "Josh Allen",
+        "team": "BUF",
+        "season": 2024,
+        "week": 1,
+        "offense_snaps": 62,
+        "offense_pct": 1.0,
+        "defense_snaps": 0,
+        "defense_pct": 0.0,
+        "st_snaps": 0,
+        "st_pct": 0.0,
+        "position": "QB",
+        "game_id": "202409080buf",
+        "opponent_team": "ARI",
+        "created_at": "2025-09-28T21:58:27.545945"
+      }
+    },
+    {
+      "test_name": "Player Data Integration",
+      "success": true,
+      "details": "Out of 5 players: 5 have snap data, 0 have pricing data",
+      "timestamp": "2025-09-28T23:20:17.835675",
+      "data": null
+    },
+    {
+      "test_name": "Position Filtering",
+      "success": true,
+      "details": "Position filter working correctly - 10 QBs returned",
+      "timestamp": "2025-09-28T23:20:17.847581",
+      "data": null
+    },
+    {
+      "test_name": "Team Filtering",
+      "success": true,
+      "details": "Team filter working correctly - 10 KC players returned",
+      "timestamp": "2025-09-28T23:20:17.858729",
+      "data": null
+    }
+  ]
+}
