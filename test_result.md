@@ -101,3 +101,64 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: |
+  Remove redundant top menu bar, fix snap counts to display as nominal numerical amounts (not percentages or empty) for 2024 and 2025, 
+  and correctly display DraftKings pricing as numerical salary amounts (not dates or empty) for 2024 and 2025.
+  
+backend:
+  - task: "Fix DraftKings pricing display"
+    implemented: false
+    working: false
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "IDENTIFIED: dk_salary column contains timestamps instead of salary values. DraftKings pricing table is empty (0 rows). Need to fix data loading and storage logic."
+
+  - task: "Fix snap count display to show numerical values"
+    implemented: false
+    working: false
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "IDENTIFIED: weekly_stats.snap_percentage contains decimal percentages (0.07, 1.0) but user wants nominal numbers (1-100). Actual snap counts (71, 63, 62) exist in skill_snap_counts.offense_snaps."
+
+frontend:
+  - task: "Remove top menu bar with summary cards"
+    implemented: false
+    working: false
+    file: "App.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "main"
+        comment: "Need to identify and remove Total Records, Seasons, Current Weeks summary cards from UI."
+
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "Fix DraftKings pricing display"
+    - "Fix snap count display to show numerical values"
+    - "Remove top menu bar with summary cards"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "main"
+    message: "Completed root cause analysis. Found DraftKings data loading issue (timestamps instead of salaries) and snap count display mismatch (percentages vs numerical values). Starting systematic fixes."
