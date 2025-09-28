@@ -268,9 +268,9 @@ def load_snap_counts_for_seasons(seasons: List[int]) -> Dict:
                         logging.warning("No 'offense_snaps' column found in data")
                     
                     if len(snap_counts_pd) > 0:
-                        # Create unique ID for each record
+                        # Create unique ID for each record - use simpler approach
                         snap_counts_pd['id'] = snap_counts_pd.apply(
-                            lambda row: f"{row.get('pfr_game_id', row.get('game_id', ''))}_{row.get('pfr_player_id', row.get('player_id', ''))}", axis=1
+                            lambda row: f"{row.get('season', '')}_{row.get('week', '')}_{row.get('team', '')}_{row.get('player', '').replace(' ', '_')}", axis=1
                         )
                         
                         # Delete existing data for this season
