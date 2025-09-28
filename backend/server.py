@@ -254,12 +254,18 @@ def load_snap_counts_for_seasons(seasons: List[int]) -> Dict:
                     # Filter for skill positions and regular season games
                     if 'game_type' in snap_counts_pd.columns:
                         snap_counts_pd = snap_counts_pd[snap_counts_pd['game_type'] == 'REG']
+                        logging.info(f"After filtering for regular season: {len(snap_counts_pd)} records")
                     
                     # Filter for skill positions only
                     snap_counts_pd = snap_counts_pd[snap_counts_pd['position'].isin(SKILL_POSITIONS)]
+                    logging.info(f"After filtering for skill positions: {len(snap_counts_pd)} records")
                     
-                    # Filter for players with offensive snaps
-                    snap_counts_pd = snap_counts_pd[snap_counts_pd['offense_snaps'] > 0]
+                    # Filter for players with offensive snaps (ensure column exists and has data)
+                    if 'offense_snaps' in snap_counts_pd.columns:
+                        snap_counts_pd = snap_counts_pd[snap_counts_pd['offense_snaps'] > 0]
+                        logging.info(f"After filtering for offense_snaps > 0: {len(snap_counts_pd)} records")
+                    else:
+                        logging.warning("No 'offense_snaps' column found in data")
                     
                     if len(snap_counts_pd) > 0:
                         # Create unique ID for each record
