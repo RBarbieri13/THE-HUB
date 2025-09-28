@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/select';
 import { Badge } from './components/ui/badge';
 import { Input } from './components/ui/input';
-import { RefreshCw, TrendingUp, Users, Calendar, Search, Filter, Star, BarChart3, Settings, Download, DollarSign, Database, Clock } from 'lucide-react';
+import { RefreshCw, TrendingUp, Users, Calendar, Search, Filter, Star, BarChart3, Settings, Download, DollarSign, Database, Clock, Activity } from 'lucide-react';
 import { Toaster } from './components/ui/sonner';
 import { toast } from 'sonner';
 import '@/App.css';
@@ -63,10 +63,11 @@ const FantasyDashboard = () => {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [loadingPricing, setLoadingPricing] = useState(false);
+  const [loadingSnapCounts, setLoadingSnapCounts] = useState(false);
   const [summary, setSummary] = useState(null);
   const [selectedPlayerType, setSelectedPlayerType] = useState('all');
   const [filters, setFilters] = useState({
-    season: '2023',
+    season: '2024',
     week: 'all',
     position: 'all',
     team: 'all',
@@ -142,7 +143,7 @@ const FantasyDashboard = () => {
           type: 'numericColumn',
           cellRenderer: (params) => (
             <span className="text-xs font-medium text-indigo-700">
-              {params.value ? Math.round(params.value) : '-'}
+              {params.value && params.value > 0 ? `${Math.round(params.value)}%` : '-'}
             </span>
           )
         },
@@ -378,6 +379,28 @@ const FantasyDashboard = () => {
     }
   };
 
+  // Load snap counts for 2024 and 2025
+  const loadSnapCounts = async () => {
+    setLoadingSnapCounts(true);
+    try {
+      toast.info('Loading snap counts for 2024 and 2025...');
+      const response = await axios.post(`${API}/load-snap-counts?seasons=2024&seasons=2025`);
+      
+      if (response.data.success) {
+        toast.success(`Successfully loaded ${response.data.records_loaded} snap count records`);
+        await fetchSummary();
+        await fetchPlayers();
+      } else {
+        toast.error('Failed to load snap counts');
+      }
+    } catch (error) {
+      console.error('Error loading snap counts:', error);
+      toast.error('Failed to load snap counts data');
+    } finally {
+      setLoadingSnapCounts(false);
+    }
+  };
+
   // Fetch players data
   const fetchPlayers = async () => {
     setLoading(true);
@@ -430,11 +453,12 @@ const FantasyDashboard = () => {
   const refreshData = async () => {
     setRefreshing(true);
     try {
-      toast.info('Refreshing NFL data from sources...');
-      const response = await axios.post(`${API}/refresh-data`);
+      toast.info('Refreshing NFL data and snap counts from sources...');
+      const response = await axios.post(`${API}/refresh-data?seasons=2024&seasons=2025`);
       
       if (response.data.success) {
-        toast.success(`Successfully loaded ${response.data.records_loaded} records`);
+        const message = `Successfully loaded ${response.data.records_loaded} player records${response.data.snap_records_loaded ? ` and ${response.data.snap_records_loaded} snap count records` : ''}`;
+        toast.success(message);
         await fetchSummary();
         await fetchPlayers();
       } else {
@@ -508,6 +532,16 @@ const FantasyDashboard = () => {
                 size="sm" 
                 variant="outline" 
                 className="text-xs h-8"
+                onClick={loadSnapCounts}
+                disabled={loadingSnapCounts}
+              >
+                <Activity className={`h-3 w-3 mr-1 ${loadingSnapCounts ? 'animate-spin' : ''}`} />
+                {loadingSnapCounts ? 'Loading...' : 'Load Snap Counts'}
+              </Button>
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="text-xs h-8"
                 onClick={loadHistoricalPricing}
                 disabled={loadingPricing}
               >
@@ -555,11 +589,29 @@ const FantasyDashboard = () => {
             <Card className="p-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-xs font-medium text-gray-600">Snap Data</p>
-                  <p className="text-lg font-bold text-gray-900">{summary.players_with_snap_data?.toLocaleString() || '0'}</p>
+                  <p className="text-xs font-medium text-gray-600">Snap Records</p>
+                  <p className="text-lg font-bold text-indigo-700">{summary.total_snap_counts?.toLocaleString() || '0'}</p>
+                  <p className="text-xs text-gray-500">
+                    {summary.snap_coverage ? 
+                      summary.snap_coverage.map(s => `${s.season}: ${s.count}`).join(', ') : 
+                      'Load snap counts'
+                    }
+                  </p>
+                </div>
+                <Activity className="h-4 w-4 text-indigo-500" />
+              </div>
+            </Card>
+            
+            <Card className="p-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-medium text-gray-600">Snap Coverage</p>
+                  <p className="text-lg font-bold text-green-700">
+                    {summary.players_with_snap_data?.toLocaleString() || '0'}
+                  </p>
                   <p className="text-xs text-gray-500">Players with snaps</p>
                 </div>
-                <BarChart3 className="h-4 w-4 text-gray-400" />
+                <BarChart3 className="h-4 w-4 text-green-500" />
               </div>
             </Card>
             
@@ -567,12 +619,12 @@ const FantasyDashboard = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-xs font-medium text-gray-600">DK Pricing</p>
-                  <p className="text-lg font-bold text-green-700">
+                  <p className="text-lg font-bold text-orange-700">
                     {summary.total_pricing_records?.toLocaleString() || '0'}
                   </p>
                   <p className="text-xs text-gray-500">Cached salaries</p>
                 </div>
-                <DollarSign className="h-4 w-4 text-green-500" />
+                <DollarSign className="h-4 w-4 text-orange-500" />
               </div>
             </Card>
             
@@ -586,19 +638,6 @@ const FantasyDashboard = () => {
                   <p className="text-xs text-gray-500">Weeks with data</p>
                 </div>
                 <Calendar className="h-4 w-4 text-gray-400" />
-              </div>
-            </Card>
-            
-            <Card className="p-3">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-xs font-medium text-gray-600">Pricing Coverage</p>
-                  <p className="text-lg font-bold text-blue-700">
-                    {summary.players_with_pricing?.toLocaleString() || '0'}
-                  </p>
-                  <p className="text-xs text-gray-500">Players with DK data</p>
-                </div>
-                <Clock className="h-4 w-4 text-blue-500" />
               </div>
             </Card>
           </div>
@@ -745,9 +784,9 @@ const FantasyDashboard = () => {
                 <Badge variant="outline" className="text-xs px-2 py-0.5">
                   {players.length} players
                 </Badge>
-                {summary && summary.pricing_coverage && summary.pricing_coverage.length > 0 && (
+                {summary && summary.snap_coverage && summary.snap_coverage.length > 0 && (
                   <Badge variant="secondary" className="text-xs px-2 py-0.5">
-                    Latest DK: S{summary.pricing_coverage[0].season} W{summary.pricing_coverage[0].week}
+                    Snap Data: {summary.snap_coverage.map(s => `${s.season}`).join(', ')}
                   </Badge>
                 )}
               </div>
@@ -767,7 +806,7 @@ const FantasyDashboard = () => {
               </div>
             </div>
             <CardDescription className="text-xs">
-              Comprehensive NFL player statistics with DraftKings PPR fantasy scoring and cached historical pricing
+              Comprehensive NFL player statistics with DraftKings PPR fantasy scoring, snap counts, and cached historical pricing
             </CardDescription>
           </CardHeader>
           <CardContent className="p-0">
