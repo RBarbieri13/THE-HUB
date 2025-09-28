@@ -173,3 +173,5 @@ agent_communication:
     message: "Completed root cause analysis. Found DraftKings data loading issue (timestamps instead of salaries) and snap count display mismatch (percentages vs numerical values). Starting systematic fixes."
   - agent: "main"
     message: "PROGRESS UPDATE: Successfully fixed snap counts (now shows numerical values 77,60,50) and removed top menu bar. DraftKings pricing API integration failing with 404 errors - RapidAPI endpoint may have changed or API key invalid. Need to test backend comprehensively."
+  - agent: "testing"
+    message: "BACKEND TESTING COMPLETE: ✅ Snap count fix VERIFIED working correctly - showing numerical values (61, 48, 78, etc.) instead of percentages for both 2024 and 2025 seasons. ❌ DraftKings pricing API confirmed BROKEN - Tank01 'getDFSsalaries' endpoint returns 404 for ALL weeks/seasons. Research shows this endpoint may be deprecated/renamed. Database has 0 pricing records. All other APIs (players, stats, filtering) working correctly. 13/15 tests passed."
