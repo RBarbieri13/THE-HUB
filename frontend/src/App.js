@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/select';
 import { Badge } from './components/ui/badge';
 import { Input } from './components/ui/input';
-import { RefreshCw, TrendingUp, Users, Calendar, Search, Filter, Star, BarChart3, Settings, Download } from 'lucide-react';
+import { RefreshCw, TrendingUp, Users, Calendar, Search, Filter, Star, BarChart3, Settings, Download, DollarSign } from 'lucide-react';
 import { Toaster } from './components/ui/sonner';
 import { toast } from 'sonner';
 import '@/App.css';
@@ -21,6 +21,42 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
+// All NFL Teams
+const NFL_TEAMS = {
+  'ARI': 'Arizona Cardinals',
+  'ATL': 'Atlanta Falcons',
+  'BAL': 'Baltimore Ravens', 
+  'BUF': 'Buffalo Bills',
+  'CAR': 'Carolina Panthers',
+  'CHI': 'Chicago Bears',
+  'CIN': 'Cincinnati Bengals',
+  'CLE': 'Cleveland Browns',
+  'DAL': 'Dallas Cowboys',
+  'DEN': 'Denver Broncos',
+  'DET': 'Detroit Lions',
+  'GB': 'Green Bay Packers',
+  'HOU': 'Houston Texans',
+  'IND': 'Indianapolis Colts',
+  'JAX': 'Jacksonville Jaguars',
+  'KC': 'Kansas City Chiefs',
+  'LV': 'Las Vegas Raiders',
+  'LAC': 'Los Angeles Chargers',
+  'LAR': 'Los Angeles Rams',
+  'MIA': 'Miami Dolphins',
+  'MIN': 'Minnesota Vikings',
+  'NE': 'New England Patriots',
+  'NO': 'New Orleans Saints',
+  'NYG': 'New York Giants',
+  'NYJ': 'New York Jets',
+  'PHI': 'Philadelphia Eagles',
+  'PIT': 'Pittsburgh Steelers',
+  'SF': 'San Francisco 49ers',
+  'SEA': 'Seattle Seahawks',
+  'TB': 'Tampa Bay Buccaneers',
+  'TEN': 'Tennessee Titans',
+  'WAS': 'Washington Commanders'
+};
+
 const FantasyDashboard = () => {
   const [gridApi, setGridApi] = useState(null);
   const [players, setPlayers] = useState([]);
@@ -28,6 +64,7 @@ const FantasyDashboard = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [summary, setSummary] = useState(null);
   const [selectedPlayerType, setSelectedPlayerType] = useState('all');
+  const [dkPricing, setDkPricing] = useState({});
   const [filters, setFilters] = useState({
     season: '2023',
     week: 'all',
@@ -48,10 +85,11 @@ const FantasyDashboard = () => {
     return colors[position] || 'bg-gray-100 text-gray-800 border-gray-200';
   };
 
-  // Column definitions for AG Grid matching the screenshot
+  // Column definitions for AG Grid with color-coded categories
   const columnDefs = useMemo(() => [
     {
       headerName: 'PLAYER',
+      headerClass: 'player-header',
       children: [
         {
           headerName: 'Name/Team',
@@ -69,6 +107,7 @@ const FantasyDashboard = () => {
     },
     {
       headerName: 'INFO',
+      headerClass: 'info-header',
       children: [
         {
           headerName: 'Pos',
@@ -94,6 +133,7 @@ const FantasyDashboard = () => {
     },
     {
       headerName: 'USAGE',
+      headerClass: 'usage-header',
       children: [
         {
           headerName: 'Snaps',
@@ -101,7 +141,7 @@ const FantasyDashboard = () => {
           width: 60,
           type: 'numericColumn',
           cellRenderer: (params) => (
-            <span className="text-xs font-medium">
+            <span className="text-xs font-medium text-indigo-700">
               {params.value ? Math.round(params.value) : '-'}
             </span>
           )
@@ -122,6 +162,7 @@ const FantasyDashboard = () => {
     },
     {
       headerName: 'RUSHING',
+      headerClass: 'rushing-header',
       children: [
         {
           headerName: 'Att',
@@ -159,6 +200,7 @@ const FantasyDashboard = () => {
     },
     {
       headerName: 'RECEIVING',
+      headerClass: 'receiving-header',
       children: [
         {
           headerName: 'Tgt',
@@ -206,6 +248,7 @@ const FantasyDashboard = () => {
     },
     {
       headerName: 'PASSING',
+      headerClass: 'passing-header',
       children: [
         {
           headerName: 'Att',
@@ -243,19 +286,16 @@ const FantasyDashboard = () => {
     },
     {
       headerName: 'FANTASY/DFS',
+      headerClass: 'fantasy-header',
       children: [
         {
           headerName: 'DK',
           field: 'dk_salary',
           width: 60,
           type: 'numericColumn',
-          valueGetter: (params) => {
-            const points = params.data.fantasy_points || 0;
-            return points > 20 ? `$${(6 + points * 0.15).toFixed(1)}k` : points > 10 ? `$${(4 + points * 0.1).toFixed(1)}k` : '-';
-          },
           cellRenderer: (params) => (
-            <span className="text-xs font-medium text-gray-700">
-              {params.value}
+            <span className="text-xs font-medium text-green-600">
+              {params.value || '-'}
             </span>
           )
         },
@@ -316,6 +356,20 @@ const FantasyDashboard = () => {
     animateRows: true
   }), []);
 
+  // Fetch DraftKings pricing
+  const fetchDraftKingsPricing = async () => {
+    try {
+      const response = await axios.get(`${API}/draftkings-pricing`);
+      if (response.data.success && response.data.data) {
+        setDkPricing(response.data.data);
+        toast.success('DraftKings pricing updated');
+      }
+    } catch (error) {
+      console.error('Error fetching DraftKings pricing:', error);
+      toast.error('Failed to fetch DraftKings pricing');
+    }
+  };
+
   // Fetch players data
   const fetchPlayers = async () => {
     setLoading(true);
@@ -375,6 +429,7 @@ const FantasyDashboard = () => {
         toast.success(`Successfully loaded ${response.data.records_loaded} records`);
         await fetchSummary();
         await fetchPlayers();
+        await fetchDraftKingsPricing();
       } else {
         toast.error('Failed to refresh data');
       }
@@ -390,6 +445,7 @@ const FantasyDashboard = () => {
   useEffect(() => {
     fetchSummary();
     fetchPlayers();
+    fetchDraftKingsPricing();
   }, []);
 
   // Refetch when filters change
@@ -442,6 +498,15 @@ const FantasyDashboard = () => {
             </div>
             
             <div className="flex items-center space-x-2">
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="text-xs h-8"
+                onClick={fetchDraftKingsPricing}
+              >
+                <DollarSign className="h-3 w-3 mr-1" />
+                Update DK Prices
+              </Button>
               <Button size="sm" variant="outline" className="text-xs h-8">
                 <Download className="h-3 w-3 mr-1" />
                 Export
@@ -483,11 +548,11 @@ const FantasyDashboard = () => {
             <Card className="p-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-xs font-medium text-gray-600">Seasons</p>
-                  <p className="text-lg font-bold text-gray-900">{summary.seasons_available.join(', ')}</p>
-                  <p className="text-xs text-gray-500">Available seasons</p>
+                  <p className="text-xs font-medium text-gray-600">Snap Data</p>
+                  <p className="text-lg font-bold text-gray-900">{summary.players_with_snap_data?.toLocaleString() || '0'}</p>
+                  <p className="text-xs text-gray-500">Players with snaps</p>
                 </div>
-                <Calendar className="h-4 w-4 text-gray-400" />
+                <BarChart3 className="h-4 w-4 text-gray-400" />
               </div>
             </Card>
             
@@ -500,7 +565,7 @@ const FantasyDashboard = () => {
                   </p>
                   <p className="text-xs text-gray-500">Weeks with data</p>
                 </div>
-                <TrendingUp className="h-4 w-4 text-gray-400" />
+                <Calendar className="h-4 w-4 text-gray-400" />
               </div>
             </Card>
             
@@ -561,14 +626,9 @@ const FantasyDashboard = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All teams</SelectItem>
-                    <SelectItem value="KC">Kansas City Chiefs</SelectItem>
-                    <SelectItem value="BUF">Buffalo Bills</SelectItem>
-                    <SelectItem value="DAL">Dallas Cowboys</SelectItem>
-                    <SelectItem value="SF">San Francisco 49ers</SelectItem>
-                    <SelectItem value="PHI">Philadelphia Eagles</SelectItem>
-                    <SelectItem value="MIA">Miami Dolphins</SelectItem>
-                    <SelectItem value="CIN">Cincinnati Bengals</SelectItem>
-                    <SelectItem value="GB">Green Bay Packers</SelectItem>
+                    {Object.entries(NFL_TEAMS).map(([abbr, name]) => (
+                      <SelectItem key={abbr} value={abbr}>{name}</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -684,7 +744,7 @@ const FantasyDashboard = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="p-0">
-            <div className="ag-theme-alpine compact-grid" style={{ height: '600px', width: '100%' }}>
+            <div className="ag-theme-alpine compact-grid color-coded-headers" style={{ height: '600px', width: '100%' }}>
               <AgGridReact
                 columnDefs={columnDefs}
                 rowData={players}

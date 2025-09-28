@@ -15,6 +15,9 @@ import pandas as pd
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 import traceback
+import requests
+import json
+from datetime import date
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -46,6 +49,46 @@ DRAFTKINGS_SCORING = {
     '2pt_conversions': 2
 }
 
+# All NFL Teams
+NFL_TEAMS = {
+    'ARI': 'Arizona Cardinals',
+    'ATL': 'Atlanta Falcons',
+    'BAL': 'Baltimore Ravens', 
+    'BUF': 'Buffalo Bills',
+    'CAR': 'Carolina Panthers',
+    'CHI': 'Chicago Bears',
+    'CIN': 'Cincinnati Bengals',
+    'CLE': 'Cleveland Browns',
+    'DAL': 'Dallas Cowboys',
+    'DEN': 'Denver Broncos',
+    'DET': 'Detroit Lions',
+    'GB': 'Green Bay Packers',
+    'HOU': 'Houston Texans',
+    'IND': 'Indianapolis Colts',
+    'JAX': 'Jacksonville Jaguars',
+    'KC': 'Kansas City Chiefs',
+    'LV': 'Las Vegas Raiders',
+    'LAC': 'Los Angeles Chargers',
+    'LAR': 'Los Angeles Rams',
+    'MIA': 'Miami Dolphins',
+    'MIN': 'Minnesota Vikings',
+    'NE': 'New England Patriots',
+    'NO': 'New Orleans Saints',
+    'NYG': 'New York Giants',
+    'NYJ': 'New York Jets',
+    'PHI': 'Philadelphia Eagles',
+    'PIT': 'Pittsburgh Steelers',
+    'SF': 'San Francisco 49ers',
+    'SEA': 'Seattle Seahawks',
+    'TB': 'Tampa Bay Buccaneers',
+    'TEN': 'Tennessee Titans',
+    'WAS': 'Washington Commanders'
+}
+
+# RapidAPI configuration for DraftKings pricing
+RAPIDAPI_KEY = "31cd7fd5cfmsh0039d0aaa4b3cf4p187526jsn4273673a1752"
+RAPIDAPI_HOST = "tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com"
+
 # Models
 class PlayerStats(BaseModel):
     player_id: str
@@ -67,11 +110,18 @@ class PlayerStats(BaseModel):
     fantasy_points: Optional[float] = 0
     snap_percentage: Optional[float] = None
     targets: Optional[int] = 0
+    dk_salary: Optional[str] = None
 
 class RefreshResponse(BaseModel):
     success: bool
     message: str
     records_loaded: int
+    timestamp: datetime
+
+class DraftKingsResponse(BaseModel):
+    success: bool
+    data: Optional[Dict] = None
+    message: str
     timestamp: datetime
 
 def calculate_fantasy_points(stats: Dict) -> float:
@@ -105,6 +155,60 @@ def calculate_fantasy_points(stats: Dict) -> float:
         points += stats['fumbles_lost'] * DRAFTKINGS_SCORING['fumbles_lost']
     
     return round(points, 2)
+
+def fetch_draftkings_pricing(date_str: str = None) -> Dict:
+    """Fetch DraftKings pricing from RapidAPI"""
+    if not date_str:
+        date_str = date.today().strftime('%Y%m%d')
+    
+    url = f"https://{RAPIDAPI_HOST}/getNFLDFS"
+    
+    querystring = {
+        "date": date_str,
+        "includeTeamDefense": "true"
+    }
+    
+    headers = {
+        "x-rapidapi-key": RAPIDAPI_KEY,
+        "x-rapidapi-host": RAPIDAPI_HOST
+    }
+    
+    try:
+        response = requests.get(url, headers=headers, params=querystring, timeout=10)
+        response.raise_for_status()
+        
+        data = response.json()
+        logging.info(f"DraftKings API response received for date {date_str}")
+        
+        # Process the data to create player salary mapping
+        salary_map = {}
+        if 'body' in data and isinstance(data['body'], list):
+            for player in data['body']:
+                if 'playerName' in player and 'salary' in player:
+                    name = player['playerName']
+                    salary = player['salary']
+                    salary_map[name] = f"${salary/1000:.1f}k" if salary >= 1000 else f"${salary}"
+        
+        return {
+            'success': True,
+            'data': salary_map,
+            'raw_data': data
+        }
+        
+    except requests.exceptions.RequestException as e:
+        logging.error(f"Error fetching DraftKings pricing: {e}")
+        return {
+            'success': False,
+            'error': str(e),
+            'data': {}
+        }
+    except Exception as e:
+        logging.error(f"Unexpected error in DraftKings API: {e}")
+        return {
+            'success': False,
+            'error': str(e),
+            'data': {}
+        }
 
 def init_database():
     """Initialize DuckDB tables"""
@@ -143,6 +247,7 @@ def init_database():
                 fumbles_lost INTEGER DEFAULT 0,
                 fantasy_points DOUBLE DEFAULT 0,
                 snap_percentage DOUBLE,
+                dk_salary VARCHAR,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 UNIQUE(player_id, season, week)
             )
@@ -178,6 +283,10 @@ def load_nfl_data_sync(seasons: List[int]) -> Dict[str, int]:
     try:
         total_records = 0
         
+        # Fetch DraftKings pricing for recent date
+        dk_pricing = fetch_draftkings_pricing()
+        salary_map = dk_pricing.get('data', {}) if dk_pricing.get('success') else {}
+        
         for season in seasons:
             logging.info(f"Loading data for season {season}")
             
@@ -202,6 +311,11 @@ def load_nfl_data_sync(seasons: List[int]) -> Dict[str, int]:
                         filtered_stats['fantasy_points'] = filtered_stats.apply(
                             lambda row: calculate_fantasy_points(row.to_dict()), axis=1
                         )
+                    
+                    # Add DraftKings salary data
+                    filtered_stats['dk_salary'] = filtered_stats['player_display_name'].map(
+                        lambda name: salary_map.get(name, None)
+                    )
                     
                     # Create unique ID for each record
                     filtered_stats['id'] = filtered_stats.apply(
@@ -234,6 +348,7 @@ def load_nfl_data_sync(seasons: List[int]) -> Dict[str, int]:
                             COALESCE(rushing_fumbles_lost, 0) + COALESCE(receiving_fumbles_lost, 0) as fumbles_lost,
                             fantasy_points,
                             NULL as snap_percentage,
+                            dk_salary,
                             CURRENT_TIMESTAMP as created_at
                         FROM stats_df
                     """)
@@ -299,6 +414,12 @@ def load_nfl_data_sync(seasons: List[int]) -> Dict[str, int]:
                   AND sc.season = weekly_stats.season 
                   AND sc.week = weekly_stats.week
             )
+            WHERE EXISTS (
+                SELECT 1 FROM snap_counts sc 
+                WHERE sc.player_id = weekly_stats.player_id 
+                  AND sc.season = weekly_stats.season 
+                  AND sc.week = weekly_stats.week
+            )
         """)
         
         return {"total_records": total_records}
@@ -317,6 +438,11 @@ async def load_nfl_data(seasons: List[int]) -> Dict[str, int]:
 @api_router.get("/")
 async def root():
     return {"message": "Fantasy Football Database API", "version": "1.0.0"}
+
+@api_router.get("/nfl-teams")
+async def get_nfl_teams():
+    """Get all NFL teams"""
+    return {"teams": NFL_TEAMS}
 
 @api_router.get("/players", response_model=List[PlayerStats])
 async def get_players(
@@ -349,7 +475,8 @@ async def get_players(
                 ws.targets,
                 ws.fumbles_lost,
                 ws.fantasy_points,
-                ws.snap_percentage
+                ws.snap_percentage,
+                ws.dk_salary
             FROM weekly_stats ws
             WHERE 1=1
         """
@@ -420,9 +547,17 @@ async def get_stats_summary():
             ORDER BY count DESC
         """).fetchall()
         
+        # Get snap count statistics
+        snap_stats = conn.execute("""
+            SELECT COUNT(*) as players_with_snaps
+            FROM weekly_stats 
+            WHERE snap_percentage IS NOT NULL AND snap_percentage > 0
+        """).fetchone()[0]
+        
         return {
             "total_player_stats": total_stats,
             "total_snap_counts": total_snaps,
+            "players_with_snap_data": snap_stats,
             "seasons_available": seasons,
             "weeks_available": weeks,
             "position_counts": {row[0]: row[1] for row in position_counts},
@@ -435,7 +570,7 @@ async def get_stats_summary():
 
 @api_router.post("/refresh-data", response_model=RefreshResponse)
 async def refresh_data(
-    seasons: Optional[List[int]] = Query([2024, 2025], description="Seasons to refresh")
+    seasons: Optional[List[int]] = Query([2023], description="Seasons to refresh")
 ):
     """Refresh NFL data from nflverse sources"""
     try:
@@ -458,9 +593,31 @@ async def refresh_data(
             detail=f"Error refreshing data: {str(e)}"
         )
 
+@api_router.get("/draftkings-pricing", response_model=DraftKingsResponse)
+async def get_draftkings_pricing(
+    date_str: Optional[str] = Query(None, description="Date in YYYYMMDD format")
+):
+    """Get DraftKings pricing from RapidAPI"""
+    try:
+        result = fetch_draftkings_pricing(date_str)
+        
+        return DraftKingsResponse(
+            success=result['success'],
+            data=result.get('data'),
+            message="DraftKings pricing fetched successfully" if result['success'] else f"Error: {result.get('error', 'Unknown error')}",
+            timestamp=datetime.now(timezone.utc)
+        )
+        
+    except Exception as e:
+        logging.error(f"Error getting DraftKings pricing: {e}")
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Error getting DraftKings pricing: {str(e)}"
+        )
+
 @api_router.get("/top-performers")
 async def get_top_performers(
-    season: int = Query(2024, description="Season year"),
+    season: int = Query(2023, description="Season year"),
     position: Optional[str] = Query(None, description="Position filter"),
     week: Optional[int] = Query(None, description="Week filter (leave empty for season totals)"),
     limit: int = Query(20, description="Number of top performers to return")
@@ -482,7 +639,9 @@ async def get_top_performers(
                     rushing_tds,
                     receptions,
                     receiving_yards,
-                    receiving_tds
+                    receiving_tds,
+                    snap_percentage,
+                    dk_salary
                 FROM weekly_stats
                 WHERE season = ? AND week = ?
             """
@@ -503,7 +662,8 @@ async def get_top_performers(
                     SUM(rushing_tds) as rushing_tds,
                     SUM(receptions) as receptions,
                     SUM(receiving_yards) as receiving_yards,
-                    SUM(receiving_tds) as receiving_tds
+                    SUM(receiving_tds) as receiving_tds,
+                    AVG(snap_percentage) as avg_snap_percentage
                 FROM weekly_stats
                 WHERE season = ?
                 GROUP BY player_name, position, team

@@ -34,6 +34,42 @@ body {
   --ag-cell-vertical-padding: 4px;
 }
 
+/* Color-coded header categories */
+.color-coded-headers .player-header {
+  background-color: #f1f5f9 !important;
+  border-bottom: 3px solid #64748b !important;
+}
+
+.color-coded-headers .info-header {
+  background-color: #f0f9ff !important;
+  border-bottom: 3px solid #0ea5e9 !important;
+}
+
+.color-coded-headers .usage-header {
+  background-color: #f3e8ff !important;
+  border-bottom: 3px solid #8b5cf6 !important;
+}
+
+.color-coded-headers .rushing-header {
+  background-color: #fef3c7 !important;
+  border-bottom: 3px solid #f59e0b !important;
+}
+
+.color-coded-headers .receiving-header {
+  background-color: #ecfdf5 !important;
+  border-bottom: 3px solid #10b981 !important;
+}
+
+.color-coded-headers .passing-header {
+  background-color: #eff6ff !important;
+  border-bottom: 3px solid #3b82f6 !important;
+}
+
+.color-coded-headers .fantasy-header {
+  background-color: #fdf2f8 !important;
+  border-bottom: 3px solid #ec4899 !important;
+}
+
 /* Compact header styling */
 .compact-grid.ag-theme-alpine .ag-header-cell {
   font-weight: 600;
@@ -49,7 +85,6 @@ body {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  background-color: #f1f5f9;
   border-bottom: 2px solid #cbd5e1;
   padding: 4px 6px;
 }
@@ -91,6 +126,49 @@ body {
 
 .compact-grid.ag-theme-alpine .ag-pinned-left-cols-container .ag-row-odd {
   background-color: #ffffff;
+}
+
+/* Enhanced header group styling for color coding */
+.compact-grid.ag-theme-alpine .ag-header-group-cell.player-header {
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  color: #475569;
+  border-bottom: 3px solid #64748b;
+}
+
+.compact-grid.ag-theme-alpine .ag-header-group-cell.info-header {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  color: #0c4a6e;
+  border-bottom: 3px solid #0ea5e9;
+}
+
+.compact-grid.ag-theme-alpine .ag-header-group-cell.usage-header {
+  background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+  color: #581c87;
+  border-bottom: 3px solid #8b5cf6;
+}
+
+.compact-grid.ag-theme-alpine .ag-header-group-cell.rushing-header {
+  background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+  color: #92400e;
+  border-bottom: 3px solid #f59e0b;
+}
+
+.compact-grid.ag-theme-alpine .ag-header-group-cell.receiving-header {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  color: #064e3b;
+  border-bottom: 3px solid #10b981;
+}
+
+.compact-grid.ag-theme-alpine .ag-header-group-cell.passing-header {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  color: #1e3a8a;
+  border-bottom: 3px solid #3b82f6;
+}
+
+.compact-grid.ag-theme-alpine .ag-header-group-cell.fantasy-header {
+  background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+  color: #831843;
+  border-bottom: 3px solid #ec4899;
 }
 
 /* Scrollbar styling */
@@ -222,6 +300,27 @@ body {
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
   outline: none;
+}
+
+/* Category-specific styling for better visual hierarchy */
+.rushing-stats {
+  background: linear-gradient(90deg, #fef3c7 0%, transparent 100%);
+  border-left: 3px solid #f59e0b;
+}
+
+.receiving-stats {
+  background: linear-gradient(90deg, #ecfdf5 0%, transparent 100%);
+  border-left: 3px solid #10b981;
+}
+
+.passing-stats {
+  background: linear-gradient(90deg, #eff6ff 0%, transparent 100%);
+  border-left: 3px solid #3b82f6;
+}
+
+.fantasy-stats {
+  background: linear-gradient(90deg, #fdf2f8 0%, transparent 100%);
+  border-left: 3px solid #ec4899;
 }
 
 /* Responsive adjustments */
@@ -389,4 +488,38 @@ body {
   height: 8px;
   border-radius: 50%;
   display: inline-block;
+}
+
+/* Highlight important statistics */
+.stat-highlight {
+  background: linear-gradient(45deg, #fef3c7, #fed7aa);
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+/* Category indicators for quick scanning */
+.category-indicator {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  opacity: 0.7;
+}
+
+.category-rushing {
+  background-color: #f59e0b;
+}
+
+.category-receiving {
+  background-color: #10b981;
+}
+
+.category-passing {
+  background-color: #3b82f6;
+}
+
+.category-fantasy {
+  background-color: #ec4899;
 }
