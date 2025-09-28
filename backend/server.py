@@ -185,7 +185,7 @@ def load_nfl_data_sync(seasons: List[int]) -> Dict[str, int]:
             try:
                 player_stats = nfl.load_player_stats(seasons=[season])
                 
-                if player_stats is not None and not player_stats.empty:
+                if player_stats is not None and len(player_stats) > 0:
                     # Filter for relevant positions
                     relevant_positions = ['QB', 'RB', 'WR', 'TE']
                     filtered_stats = player_stats[player_stats['position'].isin(relevant_positions)].copy()
