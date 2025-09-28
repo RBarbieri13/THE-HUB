@@ -168,9 +168,8 @@ metadata:
 test_plan:
   current_focus:
     - "Fix DraftKings pricing display"
-    - "Fix snap count display to show numerical values"
-    - "Remove top menu bar with summary cards"
-  stuck_tasks: []
+  stuck_tasks: 
+    - "Fix DraftKings pricing display"
   test_all: false
   test_priority: "high_first"
 
