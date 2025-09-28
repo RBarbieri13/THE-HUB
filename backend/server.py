@@ -242,7 +242,7 @@ def load_nfl_data_sync(seasons: List[int]) -> Dict[str, int]:
             try:
                 snap_counts = nfl.load_snap_counts(seasons=[season])
                 
-                if snap_counts is not None and not snap_counts.empty:
+                if snap_counts is not None and len(snap_counts) > 0:
                     # Create unique ID for each record
                     snap_counts = snap_counts.copy()
                     snap_counts['id'] = snap_counts.apply(
