@@ -187,9 +187,12 @@ def load_nfl_data_sync(seasons: List[int]) -> Dict[str, int]:
                 logging.info(f"Player stats type: {type(player_stats)}, length: {len(player_stats) if player_stats is not None else 'None'}")
                 
                 if player_stats is not None and len(player_stats) > 0:
+                    # Convert Polars to Pandas for easier processing
+                    player_stats_pd = player_stats.to_pandas()
+                    
                     # Filter for relevant positions
                     relevant_positions = ['QB', 'RB', 'WR', 'TE']
-                    filtered_stats = player_stats[player_stats['position'].isin(relevant_positions)].copy()
+                    filtered_stats = player_stats_pd[player_stats_pd['position'].isin(relevant_positions)].copy()
                     
                     # Calculate fantasy points
                     filtered_stats['fantasy_points'] = filtered_stats.apply(
