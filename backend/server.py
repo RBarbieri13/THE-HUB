@@ -194,10 +194,14 @@ def load_nfl_data_sync(seasons: List[int]) -> Dict[str, int]:
                     relevant_positions = ['QB', 'RB', 'WR', 'TE']
                     filtered_stats = player_stats_pd[player_stats_pd['position'].isin(relevant_positions)].copy()
                     
-                    # Calculate fantasy points
-                    filtered_stats['fantasy_points'] = filtered_stats.apply(
-                        lambda row: calculate_fantasy_points(row.to_dict()), axis=1
-                    )
+                    # Use existing fantasy_points column (or fantasy_points_ppr for PPR)
+                    if 'fantasy_points_ppr' in filtered_stats.columns:
+                        filtered_stats['fantasy_points'] = filtered_stats['fantasy_points_ppr']
+                    elif 'fantasy_points' not in filtered_stats.columns:
+                        # Fallback to calculation if neither column exists
+                        filtered_stats['fantasy_points'] = filtered_stats.apply(
+                            lambda row: calculate_fantasy_points(row.to_dict()), axis=1
+                        )
                     
                     # Create unique ID for each record
                     filtered_stats['id'] = filtered_stats.apply(
