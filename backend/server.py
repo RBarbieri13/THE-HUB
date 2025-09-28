@@ -642,63 +642,89 @@ def load_nfl_data_sync(seasons: List[int]) -> Dict[str, int]:
         
         # Update weekly_stats with snap percentages from the enhanced snap_counts table
         try:
-            conn.execute("""
-                UPDATE weekly_stats 
-                SET snap_percentage = (
-                    SELECT sc.offense_pct 
-                    FROM snap_counts sc 
-                    WHERE (
-                        sc.player_id = weekly_stats.player_id OR 
-                        UPPER(TRIM(sc.player_name)) = UPPER(TRIM(weekly_stats.player_name))
+            # First, let's see what snap count data we actually have
+            snap_check = conn.execute("SELECT COUNT(*) FROM snap_counts").fetchone()[0]
+            logging.info(f"Total snap count records available: {snap_check}")
+            
+            if snap_check > 0:
+                # Update with more flexible matching
+                updates = conn.execute("""
+                    UPDATE weekly_stats 
+                    SET snap_percentage = (
+                        SELECT sc.offense_pct 
+                        FROM snap_counts sc 
+                        WHERE (
+                            UPPER(TRIM(sc.player_name)) = UPPER(TRIM(weekly_stats.player_name))
+                        )
+                          AND sc.team = weekly_stats.team
+                          AND sc.season = weekly_stats.season 
+                          AND sc.week = weekly_stats.week
+                        ORDER BY sc.offense_pct DESC
+                        LIMIT 1
                     )
-                      AND sc.team = weekly_stats.team
-                      AND sc.season = weekly_stats.season 
-                      AND sc.week = weekly_stats.week
-                      AND sc.position = weekly_stats.position
-                )
-                WHERE EXISTS (
-                    SELECT 1 FROM snap_counts sc 
-                    WHERE (
-                        sc.player_id = weekly_stats.player_id OR 
-                        UPPER(TRIM(sc.player_name)) = UPPER(TRIM(weekly_stats.player_name))
+                    WHERE EXISTS (
+                        SELECT 1 FROM snap_counts sc 
+                        WHERE (
+                            UPPER(TRIM(sc.player_name)) = UPPER(TRIM(weekly_stats.player_name))
+                        )
+                          AND sc.team = weekly_stats.team
+                          AND sc.season = weekly_stats.season 
+                          AND sc.week = weekly_stats.week
                     )
-                      AND sc.team = weekly_stats.team
-                      AND sc.season = weekly_stats.season 
-                      AND sc.week = weekly_stats.week
-                      AND sc.position = weekly_stats.position
-                )
-            """)
-            logging.info("Updated weekly_stats with snap percentages")
+                """)
+                logging.info("Updated weekly_stats with snap percentages")
+                
+                # Check how many got updated
+                updated_count = conn.execute("SELECT COUNT(*) FROM weekly_stats WHERE snap_percentage IS NOT NULL AND snap_percentage > 0").fetchone()[0]
+                logging.info(f"Players with snap percentages after update: {updated_count}")
+            else:
+                logging.warning("No snap count data available to update")
         except Exception as e:
             logging.error(f"Error updating snap percentages: {e}")
         
         # Update weekly_stats with DraftKings salaries from cached data
         try:
-            conn.execute("""
-                UPDATE weekly_stats 
-                SET dk_salary = (
-                    SELECT CASE 
-                        WHEN dp.salary >= 10000 THEN '$' || (dp.salary / 1000.0) || 'k'
-                        WHEN dp.salary >= 1000 THEN '$' || ROUND(dp.salary / 1000.0, 1) || 'k'
-                        ELSE '$' || dp.salary
-                    END
-                    FROM draftkings_pricing dp 
-                    WHERE UPPER(TRIM(dp.player_name)) = UPPER(TRIM(weekly_stats.player_name))
-                      AND dp.team = weekly_stats.team 
-                      AND dp.season = weekly_stats.season 
-                      AND dp.week = weekly_stats.week
-                      AND dp.position = weekly_stats.position
-                )
-                WHERE EXISTS (
-                    SELECT 1 FROM draftkings_pricing dp 
-                    WHERE UPPER(TRIM(dp.player_name)) = UPPER(TRIM(weekly_stats.player_name))
-                      AND dp.team = weekly_stats.team 
-                      AND dp.season = weekly_stats.season 
-                      AND dp.week = weekly_stats.week
-                      AND dp.position = weekly_stats.position
-                )
-            """)
-            logging.info("Updated weekly_stats with DraftKings salaries")
+            # Check available pricing data
+            pricing_check = conn.execute("SELECT COUNT(*) FROM draftkings_pricing").fetchone()[0]
+            logging.info(f"Total DraftKings pricing records available: {pricing_check}")
+            
+            if pricing_check > 0:
+                # Clear any existing dk_salary data that might be showing dates
+                conn.execute("UPDATE weekly_stats SET dk_salary = NULL")
+                
+                # Update with proper salary formatting
+                updates = conn.execute("""
+                    UPDATE weekly_stats 
+                    SET dk_salary = (
+                        SELECT CASE 
+                            WHEN dp.salary >= 10000 THEN '$' || CAST(ROUND(dp.salary / 1000.0, 1) AS VARCHAR) || 'k'
+                            WHEN dp.salary >= 1000 THEN '$' || CAST(ROUND(dp.salary / 1000.0, 1) AS VARCHAR) || 'k'
+                            WHEN dp.salary > 0 THEN '$' || CAST(dp.salary AS VARCHAR)
+                            ELSE NULL
+                        END
+                        FROM draftkings_pricing dp 
+                        WHERE UPPER(TRIM(dp.player_name)) = UPPER(TRIM(weekly_stats.player_name))
+                          AND dp.team = weekly_stats.team 
+                          AND dp.season = weekly_stats.season 
+                          AND dp.week = weekly_stats.week
+                        ORDER BY dp.salary DESC
+                        LIMIT 1
+                    )
+                    WHERE EXISTS (
+                        SELECT 1 FROM draftkings_pricing dp 
+                        WHERE UPPER(TRIM(dp.player_name)) = UPPER(TRIM(weekly_stats.player_name))
+                          AND dp.team = weekly_stats.team 
+                          AND dp.season = weekly_stats.season 
+                          AND dp.week = weekly_stats.week
+                    )
+                """)
+                logging.info("Updated weekly_stats with DraftKings salaries")
+                
+                # Check how many got updated
+                updated_count = conn.execute("SELECT COUNT(*) FROM weekly_stats WHERE dk_salary IS NOT NULL").fetchone()[0]
+                logging.info(f"Players with DraftKings salaries after update: {updated_count}")
+            else:
+                logging.warning("No DraftKings pricing data available to update")
         except Exception as e:
             logging.error(f"Error updating DraftKings salaries: {e}")
         
