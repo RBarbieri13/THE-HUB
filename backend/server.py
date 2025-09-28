@@ -247,9 +247,11 @@ def load_nfl_data_sync(seasons: List[int]) -> Dict[str, int]:
                 snap_counts = nfl.load_snap_counts(seasons=[season])
                 
                 if snap_counts is not None and len(snap_counts) > 0:
+                    # Convert Polars to Pandas for easier processing
+                    snap_counts_pd = snap_counts.to_pandas()
+                    
                     # Create unique ID for each record
-                    snap_counts = snap_counts.copy()
-                    snap_counts['id'] = snap_counts.apply(
+                    snap_counts_pd['id'] = snap_counts_pd.apply(
                         lambda row: f"{row['player_id']}_{row['season']}_{row['week']}_snaps", axis=1
                     )
                     
