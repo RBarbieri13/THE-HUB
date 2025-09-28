@@ -375,6 +375,7 @@ const FantasyDashboard = () => {
                     <SelectValue placeholder="Select season" />
                   </SelectTrigger>
                   <SelectContent>
+                    <SelectItem value="2023">2023</SelectItem>
                     <SelectItem value="2024">2024</SelectItem>
                     <SelectItem value="2025">2025</SelectItem>
                   </SelectContent>
