@@ -108,28 +108,34 @@ user_problem_statement: |
   
 backend:
   - task: "Fix DraftKings pricing display"
-    implemented: false
+    implemented: true
     working: false
     file: "server.py"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
     needs_retesting: true
     status_history:
       - working: false
         agent: "main"
         comment: "IDENTIFIED: dk_salary column contains timestamps instead of salary values. DraftKings pricing table is empty (0 rows). Need to fix data loading and storage logic."
+      - working: false
+        agent: "main"
+        comment: "IMPLEMENTED: Fixed backend query to join with draftkings_pricing table for actual salaries. However RapidAPI returns 404 errors for all weeks - API endpoint may have changed or key may be invalid. Backend logic is correct but data source is unavailable."
 
   - task: "Fix snap count display to show numerical values"
-    implemented: false
-    working: false
-    file: "server.py"
+    implemented: true
+    working: true
+    file: "server.py, App.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "main"
         comment: "IDENTIFIED: weekly_stats.snap_percentage contains decimal percentages (0.07, 1.0) but user wants nominal numbers (1-100). Actual snap counts (71, 63, 62) exist in skill_snap_counts.offense_snaps."
+      - working: true
+        agent: "main"
+        comment: "FIXED: Updated backend query to use name-based joins with skill_snap_counts.offense_snaps. Updated frontend to remove % formatting. Now displays actual snap counts (77, 60, 50, etc.) instead of percentages."
 
 frontend:
   - task: "Remove top menu bar with summary cards"
