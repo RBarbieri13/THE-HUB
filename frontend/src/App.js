@@ -23,7 +23,7 @@ const FantasyDashboard = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [summary, setSummary] = useState(null);
   const [filters, setFilters] = useState({
-    season: '2024',
+    season: '2023',
     week: '',
     position: '',
     team: ''
