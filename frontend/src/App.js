@@ -28,9 +28,9 @@ const FantasyDashboard = () => {
   const [summary, setSummary] = useState(null);
   const [filters, setFilters] = useState({
     season: '2023',
-    week: '',
-    position: '',
-    team: ''
+    week: 'all',
+    position: 'all',
+    team: 'all'
   });
 
   // Column definitions for AG Grid
