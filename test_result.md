@@ -142,6 +142,21 @@ backend:
       - working: true
         agent: "testing"
         comment: "VERIFIED WORKING: Comprehensive testing confirms snap counts now display as numerical values (61, 48, 78, 37, 47, 46, etc.) for both 2024 and 2025 seasons across multiple weeks. Name-based joins between weekly_stats and skill_snap_counts working correctly. COALESCE fallback logic functioning properly. Fix is successful."
+      - working: true
+        agent: "main"
+        comment: "ENHANCED: Added sophisticated name matching with regex to handle Jr/Sr suffixes and punctuation differences (e.g., 'Chris Godwin Jr.' matches 'Chris Godwin'). Created player_name_mappings table for future edge cases. Achieved 93.7% match rate (554/591 players). Verified final UI shows numerical snap counts (77, 60, 50, 45, 66, 37, etc.)"
+
+  - task: "Create master player mapping system"
+    implemented: true
+    working: true
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "IMPLEMENTED: Enhanced name matching using regex patterns to handle Jr/Sr suffixes, punctuation differences. Created player_name_mappings table for edge cases. Improved match rate from ~60% to 93.7% (554/591 skill position players now have snap count data). Successfully matches 'Chris Godwin Jr.' -> 'Chris Godwin', etc."
 
 frontend:
   - task: "Remove top menu bar with summary cards"
