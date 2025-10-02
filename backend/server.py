@@ -826,9 +826,13 @@ async def get_players(
                 COALESCE(sc.offense_snaps, CAST(ws.snap_percentage * 100 AS INTEGER)) as snap_percentage,
                 COALESCE(dp.salary, NULL) as dk_salary
             FROM weekly_stats ws
-            LEFT JOIN skill_snap_counts sc ON LOWER(TRIM(ws.player_name)) = LOWER(TRIM(sc.player_name))
-                AND ws.season = sc.season 
-                AND ws.week = sc.week
+            LEFT JOIN skill_snap_counts sc ON (
+                -- Primary match: exact name matching
+                (LOWER(TRIM(ws.player_name)) = LOWER(TRIM(sc.player_name))) OR
+                -- Secondary match: normalized names (remove Jr/Sr suffixes and punctuation)
+                (LOWER(TRIM(REGEXP_REPLACE(REGEXP_REPLACE(ws.player_name, '\\s+(Jr\\.?|Sr\\.?|III|II|IV)\\s*$', '', 'i'), '\\.', '', 'g'))) = 
+                 LOWER(TRIM(REGEXP_REPLACE(REGEXP_REPLACE(sc.player_name, '\\s+(Jr\\.?|Sr\\.?|III|II|IV)\\s*$', '', 'i'), '\\.', '', 'g'))))
+            ) AND ws.season = sc.season AND ws.week = sc.week
             LEFT JOIN draftkings_pricing dp ON LOWER(TRIM(ws.player_name)) = LOWER(TRIM(dp.player_name))
                 AND ws.team = dp.team
                 AND ws.season = dp.season 
