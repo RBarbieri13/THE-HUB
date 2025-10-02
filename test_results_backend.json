@@ -1,139 +1,182 @@
 {
-  "total_tests": 15,
-  "passed": 13,
+  "total_tests": 25,
+  "passed": 23,
   "failed": 2,
   "results": [
     {
       "test_name": "API Health Check",
       "success": true,
       "details": "API is responding: Fantasy Football Database API",
-      "timestamp": "2025-09-28T23:19:53.215518",
+      "timestamp": "2025-10-02T04:58:47.600529",
       "data": null
     },
     {
       "test_name": "Stats Summary",
       "success": true,
-      "details": "Database contains 13289 player stats, 14095 snap records, 0 pricing records",
-      "timestamp": "2025-09-28T23:19:53.229974",
+      "details": "Database contains 13622 player stats, 14450 snap records, 0 pricing records",
+      "timestamp": "2025-10-02T04:58:47.614374",
       "data": null
+    },
+    {
+      "test_name": "Chris Godwin Name Matching",
+      "success": true,
+      "details": "Chris Godwin snap data: 72",
+      "timestamp": "2025-10-02T04:58:48.119460",
+      "data": null
+    },
+    {
+      "test_name": "Enhanced Name Matching System",
+      "success": true,
+      "details": "Match rate: 92.0% (92/100). Jr/Sr examples: 4, Punctuation examples: 5",
+      "timestamp": "2025-10-02T04:58:48.119488",
+      "data": null
+    },
+    {
+      "test_name": "Jr/Sr Suffix Matching",
+      "success": true,
+      "details": "4/4 Jr/Sr players have snap data",
+      "timestamp": "2025-10-02T04:58:48.119494",
+      "data": [
+        {
+          "name": "Chris Godwin Jr.",
+          "has_snap_data": true,
+          "snap_count": 72
+        },
+        {
+          "name": "Kenneth Walker III",
+          "has_snap_data": true,
+          "snap_count": 53
+        },
+        {
+          "name": "Brian Thomas Jr.",
+          "has_snap_data": true,
+          "snap_count": 74
+        }
+      ]
+    },
+    {
+      "test_name": "Punctuation Matching",
+      "success": true,
+      "details": "5/5 punctuation players have snap data",
+      "timestamp": "2025-10-02T04:58:48.119498",
+      "data": [
+        {
+          "name": "Amon-Ra St. Brown",
+          "has_snap_data": true,
+          "snap_count": 63
+        },
+        {
+          "name": "Amon-Ra St. Brown",
+          "has_snap_data": true,
+          "snap_count": 72
+        },
+        {
+          "name": "Chris Godwin Jr.",
+          "has_snap_data": true,
+          "snap_count": 72
+        }
+      ]
     },
     {
       "test_name": "Snap Count Fix 2024 Week 1",
       "success": true,
-      "details": "Found 10 players with numerical snap counts",
-      "timestamp": "2025-09-28T23:19:53.240767",
-      "data": [
-        {
-          "player": "Saquon Barkley",
-          "snap_count": 61
-        },
-        {
-          "player": "Jayden Reed",
-          "snap_count": 48
-        },
-        {
-          "player": "Cooper Kupp",
-          "snap_count": 78
-        }
-      ]
+      "details": "Found 50 players with numerical snap counts",
+      "timestamp": "2025-10-02T04:58:48.228375",
+      "data": null
     },
     {
       "test_name": "Snap Count Fix 2024 Week 2",
       "success": true,
-      "details": "Found 9 players with numerical snap counts",
-      "timestamp": "2025-09-28T23:19:53.251273",
-      "data": [
-        {
-          "player": "Alvin Kamara",
-          "snap_count": 37
-        },
-        {
-          "player": "De'Von Achane",
-          "snap_count": 47
-        },
-        {
-          "player": "Marvin Harrison Jr.",
-          "snap_count": 46
-        }
-      ]
+      "details": "Found 50 players with numerical snap counts",
+      "timestamp": "2025-10-02T04:58:48.344967",
+      "data": null
     },
     {
       "test_name": "Snap Count Fix 2024 Week 3",
       "success": true,
-      "details": "Found 10 players with numerical snap counts",
-      "timestamp": "2025-09-28T23:19:53.261237",
-      "data": [
-        {
-          "player": "Jauan Jennings",
-          "snap_count": 60
-        },
-        {
-          "player": "Saquon Barkley",
-          "snap_count": 58
-        },
-        {
-          "player": "Kyren Williams",
-          "snap_count": 52
-        }
-      ]
+      "details": "Found 50 players with numerical snap counts",
+      "timestamp": "2025-10-02T04:58:48.460881",
+      "data": null
+    },
+    {
+      "test_name": "Snap Count Fix 2024 Week 4",
+      "success": true,
+      "details": "Found 50 players with numerical snap counts",
+      "timestamp": "2025-10-02T04:58:48.574074",
+      "data": null
+    },
+    {
+      "test_name": "Snap Count Fix 2024 Week 5",
+      "success": true,
+      "details": "Found 50 players with numerical snap counts",
+      "timestamp": "2025-10-02T04:58:48.676775",
+      "data": null
     },
     {
       "test_name": "Snap Count Fix 2025 Week 1",
       "success": true,
-      "details": "Found 10 players with numerical snap counts",
-      "timestamp": "2025-09-28T23:19:53.272555",
-      "data": [
-        {
-          "player": "Josh Allen",
-          "snap_count": 85
-        },
-        {
-          "player": "Justin Fields",
-          "snap_count": 64
-        },
-        {
-          "player": "Daniel Jones",
-          "snap_count": 73
-        }
-      ]
+      "details": "Found 50 players with numerical snap counts",
+      "timestamp": "2025-10-02T04:58:48.797392",
+      "data": null
     },
     {
       "test_name": "Snap Count Fix 2025 Week 2",
       "success": true,
-      "details": "Found 10 players with numerical snap counts",
-      "timestamp": "2025-09-28T23:19:53.282705",
-      "data": [
-        {
-          "player": "Amon-Ra St. Brown",
-          "snap_count": 50
-        },
-        {
-          "player": "Malik Nabers",
-          "snap_count": 66
-        },
-        {
-          "player": "Ja'Marr Chase",
-          "snap_count": 66
-        }
-      ]
+      "details": "Found 50 players with numerical snap counts",
+      "timestamp": "2025-10-02T04:58:48.911537",
+      "data": null
     },
     {
       "test_name": "Snap Count Fix 2025 Week 3",
       "success": true,
-      "details": "Found 10 players with numerical snap counts",
-      "timestamp": "2025-09-28T23:19:53.296887",
+      "details": "Found 50 players with numerical snap counts",
+      "timestamp": "2025-10-02T04:58:49.027597",
+      "data": null
+    },
+    {
+      "test_name": "Snap Count Fix 2025 Week 4",
+      "success": true,
+      "details": "Found 50 players with numerical snap counts",
+      "timestamp": "2025-10-02T04:58:49.146619",
+      "data": null
+    },
+    {
+      "test_name": "Snap Count System Overall",
+      "success": true,
+      "details": "SUCCESS: 450 players have numerical snap counts. Examples: [{'player': 'Saquon Barkley', 'snap_count': 61, 'position': 'RB', 'team': 'PHI'}, {'player': 'Jayden Reed', 'snap_count': 48, 'position': 'WR', 'team': 'GB'}, {'player': 'Cooper Kupp', 'snap_count': 78, 'position': 'WR', 'team': 'LA'}, {'player': 'Josh Allen', 'snap_count': 62, 'position': 'QB', 'team': 'BUF'}, {'player': 'Baker Mayfield', 'snap_count': 62, 'position': 'QB', 'team': 'TB'}]",
+      "timestamp": "2025-10-02T04:58:49.155609",
+      "data": null
+    },
+    {
+      "test_name": "COALESCE Fallback Logic",
+      "success": true,
+      "details": "Direct matches: 50, Fallback cases: 0",
+      "timestamp": "2025-10-02T04:58:49.279062",
+      "data": null
+    },
+    {
+      "test_name": "Master Player Mapping System",
+      "success": true,
+      "details": "Found 50 valid snap records, 50 direct snap count matches",
+      "timestamp": "2025-10-02T04:58:49.279085",
       "data": [
         {
-          "player": "Tre Tucker",
-          "snap_count": 62
+          "player": "Josh Allen",
+          "offense_snaps": 62,
+          "team": "BUF",
+          "position": "QB"
         },
         {
-          "player": "Jonathan Taylor",
-          "snap_count": 45
+          "player": "Malik Nabers",
+          "offense_snaps": 71,
+          "team": "NYG",
+          "position": "WR"
         },
         {
-          "player": "David Montgomery",
-          "snap_count": 25
+          "player": "Patrick Mahomes",
+          "offense_snaps": 54,
+          "team": "KC",
+          "position": "QB"
         }
       ]
     },
@@ -141,14 +184,14 @@
       "test_name": "DraftKings Existing Data",
       "success": false,
       "details": "Found 0 existing pricing records",
-      "timestamp": "2025-09-28T23:19:53.305375",
+      "timestamp": "2025-10-02T04:58:49.326624",
       "data": null
     },
     {
       "test_name": "DraftKings Pricing Load",
       "success": false,
       "details": "No records loaded. Errors: ['No data for season 2024, week 1: 404 Client Error: Not Found for url: https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getDFSsalaries?week=1&season=2024&site=draftkings', 'No data for season 2024, week 2: 404 Client Error: Not Found for url: https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getDFSsalaries?week=2&season=2024&site=draftkings', 'No data for season 2024, week 3: 404 Client Error: Not Found for url: https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getDFSsalaries?week=3&season=2024&site=draftkings']",
-      "timestamp": "2025-09-28T23:20:17.810631",
+      "timestamp": "2025-10-02T04:59:14.911833",
       "data": [
         "No data for season 2024, week 1: 404 Client Error: Not Found for url: https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getDFSsalaries?week=1&season=2024&site=draftkings",
         "No data for season 2024, week 2: 404 Client Error: Not Found for url: https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getDFSsalaries?week=2&season=2024&site=draftkings",
@@ -161,14 +204,14 @@
       "test_name": "Snap Counts Endpoint",
       "success": true,
       "details": "Retrieved 10 snap count records",
-      "timestamp": "2025-09-28T23:20:17.821558",
+      "timestamp": "2025-10-02T04:59:14.920797",
       "data": null
     },
     {
       "test_name": "Snap Count Data Structure",
       "success": true,
       "details": "All required fields present",
-      "timestamp": "2025-09-28T23:20:17.821581",
+      "timestamp": "2025-10-02T04:59:14.920814",
       "data": {
         "id": "2024_1_BUF_Josh_Allen",
         "player_id": "AlleJo02",
@@ -185,28 +228,28 @@
         "position": "QB",
         "game_id": "202409080buf",
         "opponent_team": "ARI",
-        "created_at": "2025-09-28T21:58:27.545945"
+        "created_at": "2025-10-02T04:49:38.562137"
       }
     },
     {
       "test_name": "Player Data Integration",
       "success": true,
       "details": "Out of 5 players: 5 have snap data, 0 have pricing data",
-      "timestamp": "2025-09-28T23:20:17.835675",
+      "timestamp": "2025-10-02T04:59:15.034558",
       "data": null
     },
     {
       "test_name": "Position Filtering",
       "success": true,
       "details": "Position filter working correctly - 10 QBs returned",
-      "timestamp": "2025-09-28T23:20:17.847581",
+      "timestamp": "2025-10-02T04:59:15.206256",
       "data": null
     },
     {
       "test_name": "Team Filtering",
       "success": true,
       "details": "Team filter working correctly - 10 KC players returned",
-      "timestamp": "2025-09-28T23:20:17.858729",
+      "timestamp": "2025-10-02T04:59:15.288645",
       "data": null
     }
   ]
