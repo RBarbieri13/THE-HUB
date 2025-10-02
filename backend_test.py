@@ -508,11 +508,11 @@ class NFLFantasyTester:
         print("\n🔗 Testing Data Integration...")
         self.test_data_integration()
         
-        # Test 6: Filtering Functionality
+        # Test 8: Filtering Functionality
         print("\n🔍 Testing Filtering...")
         self.test_filtering_functionality()
         
-        # Test 7: Data Refresh (Optional - can be slow)
+        # Test 9: Data Refresh (Optional - can be slow)
         print("\n🔄 Testing Data Refresh...")
         # self.test_refresh_data_endpoint()  # Commented out to avoid long waits
         
