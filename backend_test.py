@@ -488,15 +488,23 @@ class NFLFantasyTester:
         # Test 2: Get database overview
         stats_summary = self.test_stats_summary()
         
-        # Test 3: Snap Count Fix Validation (HIGH PRIORITY)
+        # Test 3: Enhanced Name Matching System (HIGH PRIORITY)
+        print("\n🎯 Testing Enhanced Name Matching System...")
+        self.test_enhanced_name_matching()
+        
+        # Test 4: Snap Count Fix Validation (HIGH PRIORITY)
         print("\n🔍 Testing Snap Count Fix...")
         self.test_snap_count_fix()
         
-        # Test 4: DraftKings Pricing Investigation (HIGH PRIORITY)
+        # Test 5: Master Player Mapping System (HIGH PRIORITY)
+        print("\n🗺️ Testing Master Player Mapping System...")
+        self.test_master_player_mapping_system()
+        
+        # Test 6: DraftKings Pricing Investigation (EXPECTED TO FAIL)
         print("\n💰 Testing DraftKings Pricing...")
         self.test_draftkings_pricing_investigation()
         
-        # Test 5: Data Integration
+        # Test 7: Data Integration
         print("\n🔗 Testing Data Integration...")
         self.test_data_integration()
         
