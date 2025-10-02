@@ -136,6 +136,29 @@ class SnapCountsResponse(BaseModel):
     timestamp: datetime
     records_loaded: Optional[int] = 0
 
+def normalize_player_name(name: str) -> str:
+    """
+    Normalize player names for better matching between data sources.
+    Handles common variations like Jr/Sr suffixes, punctuation, etc.
+    """
+    if not name:
+        return ""
+    
+    # Convert to lowercase and strip whitespace
+    normalized = name.lower().strip()
+    
+    # Remove common suffixes that vary between sources
+    suffixes = [' jr.', ' jr', ' sr.', ' sr', ' iii', ' ii', ' iv']
+    for suffix in suffixes:
+        if normalized.endswith(suffix):
+            normalized = normalized[:-len(suffix)].strip()
+            break
+    
+    # Remove periods and extra spaces
+    normalized = normalized.replace('.', '').replace('  ', ' ')
+    
+    return normalized
+
 def calculate_fantasy_points(stats: Dict) -> float:
     """Calculate DraftKings PPR fantasy points"""
     points = 0
