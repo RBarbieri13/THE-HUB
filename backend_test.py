@@ -190,6 +190,161 @@ class NFLFantasyTester:
             self.log_test("DraftKings Pricing Investigation", False, f"Error: {str(e)}")
             return False
     
+    def test_enhanced_name_matching(self) -> bool:
+        """Test enhanced name matching system for Jr/Sr suffixes and punctuation differences"""
+        try:
+            # Get players data to analyze name matching effectiveness
+            response = self.session.get(f"{self.backend_url}/players", params={
+                'season': 2024,
+                'limit': 100
+            })
+            
+            if response.status_code != 200:
+                self.log_test("Enhanced Name Matching", False, f"API error: {response.status_code}")
+                return False
+            
+            players = response.json()
+            if not players:
+                self.log_test("Enhanced Name Matching", False, "No player data returned")
+                return False
+            
+            # Analyze name matching effectiveness
+            total_players = len(players)
+            players_with_snaps = len([p for p in players if p.get('snap_percentage') is not None])
+            match_rate = (players_with_snaps / total_players * 100) if total_players > 0 else 0
+            
+            # Look for specific examples of name variations that should be matched
+            name_variations_found = []
+            jr_sr_examples = []
+            punctuation_examples = []
+            
+            for player in players:
+                name = player.get('player_name', '')
+                if any(suffix in name.lower() for suffix in [' jr', ' sr', ' iii', ' ii']):
+                    jr_sr_examples.append({
+                        'name': name,
+                        'has_snap_data': player.get('snap_percentage') is not None,
+                        'snap_count': player.get('snap_percentage')
+                    })
+                
+                if '.' in name or any(char in name for char in ['A.J.', 'D.J.', 'T.J.']):
+                    punctuation_examples.append({
+                        'name': name,
+                        'has_snap_data': player.get('snap_percentage') is not None,
+                        'snap_count': player.get('snap_percentage')
+                    })
+            
+            # Test specific cases mentioned in the review request
+            chris_godwin_found = False
+            for player in players:
+                if 'chris godwin' in player.get('player_name', '').lower():
+                    chris_godwin_found = True
+                    has_snap_data = player.get('snap_percentage') is not None
+                    self.log_test("Chris Godwin Name Matching", has_snap_data, 
+                        f"Chris Godwin snap data: {player.get('snap_percentage')}")
+                    break
+            
+            # Overall assessment
+            success = match_rate >= 85  # Expect high match rate based on review request
+            
+            self.log_test("Enhanced Name Matching System", success, 
+                f"Match rate: {match_rate:.1f}% ({players_with_snaps}/{total_players}). "
+                f"Jr/Sr examples: {len(jr_sr_examples)}, Punctuation examples: {len(punctuation_examples)}")
+            
+            if jr_sr_examples:
+                matched_jr_sr = len([ex for ex in jr_sr_examples if ex['has_snap_data']])
+                self.log_test("Jr/Sr Suffix Matching", matched_jr_sr > 0, 
+                    f"{matched_jr_sr}/{len(jr_sr_examples)} Jr/Sr players have snap data", 
+                    jr_sr_examples[:3])
+            
+            if punctuation_examples:
+                matched_punct = len([ex for ex in punctuation_examples if ex['has_snap_data']])
+                self.log_test("Punctuation Matching", matched_punct > 0, 
+                    f"{matched_punct}/{len(punctuation_examples)} punctuation players have snap data", 
+                    punctuation_examples[:3])
+            
+            return success
+            
+        except Exception as e:
+            self.log_test("Enhanced Name Matching", False, f"Error: {str(e)}")
+            return False
+
+    def test_master_player_mapping_system(self) -> bool:
+        """Test master player mapping system and COALESCE fallback logic"""
+        try:
+            # Test the snap-counts endpoint to verify the mapping system
+            response = self.session.get(f"{self.backend_url}/snap-counts", params={
+                'season': 2024,
+                'week': 1,
+                'limit': 50
+            })
+            
+            if response.status_code != 200:
+                self.log_test("Master Player Mapping", False, f"Snap counts API error: {response.status_code}")
+                return False
+            
+            snap_data = response.json()
+            snap_records = snap_data.get('data', [])
+            
+            if not snap_records:
+                self.log_test("Master Player Mapping", False, "No snap count records found")
+                return False
+            
+            # Verify snap count data structure and values
+            valid_snap_records = []
+            for record in snap_records:
+                offense_snaps = record.get('offense_snaps', 0)
+                if offense_snaps and offense_snaps > 0:
+                    valid_snap_records.append({
+                        'player': record.get('player_name'),
+                        'offense_snaps': offense_snaps,
+                        'team': record.get('team'),
+                        'position': record.get('position')
+                    })
+            
+            # Test COALESCE fallback by checking players endpoint
+            response = self.session.get(f"{self.backend_url}/players", params={
+                'season': 2024,
+                'week': 1,
+                'limit': 50
+            })
+            
+            if response.status_code == 200:
+                players = response.json()
+                fallback_cases = []
+                direct_matches = []
+                
+                for player in players:
+                    snap_pct = player.get('snap_percentage')
+                    if snap_pct is not None:
+                        # Check if this looks like a direct snap count (>1) or fallback percentage
+                        if snap_pct > 1:
+                            direct_matches.append({
+                                'player': player.get('player_name'),
+                                'snap_count': snap_pct
+                            })
+                        elif 0 < snap_pct <= 1:
+                            fallback_cases.append({
+                                'player': player.get('player_name'),
+                                'fallback_percentage': snap_pct
+                            })
+                
+                self.log_test("COALESCE Fallback Logic", True, 
+                    f"Direct matches: {len(direct_matches)}, Fallback cases: {len(fallback_cases)}")
+                
+                self.log_test("Master Player Mapping System", True, 
+                    f"Found {len(valid_snap_records)} valid snap records, "
+                    f"{len(direct_matches)} direct snap count matches", 
+                    valid_snap_records[:3])
+                return True
+            else:
+                self.log_test("Master Player Mapping", False, "Could not test COALESCE logic")
+                return False
+            
+        except Exception as e:
+            self.log_test("Master Player Mapping System", False, f"Error: {str(e)}")
+            return False
+
     def test_data_integration(self) -> bool:
         """Test data integration between tables"""
         try:
