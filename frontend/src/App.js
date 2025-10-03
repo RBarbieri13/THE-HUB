@@ -208,11 +208,16 @@ const FantasyDashboard = () => {
           field: 'fantasy_points',
           width: 55,
           type: 'numericColumn',
-          cellRenderer: (params) => (
-            <span className="text-xs font-bold text-green-700">
-              {params.value ? params.value.toFixed(1) : '0.0'}
-            </span>
-          ),
+          valueGetter: (params) => calculateFantasyPoints(params.data),
+          cellRenderer: (params) => {
+            const points = parseFloat(params.value) || 0;
+            const colorClass = getPerformanceColor(points, 'fantasy_points', params.data.position);
+            return (
+              <span className={`text-xs font-bold ${colorClass}`}>
+                {points.toFixed(1)}
+              </span>
+            );
+          },
           sort: 'desc'
         }
       ]
