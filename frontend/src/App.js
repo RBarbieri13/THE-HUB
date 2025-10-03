@@ -93,6 +93,52 @@ const FantasyDashboard = () => {
     return colors[position] || 'bg-gray-100 text-gray-800 border-gray-200';
   };
 
+  // Calculate fantasy points based on PPR setting
+  const calculateFantasyPoints = (player) => {
+    let points = 0;
+    
+    // Passing
+    points += (player.passing_yards || 0) * 0.04;
+    points += (player.passing_tds || 0) * 4;
+    points += (player.interceptions || 0) * -1;
+    
+    // Rushing
+    points += (player.rushing_yards || 0) * 0.1;
+    points += (player.rushing_tds || 0) * 6;
+    
+    // Receiving
+    points += (player.receiving_yards || 0) * 0.1;
+    points += (player.receiving_tds || 0) * 6;
+    points += (player.receptions || 0) * (isPPR ? 1 : 0.5); // Full PPR vs Half PPR
+    
+    // Fumbles
+    points += (player.fumbles_lost || 0) * -1;
+    
+    return points.toFixed(1);
+  };
+
+  // Get performance color based on value and position
+  const getPerformanceColor = (value, type, position) => {
+    if (!value || value === 0) return 'text-gray-400';
+    
+    // Different thresholds based on stat type and position
+    const thresholds = {
+      fantasy_points: { good: 15, average: 8 },
+      snap_percentage: { good: 60, average: 30 },
+      passing_yards: { good: 250, average: 150 },
+      rushing_yards: { good: 80, average: 40 },
+      receiving_yards: { good: 80, average: 40 },
+      receptions: { good: 6, average: 3 }
+    };
+    
+    const threshold = thresholds[type];
+    if (!threshold) return 'text-gray-700';
+    
+    if (value >= threshold.good) return 'text-green-600 font-semibold';
+    if (value >= threshold.average) return 'text-yellow-600';
+    return 'text-red-500';
+  };
+
   // Column definitions for AG Grid with color-coded categories
   const columnDefs = useMemo(() => [
     {
