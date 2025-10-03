@@ -74,6 +74,13 @@ const FantasyDashboard = () => {
     minSalary: '',
     minSnaps: ''
   });
+  
+  // New state for enhanced features
+  const [isPPR, setIsPPR] = useState(true); // true = full PPR, false = half PPR
+  const [selectedPlayer, setSelectedPlayer] = useState(null);
+  const [playerDetailOpen, setPlayerDetailOpen] = useState(false);
+  const [playerDetailWidth, setPlayerDetailWidth] = useState(30); // percentage
+  const [playerGameHistory, setPlayerGameHistory] = useState([]);
 
   // Position badge colors
   const getPositionColor = (position) => {
