@@ -831,6 +831,7 @@ const FantasyDashboard = () => {
                 active={selectedPlayerType === 'te'} 
                 onClick={setSelectedPlayerType} 
               />
+              </div>
             </div>
           </CardContent>
         </Card>
