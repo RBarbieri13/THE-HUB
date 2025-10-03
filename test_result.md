@@ -248,7 +248,11 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Fix DraftKings pricing display"
+    - "PPR Scoring Toggle System"
+    - "Player Detail Panel"
+    - "Enhanced UI/UX Improvements"
+    - "Improved Data Display"
+    - "Responsive Design & Interactions"
   stuck_tasks: 
     - "Fix DraftKings pricing display"
   test_all: false
