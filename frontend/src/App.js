@@ -438,7 +438,7 @@ const FantasyDashboard = () => {
     suppressMenu: true // Remove column menu
   }), []);
 
-  // Grid options for alternating row colors and compact layout
+  // Grid options for alternating row colors and compact layout - remove checkboxes
   const gridOptions = useMemo(() => ({
     theme: 'legacy',
     rowHeight: 36,
@@ -450,7 +450,7 @@ const FantasyDashboard = () => {
         return { backgroundColor: '#ffffff' };
       }
     },
-    rowSelection: { mode: 'multiRow', enableClickSelection: false },
+    rowSelection: 'none', // Remove checkboxes
     pagination: true,
     paginationPageSize: 50,
     animateRows: true
