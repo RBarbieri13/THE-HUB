@@ -672,9 +672,9 @@ const FantasyDashboard = () => {
 
       <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-4">
 
-        {/* Enhanced Filters */}
-        <Card className="mb-4">
-          <CardContent className="p-4">
+        {/* Enhanced Filters with improved styling */}
+        <Card className="mb-4 border-0 shadow-lg bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50">
+          <CardContent className="p-6">
             {/* Top Filter Row */}
             <div className="grid grid-cols-2 md:grid-cols-6 gap-3 mb-3">
               <div className="space-y-1">
