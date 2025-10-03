@@ -151,7 +151,10 @@ const FantasyDashboard = () => {
           pinned: 'left',
           width: 140,
           cellRenderer: (params) => (
-            <div className="flex flex-col py-1">
+            <div 
+              className="flex flex-col py-1 cursor-pointer hover:bg-blue-50 rounded px-2 transition-colors"
+              onClick={() => handlePlayerClick(params.data)}
+            >
               <div className="font-medium text-gray-900 text-sm leading-tight">{params.value}</div>
               <div className="text-xs text-gray-500 leading-tight">{params.data.team}</div>
             </div>
