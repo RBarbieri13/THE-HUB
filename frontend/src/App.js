@@ -426,7 +426,7 @@ const FantasyDashboard = () => {
         }
       ]
     }
-  ], []);
+  ], [isPPR, calculateFantasyPoints, getPerformanceColor, getPositionColor, handlePlayerClick]);
 
   // Default column configuration with tighter spacing - remove filter triangles
   const defaultColDef = useMemo(() => ({
