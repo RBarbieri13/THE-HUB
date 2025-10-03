@@ -762,8 +762,39 @@ const FantasyDashboard = () => {
               </div>
             </div>
             
-            {/* Player Type Buttons */}
-            <div className="flex items-center space-x-2">
+            {/* Scoring & Display Options */}
+            <div className="flex items-center justify-between border-t pt-3 mt-3 border-gray-200">
+              <div className="flex items-center space-x-6">
+                {/* PPR Toggle */}
+                <div className="flex items-center space-x-3">
+                  <label className="text-xs font-medium text-gray-700">SCORING:</label>
+                  <div className="flex items-center bg-white rounded-lg p-1 border shadow-sm">
+                    <button
+                      onClick={() => setIsPPR(true)}
+                      className={`px-3 py-1 text-xs font-medium rounded transition-all ${
+                        isPPR 
+                          ? 'bg-blue-500 text-white shadow-sm' 
+                          : 'text-gray-600 hover:text-gray-800'
+                      }`}
+                    >
+                      Full PPR
+                    </button>
+                    <button
+                      onClick={() => setIsPPR(false)}
+                      className={`px-3 py-1 text-xs font-medium rounded transition-all ${
+                        !isPPR 
+                          ? 'bg-blue-500 text-white shadow-sm' 
+                          : 'text-gray-600 hover:text-gray-800'
+                      }`}
+                    >
+                      Half PPR
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Player Type Buttons */}
+              <div className="flex items-center space-x-2">
               <PlayerTypeButton 
                 type="all" 
                 label="All Players" 
