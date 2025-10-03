@@ -139,6 +139,43 @@ const FantasyDashboard = () => {
     return 'text-red-500';
   };
 
+  // Handle player click to open detail panel
+  const handlePlayerClick = async (player) => {
+    setSelectedPlayer(player);
+    setPlayerDetailOpen(true);
+    await fetchPlayerGameHistory(player);
+  };
+
+  // Fetch last 10 games for selected player
+  const fetchPlayerGameHistory = async (player) => {
+    try {
+      const currentWeek = filters.week === 'all' ? 18 : parseInt(filters.week);
+      const season = filters.season;
+      
+      const response = await axios.get(`${API}/players`, {
+        params: {
+          season: season,
+          limit: 50, // Get more to find last 10 games
+          player_name: player.player_name
+        }
+      });
+      
+      // Filter and sort to get last 10 games from current week backwards
+      const games = response.data
+        .filter(game => 
+          game.player_name === player.player_name && 
+          (filters.week === 'all' || game.week <= currentWeek)
+        )
+        .sort((a, b) => b.week - a.week)
+        .slice(0, 10);
+      
+      setPlayerGameHistory(games);
+    } catch (error) {
+      console.error('Error fetching player game history:', error);
+      setPlayerGameHistory([]);
+    }
+  };
+
   // Column definitions for AG Grid with color-coded categories
   const columnDefs = useMemo(() => [
     {
