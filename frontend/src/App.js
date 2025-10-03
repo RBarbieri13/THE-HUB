@@ -836,54 +836,153 @@ const FantasyDashboard = () => {
           </CardContent>
         </Card>
 
-        {/* Enhanced Data Grid */}
-        <Card>
-          <CardHeader className="pb-2">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <CardTitle className="text-base font-semibold">Player Statistics</CardTitle>
-                <Badge variant="outline" className="text-xs px-2 py-0.5">
-                  {players.length} players
-                </Badge>
-                {summary && summary.snap_coverage && summary.snap_coverage.length > 0 && (
-                  <Badge variant="secondary" className="text-xs px-2 py-0.5">
-                    Snap Data: {summary.snap_coverage.map(s => `${s.season}`).join(', ')}
+        {/* Enhanced Data Grid with Sliding Panel */}
+        <div className="flex gap-4 relative">
+          {/* Main Grid Area */}
+          <Card 
+            className="transition-all duration-300 ease-in-out" 
+            style={{ 
+              width: playerDetailOpen ? `${100 - playerDetailWidth}%` : '100%' 
+            }}
+          >
+            <CardHeader className="pb-2">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <CardTitle className="text-base font-semibold">Player Statistics</CardTitle>
+                  <Badge variant="outline" className="text-xs px-2 py-0.5">
+                    {players.length} players
                   </Badge>
-                )}
+                  {summary && summary.snap_coverage && summary.snap_coverage.length > 0 && (
+                    <Badge variant="secondary" className="text-xs px-2 py-0.5">
+                      Snap Data: {summary.snap_coverage.map(s => `${s.season}`).join(', ')}
+                    </Badge>
+                  )}
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Button size="sm" variant="outline" className="text-xs h-8">
+                    <Star className="h-3 w-3 mr-1" />
+                    Favorites
+                  </Button>
+                  <Button size="sm" variant="outline" className="text-xs h-8">
+                    <BarChart3 className="h-3 w-3 mr-1" />
+                    Compare
+                  </Button>
+                  <Button size="sm" variant="outline" className="text-xs h-8">
+                    <Filter className="h-3 w-3 mr-1" />
+                    Advanced
+                  </Button>
+                </div>
               </div>
-              <div className="flex items-center space-x-2">
-                <Button size="sm" variant="outline" className="text-xs h-8">
-                  <Star className="h-3 w-3 mr-1" />
-                  Favorites
-                </Button>
-                <Button size="sm" variant="outline" className="text-xs h-8">
-                  <BarChart3 className="h-3 w-3 mr-1" />
-                  Compare
-                </Button>
-                <Button size="sm" variant="outline" className="text-xs h-8">
-                  <Filter className="h-3 w-3 mr-1" />
-                  Advanced
-                </Button>
+              <CardDescription className="text-xs">
+                Comprehensive NFL player statistics with {isPPR ? 'Full' : 'Half'} PPR fantasy scoring, snap counts, and cached historical pricing
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="ag-theme-alpine compact-grid color-coded-headers" style={{ height: '600px', width: '100%' }}>
+                <AgGridReact
+                  columnDefs={columnDefs}
+                  rowData={players}
+                  defaultColDef={defaultColDef}
+                  gridOptions={gridOptions}
+                  onGridReady={onGridReady}
+                  loading={loading}
+                  data-testid="player-stats-grid"
+                />
               </div>
-            </div>
-            <CardDescription className="text-xs">
-              Comprehensive NFL player statistics with DraftKings PPR fantasy scoring, snap counts, and cached historical pricing
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="p-0">
-            <div className="ag-theme-alpine compact-grid color-coded-headers" style={{ height: '600px', width: '100%' }}>
-              <AgGridReact
-                columnDefs={columnDefs}
-                rowData={players}
-                defaultColDef={defaultColDef}
-                gridOptions={gridOptions}
-                onGridReady={onGridReady}
-                loading={loading}
-                data-testid="player-stats-grid"
-              />
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+
+          {/* Player Detail Panel */}
+          {playerDetailOpen && (
+            <Card 
+              className="transition-all duration-300 ease-in-out border-l-4 border-blue-500 shadow-xl"
+              style={{ width: `${playerDetailWidth}%` }}
+            >
+              <CardHeader className="pb-2 bg-gradient-to-r from-blue-50 to-indigo-50">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <CardTitle className="text-base font-semibold">
+                      {selectedPlayer?.player_name}
+                    </CardTitle>
+                    <Badge className={`text-xs px-2 py-0.5 font-medium border ${getPositionColor(selectedPlayer?.position)}`}>
+                      {selectedPlayer?.position}
+                    </Badge>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Button 
+                      size="sm" 
+                      variant="outline" 
+                      className="text-xs h-7 w-7 p-0"
+                      onClick={() => setPlayerDetailWidth(playerDetailWidth === 30 ? 40 : 30)}
+                    >
+                      {playerDetailWidth === 30 ? '→' : '←'}
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      variant="outline" 
+                      className="text-xs h-7 w-7 p-0"
+                      onClick={() => setPlayerDetailOpen(false)}
+                    >
+                      ×
+                    </Button>
+                  </div>
+                </div>
+                <CardDescription className="text-xs">
+                  {selectedPlayer?.team} • Last 10 games from {filters.week === 'all' ? 'current season' : `Week ${filters.week}`} backwards
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-4 overflow-y-auto" style={{ height: '550px' }}>
+                {/* Player Stats Summary */}
+                <div className="mb-4 p-3 bg-gray-50 rounded-lg">
+                  <h4 className="text-sm font-semibold mb-2">Season Averages</h4>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div>Fantasy Pts: <span className="font-semibold text-green-600">{calculateFantasyPoints(selectedPlayer || {})}</span></div>
+                    <div>Snap Count: <span className="font-semibold text-indigo-600">{selectedPlayer?.snap_percentage || 0}</span></div>
+                  </div>
+                </div>
+                
+                {/* Game History */}
+                <div>
+                  <h4 className="text-sm font-semibold mb-2">Recent Games</h4>
+                  <div className="space-y-2">
+                    {playerGameHistory.length > 0 ? (
+                      playerGameHistory.map((game, index) => (
+                        <div key={index} className="p-3 bg-white border rounded-lg hover:shadow-md transition-shadow">
+                          <div className="flex justify-between items-center mb-1">
+                            <span className="text-xs font-medium">Week {game.week} vs {game.opponent}</span>
+                            <span className={`text-xs font-bold ${getPerformanceColor(calculateFantasyPoints(game), 'fantasy_points', game.position)}`}>
+                              {calculateFantasyPoints(game)} pts
+                            </span>
+                          </div>
+                          <div className="grid grid-cols-3 gap-1 text-xs text-gray-600">
+                            {game.position === 'QB' && (
+                              <>
+                                <div>{game.passing_yards || 0} pass yds</div>
+                                <div>{game.passing_tds || 0} pass TD</div>
+                                <div>{game.interceptions || 0} INT</div>
+                              </>
+                            )}
+                            {(game.position === 'RB' || game.position === 'WR' || game.position === 'TE') && (
+                              <>
+                                <div>{game.receiving_yards || 0} rec yds</div>
+                                <div>{game.receptions || 0} rec</div>
+                                <div>{game.rushing_yards || 0} rush yds</div>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="text-center text-gray-500 py-8">
+                        <div className="text-sm">Loading game history...</div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </div>
       </div>
     </div>
   );
