@@ -428,13 +428,14 @@ const FantasyDashboard = () => {
     }
   ], []);
 
-  // Default column configuration with tighter spacing
+  // Default column configuration with tighter spacing - remove filter triangles
   const defaultColDef = useMemo(() => ({
     sortable: true,
-    filter: true,
+    filter: false, // Remove filter triangles
     resizable: true,
     minWidth: 40,
-    cellStyle: { padding: '4px 6px' }
+    cellStyle: { padding: '4px 6px' },
+    suppressMenu: true // Remove column menu
   }), []);
 
   // Grid options for alternating row colors and compact layout
