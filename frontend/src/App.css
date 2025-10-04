@@ -523,3 +523,204 @@ body {
 .category-fantasy {
   background-color: #ec4899;
 }
+
+/* Professional Grid Enhancements */
+.professional-grid {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.professional-grid .ag-header {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-bottom: 2px solid #e2e8f0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.professional-grid .ag-header-cell {
+  border-right: 1px solid #cbd5e1;
+  padding: 8px 12px;
+}
+
+.professional-grid .ag-row {
+  border-bottom: 1px solid #f1f5f9;
+  transition: all 0.2s ease;
+}
+
+.professional-grid .ag-row:hover {
+  background-color: #f8fafc !important;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+  transform: translateY(-1px);
+}
+
+.professional-grid .ag-cell {
+  border-right: 1px solid #f1f5f9;
+  padding: 6px 12px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* Enhanced Category Header Colors with Textures */
+.player-header {
+  background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.player-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 25%, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.1) 50%, transparent 50%, transparent 75%, rgba(255,255,255,0.1) 75%);
+  background-size: 4px 4px;
+}
+
+.info-header {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.info-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.2), transparent 50%);
+}
+
+.usage-header {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.usage-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(-45deg, transparent 25%, rgba(255,255,255,0.08) 25%, rgba(255,255,255,0.08) 50%, transparent 50%, transparent 75%, rgba(255,255,255,0.08) 75%);
+  background-size: 6px 6px;
+}
+
+.rushing-header {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.rushing-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px);
+}
+
+.receiving-header {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.receiving-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at top, rgba(255,255,255,0.15), transparent 50%);
+}
+
+.passing-header {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.passing-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 25%, rgba(255,255,255,0.1) 50%, transparent 75%);
+  background-size: 8px 100%;
+}
+
+.fantasy-header {
+  background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.fantasy-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: conic-gradient(from 45deg, transparent 0deg, rgba(255,255,255,0.1) 90deg, transparent 180deg);
+  background-size: 12px 12px;
+}
+
+/* Enhanced Data Readability */
+.professional-grid .ag-cell-value {
+  font-weight: 500;
+  color: #374151;
+}
+
+.professional-grid .ag-pinned-left-header {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  color: white;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.professional-grid .ag-pinned-left-cols-container {
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+
+/* Improved Number Formatting */
+.performance-excellent { color: #059669 !important; font-weight: 700; }
+.performance-good { color: #10b981 !important; font-weight: 600; }
+.performance-average { color: #f59e0b !important; font-weight: 500; }
+.performance-poor { color: #dc2626 !important; font-weight: 500; }
+
+/* Professional Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.professional-grid .ag-row {
+  animation: fadeInUp 0.3s ease-out;
+}
