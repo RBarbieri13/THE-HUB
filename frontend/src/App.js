@@ -1085,6 +1085,7 @@ const FantasyDashboard = () => {
               </CardContent>
             </Card>
           )}
+          </div>
         </div>
       </div>
     </div>
