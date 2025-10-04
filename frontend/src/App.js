@@ -81,6 +81,8 @@ const FantasyDashboard = () => {
   const [playerDetailOpen, setPlayerDetailOpen] = useState(false);
   const [playerDetailWidth, setPlayerDetailWidth] = useState(30); // percentage
   const [playerGameHistory, setPlayerGameHistory] = useState([]);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarWidth, setSidebarWidth] = useState(280); // pixels
 
   // Position badge colors
   const getPositionColor = (position) => {
