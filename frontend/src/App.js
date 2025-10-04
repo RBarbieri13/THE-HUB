@@ -388,40 +388,14 @@ const FantasyDashboard = () => {
       headerClass: 'fantasy-header',
       children: [
         {
-          headerName: 'DK',
+          headerName: 'DK $',
           field: 'dk_salary',
-          width: 60,
+          width: 65,
           type: 'numericColumn',
           cellRenderer: (params) => (
             <span className="text-xs font-medium text-green-600">
-              {params.value || '-'}
+              {params.value ? `$${params.value.toLocaleString()}` : '-'}
             </span>
-          )
-        },
-        {
-          headerName: 'Proj',
-          field: 'projected_points',
-          width: 50,
-          type: 'numericColumn',
-          valueGetter: (params) => {
-            const current = params.data.fantasy_points || 0;
-            return current > 0 ? (current * (0.9 + Math.random() * 0.2)).toFixed(1) : '-';
-          },
-          cellRenderer: (params) => (
-            <span className="text-xs">{params.value}</span>
-          )
-        },
-        {
-          headerName: 'Val',
-          field: 'value',
-          width: 45,
-          type: 'numericColumn',
-          valueGetter: (params) => {
-            const points = params.data.fantasy_points || 0;
-            return points > 15 ? (points * (0.8 + Math.random() * 0.4)).toFixed(1) : '-';
-          },
-          cellRenderer: (params) => (
-            <span className="text-xs">{params.value}</span>
           )
         }
       ]
