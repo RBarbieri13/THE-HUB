@@ -914,60 +914,86 @@ const FantasyDashboard = () => {
         <div className="flex-1 p-6 overflow-hidden">
 
           {/* Professional Data Grid with Enhanced Styling */}
-        <div className="flex gap-4 relative">
-          {/* Main Grid Area */}
-          <Card 
-            className="transition-all duration-300 ease-in-out" 
-            style={{ 
-              width: playerDetailOpen ? `${100 - playerDetailWidth}%` : '100%' 
-            }}
-          >
-            <CardHeader className="pb-2">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <CardTitle className="text-base font-semibold">Player Statistics</CardTitle>
-                  <Badge variant="outline" className="text-xs px-2 py-0.5">
-                    {players.length} players
-                  </Badge>
-                  {summary && summary.snap_coverage && summary.snap_coverage.length > 0 && (
-                    <Badge variant="secondary" className="text-xs px-2 py-0.5">
-                      Snap Data: {summary.snap_coverage.map(s => `${s.season}`).join(', ')}
-                    </Badge>
-                  )}
+          <div className="flex gap-6 relative">
+            {/* Main Analytics Grid */}
+            <Card 
+              className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm transition-all duration-300 ease-in-out" 
+              style={{ 
+                width: playerDetailOpen ? `${100 - playerDetailWidth}%` : '100%',
+                background: 'linear-gradient(145deg, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%)'
+              }}
+            >
+              <CardHeader className="pb-3 bg-gradient-to-r from-slate-50 via-blue-50 to-indigo-50 border-b border-gray-200">
+                {/* Enhanced Header with Professional Styling */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg shadow-lg">
+                        <BarChart3 className="h-5 w-5 text-white" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-xl font-bold text-gray-900 tracking-tight">
+                          Player Analytics Dashboard
+                        </CardTitle>
+                        <CardDescription className="text-sm text-gray-600 mt-1">
+                          {isPPR ? 'Full' : 'Half'} PPR Scoring • Season {filters.season} 
+                          {filters.week !== 'all' ? ` • Week ${filters.week}` : ' • All Weeks'}
+                        </CardDescription>
+                      </div>
+                    </div>
+                    
+                    {/* Stats Badges */}
+                    <div className="hidden md:flex items-center space-x-2">
+                      <Badge className="bg-blue-100 text-blue-800 border-blue-300 text-xs px-3 py-1 font-semibold">
+                        {players.length.toLocaleString()} Players
+                      </Badge>
+                      {summary && summary.snap_coverage && summary.snap_coverage.length > 0 && (
+                        <Badge className="bg-green-100 text-green-800 border-green-300 text-xs px-3 py-1 font-semibold">
+                          Snap Data: {summary.snap_coverage.map(s => s.season).join(', ')}
+                        </Badge>
+                      )}
+                      <Badge className="bg-purple-100 text-purple-800 border-purple-300 text-xs px-3 py-1 font-semibold">
+                        {isPPR ? '1.0' : '0.5'} PPR
+                      </Badge>
+                    </div>
+                  </div>
+                  
+                  {/* Action Buttons */}
+                  <div className="flex items-center space-x-2">
+                    <Button size="sm" className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white border-0 shadow-lg text-xs h-9 px-4">
+                      <Star className="h-3 w-3 mr-2" />
+                      Favorites
+                    </Button>
+                    <Button size="sm" className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white border-0 shadow-lg text-xs h-9 px-4">
+                      <Download className="h-3 w-3 mr-2" />
+                      Export
+                    </Button>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Button size="sm" variant="outline" className="text-xs h-8">
-                    <Star className="h-3 w-3 mr-1" />
-                    Favorites
-                  </Button>
-                  <Button size="sm" variant="outline" className="text-xs h-8">
-                    <BarChart3 className="h-3 w-3 mr-1" />
-                    Compare
-                  </Button>
-                  <Button size="sm" variant="outline" className="text-xs h-8">
-                    <Filter className="h-3 w-3 mr-1" />
-                    Advanced
-                  </Button>
+              </CardHeader>
+              
+              <CardContent className="p-0">
+                {/* Professional Grid with Enhanced Visual Hierarchy */}
+                <div 
+                  className="ag-theme-alpine compact-grid color-coded-headers professional-grid"
+                  style={{ 
+                    height: '650px', 
+                    width: '100%',
+                    background: 'linear-gradient(180deg, #ffffff 0%, #fafbfc 100%)'
+                  }}
+                >
+                  <AgGridReact
+                    columnDefs={columnDefs}
+                    rowData={players}
+                    defaultColDef={defaultColDef}
+                    gridOptions={gridOptions}
+                    onGridReady={onGridReady}
+                    loading={loading}
+                    data-testid="player-stats-grid"
+                  />
                 </div>
-              </div>
-              <CardDescription className="text-xs">
-                Comprehensive NFL player statistics with {isPPR ? 'Full' : 'Half'} PPR fantasy scoring, snap counts, and cached historical pricing
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-0">
-              <div className="ag-theme-alpine compact-grid color-coded-headers" style={{ height: '600px', width: '100%' }}>
-                <AgGridReact
-                  columnDefs={columnDefs}
-                  rowData={players}
-                  defaultColDef={defaultColDef}
-                  gridOptions={gridOptions}
-                  onGridReady={onGridReady}
-                  loading={loading}
-                  data-testid="player-stats-grid"
-                />
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
 
           {/* Player Detail Panel */}
           {playerDetailOpen && (
