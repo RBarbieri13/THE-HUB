@@ -275,11 +275,12 @@ metadata:
 
 test_plan:
   current_focus:
-    - "All major enhancements tested and verified working"
+    - "Fix game data display - LA team ambiguity"
   stuck_tasks: 
     - "Fix DraftKings pricing display"
+    - "Fix game data display - LA team ambiguity"
   test_all: false
-  test_priority: "completed"
+  test_priority: "high_first"
 
 agent_communication:
   - agent: "main"
