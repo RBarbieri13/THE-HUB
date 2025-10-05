@@ -221,14 +221,33 @@ const FantasyDashboard = () => {
       headerName: 'Player',
       field: 'player_name',
       pinned: 'left',
-      width: 120,
+      width: 140,
       headerClass: 'ag-header-cell-text',
       cellRenderer: (params) => (
-        <div 
-          className="cursor-pointer hover:bg-blue-50 py-2 px-3 transition-colors"
-          onClick={() => handlePlayerClick(params.data)}
-        >
-          <div className="font-medium text-gray-900 text-sm">{params.value}</div>
+        <div className="flex items-center justify-between py-2 px-3 group">
+          <div 
+            className="cursor-pointer hover:text-blue-600 transition-colors flex-1"
+            onClick={() => handlePlayerClick(params.data)}
+          >
+            <div className="font-medium text-gray-900 text-sm">{params.value}</div>
+          </div>
+          <Button
+            size="sm"
+            variant="ghost"
+            className="opacity-0 group-hover:opacity-100 transition-opacity p-1 h-6 w-6"
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleFavorite(params.data.player_id);
+            }}
+          >
+            <Heart 
+              className={`h-3 w-3 ${
+                favorites.includes(params.data.player_id) 
+                  ? 'fill-red-500 text-red-500' 
+                  : 'text-gray-400 hover:text-red-500'
+              }`} 
+            />
+          </Button>
         </div>
       )
     },
