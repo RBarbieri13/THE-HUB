@@ -986,6 +986,7 @@ const FantasyDashboard = () => {
                             <SelectValue placeholder="Week 1" />
                           </SelectTrigger>
                           <SelectContent>
+                            <SelectItem value="all">All Weeks</SelectItem>
                             {Array.from({length: 18}, (_, i) => (
                               <SelectItem key={i + 1} value={(i + 1).toString()}>
                                 Week {i + 1}
