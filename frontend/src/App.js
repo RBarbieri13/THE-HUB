@@ -1100,16 +1100,49 @@ const FantasyDashboard = () => {
                       </div>
                     </div>
                     
-                    {/* Search Input */}
-                    <div className="relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                      <Input
-                        type="text"
-                        placeholder="Search players, teams, positions..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="pl-10 pr-4 py-2 w-80 text-sm border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      />
+                    {/* Search Input with Stats */}
+                    <div className="flex items-center space-x-4">
+                      {/* Quick Stats */}
+                      <div className="flex items-center space-x-3">
+                        <Badge variant="outline" className="text-xs px-2 py-1">
+                          <Eye className="h-3 w-3 mr-1" />
+                          {filteredPlayers.length.toLocaleString()} players
+                        </Badge>
+                        {favorites.length > 0 && (
+                          <Badge variant="outline" className="text-xs px-2 py-1 bg-red-50 text-red-700 border-red-200">
+                            <Heart className="h-3 w-3 mr-1" />
+                            {favorites.length} favorites
+                          </Badge>
+                        )}
+                        {lastUpdated && (
+                          <Badge variant="outline" className="text-xs px-2 py-1 bg-green-50 text-green-700 border-green-200">
+                            <Zap className="h-3 w-3 mr-1" />
+                            Updated {new Date(lastUpdated).toLocaleTimeString()}
+                          </Badge>
+                        )}
+                      </div>
+                      
+                      {/* Search Input */}
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                        <Input
+                          type="text"
+                          placeholder="Search players, teams, positions... (⌘K)"
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                          className="pl-10 pr-4 py-2 w-80 text-sm border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        />
+                        {searchTerm && (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0"
+                            onClick={() => setSearchTerm('')}
+                          >
+                            ×
+                          </Button>
+                        )}
+                      </div>
                     </div>
                   </div>
                   
