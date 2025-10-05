@@ -336,7 +336,7 @@ const FantasyDashboard = () => {
       headerClass: 'receiving-header',
       children: [
         {
-          headerName: 'Tgt',
+          headerName: 'TGT',
           field: 'targets',
           width: 45,
           type: 'numericColumn',
@@ -345,7 +345,7 @@ const FantasyDashboard = () => {
           )
         },
         {
-          headerName: 'Rec',
+          headerName: 'REC',
           field: 'receptions',
           width: 45,
           type: 'numericColumn',
