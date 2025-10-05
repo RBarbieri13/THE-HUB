@@ -1,41 +1,279 @@
 {
-  "total_tests": 25,
-  "passed": 23,
-  "failed": 2,
+  "total_tests": 46,
+  "passed": 29,
+  "failed": 17,
   "results": [
     {
       "test_name": "API Health Check",
       "success": true,
       "details": "API is responding: Fantasy Football Database API",
-      "timestamp": "2025-10-02T04:58:47.600529",
+      "timestamp": "2025-10-05T21:46:00.034822",
       "data": null
     },
     {
       "test_name": "Stats Summary",
       "success": true,
-      "details": "Database contains 13622 player stats, 14450 snap records, 0 pricing records",
-      "timestamp": "2025-10-02T04:58:47.614374",
+      "details": "Database contains 13645 player stats, 14472 snap records, 0 pricing records",
+      "timestamp": "2025-10-05T21:46:00.049848",
+      "data": null
+    },
+    {
+      "test_name": "Game Data 2024 Week 1",
+      "success": false,
+      "details": "Valid games: 47, BYE weeks: 0, Issues: 3, Mock data: 0",
+      "timestamp": "2025-10-05T21:46:00.166025",
+      "data": null
+    },
+    {
+      "test_name": "Game Data 2024 Week 4",
+      "success": false,
+      "details": "Valid games: 96, BYE weeks: 0, Issues: 4, Mock data: 0",
+      "timestamp": "2025-10-05T21:46:00.282592",
+      "data": null
+    },
+    {
+      "test_name": "Game Data 2024 Week 8",
+      "success": false,
+      "details": "Valid games: 144, BYE weeks: 0, Issues: 6, Mock data: 0",
+      "timestamp": "2025-10-05T21:46:00.402424",
+      "data": null
+    },
+    {
+      "test_name": "Game Data 2025 Week 1",
+      "success": false,
+      "details": "Valid games: 194, BYE weeks: 0, Issues: 6, Mock data: 0",
+      "timestamp": "2025-10-05T21:46:00.522173",
+      "data": null
+    },
+    {
+      "test_name": "Game Data 2025 Week 4",
+      "success": false,
+      "details": "Valid games: 243, BYE weeks: 0, Issues: 7, Mock data: 0",
+      "timestamp": "2025-10-05T21:46:00.641768",
+      "data": null
+    },
+    {
+      "test_name": "Mock Data Detection",
+      "success": true,
+      "details": "No mock score data (W 21-14, L 14-21) found",
+      "timestamp": "2025-10-05T21:46:00.641794",
+      "data": null
+    },
+    {
+      "test_name": "Game Format Validation",
+      "success": true,
+      "details": "Found 243 valid TEAM vs OPPONENT formats",
+      "timestamp": "2025-10-05T21:46:00.641799",
+      "data": [
+        {
+          "player": "Saquon Barkley",
+          "team": "PHI",
+          "opponent": "GB",
+          "week": 1,
+          "season": 2024,
+          "game_format": "PHI vs GB"
+        },
+        {
+          "player": "Jayden Reed",
+          "team": "GB",
+          "opponent": "PHI",
+          "week": 1,
+          "season": 2024,
+          "game_format": "GB vs PHI"
+        },
+        {
+          "player": "Cooper Kupp",
+          "team": "LA",
+          "opponent": "DET",
+          "week": 1,
+          "season": 2024,
+          "game_format": "LA vs DET"
+        },
+        {
+          "player": "Josh Allen",
+          "team": "BUF",
+          "opponent": "ARI",
+          "week": 1,
+          "season": 2024,
+          "game_format": "BUF vs ARI"
+        },
+        {
+          "player": "Baker Mayfield",
+          "team": "TB",
+          "opponent": "WAS",
+          "week": 1,
+          "season": 2024,
+          "game_format": "TB vs WAS"
+        }
+      ]
+    },
+    {
+      "test_name": "Game Data Issues",
+      "success": false,
+      "details": "Found 7 game data issues",
+      "timestamp": "2025-10-05T21:46:00.641803",
+      "data": [
+        {
+          "player": "Jameson Williams",
+          "team": "DET",
+          "opponent": "LA",
+          "week": 1,
+          "season": 2024,
+          "issue": "Invalid opponent format"
+        },
+        {
+          "player": "Jahmyr Gibbs",
+          "team": "DET",
+          "opponent": "LA",
+          "week": 1,
+          "season": 2024,
+          "issue": "Invalid opponent format"
+        },
+        {
+          "player": "David Montgomery",
+          "team": "DET",
+          "opponent": "LA",
+          "week": 1,
+          "season": 2024,
+          "issue": "Invalid opponent format"
+        },
+        {
+          "player": "D'Andre Swift",
+          "team": "CHI",
+          "opponent": "LA",
+          "week": 4,
+          "season": 2024,
+          "issue": "Invalid opponent format"
+        },
+        {
+          "player": "Justin Jefferson",
+          "team": "MIN",
+          "opponent": "LA",
+          "week": 8,
+          "season": 2024,
+          "issue": "Invalid opponent format"
+        }
+      ]
+    },
+    {
+      "test_name": "Game Data Display Overall",
+      "success": false,
+      "details": "Total valid games: 243, BYE weeks: 0, Issues: 7",
+      "timestamp": "2025-10-05T21:46:00.641874",
+      "data": null
+    },
+    {
+      "test_name": "Filter Combo 1",
+      "success": true,
+      "details": "Filters: {'season': 2024, 'week': 1, 'position': 'QB', 'team': 'KC'}, Players: 1, Violations: 0, Format issues: 0",
+      "timestamp": "2025-10-05T21:46:00.654061",
+      "data": null
+    },
+    {
+      "test_name": "Filter Combo 2",
+      "success": false,
+      "details": "Filters: {'season': 2024, 'week': 4, 'position': 'RB'}, Players: 87, Violations: 0, Format issues: 23",
+      "timestamp": "2025-10-05T21:46:00.708476",
+      "data": null
+    },
+    {
+      "test_name": "Filter Combo 2 Game Format Issues",
+      "success": false,
+      "details": "Found 23 game format issues",
+      "timestamp": "2025-10-05T21:46:00.708496",
+      "data": [
+        "Invalid opponent format: LA for D'Andre Swift",
+        "Invalid opponent format: NE for Jordan Mason",
+        "Invalid opponent format: GB for Aaron Jones"
+      ]
+    },
+    {
+      "test_name": "Filter Combo 3",
+      "success": true,
+      "details": "Filters: {'season': 2025, 'week': 1, 'position': 'WR', 'team': 'BUF'}, Players: 4, Violations: 0, Format issues: 0",
+      "timestamp": "2025-10-05T21:46:00.720431",
+      "data": null
+    },
+    {
+      "test_name": "Filter Combo 4",
+      "success": false,
+      "details": "Filters: {'season': 2025, 'week': 4, 'position': 'TE'}, Players: 79, Violations: 0, Format issues: 20",
+      "timestamp": "2025-10-05T21:46:00.767254",
+      "data": null
+    },
+    {
+      "test_name": "Filter Combo 4 Game Format Issues",
+      "success": false,
+      "details": "Found 20 game format issues",
+      "timestamp": "2025-10-05T21:46:00.767273",
+      "data": [
+        "Invalid opponent format: TB for Dallas Goedert",
+        "Invalid opponent format: LA for Tyler Warren",
+        "Invalid opponent format: GB for Jake Ferguson"
+      ]
+    },
+    {
+      "test_name": "Filter Combo 5",
+      "success": false,
+      "details": "Filters: {'season': 2024, 'position': 'QB'}, Players: 500, Violations: 0, Format issues: 130",
+      "timestamp": "2025-10-05T21:46:00.947625",
+      "data": null
+    },
+    {
+      "test_name": "Filter Combo 5 Game Format Issues",
+      "success": false,
+      "details": "Found 130 game format issues",
+      "timestamp": "2025-10-05T21:46:00.947651",
+      "data": [
+        "Invalid opponent format: LA for Josh Allen",
+        "Invalid opponent format: TB for Lamar Jackson",
+        "Invalid opponent format: TB for Kirk Cousins"
+      ]
+    },
+    {
+      "test_name": "Filter Combo 6",
+      "success": false,
+      "details": "Filters: {'season': 2025, 'week': 2}, Players: 350, Violations: 0, Format issues: 81",
+      "timestamp": "2025-10-05T21:46:01.067704",
+      "data": null
+    },
+    {
+      "test_name": "Filter Combo 6 Game Format Issues",
+      "success": false,
+      "details": "Found 81 game format issues",
+      "timestamp": "2025-10-05T21:46:01.067731",
+      "data": [
+        "Invalid opponent format: NE for De'Von Achane",
+        "Invalid opponent format: NO for Christian McCaffrey",
+        "Invalid opponent format: NO for Mac Jones"
+      ]
+    },
+    {
+      "test_name": "Week Information Accuracy",
+      "success": true,
+      "details": "Valid week data: 280, Accuracy issues: 0",
+      "timestamp": "2025-10-05T21:46:02.663156",
       "data": null
     },
     {
       "test_name": "Chris Godwin Name Matching",
       "success": true,
       "details": "Chris Godwin snap data: 72",
-      "timestamp": "2025-10-02T04:58:48.119460",
+      "timestamp": "2025-10-05T21:46:03.746029",
       "data": null
     },
     {
       "test_name": "Enhanced Name Matching System",
       "success": true,
       "details": "Match rate: 92.0% (92/100). Jr/Sr examples: 4, Punctuation examples: 5",
-      "timestamp": "2025-10-02T04:58:48.119488",
+      "timestamp": "2025-10-05T21:46:03.746059",
       "data": null
     },
     {
       "test_name": "Jr/Sr Suffix Matching",
       "success": true,
       "details": "4/4 Jr/Sr players have snap data",
-      "timestamp": "2025-10-02T04:58:48.119494",
+      "timestamp": "2025-10-05T21:46:03.746066",
       "data": [
         {
           "name": "Chris Godwin Jr.",
@@ -58,7 +296,7 @@
       "test_name": "Punctuation Matching",
       "success": true,
       "details": "5/5 punctuation players have snap data",
-      "timestamp": "2025-10-02T04:58:48.119498",
+      "timestamp": "2025-10-05T21:46:03.746071",
       "data": [
         {
           "name": "Amon-Ra St. Brown",
@@ -81,84 +319,91 @@
       "test_name": "Snap Count Fix 2024 Week 1",
       "success": true,
       "details": "Found 50 players with numerical snap counts",
-      "timestamp": "2025-10-02T04:58:48.228375",
+      "timestamp": "2025-10-05T21:46:03.852982",
       "data": null
     },
     {
       "test_name": "Snap Count Fix 2024 Week 2",
       "success": true,
       "details": "Found 50 players with numerical snap counts",
-      "timestamp": "2025-10-02T04:58:48.344967",
+      "timestamp": "2025-10-05T21:46:03.960615",
       "data": null
     },
     {
       "test_name": "Snap Count Fix 2024 Week 3",
       "success": true,
       "details": "Found 50 players with numerical snap counts",
-      "timestamp": "2025-10-02T04:58:48.460881",
+      "timestamp": "2025-10-05T21:46:04.075767",
       "data": null
     },
     {
       "test_name": "Snap Count Fix 2024 Week 4",
       "success": true,
       "details": "Found 50 players with numerical snap counts",
-      "timestamp": "2025-10-02T04:58:48.574074",
+      "timestamp": "2025-10-05T21:46:04.181439",
       "data": null
     },
     {
       "test_name": "Snap Count Fix 2024 Week 5",
       "success": true,
       "details": "Found 50 players with numerical snap counts",
-      "timestamp": "2025-10-02T04:58:48.676775",
+      "timestamp": "2025-10-05T21:46:04.283937",
       "data": null
     },
     {
       "test_name": "Snap Count Fix 2025 Week 1",
       "success": true,
       "details": "Found 50 players with numerical snap counts",
-      "timestamp": "2025-10-02T04:58:48.797392",
+      "timestamp": "2025-10-05T21:46:04.395418",
       "data": null
     },
     {
       "test_name": "Snap Count Fix 2025 Week 2",
       "success": true,
       "details": "Found 50 players with numerical snap counts",
-      "timestamp": "2025-10-02T04:58:48.911537",
+      "timestamp": "2025-10-05T21:46:04.505098",
       "data": null
     },
     {
       "test_name": "Snap Count Fix 2025 Week 3",
       "success": true,
       "details": "Found 50 players with numerical snap counts",
-      "timestamp": "2025-10-02T04:58:49.027597",
+      "timestamp": "2025-10-05T21:46:04.623044",
       "data": null
     },
     {
       "test_name": "Snap Count Fix 2025 Week 4",
       "success": true,
       "details": "Found 50 players with numerical snap counts",
-      "timestamp": "2025-10-02T04:58:49.146619",
+      "timestamp": "2025-10-05T21:46:04.743329",
+      "data": null
+    },
+    {
+      "test_name": "Snap Count Fix 2025 Week 5",
+      "success": true,
+      "details": "Found 21 players with numerical snap counts",
+      "timestamp": "2025-10-05T21:46:04.768344",
       "data": null
     },
     {
       "test_name": "Snap Count System Overall",
       "success": true,
-      "details": "SUCCESS: 450 players have numerical snap counts. Examples: [{'player': 'Saquon Barkley', 'snap_count': 61, 'position': 'RB', 'team': 'PHI'}, {'player': 'Jayden Reed', 'snap_count': 48, 'position': 'WR', 'team': 'GB'}, {'player': 'Cooper Kupp', 'snap_count': 78, 'position': 'WR', 'team': 'LA'}, {'player': 'Josh Allen', 'snap_count': 62, 'position': 'QB', 'team': 'BUF'}, {'player': 'Baker Mayfield', 'snap_count': 62, 'position': 'QB', 'team': 'TB'}]",
-      "timestamp": "2025-10-02T04:58:49.155609",
+      "details": "SUCCESS: 471 players have numerical snap counts. Examples: [{'player': 'Saquon Barkley', 'snap_count': 61, 'position': 'RB', 'team': 'PHI'}, {'player': 'Jayden Reed', 'snap_count': 48, 'position': 'WR', 'team': 'GB'}, {'player': 'Cooper Kupp', 'snap_count': 78, 'position': 'WR', 'team': 'LA'}, {'player': 'Josh Allen', 'snap_count': 62, 'position': 'QB', 'team': 'BUF'}, {'player': 'Baker Mayfield', 'snap_count': 62, 'position': 'QB', 'team': 'TB'}]",
+      "timestamp": "2025-10-05T21:46:04.768377",
       "data": null
     },
     {
       "test_name": "COALESCE Fallback Logic",
       "success": true,
       "details": "Direct matches: 50, Fallback cases: 0",
-      "timestamp": "2025-10-02T04:58:49.279062",
+      "timestamp": "2025-10-05T21:46:04.895080",
       "data": null
     },
     {
       "test_name": "Master Player Mapping System",
       "success": true,
       "details": "Found 50 valid snap records, 50 direct snap count matches",
-      "timestamp": "2025-10-02T04:58:49.279085",
+      "timestamp": "2025-10-05T21:46:04.895103",
       "data": [
         {
           "player": "Josh Allen",
@@ -184,14 +429,14 @@
       "test_name": "DraftKings Existing Data",
       "success": false,
       "details": "Found 0 existing pricing records",
-      "timestamp": "2025-10-02T04:58:49.326624",
+      "timestamp": "2025-10-05T21:46:04.943709",
       "data": null
     },
     {
       "test_name": "DraftKings Pricing Load",
       "success": false,
       "details": "No records loaded. Errors: ['No data for season 2024, week 1: 404 Client Error: Not Found for url: https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getDFSsalaries?week=1&season=2024&site=draftkings', 'No data for season 2024, week 2: 404 Client Error: Not Found for url: https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getDFSsalaries?week=2&season=2024&site=draftkings', 'No data for season 2024, week 3: 404 Client Error: Not Found for url: https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getDFSsalaries?week=3&season=2024&site=draftkings']",
-      "timestamp": "2025-10-02T04:59:14.911833",
+      "timestamp": "2025-10-05T21:46:30.750896",
       "data": [
         "No data for season 2024, week 1: 404 Client Error: Not Found for url: https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getDFSsalaries?week=1&season=2024&site=draftkings",
         "No data for season 2024, week 2: 404 Client Error: Not Found for url: https://tank01-nfl-live-in-game-real-time-statistics-nfl.p.rapidapi.com/getDFSsalaries?week=2&season=2024&site=draftkings",
@@ -204,14 +449,14 @@
       "test_name": "Snap Counts Endpoint",
       "success": true,
       "details": "Retrieved 10 snap count records",
-      "timestamp": "2025-10-02T04:59:14.920797",
+      "timestamp": "2025-10-05T21:46:30.760639",
       "data": null
     },
     {
       "test_name": "Snap Count Data Structure",
       "success": true,
       "details": "All required fields present",
-      "timestamp": "2025-10-02T04:59:14.920814",
+      "timestamp": "2025-10-05T21:46:30.760664",
       "data": {
         "id": "2024_1_BUF_Josh_Allen",
         "player_id": "AlleJo02",
@@ -228,28 +473,28 @@
         "position": "QB",
         "game_id": "202409080buf",
         "opponent_team": "ARI",
-        "created_at": "2025-10-02T04:49:38.562137"
+        "created_at": "2025-10-05T20:01:17.021388"
       }
     },
     {
       "test_name": "Player Data Integration",
       "success": true,
       "details": "Out of 5 players: 5 have snap data, 0 have pricing data",
-      "timestamp": "2025-10-02T04:59:15.034558",
+      "timestamp": "2025-10-05T21:46:30.875972",
       "data": null
     },
     {
       "test_name": "Position Filtering",
       "success": true,
       "details": "Position filter working correctly - 10 QBs returned",
-      "timestamp": "2025-10-02T04:59:15.206256",
+      "timestamp": "2025-10-05T21:46:31.051465",
       "data": null
     },
     {
       "test_name": "Team Filtering",
       "success": true,
       "details": "Team filter working correctly - 10 KC players returned",
-      "timestamp": "2025-10-02T04:59:15.288645",
+      "timestamp": "2025-10-05T21:46:31.137622",
       "data": null
     }
   ]
