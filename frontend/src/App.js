@@ -313,59 +313,60 @@ const FantasyDashboard = () => {
             </div>
           )
         },
-    {
-      headerName: 'DK $',
-      field: 'dk_salary',
-      width: 70,
-      type: 'numericColumn',
-      cellRenderer: (params) => {
-        const salary = params.value;
-        // Only show DK salary for 2025 data
-        if (params.data.season !== '2025') {
-          return <div className="py-1 px-2 text-sm text-gray-400">-</div>;
-        }
-        if (salary && salary > 0) {
-          return (
+        {
+          headerName: 'DK $',
+          field: 'dk_salary',
+          width: 70,
+          type: 'numericColumn',
+          cellRenderer: (params) => {
+            const salary = params.value;
+            // Only show DK salary for 2025 data
+            if (params.data.season !== '2025') {
+              return <div className="py-1 px-2 text-sm text-gray-400">-</div>;
+            }
+            if (salary && salary > 0) {
+              return (
+                <div className="py-1 px-2">
+                  <span className="text-sm font-semibold text-green-700">
+                    ${(salary/1000).toFixed(1)}k
+                  </span>
+                </div>
+              );
+            }
+            return <div className="py-1 px-2 text-sm text-gray-400">-</div>;
+          }
+        },
+        {
+          headerName: '# Snaps',
+          field: 'snap_percentage',
+          width: 70,
+          type: 'numericColumn',
+          cellRenderer: (params) => (
             <div className="py-1 px-2">
-              <span className="text-sm font-semibold text-green-700">
-                ${(salary/1000).toFixed(1)}k
+              <span className="text-sm font-medium text-gray-800">
+                {params.value && params.value > 0 ? Math.round(params.value) : '-'}
               </span>
             </div>
-          );
-        }
-        return <div className="py-1 px-2 text-sm text-gray-400">-</div>;
-      }
-    },
-    {
-      headerName: '# Snaps',
-      field: 'snap_percentage',
-      width: 70,
-      type: 'numericColumn',
-      cellRenderer: (params) => (
-        <div className="py-1 px-2">
-          <span className="text-sm font-medium text-gray-800">
-            {params.value && params.value > 0 ? Math.round(params.value) : '-'}
-          </span>
-        </div>
-      )
-    },
-    {
-      headerName: 'FPTS',
-      field: 'fantasy_points',
-      width: 60,
-      type: 'numericColumn',
-      valueGetter: (params) => calculateFantasyPoints(params.data),
-      cellRenderer: (params) => {
-        const points = parseFloat(params.value) || 0;
-        return (
-          <div className="py-1 px-2">
-            <span className="text-sm font-bold text-blue-600">
-              {points.toFixed(1)}
-            </span>
-          </div>
-        );
-      },
-      sort: 'desc'
+          )
+        },
+        {
+          headerName: 'FPTS',
+          field: 'fantasy_points',
+          width: 60,
+          type: 'numericColumn',
+          valueGetter: (params) => calculateFantasyPoints(params.data),
+          cellRenderer: (params) => {
+            const points = parseFloat(params.value) || 0;
+            return (
+              <div className="py-1 px-2">
+                <span className="text-sm font-bold text-blue-600">
+                  {points.toFixed(1)}
+                </span>
+              </div>
+            );
+          },
+          sort: 'desc'
+        }]
     },
     // Passing Stats (Light Blue Background)
     {
