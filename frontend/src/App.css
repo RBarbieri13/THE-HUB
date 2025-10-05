@@ -589,6 +589,9 @@ body {
   color: white;
   position: relative;
   overflow: hidden;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.5px;
 }
 
 .info-header::before {
@@ -606,6 +609,9 @@ body {
   color: white;
   position: relative;
   overflow: hidden;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.5px;
 }
 
 .usage-header::before {
@@ -624,6 +630,9 @@ body {
   color: white;
   position: relative;
   overflow: hidden;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.5px;
 }
 
 .rushing-header::before {
@@ -641,6 +650,9 @@ body {
   color: white;
   position: relative;
   overflow: hidden;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.5px;
 }
 
 .receiving-header::before {
@@ -658,6 +670,9 @@ body {
   color: white;
   position: relative;
   overflow: hidden;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.5px;
 }
 
 .passing-header::before {
@@ -676,6 +691,9 @@ body {
   color: white;
   position: relative;
   overflow: hidden;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.5px;
 }
 
 .fantasy-header::before {
