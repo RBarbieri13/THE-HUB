@@ -709,8 +709,8 @@ const FantasyDashboard = () => {
             />
           )}
 
-          {/* Sidebar Content */}
-          <div className="p-4 space-y-6 overflow-y-auto max-h-[calc(100vh-140px)]">
+          {/* Sidebar Content - Reduced Padding */}
+          <div className="p-2 space-y-3 overflow-y-auto max-h-[calc(100vh-100px)]">
             {!sidebarCollapsed && (
               <>
                 {/* Season & Week Filters */}
