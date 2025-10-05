@@ -496,58 +496,59 @@ const FantasyDashboard = () => {
           )
         }]
     },
-    // Receiving Stats (Light Purple Background)
+    // Receiving Stats Group
     {
-      headerName: 'Tgt',
+      headerName: 'RECEIVING',
       headerClass: 'receiving-group-header',
-      field: 'targets',
-      width: 50,
-      type: 'numericColumn',
-      cellClass: 'receiving-group-cell',
-      cellRenderer: (params) => (
-        <div className="py-1 px-2">
-          <span className="text-sm">{params.value || '-'}</span>
-        </div>
-      )
-    },
-    {
-      headerName: 'Rec',
-      headerClass: 'receiving-group-header',
-      field: 'receptions',
-      width: 50,
-      type: 'numericColumn',
-      cellClass: 'receiving-group-cell',
-      cellRenderer: (params) => (
-        <div className="py-1 px-2">
-          <span className="text-sm font-medium">{params.value || '-'}</span>
-        </div>
-      )
-    },
-    {
-      headerName: 'Yds',
-      headerClass: 'receiving-group-header',
-      field: 'receiving_yards',
-      width: 60,
-      type: 'numericColumn',
-      cellClass: 'receiving-group-cell',
-      cellRenderer: (params) => (
-        <div className="py-1 px-2">
-          <span className="text-sm font-medium">{params.value || '-'}</span>
-        </div>
-      )
-    },
-    {
-      headerName: 'TD',
-      headerClass: 'receiving-group-header',
-      field: 'receiving_tds',
-      width: 50,
-      type: 'numericColumn',
-      cellClass: 'receiving-group-cell',
-      cellRenderer: (params) => (
-        <div className="py-1 px-2">
-          <span className="text-sm font-medium">{params.value || '-'}</span>
-        </div>
-      )
+      children: [
+        {
+          headerName: 'Tgt',
+          field: 'targets',
+          width: 50,
+          type: 'numericColumn',
+          cellClass: 'receiving-group-cell',
+          cellRenderer: (params) => (
+            <div className="py-1 px-2">
+              <span className="text-sm">{params.value || '-'}</span>
+            </div>
+          )
+        },
+        {
+          headerName: 'Rec',
+          field: 'receptions',
+          width: 50,
+          type: 'numericColumn',
+          cellClass: 'receiving-group-cell',
+          cellRenderer: (params) => (
+            <div className="py-1 px-2">
+              <span className="text-sm font-medium">{params.value || '-'}</span>
+            </div>
+          )
+        },
+        {
+          headerName: 'Yds',
+          field: 'receiving_yards',
+          width: 60,
+          type: 'numericColumn',
+          cellClass: 'receiving-group-cell',
+          cellRenderer: (params) => (
+            <div className="py-1 px-2">
+              <span className="text-sm font-medium">{params.value || '-'}</span>
+            </div>
+          )
+        },
+        {
+          headerName: 'TD',
+          field: 'receiving_tds',
+          width: 50,
+          type: 'numericColumn',
+          cellClass: 'receiving-group-cell',
+          cellRenderer: (params) => (
+            <div className="py-1 px-2">
+              <span className="text-sm font-medium">{params.value || '-'}</span>
+            </div>
+          )
+        }]
     }
   ], [isPPR, calculateFantasyPoints, getPerformanceColor, handlePlayerClick, favorites]);
 
