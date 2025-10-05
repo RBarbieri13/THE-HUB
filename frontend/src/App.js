@@ -408,31 +408,26 @@ const FantasyDashboard = () => {
       )
     },
     {
-      headerName: 'FANTASY/DFS',
-      headerClass: 'fantasy-header',
-      children: [
-        {
-          headerName: 'DK $',
-          field: 'dk_salary',
-          width: 75,
-          type: 'numericColumn',
-          cellRenderer: (params) => {
-            const salary = params.value;
-            if (salary && salary > 0) {
-              return (
-                <span className="text-xs font-bold text-green-700 bg-green-50 px-2 py-1 rounded">
-                  ${salary.toLocaleString()}
-                </span>
-              );
-            }
-            return (
-              <span className="text-xs text-gray-400">
-                -
-              </span>
-            );
-          }
+      headerName: 'DK Salary',
+      field: 'dk_salary',
+      width: 80,
+      type: 'numericColumn',
+      headerClass: 'ag-header-cell-text',
+      cellRenderer: (params) => {
+        const salary = params.value;
+        if (salary && salary > 0) {
+          return (
+            <span className="text-sm font-semibold text-green-700">
+              ${salary.toLocaleString()}
+            </span>
+          );
         }
-      ]
+        return (
+          <span className="text-sm text-gray-400">
+            -
+          </span>
+        );
+      }
     }
   ], [isPPR, calculateFantasyPoints, getPerformanceColor, getPositionColor, handlePlayerClick]);
 
