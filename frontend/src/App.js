@@ -418,7 +418,7 @@ const FantasyDashboard = () => {
         );
       }
     }
-  ], [isPPR, calculateFantasyPoints, getPerformanceColor, getPositionColor, handlePlayerClick]);
+  ], [isPPR, calculateFantasyPoints, getPerformanceColor, handlePlayerClick]);
 
   // Default column configuration with tighter spacing - remove filter triangles
   const defaultColDef = useMemo(() => ({
