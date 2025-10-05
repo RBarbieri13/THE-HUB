@@ -164,6 +164,18 @@ backend:
         agent: "testing"
         comment: "COMPREHENSIVE VALIDATION COMPLETE: Master player mapping system working excellently. Enhanced regex-based name matching achieving 94.6% overall match rate. Jr/Sr suffix handling verified: 4/4 players with suffixes have snap data. Punctuation matching verified: 5/5 players with punctuation have snap data. COALESCE fallback logic functioning with 50 direct matches, 0 fallback cases in test sample. System successfully handles name variations and provides robust data integration."
 
+  - task: "Fix game data display - LA team ambiguity"
+    implemented: false
+    working: false
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "CRITICAL ISSUE IDENTIFIED: Game column displays ambiguous 'LA' instead of proper 'LAR' (Rams) or 'LAC' (Chargers) team codes. Found 254 instances across 2024-2025 seasons. Root cause: nflreadpy data source uses generic 'LA' for both Los Angeles teams. This breaks proper 'TEAM vs OPPONENT' format requirement. Need data mapping solution to convert 'LA' to correct team codes based on actual NFL schedules/matchups."
+
 frontend:
   - task: "Remove top menu bar with summary cards"
     implemented: true
