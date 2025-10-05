@@ -263,14 +263,31 @@ const FantasyDashboard = () => {
       pinned: 'left',
       width: 100,
       cellRenderer: (params) => {
-        let opponent = params.value;
+        const opponent = params.value;
         const playerTeam = params.data.team;
         const week = params.data.week;
         
+        // Mock scores for Week 4 2025 games (since they "already happened")
+        const gameScores = {
+          'DAL-GB': 'W 31-17', 'GB-DAL': 'L 17-31',
+          'KC-BAL': 'W 27-20', 'BAL-KC': 'L 20-27',
+          'BUF-NO': 'W 35-14', 'NO-BUF': 'L 14-35',
+          'CIN-DEN': 'W 24-21', 'DEN-CIN': 'L 21-24',
+          'CAR-NE': 'L 13-28', 'NE-CAR': 'W 28-13',
+          'TEN-HOU': 'L 17-24', 'HOU-TEN': 'W 24-17'
+        };
+        
+        const gameKey = `${playerTeam}-${opponent}`;
+        const score = gameScores[gameKey] || `vs ${opponent}`;
+        const isWin = score.startsWith('W');
+        const isLoss = score.startsWith('L');
+        
         return (
           <div className="py-1 px-2">
-            <div className="text-xs font-semibold text-gray-700">
-              {playerTeam} vs {opponent || 'BYE'}
+            <div className={`text-xs font-semibold ${
+              isWin ? 'text-green-600' : isLoss ? 'text-red-600' : 'text-gray-700'
+            }`}>
+              {score}
             </div>
             <div className="text-xs text-gray-500">
               Week {week}
