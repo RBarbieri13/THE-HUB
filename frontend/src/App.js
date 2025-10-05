@@ -68,7 +68,7 @@ const FantasyDashboard = () => {
   const [selectedPlayerType, setSelectedPlayerType] = useState('all');
   const [filters, setFilters] = useState({
     season: '2024',
-    week: 'all',
+    week: '1',  // Start with Week 1 instead of 'all'
     position: 'all',
     team: 'all',
     minSalary: '',
