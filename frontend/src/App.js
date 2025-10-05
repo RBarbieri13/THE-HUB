@@ -1222,24 +1222,54 @@ const FantasyDashboard = () => {
               
               <CardContent className="p-0">
                 {/* Professional Grid with Enhanced Visual Hierarchy */}
-                <div 
-                  className="ag-theme-alpine compact-grid color-coded-headers professional-grid"
-                  style={{ 
-                    height: '650px', 
-                    width: '100%',
-                    background: 'linear-gradient(180deg, #ffffff 0%, #fafbfc 100%)'
-                  }}
-                >
-                  <AgGridReact
-                    columnDefs={columnDefs}
-                    rowData={filteredPlayers}
-                    defaultColDef={defaultColDef}
-                    gridOptions={gridOptions}
-                    onGridReady={onGridReady}
-                    loading={loading}
-                    data-testid="player-stats-grid"
-                  />
-                </div>
+                {loading ? (
+                  <div className="p-6">
+                    <div className="animate-pulse space-y-4">
+                      {/* Header skeleton */}
+                      <div className="flex space-x-4">
+                        <div className="h-4 bg-gray-200 rounded w-20"></div>
+                        <div className="h-4 bg-gray-200 rounded w-16"></div>
+                        <div className="h-4 bg-gray-200 rounded w-12"></div>
+                        <div className="h-4 bg-gray-200 rounded w-24"></div>
+                        <div className="h-4 bg-gray-200 rounded w-16"></div>
+                        <div className="h-4 bg-gray-200 rounded w-20"></div>
+                      </div>
+                      {/* Data skeleton */}
+                      {[...Array(15)].map((_, i) => (
+                        <div key={i} className="flex space-x-4">
+                          <div className="h-3 bg-gray-200 rounded w-32"></div>
+                          <div className="h-3 bg-gray-200 rounded w-12"></div>
+                          <div className="h-3 bg-gray-200 rounded w-8"></div>
+                          <div className="h-3 bg-gray-200 rounded w-16"></div>
+                          <div className="h-3 bg-gray-200 rounded w-12"></div>
+                          <div className="h-3 bg-gray-200 rounded w-16"></div>
+                          <div className="h-3 bg-gray-200 rounded w-12"></div>
+                          <div className="h-3 bg-gray-200 rounded w-16"></div>
+                          <div className="h-3 bg-gray-200 rounded w-12"></div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div 
+                    className="ag-theme-alpine compact-grid color-coded-headers professional-grid"
+                    style={{ 
+                      height: '650px', 
+                      width: '100%',
+                      background: 'linear-gradient(180deg, #ffffff 0%, #fafbfc 100%)'
+                    }}
+                  >
+                    <AgGridReact
+                      columnDefs={columnDefs}
+                      rowData={filteredPlayers}
+                      defaultColDef={defaultColDef}
+                      gridOptions={gridOptions}
+                      onGridReady={onGridReady}
+                      loading={loading}
+                      data-testid="player-stats-grid"
+                    />
+                  </div>
+                )}
               </CardContent>
             </Card>
 
