@@ -945,7 +945,35 @@ const FantasyDashboard = () => {
         {activeTab === 'data-table' && (
           <div className="flex h-full">
             {/* Left Sidebar Filters */}
-            <div className={`bg-gray-50 border-r border-gray-200 transition-all duration-300 ${filtersCollapsed ? 'w-16' : 'w-72'} flex-shrink-0`}>
+            <div 
+              className={`bg-gray-50 border-r border-gray-200 transition-all duration-300 ${filtersCollapsed ? 'w-16' : ''} flex-shrink-0 relative`}
+              style={{ width: filtersCollapsed ? '64px' : `${sidebarWidth}px` }}
+            >
+              {/* Resize Handle */}
+              {!filtersCollapsed && (
+                <div
+                  className="absolute right-0 top-0 w-1 h-full bg-gray-300 hover:bg-blue-500 cursor-col-resize transition-colors"
+                  onMouseDown={(e) => {
+                    setIsResizing(true);
+                    const startX = e.clientX;
+                    const startWidth = sidebarWidth;
+                    
+                    const handleMouseMove = (e) => {
+                      const newWidth = Math.max(200, Math.min(500, startWidth + (e.clientX - startX)));
+                      setSidebarWidth(newWidth);
+                    };
+                    
+                    const handleMouseUp = () => {
+                      setIsResizing(false);
+                      document.removeEventListener('mousemove', handleMouseMove);
+                      document.removeEventListener('mouseup', handleMouseUp);
+                    };
+                    
+                    document.addEventListener('mousemove', handleMouseMove);
+                    document.addEventListener('mouseup', handleMouseUp);
+                  }}
+                />
+              )}
               <div className="p-4 h-full">
                 {/* Filter Toggle Button */}
                 <Button
