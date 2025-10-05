@@ -787,15 +787,14 @@ const FantasyDashboard = () => {
                 <Button 
                   size="sm" 
                   className="bg-blue-600 hover:bg-blue-700 text-white border-0 shadow-lg text-xs h-9"
-                  onClick={refreshData} 
+                  onClick={() => {
+                    refreshData();
+                    toast.success('Refreshing data...', { duration: 1500 });
+                  }}
                   disabled={refreshing}
                 >
                   <RefreshCw className={`h-3 w-3 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
-                  {refreshing ? 'Syncing...' : 'Sync Data'}
-                </Button>
-                <Button size="sm" variant="outline" className="border-blue-400 text-blue-100 hover:bg-blue-800 text-xs h-9">
-                  <Settings className="h-3 w-3 mr-1" />
-                  Settings
+                  {refreshing ? 'Syncing...' : 'Sync Data (⌘R)'}
                 </Button>
               </div>
             </div>
