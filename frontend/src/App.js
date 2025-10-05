@@ -975,29 +975,14 @@ const FantasyDashboard = () => {
                         <BarChart3 className="h-5 w-5 text-white" />
                       </div>
                       <div>
-                        <CardTitle className="text-xl font-bold text-gray-900 tracking-tight">
-                          Player Analytics Dashboard
+                        <CardTitle className="text-lg font-bold text-gray-900 tracking-tight">
+                          Player Stats
                         </CardTitle>
                         <CardDescription className="text-sm text-gray-600 mt-1">
-                          {isPPR ? 'Full' : 'Half'} PPR Scoring • Season {filters.season} 
+                          {isPPR ? 'Full' : 'Half'} PPR • Season {filters.season} 
                           {filters.week !== 'all' ? ` • Week ${filters.week}` : ' • All Weeks'}
                         </CardDescription>
                       </div>
-                    </div>
-                    
-                    {/* Stats Badges */}
-                    <div className="hidden md:flex items-center space-x-2">
-                      <Badge className="bg-blue-100 text-blue-800 border-blue-300 text-xs px-3 py-1 font-semibold">
-                        {players.length.toLocaleString()} Players
-                      </Badge>
-                      {summary && summary.snap_coverage && summary.snap_coverage.length > 0 && (
-                        <Badge className="bg-green-100 text-green-800 border-green-300 text-xs px-3 py-1 font-semibold">
-                          Snap Data: {summary.snap_coverage.map(s => s.season).join(', ')}
-                        </Badge>
-                      )}
-                      <Badge className="bg-purple-100 text-purple-800 border-purple-300 text-xs px-3 py-1 font-semibold">
-                        {isPPR ? '1.0' : '0.5'} PPR
-                      </Badge>
                     </div>
                   </div>
                   
