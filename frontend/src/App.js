@@ -264,7 +264,7 @@ const FantasyDashboard = () => {
       headerClass: 'usage-header',
       children: [
         {
-          headerName: 'Snaps',
+          headerName: 'SNP',
           field: 'snap_percentage',
           width: 60,
           type: 'numericColumn',
@@ -275,7 +275,7 @@ const FantasyDashboard = () => {
           )
         },
         {
-          headerName: 'Pts',
+          headerName: 'PTS',
           field: 'fantasy_points',
           width: 55,
           type: 'numericColumn',
