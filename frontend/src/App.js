@@ -67,9 +67,9 @@ const FantasyDashboard = () => {
   const [summary, setSummary] = useState(null);
   const [selectedPlayerType, setSelectedPlayerType] = useState('all');
   const [filters, setFilters] = useState({
-    season: '2024',
-    week: '1',  // Start with Week 1 instead of 'all'
-    position: 'all',
+    season: '2025',
+    week: '4',  // Start with Week 4 to match reference image
+    position: 'QB',
     team: 'all',
     minSalary: '',
     minSnaps: ''
