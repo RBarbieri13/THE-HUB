@@ -747,11 +747,19 @@ const FantasyDashboard = () => {
     }
   };
 
-  // Initialize data on component mount
+  // Initial data load
   useEffect(() => {
+    fetchPlayersWithFilters();
     fetchSummary();
-    fetchPlayers();
   }, []);
+
+  // PPR change handler
+  useEffect(() => {
+    if (players.length > 0) {
+      // Re-trigger grid update when PPR changes since fantasy points are calculated
+      setLastUpdated(new Date());
+    }
+  }, [isPPR]);
 
   // Refetch when filters change
   useEffect(() => {
