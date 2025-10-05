@@ -217,16 +217,16 @@ const FantasyDashboard = () => {
     }
   };
 
-  // Column definitions for AG Grid with color-coded categories
+  // Column definitions matching the desired format with grouped columns
   const columnDefs = useMemo(() => [
+    // Player Info (Pinned Left)
     {
       headerName: 'Player',
       field: 'player_name',
       pinned: 'left',
       width: 140,
-      headerClass: 'ag-header-cell-text',
       cellRenderer: (params) => (
-        <div className="flex items-center justify-between py-2 px-3 group">
+        <div className="flex items-center justify-between py-1 px-2 group">
           <div 
             className="cursor-pointer hover:text-blue-600 transition-colors flex-1"
             onClick={() => handlePlayerClick(params.data)}
@@ -236,7 +236,7 @@ const FantasyDashboard = () => {
           <Button
             size="sm"
             variant="ghost"
-            className="opacity-0 group-hover:opacity-100 transition-opacity p-1 h-6 w-6"
+            className="opacity-0 group-hover:opacity-100 transition-opacity p-1 h-5 w-5"
             onClick={(e) => {
               e.stopPropagation();
               toggleFavorite(params.data.player_id);
@@ -254,208 +254,244 @@ const FantasyDashboard = () => {
       )
     },
     {
-      headerName: 'Team',
-      field: 'team',
+      headerName: 'Game',
+      field: 'opponent',
       pinned: 'left',
-      width: 60,
-      headerClass: 'ag-header-cell-text',
-      cellRenderer: (params) => (
-        <span className="text-sm font-semibold text-gray-700">
-          {params.value}
-        </span>
-      )
+      width: 100,
+      cellRenderer: (params) => {
+        // Mock game result for display - you can replace with actual game data
+        const isWin = Math.random() > 0.5; // Random for demo
+        const score = isWin ? 'W 21-14' : 'L 14-21';
+        return (
+          <div className="py-1 px-2">
+            <div className={`text-xs font-semibold ${isWin ? 'text-green-600' : 'text-red-600'}`}>
+              {score}
+            </div>
+            <div className="text-xs text-gray-500">
+              {params.value ? `@ ${params.value}` : 'vs TBD'}
+            </div>
+          </div>
+        );
+      }
     },
+    // Basic Info Columns
     {
       headerName: 'Pos',
       field: 'position',
       width: 50,
-      headerClass: 'ag-header-cell-text',
       cellRenderer: (params) => (
-        <span className="text-sm font-medium text-gray-600">
-          {params.value}
-        </span>
+        <div className="py-1 px-2">
+          <span className="text-sm font-medium text-blue-600">{params.value}</span>
+        </div>
       )
     },
     {
-      headerName: 'Opp',
-      field: 'opponent',
-      width: 55,
-      headerClass: 'ag-header-cell-text',
-      cellRenderer: (params) => (
-        <span className="text-sm text-gray-600">
-          {params.value ? `vs ${params.value}` : '-'}
-        </span>
-      )
-    },
-    {
-      headerName: 'Snaps',
-      field: 'snap_percentage',
-      width: 65,
-      type: 'numericColumn',
-      headerClass: 'ag-header-cell-text',
-      cellRenderer: (params) => (
-        <span className="text-sm font-medium text-gray-800">
-          {params.value && params.value > 0 ? Math.round(params.value) : '-'}
-        </span>
-      )
-    },
-    {
-      headerName: 'Fantasy',
-      field: 'fantasy_points',
+      headerName: 'DK $',
+      field: 'dk_salary',
       width: 70,
       type: 'numericColumn',
-      headerClass: 'ag-header-cell-text',
+      cellRenderer: (params) => {
+        const salary = params.value;
+        // Only show DK salary for 2025 data
+        if (params.data.season !== '2025') {
+          return <div className="py-1 px-2 text-sm text-gray-400">-</div>;
+        }
+        if (salary && salary > 0) {
+          return (
+            <div className="py-1 px-2">
+              <span className="text-sm font-semibold text-green-700">
+                ${(salary/1000).toFixed(1)}k
+              </span>
+            </div>
+          );
+        }
+        return <div className="py-1 px-2 text-sm text-gray-400">-</div>;
+      }
+    },
+    {
+      headerName: '# Snaps',
+      field: 'snap_percentage',
+      width: 70,
+      type: 'numericColumn',
+      cellRenderer: (params) => (
+        <div className="py-1 px-2">
+          <span className="text-sm font-medium text-gray-800">
+            {params.value && params.value > 0 ? Math.round(params.value) : '-'}
+          </span>
+        </div>
+      )
+    },
+    {
+      headerName: 'FPTS',
+      field: 'fantasy_points',
+      width: 60,
+      type: 'numericColumn',
       valueGetter: (params) => calculateFantasyPoints(params.data),
       cellRenderer: (params) => {
         const points = parseFloat(params.value) || 0;
-        const colorClass = getPerformanceColor(points, 'fantasy_points', params.data.position);
         return (
-          <span className={`text-sm font-semibold ${colorClass}`}>
-            {points.toFixed(1)}
-          </span>
+          <div className="py-1 px-2">
+            <span className="text-sm font-bold text-blue-600">
+              {points.toFixed(1)}
+            </span>
+          </div>
         );
       },
       sort: 'desc'
     },
+    // Passing Stats (Light Blue Background)
     {
-      headerName: 'R-Att',
-      field: 'rushing_attempts',
-      width: 55,
+      headerName: 'Cmp-Att',
+      headerClass: 'passing-group-header',
+      field: 'passing_attempts',
+      width: 75,
       type: 'numericColumn',
-      headerClass: 'ag-header-cell-text',
+      cellClass: 'passing-group-cell',
+      valueGetter: (params) => {
+        const att = params.data.passing_yards > 0 ? Math.ceil(params.data.passing_yards / 8.5) : 0;
+        const cmp = Math.ceil(att * 0.65); // Estimate completion rate
+        return att > 0 ? `${cmp}-${att}` : '-';
+      },
+      cellRenderer: (params) => (
+        <div className="py-1 px-2">
+          <span className="text-sm">{params.value}</span>
+        </div>
+      )
+    },
+    {
+      headerName: 'Yds',
+      headerClass: 'passing-group-header', 
+      field: 'passing_yards',
+      width: 60,
+      type: 'numericColumn',
+      cellClass: 'passing-group-cell',
+      cellRenderer: (params) => (
+        <div className="py-1 px-2">
+          <span className="text-sm font-medium">{params.value || '-'}</span>
+        </div>
+      )
+    },
+    {
+      headerName: 'TD',
+      headerClass: 'passing-group-header',
+      field: 'passing_tds', 
+      width: 50,
+      type: 'numericColumn',
+      cellClass: 'passing-group-cell',
+      cellRenderer: (params) => (
+        <div className="py-1 px-2">
+          <span className="text-sm font-medium">{params.value || '-'}</span>
+        </div>
+      )
+    },
+    {
+      headerName: 'Int.',
+      headerClass: 'passing-group-header',
+      field: 'interceptions',
+      width: 50,
+      type: 'numericColumn', 
+      cellClass: 'passing-group-cell',
+      cellRenderer: (params) => (
+        <div className="py-1 px-2">
+          <span className="text-sm">{params.value || '-'}</span>
+        </div>
+      )
+    },
+    // Rushing Stats (Light Green Background)
+    {
+      headerName: 'Att',
+      headerClass: 'rushing-group-header',
+      field: 'rushing_attempts',
+      width: 50,
+      type: 'numericColumn',
+      cellClass: 'rushing-group-cell',
       valueGetter: (params) => params.data.rushing_yards > 0 ? Math.ceil(params.data.rushing_yards / 4.5) : 0,
       cellRenderer: (params) => (
-        <span className="text-sm text-gray-700">{params.value || '-'}</span>
+        <div className="py-1 px-2">
+          <span className="text-sm">{params.value || '-'}</span>
+        </div>
       )
     },
     {
-      headerName: 'R-Yds',
+      headerName: 'Yds',
+      headerClass: 'rushing-group-header',
       field: 'rushing_yards',
-      width: 55,
+      width: 60,
       type: 'numericColumn',
-      headerClass: 'ag-header-cell-text',
+      cellClass: 'rushing-group-cell',
       cellRenderer: (params) => (
-        <span className="text-sm font-medium text-gray-800">
-          {params.value || '-'}
-        </span>
+        <div className="py-1 px-2">
+          <span className="text-sm font-medium">{params.value || '-'}</span>
+        </div>
       )
     },
     {
-      headerName: 'R-TD',
+      headerName: 'TD',
+      headerClass: 'rushing-group-header',
       field: 'rushing_tds',
       width: 50,
       type: 'numericColumn',
-      headerClass: 'ag-header-cell-text',
+      cellClass: 'rushing-group-cell',
       cellRenderer: (params) => (
-        <span className="text-sm font-medium text-gray-800">
-          {params.value || '-'}
-        </span>
+        <div className="py-1 px-2">
+          <span className="text-sm font-medium">{params.value || '-'}</span>
+        </div>
       )
     },
+    // Receiving Stats (Light Purple Background)
     {
       headerName: 'Tgt',
+      headerClass: 'receiving-group-header',
       field: 'targets',
       width: 50,
       type: 'numericColumn',
-      headerClass: 'ag-header-cell-text',
+      cellClass: 'receiving-group-cell',
       cellRenderer: (params) => (
-        <span className="text-sm text-gray-700">{params.value || '-'}</span>
+        <div className="py-1 px-2">
+          <span className="text-sm">{params.value || '-'}</span>
+        </div>
       )
     },
     {
       headerName: 'Rec',
+      headerClass: 'receiving-group-header',
       field: 'receptions',
       width: 50,
       type: 'numericColumn',
-      headerClass: 'ag-header-cell-text',
+      cellClass: 'receiving-group-cell',
       cellRenderer: (params) => (
-        <span className="text-sm font-medium text-gray-800">
-          {params.value || '-'}
-        </span>
+        <div className="py-1 px-2">
+          <span className="text-sm font-medium">{params.value || '-'}</span>
+        </div>
       )
     },
     {
-      headerName: 'Rec-Yds',
+      headerName: 'Yds',
+      headerClass: 'receiving-group-header',
       field: 'receiving_yards',
-      width: 75,
+      width: 60,
       type: 'numericColumn',
-      headerClass: 'ag-header-cell-text',
+      cellClass: 'receiving-group-cell',
       cellRenderer: (params) => (
-        <span className="text-sm font-medium text-gray-800">
-          {params.value || '-'}
-        </span>
+        <div className="py-1 px-2">
+          <span className="text-sm font-medium">{params.value || '-'}</span>
+        </div>
       )
     },
     {
-      headerName: 'Rec-TD',
+      headerName: 'TD',
+      headerClass: 'receiving-group-header',
       field: 'receiving_tds',
-      width: 65,
-      type: 'numericColumn',
-      headerClass: 'ag-header-cell-text',
-      cellRenderer: (params) => (
-        <span className="text-sm font-medium text-gray-800">
-          {params.value || '-'}
-        </span>
-      )
-    },
-    {
-      headerName: 'P-Att',
-      field: 'passing_attempts',
-      width: 55,
-      type: 'numericColumn',
-      headerClass: 'ag-header-cell-text',
-      valueGetter: (params) => params.data.passing_yards > 0 ? Math.ceil(params.data.passing_yards / 8.5) : 0,
-      cellRenderer: (params) => (
-        <span className="text-sm text-gray-700">{params.value || '-'}</span>
-      )
-    },
-    {
-      headerName: 'P-Yds',
-      field: 'passing_yards',
-      width: 55,
-      type: 'numericColumn',
-      headerClass: 'ag-header-cell-text',
-      cellRenderer: (params) => (
-        <span className="text-sm font-medium text-gray-800">
-          {params.value || '-'}
-        </span>
-      )
-    },
-    {
-      headerName: 'P-TD',
-      field: 'passing_tds',
       width: 50,
       type: 'numericColumn',
-      headerClass: 'ag-header-cell-text',
+      cellClass: 'receiving-group-cell',
       cellRenderer: (params) => (
-        <span className="text-sm font-medium text-gray-800">
-          {params.value || '-'}
-        </span>
+        <div className="py-1 px-2">
+          <span className="text-sm font-medium">{params.value || '-'}</span>
+        </div>
       )
-    },
-    {
-      headerName: 'DK Salary',
-      field: 'dk_salary',
-      width: 90,
-      type: 'numericColumn',
-      headerClass: 'ag-header-cell-text',
-      cellRenderer: (params) => {
-        const salary = params.value;
-        if (salary && salary > 0) {
-          return (
-            <span className="text-sm font-semibold text-green-700">
-              ${salary.toLocaleString()}
-            </span>
-          );
-        }
-        return (
-          <span className="text-sm text-gray-400">
-            -
-          </span>
-        );
-      }
     }
-  ], [isPPR, calculateFantasyPoints, getPerformanceColor, handlePlayerClick]);
+  ], [isPPR, calculateFantasyPoints, getPerformanceColor, handlePlayerClick, favorites]);
 
   // Default column configuration with tighter spacing - remove filter triangles
   const defaultColDef = useMemo(() => ({
