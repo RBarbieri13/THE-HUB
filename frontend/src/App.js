@@ -213,51 +213,53 @@ const FantasyDashboard = () => {
   // Column definitions for AG Grid with color-coded categories
   const columnDefs = useMemo(() => [
     {
-      headerName: 'PLAYER',
-      headerClass: 'player-header',
-      children: [
-        {
-          headerName: 'Name/Team',
-          field: 'player_name',
-          pinned: 'left',
-          width: 140,
-          cellRenderer: (params) => (
-            <div 
-              className="flex flex-col py-1 cursor-pointer hover:bg-blue-50 rounded px-2 transition-colors"
-              onClick={() => handlePlayerClick(params.data)}
-            >
-              <div className="font-medium text-gray-900 text-sm leading-tight">{params.value}</div>
-              <div className="text-xs text-gray-500 leading-tight">{params.data.team}</div>
-            </div>
-          )
-        }
-      ]
+      headerName: 'Player',
+      field: 'player_name',
+      pinned: 'left',
+      width: 120,
+      headerClass: 'ag-header-cell-text',
+      cellRenderer: (params) => (
+        <div 
+          className="cursor-pointer hover:bg-blue-50 py-2 px-3 transition-colors"
+          onClick={() => handlePlayerClick(params.data)}
+        >
+          <div className="font-medium text-gray-900 text-sm">{params.value}</div>
+        </div>
+      )
     },
     {
-      headerName: 'INFO',
-      headerClass: 'info-header',
-      children: [
-        {
-          headerName: 'Pos',
-          field: 'position',
-          width: 50,
-          cellRenderer: (params) => (
-            <Badge className={`text-xs px-2 py-0.5 font-medium border ${getPositionColor(params.value)}`}>
-              {params.value}
-            </Badge>
-          )
-        },
-        {
-          headerName: 'Opp',
-          field: 'opponent',
-          width: 50,
-          cellRenderer: (params) => (
-            <span className="text-xs font-medium text-gray-600">
-              {params.value ? `vs ${params.value}` : '-'}
-            </span>
-          )
-        }
-      ]
+      headerName: 'Team',
+      field: 'team',
+      pinned: 'left',
+      width: 60,
+      headerClass: 'ag-header-cell-text',
+      cellRenderer: (params) => (
+        <span className="text-sm font-semibold text-gray-700">
+          {params.value}
+        </span>
+      )
+    },
+    {
+      headerName: 'Pos',
+      field: 'position',
+      width: 50,
+      headerClass: 'ag-header-cell-text',
+      cellRenderer: (params) => (
+        <span className="text-sm font-medium text-gray-600">
+          {params.value}
+        </span>
+      )
+    },
+    {
+      headerName: 'Opp',
+      field: 'opponent',
+      width: 55,
+      headerClass: 'ag-header-cell-text',
+      cellRenderer: (params) => (
+        <span className="text-sm text-gray-600">
+          {params.value ? `vs ${params.value}` : '-'}
+        </span>
+      )
     },
     {
       headerName: 'USAGE',
