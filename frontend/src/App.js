@@ -1000,7 +1000,246 @@ const FantasyDashboard = () => {
             </div>
 
             {/* Data Table Content */}
-            <div className="p-6">
+            <div className="px-6 py-4 flex gap-4">
+              {/* Main Data Grid */}
+              <Card 
+                className="shadow-lg border-0 bg-white transition-all duration-300 ease-in-out" 
+                style={{ 
+                  width: playerDetailOpen ? '70%' : '100%'
+                }}
+              >
+                <CardHeader className="pb-2 px-4 py-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      {/* Quick Stats */}
+                      <div className="flex items-center space-x-3">
+                        <Badge variant="outline" className="text-xs px-2 py-1">
+                          <Eye className="h-3 w-3 mr-1" />
+                          {filteredPlayers.length.toLocaleString()} players
+                        </Badge>
+                        {favorites.length > 0 && (
+                          <Badge variant="outline" className="text-xs px-2 py-1 bg-red-50 text-red-700 border-red-200">
+                            <Heart className="h-3 w-3 mr-1" />
+                            {favorites.length} favorites
+                          </Badge>
+                        )}
+                        {lastUpdated && (
+                          <Badge variant="outline" className="text-xs px-2 py-1 bg-green-50 text-green-700 border-green-200">
+                            <Zap className="h-3 w-3 mr-1" />
+                            Updated {new Date(lastUpdated).toLocaleTimeString()}
+                          </Badge>
+                        )}
+                      </div>
+                      
+                      {/* Search Input */}
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                        <Input
+                          type="text"
+                          placeholder="Search players, teams, positions... (⌘K)"
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                          className="pl-10 pr-4 py-2 w-80 text-sm border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        />
+                        {searchTerm && (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0"
+                            onClick={() => setSearchTerm('')}
+                          >
+                            ×
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                    
+                    {/* Action Buttons */}
+                    <div className="flex items-center space-x-2">
+                      <Button 
+                        size="sm" 
+                        className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white border-0 shadow-lg text-xs h-8 px-3"
+                      >
+                        <Star className="h-3 w-3 mr-1" />
+                        Favorites
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white border-0 shadow-lg text-xs h-8 px-3"
+                        onClick={exportData}
+                      >
+                        <Download className="h-3 w-3 mr-1" />
+                        Export CSV (⌘E)
+                      </Button>
+                      
+                      {/* Keyboard Shortcuts Help */}
+                      <Button 
+                        size="sm" 
+                        variant="outline"
+                        className="text-xs h-8 px-3"
+                        onClick={() => toast.info(
+                          '⌘K: Focus search • ⌘R: Refresh data • ⌘E: Export • Escape: Clear search',
+                          { duration: 4000 }
+                        )}
+                      >
+                        <Settings className="h-3 w-3 mr-1" />
+                        Shortcuts
+                      </Button>
+                    </div>
+                  </div>
+                </CardHeader>
+                
+                <CardContent className="p-0">
+                  {/* Clean Professional Grid */}
+                  {loading ? (
+                    <div className="p-6">
+                      <div className="animate-pulse space-y-4">
+                        {/* Header skeleton */}
+                        <div className="flex space-x-4">
+                          <div className="h-4 bg-gray-200 rounded w-20"></div>
+                          <div className="h-4 bg-gray-200 rounded w-16"></div>
+                          <div className="h-4 bg-gray-200 rounded w-12"></div>
+                          <div className="h-4 bg-gray-200 rounded w-24"></div>
+                          <div className="h-4 bg-gray-200 rounded w-16"></div>
+                          <div className="h-4 bg-gray-200 rounded w-20"></div>
+                        </div>
+                        {/* Data skeleton */}
+                        {[...Array(15)].map((_, i) => (
+                          <div key={i} className="flex space-x-4">
+                            <div className="h-3 bg-gray-200 rounded w-32"></div>
+                            <div className="h-3 bg-gray-200 rounded w-12"></div>
+                            <div className="h-3 bg-gray-200 rounded w-8"></div>
+                            <div className="h-3 bg-gray-200 rounded w-16"></div>
+                            <div className="h-3 bg-gray-200 rounded w-12"></div>
+                            <div className="h-3 bg-gray-200 rounded w-16"></div>
+                            <div className="h-3 bg-gray-200 rounded w-12"></div>
+                            <div className="h-3 bg-gray-200 rounded w-16"></div>
+                            <div className="h-3 bg-gray-200 rounded w-12"></div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <div 
+                      className="ag-theme-alpine professional-grid compact-data-grid"
+                      style={{ 
+                        height: '600px', 
+                        width: '100%'
+                      }}
+                    >
+                      <AgGridReact
+                        columnDefs={columnDefs}
+                        rowData={filteredPlayers}
+                        defaultColDef={defaultColDef}
+                        gridOptions={gridOptions}
+                        onGridReady={onGridReady}
+                        loading={loading}
+                        data-testid="player-stats-grid"
+                      />
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Player Detail Panel */}
+              {playerDetailOpen && selectedPlayer && (
+                <Card 
+                  className="w-[30%] shadow-xl border-l-4 border-blue-500"
+                  style={{ minWidth: '300px' }}
+                >
+                  <CardHeader className="pb-2 bg-gradient-to-r from-blue-50 to-indigo-50 px-4 py-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <CardTitle className="text-base font-semibold">
+                          {selectedPlayer?.player_name}
+                        </CardTitle>
+                        <Badge className="text-xs px-2 py-0.5 font-medium bg-blue-100 text-blue-800 border-blue-200">
+                          {selectedPlayer?.position}
+                        </Badge>
+                      </div>
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        className="text-xs h-7 w-7 p-0"
+                        onClick={() => setPlayerDetailOpen(false)}
+                      >
+                        ×
+                      </Button>
+                    </div>
+                    <CardDescription className="text-xs">
+                      {selectedPlayer?.team} • Last 10 games from {filters.week === 'all' ? 'current season' : `Week ${filters.week}`} backwards
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="p-4 overflow-y-auto" style={{ height: '550px' }}>
+                    {/* Player Stats Summary */}
+                    <div className="mb-4 p-3 bg-gray-50 rounded-lg">
+                      <h4 className="text-sm font-semibold mb-2">Season Averages</h4>
+                      <div className="grid grid-cols-2 gap-2 text-xs">
+                        <div>Fantasy Pts: <span className="font-semibold text-green-600">{calculateFantasyPoints(selectedPlayer || {})}</span></div>
+                        <div>Snap Count: <span className="font-semibold text-indigo-600">{selectedPlayer?.snap_percentage || 0}</span></div>
+                      </div>
+                    </div>
+                    
+                    {/* Game History */}
+                    <div>
+                      <h4 className="text-sm font-semibold mb-2">Recent Games</h4>
+                      <div className="space-y-2">
+                        {playerGameHistory.length > 0 ? (
+                          playerGameHistory.map((game, index) => (
+                            <div key={index} className="p-3 bg-white border rounded-lg hover:shadow-md transition-shadow">
+                              <div className="flex justify-between items-center mb-1">
+                                <span className="text-xs font-medium">Week {game.week} vs {game.opponent}</span>
+                                <span className="text-xs font-bold text-blue-600">
+                                  {calculateFantasyPoints(game)} pts
+                                </span>
+                              </div>
+                              <div className="grid grid-cols-3 gap-1 text-xs text-gray-600">
+                                {game.position === 'QB' && (
+                                  <>
+                                    <div>{game.passing_yards || 0} pass yds</div>
+                                    <div>{game.passing_tds || 0} pass TD</div>
+                                    <div>{game.interceptions || 0} INT</div>
+                                  </>
+                                )}
+                                {(game.position === 'RB' || game.position === 'WR' || game.position === 'TE') && (
+                                  <>
+                                    <div>{game.receiving_yards || 0} rec yds</div>
+                                    <div>{game.receptions || 0} rec</div>
+                                    <div>{game.rushing_yards || 0} rush yds</div>
+                                  </>
+                                )}
+                              </div>
+                            </div>
+                          ))
+                        ) : (
+                          <div className="text-center text-gray-500 py-8">
+                            <div className="text-sm">Loading game history...</div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+          </div>
+        )}
+        
+        {/* Analytics Tab Content */}
+        {activeTab === 'analytics' && (
+          <div className="p-6">
+            <Card>
+              <CardContent className="p-8 text-center">
+                <div className="flex flex-col items-center space-y-4">
+                  <BarChart3 className="h-16 w-16 text-gray-400" />
+                  <h3 className="text-lg font-semibold text-gray-900">Analytics Dashboard</h3>
+                  <p className="text-gray-600">Advanced analytics and visualizations coming soon!</p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+      </div>
 
           {/* Professional Data Grid with Enhanced Styling */}
           <div className="flex gap-6 relative">
