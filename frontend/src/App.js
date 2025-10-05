@@ -578,12 +578,83 @@ const FantasyDashboard = () => {
 
   // Toggle favorite player
   const toggleFavorite = (playerId) => {
-    setFavorites(prev => 
-      prev.includes(playerId) 
+    setFavorites(prev => {
+      const newFavorites = prev.includes(playerId) 
         ? prev.filter(id => id !== playerId)
-        : [...prev, playerId]
-    );
+        : [...prev, playerId];
+      
+      toast.success(
+        newFavorites.includes(playerId) 
+          ? 'Player added to favorites!' 
+          : 'Player removed from favorites!'
+      );
+      
+      return newFavorites;
+    });
   };
+
+  // Keyboard shortcuts
+  const handleKeyboardShortcuts = useCallback((event) => {
+    // Cmd/Ctrl + K for search focus
+    if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
+      event.preventDefault();
+      document.querySelector('input[placeholder*="Search"]')?.focus();
+    }
+    
+    // Cmd/Ctrl + R for refresh (prevent browser refresh, use our refresh)
+    if ((event.metaKey || event.ctrlKey) && event.key === 'r') {
+      event.preventDefault();
+      refreshData();
+    }
+    
+    // Cmd/Ctrl + E for export
+    if ((event.metaKey || event.ctrlKey) && event.key === 'e') {
+      event.preventDefault();
+      exportData();
+    }
+    
+    // Escape to clear search
+    if (event.key === 'Escape') {
+      setSearchTerm('');
+      setPlayerDetailOpen(false);
+    }
+  }, []);
+
+  // Export data functionality
+  const exportData = useCallback(() => {
+    const csvData = filteredPlayers.map(player => ({
+      Player: player.player_name,
+      Team: player.team,
+      Position: player.position,
+      Fantasy_Points: calculateFantasyPoints(player),
+      Snaps: player.snap_percentage,
+      Rushing_Yards: player.rushing_yards || 0,
+      Receiving_Yards: player.receiving_yards || 0,
+      Passing_Yards: player.passing_yards || 0,
+      DK_Salary: player.dk_salary || 0
+    }));
+    
+    const csvString = [
+      Object.keys(csvData[0]).join(','),
+      ...csvData.map(row => Object.values(row).join(','))
+    ].join('\n');
+    
+    const blob = new Blob([csvString], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `nfl-fantasy-data-${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+    window.URL.revokeObjectURL(url);
+    
+    toast.success('Data exported successfully!');
+  }, [filteredPlayers, calculateFantasyPoints]);
+
+  // Add keyboard event listener
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyboardShortcuts);
+    return () => document.removeEventListener('keydown', handleKeyboardShortcuts);
+  }, [handleKeyboardShortcuts]);
 
   // Fetch summary statistics
   const fetchSummary = async () => {
