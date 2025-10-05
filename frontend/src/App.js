@@ -708,8 +708,8 @@ const FantasyDashboard = () => {
             />
           )}
 
-          {/* Sidebar Content - Reduced Padding */}
-          <div className="p-2 space-y-3 overflow-y-auto max-h-[calc(100vh-100px)]">
+          {/* Sidebar Content - Minimal Padding */}
+          <div className="px-2 py-1 space-y-2 overflow-y-auto max-h-[calc(100vh-80px)]">
             {!sidebarCollapsed && (
               <>
                 {/* Season & Week Filters */}
