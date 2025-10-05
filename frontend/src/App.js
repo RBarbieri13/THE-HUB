@@ -506,8 +506,8 @@ const FantasyDashboard = () => {
   // Grid options for clean layout
   const gridOptions = useMemo(() => ({
     theme: 'legacy',
-    rowHeight: 40,
-    headerHeight: 44,
+    rowHeight: 32,
+    headerHeight: 36,
     rowSelection: 'none',
     pagination: true,
     paginationPageSize: 50,
