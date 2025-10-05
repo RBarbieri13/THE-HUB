@@ -814,14 +814,14 @@ const FantasyDashboard = () => {
                 </div>
 
                 {/* Performance Filters */}
-                <div className="space-y-4">
-                  <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-lg p-3 border border-purple-200">
-                    <h3 className="text-sm font-semibold text-gray-800 mb-3 flex items-center">
-                      <BarChart3 className="h-4 w-4 mr-2 text-purple-600" />
+                <div className="space-y-2">
+                  <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded-lg p-2 border border-purple-200">
+                    <h3 className="text-xs font-semibold text-gray-800 mb-2 flex items-center">
+                      <BarChart3 className="h-3 w-3 mr-1 text-purple-600" />
                       Performance Thresholds
                     </h3>
                     
-                    <div className="space-y-3">
+                    <div className="space-y-2">
                       <div>
                         <label className="text-xs font-medium text-gray-700 block mb-1">MIN SALARY ($)</label>
                         <Input 
