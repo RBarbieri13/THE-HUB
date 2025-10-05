@@ -586,25 +586,44 @@ body {
 }
 
 /* Grouped Column Headers */
+.player-info-group-header {
+  background-color: #f8fafc !important;
+  color: #374151 !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  border-bottom: 2px solid #cbd5e1 !important;
+}
+
+.basic-stats-group-header {
+  background-color: #fef3c7 !important;
+  color: #92400e !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  border-bottom: 2px solid #f59e0b !important;
+}
+
 .passing-group-header {
   background-color: #dbeafe !important;
   color: #1e40af !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   text-align: center !important;
+  border-bottom: 2px solid #3b82f6 !important;
 }
 
 .rushing-group-header {
   background-color: #dcfce7 !important;
   color: #15803d !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   text-align: center !important;
+  border-bottom: 2px solid #10b981 !important;
 }
 
 .receiving-group-header {
   background-color: #f3e8ff !important;
   color: #7c3aed !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   text-align: center !important;
+  border-bottom: 2px solid #8b5cf6 !important;
 }
 
 /* Grouped Column Cells */
