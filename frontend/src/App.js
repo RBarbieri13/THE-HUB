@@ -262,38 +262,34 @@ const FantasyDashboard = () => {
       )
     },
     {
-      headerName: 'USAGE',
-      headerClass: 'usage-header',
-      children: [
-        {
-          headerName: 'SNP',
-          field: 'snap_percentage',
-          width: 60,
-          type: 'numericColumn',
-          cellRenderer: (params) => (
-            <span className="text-xs font-medium text-indigo-700">
-              {params.value && params.value > 0 ? Math.round(params.value) : '-'}
-            </span>
-          )
-        },
-        {
-          headerName: 'PTS',
-          field: 'fantasy_points',
-          width: 55,
-          type: 'numericColumn',
-          valueGetter: (params) => calculateFantasyPoints(params.data),
-          cellRenderer: (params) => {
-            const points = parseFloat(params.value) || 0;
-            const colorClass = getPerformanceColor(points, 'fantasy_points', params.data.position);
-            return (
-              <span className={`text-xs font-bold ${colorClass}`}>
-                {points.toFixed(1)}
-              </span>
-            );
-          },
-          sort: 'desc'
-        }
-      ]
+      headerName: 'Snaps',
+      field: 'snap_percentage',
+      width: 65,
+      type: 'numericColumn',
+      headerClass: 'ag-header-cell-text',
+      cellRenderer: (params) => (
+        <span className="text-sm font-medium text-gray-800">
+          {params.value && params.value > 0 ? Math.round(params.value) : '-'}
+        </span>
+      )
+    },
+    {
+      headerName: 'Fantasy',
+      field: 'fantasy_points',
+      width: 70,
+      type: 'numericColumn',
+      headerClass: 'ag-header-cell-text',
+      valueGetter: (params) => calculateFantasyPoints(params.data),
+      cellRenderer: (params) => {
+        const points = parseFloat(params.value) || 0;
+        const colorClass = getPerformanceColor(points, 'fantasy_points', params.data.position);
+        return (
+          <span className={`text-sm font-semibold ${colorClass}`}>
+            {points.toFixed(1)}
+          </span>
+        );
+      },
+      sort: 'desc'
     },
     {
       headerName: 'RUSHING',
