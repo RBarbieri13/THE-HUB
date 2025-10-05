@@ -89,6 +89,8 @@ const FantasyDashboard = () => {
   const [lastUpdated, setLastUpdated] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
+  const [activeTab, setActiveTab] = useState('data-table');
+  const [filtersCollapsed, setFiltersCollapsed] = useState(false);
 
   // Calculate fantasy points based on PPR setting
   const calculateFantasyPoints = (player) => {
