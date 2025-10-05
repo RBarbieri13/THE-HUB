@@ -136,6 +136,17 @@ const FantasyDashboard = () => {
     return 'text-red-500';
   };
 
+  // Get position color for badges
+  const getPositionColor = (position) => {
+    const colors = {
+      'QB': 'bg-purple-100 text-purple-800 border-purple-300',
+      'RB': 'bg-green-100 text-green-800 border-green-300',
+      'WR': 'bg-blue-100 text-blue-800 border-blue-300',
+      'TE': 'bg-orange-100 text-orange-800 border-orange-300'
+    };
+    return colors[position] || 'bg-gray-100 text-gray-800 border-gray-300';
+  };
+
   // Handle sidebar resizing
   const handleMouseDown = (e) => {
     setIsResizing(true);
