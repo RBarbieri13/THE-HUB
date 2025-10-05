@@ -763,11 +763,44 @@ const FantasyDashboard = () => {
     params.api.sizeColumnsToFit();
   };
 
+  // Handle filter changes with auto-apply
   const handleFilterChange = (filterType, value) => {
-    setFilters(prev => ({
-      ...prev,
-      [filterType]: value
-    }));
+    const newFilters = { ...filters, [filterType]: value };
+    setFilters(newFilters);
+    
+    // Auto-apply filters after a short delay
+    setTimeout(() => {
+      fetchPlayersWithFilters(newFilters);
+    }, 300);
+  };
+
+  // Separate function for fetching with specific filters
+  const fetchPlayersWithFilters = async (filterParams = filters) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`${API}/players`, { 
+        params: { 
+          ...filterParams, 
+          limit: 1000 
+        } 
+      });
+      
+      const playersData = response.data || [];
+      setPlayers(playersData);
+      setLastUpdated(new Date());
+      
+      if (playersData.length === 0) {
+        toast.info(`No players found for selected filters`, { duration: 2000 });
+      } else {
+        toast.success(`Loaded ${playersData.length} players`, { duration: 1500 });
+      }
+    } catch (error) {
+      console.error('Error fetching players:', error);
+      setPlayers([]);
+      toast.error('Error loading player data', { duration: 3000 });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const PlayerTypeButton = ({ type, label, active, onClick }) => (
