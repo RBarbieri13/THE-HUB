@@ -771,8 +771,8 @@ const FantasyDashboard = () => {
                 </div>
 
                 {/* Team & Position Filters */}
-                <div className="space-y-4">
-                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-3 border border-green-200">
+                <div className="space-y-2">
+                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-2 border border-green-200">
                     <h3 className="text-sm font-semibold text-gray-800 mb-3 flex items-center">
                       <Users className="h-4 w-4 mr-2 text-green-600" />
                       Team & Position
