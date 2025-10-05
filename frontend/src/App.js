@@ -356,7 +356,7 @@ const FantasyDashboard = () => {
           )
         },
         {
-          headerName: 'Yds',
+          headerName: 'YDS',
           field: 'receiving_yards',
           width: 50,
           type: 'numericColumn',
@@ -367,7 +367,7 @@ const FantasyDashboard = () => {
           )
         },
         {
-          headerName: 'TD',
+          headerName: 'RTD',
           field: 'receiving_tds',
           width: 40,
           type: 'numericColumn',
