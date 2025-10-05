@@ -85,17 +85,6 @@ const FantasyDashboard = () => {
   const [sidebarWidth, setSidebarWidth] = useState(280); // pixels
   const [isResizing, setIsResizing] = useState(false);
 
-  // Position badge colors
-  const getPositionColor = (position) => {
-    const colors = {
-      'QB': 'bg-pink-100 text-pink-800 border-pink-200',
-      'RB': 'bg-green-100 text-green-800 border-green-200',
-      'WR': 'bg-blue-100 text-blue-800 border-blue-200',
-      'TE': 'bg-purple-100 text-purple-800 border-purple-200'
-    };
-    return colors[position] || 'bg-gray-100 text-gray-800 border-gray-200';
-  };
-
   // Calculate fantasy points based on PPR setting
   const calculateFantasyPoints = (player) => {
     let points = 0;
