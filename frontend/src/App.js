@@ -295,18 +295,24 @@ const FantasyDashboard = () => {
           </div>
         );
       }
+    }]
     },
-    // Basic Info Columns
+    
+    // Basic Stats Group
     {
-      headerName: 'Pos',
-      field: 'position',
-      width: 50,
-      cellRenderer: (params) => (
-        <div className="py-1 px-2">
-          <span className="text-sm font-medium text-blue-600">{params.value}</span>
-        </div>
-      )
-    },
+      headerName: 'BASIC STATS',
+      headerClass: 'basic-stats-group-header',
+      children: [
+        {
+          headerName: 'Pos',
+          field: 'position',
+          width: 50,
+          cellRenderer: (params) => (
+            <div className="py-1 px-2">
+              <span className="text-sm font-medium text-blue-600">{params.value}</span>
+            </div>
+          )
+        },
     {
       headerName: 'DK $',
       field: 'dk_salary',
