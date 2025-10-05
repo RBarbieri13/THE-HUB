@@ -671,32 +671,43 @@ const FantasyDashboard = () => {
 
       {/* Main Layout with Sidebar */}
       <div className="flex min-h-[calc(100vh-80px)]">
-        {/* Collapsible Professional Sidebar */}
+        {/* Resizable Professional Sidebar */}
         <div 
           className={`bg-white shadow-2xl border-r border-gray-200 transition-all duration-300 ease-in-out ${
-            sidebarCollapsed ? 'w-16' : 'w-80'
-          } flex-shrink-0`}
-          style={{ background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%)' }}
+            sidebarCollapsed ? 'w-16' : ''
+          } flex-shrink-0 relative`}
+          style={{ 
+            width: sidebarCollapsed ? '64px' : `${sidebarWidth}px`,
+            background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%)' 
+          }}
         >
-          {/* Sidebar Header */}
-          <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
+          {/* Sidebar Header - Reduced Padding */}
+          <div className="p-2 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
             <div className="flex items-center justify-between">
               {!sidebarCollapsed && (
                 <div className="flex items-center space-x-2">
-                  <Filter className="h-5 w-5 text-blue-600" />
-                  <h2 className="text-lg font-semibold text-gray-900">Filters & Options</h2>
+                  <Filter className="h-4 w-4 text-blue-600" />
+                  <h2 className="text-sm font-semibold text-gray-900">Filters & Options</h2>
                 </div>
               )}
               <Button 
                 size="sm" 
                 variant="ghost" 
                 onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-                className="h-8 w-8 p-0 hover:bg-blue-100"
+                className="h-6 w-6 p-0 hover:bg-blue-100 text-xs"
               >
                 {sidebarCollapsed ? '→' : '←'}
               </Button>
             </div>
           </div>
+
+          {/* Resize Handle */}
+          {!sidebarCollapsed && (
+            <div
+              className="absolute top-0 right-0 w-1 h-full bg-blue-300 hover:bg-blue-500 cursor-col-resize opacity-0 hover:opacity-100 transition-opacity"
+              onMouseDown={handleMouseDown}
+            />
+          )}
 
           {/* Sidebar Content */}
           <div className="p-4 space-y-6 overflow-y-auto max-h-[calc(100vh-140px)]">
