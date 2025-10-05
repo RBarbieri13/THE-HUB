@@ -473,6 +473,277 @@ class NFLFantasyTester:
             self.log_test("Data Refresh", False, f"Error: {str(e)}")
             return False
     
+    def test_game_data_display(self) -> bool:
+        """Test game data display functionality - TEAM vs OPPONENT format and no mock data"""
+        try:
+            game_data_issues = []
+            mock_data_found = []
+            bye_weeks_found = []
+            valid_game_formats = []
+            
+            # Test multiple seasons and weeks to ensure comprehensive coverage
+            test_scenarios = [
+                {'season': 2024, 'week': 1},
+                {'season': 2024, 'week': 4},
+                {'season': 2024, 'week': 8},
+                {'season': 2025, 'week': 1},
+                {'season': 2025, 'week': 4}
+            ]
+            
+            for scenario in test_scenarios:
+                season = scenario['season']
+                week = scenario['week']
+                
+                response = self.session.get(f"{self.backend_url}/players", params={
+                    'season': season,
+                    'week': week,
+                    'limit': 50
+                })
+                
+                if response.status_code == 200:
+                    players = response.json()
+                    
+                    for player in players:
+                        player_name = player.get('player_name', 'Unknown')
+                        team = player.get('team', '')
+                        opponent = player.get('opponent', '')
+                        week_num = player.get('week', 0)
+                        
+                        # Check for proper TEAM vs OPPONENT format
+                        if opponent:
+                            if opponent.upper() == 'BYE':
+                                bye_weeks_found.append({
+                                    'player': player_name,
+                                    'team': team,
+                                    'week': week_num,
+                                    'season': season,
+                                    'opponent': opponent
+                                })
+                            else:
+                                # Check if opponent is a valid NFL team
+                                if opponent.upper() in NFL_TEAMS or len(opponent) == 3:
+                                    valid_game_formats.append({
+                                        'player': player_name,
+                                        'team': team,
+                                        'opponent': opponent,
+                                        'week': week_num,
+                                        'season': season,
+                                        'game_format': f"{team} vs {opponent}"
+                                    })
+                                else:
+                                    # Check for mock data patterns like "W 21-14" or "L 14-21"
+                                    if any(pattern in opponent for pattern in ['W ', 'L ', '-']):
+                                        mock_data_found.append({
+                                            'player': player_name,
+                                            'team': team,
+                                            'opponent': opponent,
+                                            'week': week_num,
+                                            'season': season,
+                                            'issue': 'Mock score data found'
+                                        })
+                                    else:
+                                        game_data_issues.append({
+                                            'player': player_name,
+                                            'team': team,
+                                            'opponent': opponent,
+                                            'week': week_num,
+                                            'season': season,
+                                            'issue': 'Invalid opponent format'
+                                        })
+                        else:
+                            # Missing opponent data
+                            game_data_issues.append({
+                                'player': player_name,
+                                'team': team,
+                                'opponent': 'NULL/EMPTY',
+                                'week': week_num,
+                                'season': season,
+                                'issue': 'Missing opponent data'
+                            })
+                    
+                    self.log_test(f"Game Data {season} Week {week}", 
+                        len(game_data_issues) == 0 and len(mock_data_found) == 0,
+                        f"Valid games: {len(valid_game_formats)}, BYE weeks: {len(bye_weeks_found)}, Issues: {len(game_data_issues)}, Mock data: {len(mock_data_found)}")
+                else:
+                    self.log_test(f"Game Data {season} Week {week}", False, 
+                        f"API error: {response.status_code}")
+            
+            # Overall assessment
+            total_issues = len(game_data_issues) + len(mock_data_found)
+            success = total_issues == 0
+            
+            if mock_data_found:
+                self.log_test("Mock Data Detection", False, 
+                    f"Found {len(mock_data_found)} instances of mock score data", 
+                    mock_data_found[:3])
+            else:
+                self.log_test("Mock Data Detection", True, 
+                    "No mock score data (W 21-14, L 14-21) found")
+            
+            if bye_weeks_found:
+                self.log_test("BYE Week Handling", True, 
+                    f"Found {len(bye_weeks_found)} properly handled BYE weeks", 
+                    bye_weeks_found[:3])
+            
+            if valid_game_formats:
+                self.log_test("Game Format Validation", True, 
+                    f"Found {len(valid_game_formats)} valid TEAM vs OPPONENT formats", 
+                    valid_game_formats[:5])
+            
+            if game_data_issues:
+                self.log_test("Game Data Issues", False, 
+                    f"Found {len(game_data_issues)} game data issues", 
+                    game_data_issues[:5])
+            
+            self.log_test("Game Data Display Overall", success, 
+                f"Total valid games: {len(valid_game_formats)}, BYE weeks: {len(bye_weeks_found)}, Issues: {total_issues}")
+            
+            return success
+            
+        except Exception as e:
+            self.log_test("Game Data Display", False, f"Error testing game data: {str(e)}")
+            return False
+
+    def test_filter_combinations(self) -> bool:
+        """Test different filter combinations for game data consistency"""
+        try:
+            filter_test_cases = [
+                {'season': 2024, 'week': 1, 'position': 'QB', 'team': 'KC'},
+                {'season': 2024, 'week': 4, 'position': 'RB', 'team': 'all'},
+                {'season': 2025, 'week': 1, 'position': 'WR', 'team': 'BUF'},
+                {'season': 2025, 'week': 4, 'position': 'TE', 'team': 'all'},
+                {'season': 2024, 'position': 'QB'},  # No week filter
+                {'season': 2025, 'week': 2}  # No position filter
+            ]
+            
+            all_tests_passed = True
+            
+            for i, filters in enumerate(filter_test_cases):
+                test_name = f"Filter Combo {i+1}"
+                
+                # Build params, excluding None values
+                params = {k: v for k, v in filters.items() if v != 'all'}
+                
+                response = self.session.get(f"{self.backend_url}/players", params=params)
+                
+                if response.status_code == 200:
+                    players = response.json()
+                    
+                    # Validate that returned data matches filters
+                    filter_violations = []
+                    game_format_issues = []
+                    
+                    for player in players:
+                        # Check season filter
+                        if 'season' in filters and player.get('season') != filters['season']:
+                            filter_violations.append(f"Season mismatch: expected {filters['season']}, got {player.get('season')}")
+                        
+                        # Check week filter
+                        if 'week' in filters and player.get('week') != filters['week']:
+                            filter_violations.append(f"Week mismatch: expected {filters['week']}, got {player.get('week')}")
+                        
+                        # Check position filter
+                        if 'position' in filters and player.get('position') != filters['position']:
+                            filter_violations.append(f"Position mismatch: expected {filters['position']}, got {player.get('position')}")
+                        
+                        # Check team filter
+                        if 'team' in filters and filters['team'] != 'all' and player.get('team') != filters['team']:
+                            filter_violations.append(f"Team mismatch: expected {filters['team']}, got {player.get('team')}")
+                        
+                        # Check game format consistency
+                        opponent = player.get('opponent', '')
+                        team = player.get('team', '')
+                        if opponent and opponent != 'BYE':
+                            if not (len(opponent) == 3 and opponent.isupper()):
+                                game_format_issues.append(f"Invalid opponent format: {opponent} for {player.get('player_name')}")
+                    
+                    test_passed = len(filter_violations) == 0 and len(game_format_issues) == 0
+                    all_tests_passed = all_tests_passed and test_passed
+                    
+                    self.log_test(test_name, test_passed, 
+                        f"Filters: {params}, Players: {len(players)}, Violations: {len(filter_violations)}, Format issues: {len(game_format_issues)}")
+                    
+                    if filter_violations:
+                        self.log_test(f"{test_name} Filter Violations", False, 
+                            f"Found {len(filter_violations)} filter violations", filter_violations[:3])
+                    
+                    if game_format_issues:
+                        self.log_test(f"{test_name} Game Format Issues", False, 
+                            f"Found {len(game_format_issues)} game format issues", game_format_issues[:3])
+                else:
+                    all_tests_passed = False
+                    self.log_test(test_name, False, f"API error: {response.status_code}")
+            
+            return all_tests_passed
+            
+        except Exception as e:
+            self.log_test("Filter Combinations", False, f"Error testing filter combinations: {str(e)}")
+            return False
+
+    def test_week_accuracy(self) -> bool:
+        """Test week information accuracy across different scenarios"""
+        try:
+            week_accuracy_issues = []
+            valid_weeks = []
+            
+            # Test specific weeks for accuracy
+            test_weeks = [1, 2, 3, 4, 5, 8, 12, 16, 18]
+            
+            for season in [2024, 2025]:
+                for week in test_weeks:
+                    response = self.session.get(f"{self.backend_url}/players", params={
+                        'season': season,
+                        'week': week,
+                        'limit': 20
+                    })
+                    
+                    if response.status_code == 200:
+                        players = response.json()
+                        
+                        for player in players:
+                            returned_week = player.get('week')
+                            returned_season = player.get('season')
+                            
+                            if returned_week != week:
+                                week_accuracy_issues.append({
+                                    'player': player.get('player_name'),
+                                    'expected_week': week,
+                                    'returned_week': returned_week,
+                                    'season': season
+                                })
+                            elif returned_season != season:
+                                week_accuracy_issues.append({
+                                    'player': player.get('player_name'),
+                                    'expected_season': season,
+                                    'returned_season': returned_season,
+                                    'week': week
+                                })
+                            else:
+                                valid_weeks.append({
+                                    'player': player.get('player_name'),
+                                    'week': returned_week,
+                                    'season': returned_season
+                                })
+                    else:
+                        self.log_test(f"Week Accuracy {season} W{week}", False, 
+                            f"API error: {response.status_code}")
+            
+            success = len(week_accuracy_issues) == 0
+            
+            self.log_test("Week Information Accuracy", success, 
+                f"Valid week data: {len(valid_weeks)}, Accuracy issues: {len(week_accuracy_issues)}")
+            
+            if week_accuracy_issues:
+                self.log_test("Week Accuracy Issues", False, 
+                    f"Found {len(week_accuracy_issues)} week accuracy issues", 
+                    week_accuracy_issues[:5])
+            
+            return success
+            
+        except Exception as e:
+            self.log_test("Week Accuracy", False, f"Error testing week accuracy: {str(e)}")
+            return False
+
     def run_comprehensive_test(self):
         """Run all tests and provide summary"""
         print("=" * 60)
@@ -487,6 +758,16 @@ class NFLFantasyTester:
         
         # Test 2: Get database overview
         stats_summary = self.test_stats_summary()
+        
+        # NEW TESTS FOR GAME DATA DISPLAY (HIGH PRIORITY)
+        print("\n🎮 Testing Game Data Display Functionality...")
+        self.test_game_data_display()
+        
+        print("\n🔄 Testing Filter Combinations...")
+        self.test_filter_combinations()
+        
+        print("\n📅 Testing Week Accuracy...")
+        self.test_week_accuracy()
         
         # Test 3: Enhanced Name Matching System (HIGH PRIORITY)
         print("\n🎯 Testing Enhanced Name Matching System...")
