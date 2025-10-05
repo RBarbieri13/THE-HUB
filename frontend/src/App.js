@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/select';
 import { Badge } from './components/ui/badge';
 import { Input } from './components/ui/input';
-import { RefreshCw, TrendingUp, Users, Calendar, Search, Filter, Star, BarChart3, Settings, Download, DollarSign, Database, Clock, Activity } from 'lucide-react';
+import { RefreshCw, TrendingUp, Users, Calendar, Search, Filter, Star, BarChart3, Settings, Download, DollarSign, Database, Clock, Activity, Heart, Copy, Eye, Zap } from 'lucide-react';
 import { Toaster } from './components/ui/sonner';
 import { toast } from 'sonner';
 import '@/App.css';
