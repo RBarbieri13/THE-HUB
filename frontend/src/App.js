@@ -1016,16 +1016,14 @@ const FantasyDashboard = () => {
                       </div>
                     </div>
 
-                    {/* Apply Filters Button */}
+                    {/* Auto-apply indicator */}
                     <div className="mt-4 flex justify-end">
-                      <Button 
-                        size="sm"
-                        className="bg-green-600 hover:bg-green-700 text-white"
-                        onClick={fetchPlayers}
-                      >
-                        <Filter className="h-3 w-3 mr-2" />
-                        Apply Filters
-                      </Button>
+                      <div className="text-xs text-gray-500">
+                        <span className="inline-flex items-center">
+                          <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
+                          Filters apply automatically
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
