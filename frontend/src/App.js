@@ -804,81 +804,80 @@ const FantasyDashboard = () => {
         </div>
       </div>
 
-      {/* Main Layout with Sidebar */}
-      <div className="flex min-h-[calc(100vh-80px)]">
-        {/* Resizable Professional Sidebar */}
-        <div 
-          className={`bg-white shadow-2xl border-r border-gray-200 transition-all duration-300 ease-in-out ${
-            sidebarCollapsed ? 'w-16' : ''
-          } flex-shrink-0 relative`}
-          style={{ 
-            width: sidebarCollapsed ? '64px' : `${sidebarWidth}px`,
-            background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 50%, #f1f5f9 100%)' 
-          }}
-        >
-          {/* Sidebar Header - Reduced Padding */}
-          <div className="p-2 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
-            <div className="flex items-center justify-between">
-              {!sidebarCollapsed && (
-                <div className="flex items-center space-x-2">
-                  <Filter className="h-4 w-4 text-blue-600" />
-                  <h2 className="text-sm font-semibold text-gray-900">Filters & Options</h2>
-                </div>
-              )}
-              <Button 
-                size="sm" 
-                variant="ghost" 
-                onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-                className="h-6 w-6 p-0 hover:bg-blue-100 text-xs"
-              >
-                {sidebarCollapsed ? '→' : '←'}
-              </Button>
-            </div>
+      {/* Main Content Area - Full Width */}
+      <div className="flex-1 overflow-hidden">
+        {/* Tab Navigation */}
+        <div className="bg-white border-b border-gray-200 px-6 py-2">
+          <div className="flex space-x-8">
+            <button
+              onClick={() => setActiveTab('data-table')}
+              className={`px-3 py-2 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'data-table'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Data Table
+            </button>
+            <button
+              onClick={() => setActiveTab('analytics')}
+              className={`px-3 py-2 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'analytics'
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              Analytics
+            </button>
           </div>
+        </div>
 
-          {/* Resize Handle */}
-          {!sidebarCollapsed && (
-            <div
-              className="absolute top-0 right-0 w-1 h-full bg-blue-300 hover:bg-blue-500 cursor-col-resize opacity-0 hover:opacity-100 transition-opacity"
-              onMouseDown={handleMouseDown}
-            />
-          )}
-
-          {/* Sidebar Content - Minimal Padding */}
-          <div className="px-2 py-1 space-y-2 overflow-y-auto max-h-[calc(100vh-80px)]">
-            {!sidebarCollapsed && (
-              <>
-                {/* Season & Week Filters */}
-                <div className="space-y-2">
-                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded p-1.5 border border-blue-200">
-                    <h3 className="text-xs font-semibold text-gray-800 mb-2 flex items-center">
-                      <Calendar className="h-3 w-3 mr-1 text-blue-600" />
-                      Time Period
-                    </h3>
-                    
-                    <div className="space-y-2">
+        {/* Tab Content */}
+        {activeTab === 'data-table' && (
+          <div className="h-full">
+            {/* Collapsible Filter Section */}
+            <div className="bg-gray-50 border-b border-gray-200">
+              <div className="px-6 py-3">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setFiltersCollapsed(!filtersCollapsed)}
+                  className="flex items-center space-x-2 text-sm font-medium text-gray-700 hover:text-gray-900"
+                >
+                  <Filter className="h-4 w-4" />
+                  <span>Filters</span>
+                  <span className={`transform transition-transform ${filtersCollapsed ? '' : 'rotate-180'}`}>
+                    ▼
+                  </span>
+                </Button>
+              </div>
+              
+              {!filtersCollapsed && (
+                <div className="px-6 pb-4">
+                  <div className="bg-white rounded-lg border border-gray-200 p-4">
+                    <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+                      {/* Season Filter */}
                       <div>
-                        <label className="text-xs font-medium text-gray-700 block mb-1">SEASON</label>
+                        <label className="block text-xs font-medium text-gray-700 mb-1">Season</label>
                         <Select value={filters.season} onValueChange={(value) => handleFilterChange('season', value)}>
-                          <SelectTrigger className="h-9 text-sm shadow-sm border-gray-300">
+                          <SelectTrigger className="h-9">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="2023">2023 Season</SelectItem>
-                            <SelectItem value="2024">2024 Season</SelectItem>
-                            <SelectItem value="2025">2025 Season</SelectItem>
+                            <SelectItem value="2024">2024 Regular Season</SelectItem>
+                            <SelectItem value="2025">2025 Regular Season</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
-                      
+
+                      {/* Week Range */}
                       <div>
-                        <label className="text-xs font-medium text-gray-700 block mb-1">WEEK</label>
+                        <label className="block text-xs font-medium text-gray-700 mb-1">Week</label>
                         <Select value={filters.week} onValueChange={(value) => handleFilterChange('week', value)}>
-                          <SelectTrigger className="h-9 text-sm shadow-sm border-gray-300">
-                            <SelectValue placeholder="All weeks" />
+                          <SelectTrigger className="h-9">
+                            <SelectValue placeholder="Week 1" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="all">All Weeks</SelectItem>
                             {Array.from({length: 18}, (_, i) => (
                               <SelectItem key={i + 1} value={(i + 1).toString()}>
                                 Week {i + 1}
@@ -887,209 +886,85 @@ const FantasyDashboard = () => {
                           </SelectContent>
                         </Select>
                       </div>
-                    </div>
-                  </div>
-                </div>
 
-                {/* Team & Position Filters */}
-                <div className="space-y-2">
-                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded p-1.5 border border-green-200">
-                    <h3 className="text-xs font-semibold text-gray-800 mb-2 flex items-center">
-                      <Users className="h-3 w-3 mr-1 text-green-600" />
-                      Team & Position
-                    </h3>
-                    
-                    <div className="space-y-2">
+                      {/* Position Filter */}
                       <div>
-                        <label className="text-xs font-medium text-gray-700 block mb-1">TEAM</label>
+                        <label className="block text-xs font-medium text-gray-700 mb-1">Pos</label>
+                        <Select value={filters.position} onValueChange={(value) => handleFilterChange('position', value)}>
+                          <SelectTrigger className="h-9">
+                            <SelectValue placeholder="All Players" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="all">All Players</SelectItem>
+                            <SelectItem value="QB">QB</SelectItem>
+                            <SelectItem value="RB">RB</SelectItem>
+                            <SelectItem value="WR">WR</SelectItem>
+                            <SelectItem value="TE">TE</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {/* Team Filter */}
+                      <div>
+                        <label className="block text-xs font-medium text-gray-700 mb-1">Team</label>
                         <Select value={filters.team} onValueChange={(value) => handleFilterChange('team', value)}>
-                          <SelectTrigger className="h-9 text-sm shadow-sm border-gray-300">
-                            <SelectValue placeholder="All teams" />
+                          <SelectTrigger className="h-9">
+                            <SelectValue placeholder="All Teams" />
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="all">All Teams</SelectItem>
                             {Object.entries(NFL_TEAMS).map(([abbr, name]) => (
-                              <SelectItem key={abbr} value={abbr}>{name}</SelectItem>
+                              <SelectItem key={abbr} value={abbr}>{abbr}</SelectItem>
                             ))}
                           </SelectContent>
                         </Select>
                       </div>
-                      
+
+                      {/* Salary Filter */}
                       <div>
-                        <label className="text-xs font-medium text-gray-700 block mb-1">POSITION</label>
-                        <Select value={filters.position} onValueChange={(value) => handleFilterChange('position', value)}>
-                          <SelectTrigger className="h-9 text-sm shadow-sm border-gray-300">
-                            <SelectValue placeholder="All positions" />
+                        <label className="block text-xs font-medium text-gray-700 mb-1">$</label>
+                        <Input 
+                          type="number" 
+                          placeholder="Min Salary"
+                          value={filters.minSalary}
+                          onChange={(e) => handleFilterChange('minSalary', e.target.value)}
+                          className="h-9"
+                        />
+                      </div>
+
+                      {/* PPR Toggle */}
+                      <div>
+                        <label className="block text-xs font-medium text-gray-700 mb-1">Scoring</label>
+                        <Select value={isPPR ? 'ppr' : 'half-ppr'} onValueChange={(value) => setIsPPR(value === 'ppr')}>
+                          <SelectTrigger className="h-9">
+                            <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="all">All Positions</SelectItem>
-                            <SelectItem value="QB">Quarterback (QB)</SelectItem>
-                            <SelectItem value="RB">Running Back (RB)</SelectItem>
-                            <SelectItem value="WR">Wide Receiver (WR)</SelectItem>
-                            <SelectItem value="TE">Tight End (TE)</SelectItem>
+                            <SelectItem value="ppr">PPR</SelectItem>
+                            <SelectItem value="half-ppr">Half PPR</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
                     </div>
-                  </div>
-                </div>
 
-                {/* Performance Filters */}
-                <div className="space-y-2">
-                  <div className="bg-gradient-to-r from-purple-50 to-violet-50 rounded p-1.5 border border-purple-200">
-                    <h3 className="text-xs font-semibold text-gray-800 mb-2 flex items-center">
-                      <BarChart3 className="h-3 w-3 mr-1 text-purple-600" />
-                      Performance Thresholds
-                    </h3>
-                    
-                    <div className="space-y-2">
-                      <div>
-                        <label className="text-xs font-medium text-gray-700 block mb-1">MIN SALARY ($)</label>
-                        <Input 
-                          type="number" 
-                          placeholder="5000"
-                          value={filters.minSalary}
-                          onChange={(e) => handleFilterChange('minSalary', e.target.value)}
-                          className="h-9 text-sm shadow-sm border-gray-300"
-                        />
-                      </div>
-                      
-                      <div>
-                        <label className="text-xs font-medium text-gray-700 block mb-1">MIN SNAPS</label>
-                        <Input 
-                          type="number" 
-                          placeholder="10"
-                          value={filters.minSnaps}
-                          onChange={(e) => handleFilterChange('minSnaps', e.target.value)}
-                          className="h-9 text-sm shadow-sm border-gray-300"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Scoring System */}
-                <div className="space-y-2">
-                  <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded p-1.5 border border-amber-200">
-                    <h3 className="text-xs font-semibold text-gray-800 mb-2 flex items-center">
-                      <Star className="h-3 w-3 mr-1 text-amber-600" />
-                      Fantasy Scoring
-                    </h3>
-                    
-                    <div className="flex flex-col space-y-2">
-                      <label className="text-xs font-medium text-gray-700">PPR SYSTEM</label>
-                      <div className="flex bg-white rounded-lg p-1 border shadow-sm">
-                        <button
-                          onClick={() => setIsPPR(true)}
-                          className={`flex-1 px-3 py-2 text-sm font-medium rounded transition-all ${
-                            isPPR 
-                              ? 'bg-blue-500 text-white shadow-sm' 
-                              : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
-                          }`}
-                        >
-                          Full PPR
-                        </button>
-                        <button
-                          onClick={() => setIsPPR(false)}
-                          className={`flex-1 px-3 py-2 text-sm font-medium rounded transition-all ${
-                            !isPPR 
-                              ? 'bg-blue-500 text-white shadow-sm' 
-                              : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
-                          }`}
-                        >
-                          Half PPR
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Player Type Buttons */}
-                <div className="space-y-2">
-                  <div className="bg-gradient-to-r from-rose-50 to-pink-50 rounded p-1.5 border border-rose-200">
-                    <h3 className="text-xs font-semibold text-gray-800 mb-2 flex items-center">
-                      <Search className="h-3 w-3 mr-1 text-rose-600" />
-                      Quick Filters
-                    </h3>
-                    
-                    <div className="grid grid-cols-2 gap-2">
-                      <PlayerTypeButton 
-                        type="all" 
-                        label="All" 
-                        active={selectedPlayerType === 'all'} 
-                        onClick={setSelectedPlayerType} 
-                      />
-                      <PlayerTypeButton 
-                        type="qb" 
-                        label="QB" 
-                        active={selectedPlayerType === 'qb'} 
-                        onClick={setSelectedPlayerType} 
-                      />
-                      <PlayerTypeButton 
-                        type="rb" 
-                        label="RB" 
-                        active={selectedPlayerType === 'rb'} 
-                        onClick={setSelectedPlayerType} 
-                      />
-                      <PlayerTypeButton 
-                        type="wr" 
-                        label="WR" 
-                        active={selectedPlayerType === 'wr'} 
-                        onClick={setSelectedPlayerType} 
-                      />
-                      <PlayerTypeButton 
-                        type="te" 
-                        label="TE" 
-                        active={selectedPlayerType === 'te'} 
-                        onClick={setSelectedPlayerType} 
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Data Actions */}
-                <div className="space-y-2">
-                  <div className="bg-gradient-to-r from-gray-50 to-slate-50 rounded p-1.5 border border-gray-200">
-                    <h3 className="text-xs font-semibold text-gray-800 mb-2 flex items-center">
-                      <Database className="h-3 w-3 mr-1 text-gray-600" />
-                      Data Management
-                    </h3>
-                    
-                    <div className="space-y-2">
+                    {/* Apply Filters Button */}
+                    <div className="mt-4 flex justify-end">
                       <Button 
-                        size="sm" 
-                        variant="outline"
-                        className="w-full text-xs h-8 justify-start"
-                        onClick={loadSnapCounts}
-                        disabled={loadingSnapCounts}
+                        size="sm"
+                        className="bg-green-600 hover:bg-green-700 text-white"
+                        onClick={fetchPlayers}
                       >
-                        <Activity className={`h-3 w-3 mr-2 ${loadingSnapCounts ? 'animate-spin' : ''}`} />
-                        {loadingSnapCounts ? 'Loading...' : 'Load Snap Counts'}
-                      </Button>
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        className="w-full text-xs h-8 justify-start"
-                        onClick={loadHistoricalPricing}
-                        disabled={loadingPricing}
-                      >
-                        <DollarSign className={`h-3 w-3 mr-2 ${loadingPricing ? 'animate-spin' : ''}`} />
-                        {loadingPricing ? 'Loading...' : 'Load DK Pricing'}
-                      </Button>
-                      <Button size="sm" variant="outline" className="w-full text-xs h-8 justify-start">
-                        <Download className="h-3 w-3 mr-2" />
-                        Export Data
+                        <Filter className="h-3 w-3 mr-2" />
+                        Apply Filters
                       </Button>
                     </div>
                   </div>
                 </div>
-              </>
-            )}
-          </div>
-        </div>
+              )}
+            </div>
 
-        {/* Main Content Area */}
-        <div className="flex-1 p-6 overflow-hidden">
+            {/* Data Table Content */}
+            <div className="p-6">
 
           {/* Professional Data Grid with Enhanced Styling */}
           <div className="flex gap-6 relative">
