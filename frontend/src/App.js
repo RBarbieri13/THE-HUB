@@ -298,7 +298,7 @@ const FantasyDashboard = () => {
       headerClass: 'rushing-header',
       children: [
         {
-          headerName: 'Att',
+          headerName: 'ATT',
           field: 'rushing_attempts',
           width: 45,
           type: 'numericColumn',
@@ -308,7 +308,7 @@ const FantasyDashboard = () => {
           )
         },
         {
-          headerName: 'Yds',
+          headerName: 'YDS',
           field: 'rushing_yards',
           width: 50,
           type: 'numericColumn',
@@ -319,7 +319,7 @@ const FantasyDashboard = () => {
           )
         },
         {
-          headerName: 'TD',
+          headerName: 'RTD',
           field: 'rushing_tds',
           width: 40,
           type: 'numericColumn',
