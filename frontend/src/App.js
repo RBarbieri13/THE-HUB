@@ -763,7 +763,7 @@ const FantasyDashboard = () => {
 
   // Refetch when filters change
   useEffect(() => {
-    fetchPlayers();
+    fetchPlayersWithFilters();
   }, [filters, selectedPlayerType]);
 
   const onGridReady = (params) => {
