@@ -263,13 +263,6 @@ const FantasyDashboard = () => {
         const playerTeam = params.data.team;
         const week = params.data.week;
         
-        // Handle LA ambiguity - map generic "LA" to specific team codes
-        if (opponent === 'LA') {
-          // For now, we'll show as LAR/LAC based on common matchups
-          // This is a temporary fix for the nflreadpy data ambiguity
-          opponent = 'LA*'; // Mark as ambiguous
-        }
-        
         return (
           <div className="py-1 px-2">
             <div className="text-xs font-semibold text-gray-700">
