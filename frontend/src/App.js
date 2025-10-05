@@ -352,16 +352,41 @@ const FantasyDashboard = () => {
         {
           headerName: 'FPTS',
           field: 'fantasy_points',
-          width: 60,
+          width: 80,
           type: 'numericColumn',
           valueGetter: (params) => calculateFantasyPoints(params.data),
           cellRenderer: (params) => {
             const points = parseFloat(params.value) || 0;
+            const maxPoints = 35; // Max scale for progress bar
+            const percentage = Math.min((points / maxPoints) * 100, 100);
+            
+            // Color coding based on performance
+            let barColor = 'bg-red-400';
+            let textColor = 'text-red-700';
+            if (points >= 20) {
+              barColor = 'bg-green-400';
+              textColor = 'text-green-700';
+            } else if (points >= 15) {
+              barColor = 'bg-yellow-400';
+              textColor = 'text-yellow-700';
+            } else if (points >= 10) {
+              barColor = 'bg-orange-400';
+              textColor = 'text-orange-700';
+            }
+            
             return (
-              <div className="py-1 px-2">
-                <span className="text-sm font-bold text-blue-600">
-                  {points.toFixed(1)}
-                </span>
+              <div className="py-1 px-2 w-full">
+                <div className="relative">
+                  <div className="w-full bg-gray-200 rounded-full h-2 mb-1">
+                    <div 
+                      className={`h-2 rounded-full transition-all duration-300 ${barColor}`}
+                      style={{ width: `${percentage}%` }}
+                    ></div>
+                  </div>
+                  <div className={`text-xs font-bold ${textColor}`}>
+                    {points.toFixed(1)}
+                  </div>
+                </div>
               </div>
             );
           },
