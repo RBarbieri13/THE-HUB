@@ -714,7 +714,7 @@ const FantasyDashboard = () => {
               <>
                 {/* Season & Week Filters */}
                 <div className="space-y-2">
-                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-2 border border-blue-200">
+                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded p-1.5 border border-blue-200">
                     <h3 className="text-xs font-semibold text-gray-800 mb-2 flex items-center">
                       <Calendar className="h-3 w-3 mr-1 text-blue-600" />
                       Time Period
