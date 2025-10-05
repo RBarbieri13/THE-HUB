@@ -1045,7 +1045,7 @@ const FantasyDashboard = () => {
                 >
                   <AgGridReact
                     columnDefs={columnDefs}
-                    rowData={players}
+                    rowData={filteredPlayers}
                     defaultColDef={defaultColDef}
                     gridOptions={gridOptions}
                     onGridReady={onGridReady}
