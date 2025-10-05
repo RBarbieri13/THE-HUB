@@ -562,12 +562,15 @@ body {
   line-height: 1.4;
 }
 
-/* Enhanced Category Header Colors with Textures */
+/* Enhanced Category Header Colors with Textures - Improved Visibility */
 .player-header {
   background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
   color: white;
   position: relative;
   overflow: hidden;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.5px;
 }
 
 .player-header::before {
