@@ -585,6 +585,72 @@ body {
   color: #374151;
 }
 
+/* Grouped Column Headers */
+.passing-group-header {
+  background-color: #dbeafe !important;
+  color: #1e40af !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+}
+
+.rushing-group-header {
+  background-color: #dcfce7 !important;
+  color: #15803d !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+}
+
+.receiving-group-header {
+  background-color: #f3e8ff !important;
+  color: #7c3aed !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+}
+
+/* Grouped Column Cells */
+.passing-group-cell {
+  background-color: #f8fafc !important;
+}
+
+.rushing-group-cell {
+  background-color: #f9fafb !important;
+}
+
+.receiving-group-cell {
+  background-color: #fafafa !important;
+}
+
+/* Clean Row Styling */
+.professional-grid .ag-row {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.professional-grid .ag-row:hover {
+  background-color: #f9fafb !important;
+}
+
+.professional-grid .ag-cell {
+  padding: 2px 4px !important;
+  font-size: 13px;
+  line-height: 1.2;
+  border-right: 1px solid #f1f5f9;
+}
+
+/* Compact Grid Styling */
+.compact-data-grid {
+  font-size: 13px;
+}
+
+.compact-data-grid .ag-header-cell {
+  padding: 6px 4px !important;
+}
+
+.compact-data-grid .ag-header-cell-text {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+}
+
 /* Improved Number Formatting */
 .performance-excellent { color: #059669 !important; font-weight: 700; }
 .performance-good { color: #10b981 !important; font-weight: 600; }
