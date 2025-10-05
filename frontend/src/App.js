@@ -631,8 +631,12 @@ const FantasyDashboard = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-blue-500 rounded-lg shadow-lg">
-                    <TrendingUp className="h-6 w-6 text-white" />
+                  <div className="p-2 bg-blue-500/20 rounded-lg shadow-lg border border-blue-400/30">
+                    <img 
+                      src="https://static.vecteezy.com/system/resources/thumbnails/053/257/088/small/fantasy-football-logo-white-line-stars-and-shield-vector.jpg" 
+                      alt="Fantasy Football Logo" 
+                      className="h-8 w-8 object-contain filter brightness-0 invert"
+                    />
                   </div>
                   <div>
                     <h1 className="text-2xl font-bold text-white tracking-tight">NFL Fantasy Analytics</h1>
