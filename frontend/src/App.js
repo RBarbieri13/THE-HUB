@@ -1179,6 +1179,20 @@ const FantasyDashboard = () => {
                       <Download className="h-3 w-3 mr-2" />
                       Export CSV (⌘E)
                     </Button>
+                    
+                    {/* Keyboard Shortcuts Help */}
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      className="text-xs h-9 px-3"
+                      onClick={() => toast.info(
+                        '⌘K: Focus search • ⌘R: Refresh data • ⌘E: Export • Escape: Clear search',
+                        { duration: 4000 }
+                      )}
+                    >
+                      <Settings className="h-3 w-3 mr-1" />
+                      Shortcuts
+                    </Button>
                   </div>
                 </div>
               </CardHeader>
