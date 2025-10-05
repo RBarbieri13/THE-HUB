@@ -1045,6 +1045,43 @@ const FantasyDashboard = () => {
                 </div>
               </CardHeader>
               
+              {/* Active Filters Display */}
+              {getActiveFilters().length > 0 && (
+                <div className="px-6 py-3 bg-gray-50 border-b border-gray-200">
+                  <div className="flex items-center space-x-2 flex-wrap">
+                    <span className="text-sm font-medium text-gray-700">Active Filters:</span>
+                    {getActiveFilters().map((filter) => (
+                      <Badge 
+                        key={filter.key} 
+                        variant="secondary" 
+                        className="text-xs px-2 py-1 bg-blue-100 text-blue-800 hover:bg-blue-200 cursor-pointer"
+                        onClick={() => clearFilter(filter.key)}
+                      >
+                        {filter.label} ×
+                      </Badge>
+                    ))}
+                    <Button 
+                      size="sm" 
+                      variant="ghost" 
+                      className="text-xs text-gray-500 hover:text-gray-700"
+                      onClick={() => {
+                        setSearchTerm('');
+                        setFilters({
+                          season: '2024',
+                          week: 'all',
+                          position: 'all',
+                          team: 'all',
+                          minSalary: '',
+                          minSnaps: ''
+                        });
+                      }}
+                    >
+                      Clear All
+                    </Button>
+                  </div>
+                </div>
+              )}
+              
               <CardContent className="p-0">
                 {/* Professional Grid with Enhanced Visual Hierarchy */}
                 <div 
