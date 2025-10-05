@@ -384,7 +384,7 @@ const FantasyDashboard = () => {
       headerClass: 'passing-header',
       children: [
         {
-          headerName: 'Att',
+          headerName: 'ATT',
           field: 'passing_attempts',
           width: 45,
           type: 'numericColumn',
@@ -394,7 +394,7 @@ const FantasyDashboard = () => {
           )
         },
         {
-          headerName: 'Yds',
+          headerName: 'YDS',
           field: 'passing_yards',
           width: 50,
           type: 'numericColumn',
@@ -405,7 +405,7 @@ const FantasyDashboard = () => {
           )
         },
         {
-          headerName: 'TD',
+          headerName: 'PTD',
           field: 'passing_tds',
           width: 40,
           type: 'numericColumn',
