@@ -492,39 +492,86 @@ const FantasyDashboard = () => {
 
   // Fetch players data
   const fetchPlayers = async () => {
-    setLoading(true);
     try {
-      const params = new URLSearchParams();
+      setLoading(true);
+      const response = await axios.get(`${API}/players`, { 
+        params: { 
+          ...filters, 
+          limit: 1000 
+        } 
+      });
       
-      if (filters.season) params.append('season', filters.season);
-      if (filters.week && filters.week !== 'all') params.append('week', filters.week);
-      if (filters.position && filters.position !== 'all') params.append('position', filters.position);
-      if (filters.team && filters.team !== 'all') params.append('team', filters.team);
-      params.append('limit', '1000');
-      
-      const response = await axios.get(`${API}/players?${params.toString()}`);
-      let filteredPlayers = response.data;
-      
-      // Apply player type filter
-      if (selectedPlayerType !== 'all') {
-        if (selectedPlayerType === 'offense') {
-          filteredPlayers = filteredPlayers.filter(p => ['QB', 'RB', 'WR', 'TE'].includes(p.position));
-        } else {
-          filteredPlayers = filteredPlayers.filter(p => p.position === selectedPlayerType.toUpperCase());
-        }
-      }
-      
-      setPlayers(filteredPlayers);
-      
-      if (filteredPlayers.length === 0) {
-        toast.info('No players found with current filters');
-      }
+      const playersData = response.data || [];
+      setPlayers(playersData);
+      setLastUpdated(new Date());
     } catch (error) {
       console.error('Error fetching players:', error);
-      toast.error('Failed to fetch players data');
+      setPlayers([]);
     } finally {
       setLoading(false);
     }
+  };
+
+  // Filter and search functionality
+  const filteredPlayers = useMemo(() => {
+    let filtered = players;
+    
+    // Apply search filter
+    if (searchTerm) {
+      filtered = filtered.filter(player => 
+        player.player_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        player.team.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        player.position.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+    
+    // Apply position filter from player type buttons
+    if (selectedPlayerType && selectedPlayerType !== 'all') {
+      filtered = filtered.filter(player => 
+        player.position.toLowerCase() === selectedPlayerType
+      );
+    }
+    
+    return filtered;
+  }, [players, searchTerm, selectedPlayerType]);
+
+  // Get active filters for display
+  const getActiveFilters = () => {
+    const active = [];
+    if (filters.season !== '2024') active.push({ key: 'season', value: filters.season, label: `Season: ${filters.season}` });
+    if (filters.week !== 'all') active.push({ key: 'week', value: filters.week, label: `Week: ${filters.week}` });
+    if (filters.position !== 'all') active.push({ key: 'position', value: filters.position, label: `Position: ${filters.position}` });
+    if (filters.team !== 'all') active.push({ key: 'team', value: filters.team, label: `Team: ${filters.team}` });
+    if (filters.minSalary) active.push({ key: 'minSalary', value: filters.minSalary, label: `Min Salary: $${filters.minSalary}` });
+    if (filters.minSnaps) active.push({ key: 'minSnaps', value: filters.minSnaps, label: `Min Snaps: ${filters.minSnaps}` });
+    if (searchTerm) active.push({ key: 'search', value: searchTerm, label: `Search: "${searchTerm}"` });
+    return active;
+  };
+
+  // Clear specific filter
+  const clearFilter = (key) => {
+    if (key === 'search') {
+      setSearchTerm('');
+    } else {
+      const defaultValues = {
+        season: '2024',
+        week: 'all', 
+        position: 'all',
+        team: 'all',
+        minSalary: '',
+        minSnaps: ''
+      };
+      handleFilterChange(key, defaultValues[key] || '');
+    }
+  };
+
+  // Toggle favorite player
+  const toggleFavorite = (playerId) => {
+    setFavorites(prev => 
+      prev.includes(playerId) 
+        ? prev.filter(id => id !== playerId)
+        : [...prev, playerId]
+    );
   };
 
   // Fetch summary statistics
