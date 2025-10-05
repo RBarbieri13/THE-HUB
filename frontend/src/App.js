@@ -834,7 +834,7 @@ const FantasyDashboard = () => {
 
                 {/* Scoring System */}
                 <div className="space-y-2">
-                  <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-lg p-2 border border-amber-200">
+                  <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded p-1.5 border border-amber-200">
                     <h3 className="text-xs font-semibold text-gray-800 mb-2 flex items-center">
                       <Star className="h-3 w-3 mr-1 text-amber-600" />
                       Fantasy Scoring
