@@ -1291,6 +1291,7 @@ const FantasyDashboard = () => {
               )}
             </div>
           </div>
+          </div>
         )}
         
         {/* Analytics Tab Content */}
