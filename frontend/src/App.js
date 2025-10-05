@@ -1171,9 +1171,13 @@ const FantasyDashboard = () => {
                       <Star className="h-3 w-3 mr-2" />
                       Favorites
                     </Button>
-                    <Button size="sm" className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white border-0 shadow-lg text-xs h-9 px-4">
+                    <Button 
+                      size="sm" 
+                      className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white border-0 shadow-lg text-xs h-9 px-4"
+                      onClick={exportData}
+                    >
                       <Download className="h-3 w-3 mr-2" />
-                      Export
+                      Export CSV (⌘E)
                     </Button>
                   </div>
                 </div>
