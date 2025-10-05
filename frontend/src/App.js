@@ -441,22 +441,15 @@ const FantasyDashboard = () => {
     suppressMenu: true // Remove column menu
   }), []);
 
-  // Grid options for alternating row colors and compact layout - remove checkboxes
+  // Grid options for clean layout
   const gridOptions = useMemo(() => ({
     theme: 'legacy',
-    rowHeight: 36,
-    headerHeight: 32,
-    getRowStyle: (params) => {
-      if (params.rowIndex % 2 === 0) {
-        return { backgroundColor: '#f8fafc' };
-      } else {
-        return { backgroundColor: '#ffffff' };
-      }
-    },
-    rowSelection: 'none', // Remove checkboxes
+    rowHeight: 40,
+    headerHeight: 44,
+    rowSelection: 'none',
     pagination: true,
     paginationPageSize: 50,
-    animateRows: true
+    animateRows: false
   }), []);
 
   // Load historical DraftKings pricing
