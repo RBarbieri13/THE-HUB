@@ -393,63 +393,65 @@ const FantasyDashboard = () => {
           sort: 'desc'
         }]
     },
-    // Passing Stats (Light Blue Background)
+    
+    // Passing Stats Group
     {
-      headerName: 'Cmp-Att',
+      headerName: 'PASSING',
       headerClass: 'passing-group-header',
-      field: 'passing_attempts',
-      width: 75,
-      type: 'numericColumn',
-      cellClass: 'passing-group-cell',
-      valueGetter: (params) => {
-        const att = params.data.passing_yards > 0 ? Math.ceil(params.data.passing_yards / 8.5) : 0;
-        const cmp = Math.ceil(att * 0.65); // Estimate completion rate
-        return att > 0 ? `${cmp}-${att}` : '-';
-      },
-      cellRenderer: (params) => (
-        <div className="py-1 px-2">
-          <span className="text-sm">{params.value}</span>
-        </div>
-      )
-    },
-    {
-      headerName: 'Yds',
-      headerClass: 'passing-group-header', 
-      field: 'passing_yards',
-      width: 60,
-      type: 'numericColumn',
-      cellClass: 'passing-group-cell',
-      cellRenderer: (params) => (
-        <div className="py-1 px-2">
-          <span className="text-sm font-medium">{params.value || '-'}</span>
-        </div>
-      )
-    },
-    {
-      headerName: 'TD',
-      headerClass: 'passing-group-header',
-      field: 'passing_tds', 
-      width: 50,
-      type: 'numericColumn',
-      cellClass: 'passing-group-cell',
-      cellRenderer: (params) => (
-        <div className="py-1 px-2">
-          <span className="text-sm font-medium">{params.value || '-'}</span>
-        </div>
-      )
-    },
-    {
-      headerName: 'Int.',
-      headerClass: 'passing-group-header',
-      field: 'interceptions',
-      width: 50,
-      type: 'numericColumn', 
-      cellClass: 'passing-group-cell',
-      cellRenderer: (params) => (
-        <div className="py-1 px-2">
-          <span className="text-sm">{params.value || '-'}</span>
-        </div>
-      )
+      children: [
+        {
+          headerName: 'Cmp-Att',
+          field: 'passing_attempts',
+          width: 75,
+          type: 'numericColumn',
+          cellClass: 'passing-group-cell',
+          valueGetter: (params) => {
+            const att = params.data.passing_yards > 0 ? Math.ceil(params.data.passing_yards / 8.5) : 0;
+            const cmp = Math.ceil(att * 0.65); // Estimate completion rate
+            return att > 0 ? `${cmp}-${att}` : '-';
+          },
+          cellRenderer: (params) => (
+            <div className="py-1 px-2">
+              <span className="text-sm">{params.value}</span>
+            </div>
+          )
+        },
+        {
+          headerName: 'Yds',
+          field: 'passing_yards',
+          width: 60,
+          type: 'numericColumn',
+          cellClass: 'passing-group-cell',
+          cellRenderer: (params) => (
+            <div className="py-1 px-2">
+              <span className="text-sm font-medium">{params.value || '-'}</span>
+            </div>
+          )
+        },
+        {
+          headerName: 'TD',
+          field: 'passing_tds', 
+          width: 50,
+          type: 'numericColumn',
+          cellClass: 'passing-group-cell',
+          cellRenderer: (params) => (
+            <div className="py-1 px-2">
+              <span className="text-sm font-medium">{params.value || '-'}</span>
+            </div>
+          )
+        },
+        {
+          headerName: 'Int.',
+          field: 'interceptions',
+          width: 50,
+          type: 'numericColumn', 
+          cellClass: 'passing-group-cell',
+          cellRenderer: (params) => (
+            <div className="py-1 px-2">
+              <span className="text-sm">{params.value || '-'}</span>
+            </div>
+          )
+        }]
     },
     // Rushing Stats (Light Green Background)
     {
