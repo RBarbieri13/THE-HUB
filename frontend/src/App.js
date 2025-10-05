@@ -217,14 +217,18 @@ const FantasyDashboard = () => {
     }
   };
 
-  // Column definitions matching the desired format with grouped columns
+  // Column definitions with grouped headers
   const columnDefs = useMemo(() => [
-    // Player Info (Pinned Left)
+    // Player Info Group (Pinned Left)
     {
-      headerName: 'Player',
-      field: 'player_name',
-      pinned: 'left',
-      width: 140,
+      headerName: 'PLAYER INFO',
+      headerClass: 'player-info-group-header',
+      children: [
+        {
+          headerName: 'Player',
+          field: 'player_name',
+          pinned: 'left',
+          width: 140,
       cellRenderer: (params) => (
         <div className="flex items-center justify-between py-1 px-2 group">
           <div 
