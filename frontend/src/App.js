@@ -453,46 +453,48 @@ const FantasyDashboard = () => {
           )
         }]
     },
-    // Rushing Stats (Light Green Background)
+    // Rushing Stats Group
     {
-      headerName: 'Att',
+      headerName: 'RUSHING',
       headerClass: 'rushing-group-header',
-      field: 'rushing_attempts',
-      width: 50,
-      type: 'numericColumn',
-      cellClass: 'rushing-group-cell',
-      valueGetter: (params) => params.data.rushing_yards > 0 ? Math.ceil(params.data.rushing_yards / 4.5) : 0,
-      cellRenderer: (params) => (
-        <div className="py-1 px-2">
-          <span className="text-sm">{params.value || '-'}</span>
-        </div>
-      )
-    },
-    {
-      headerName: 'Yds',
-      headerClass: 'rushing-group-header',
-      field: 'rushing_yards',
-      width: 60,
-      type: 'numericColumn',
-      cellClass: 'rushing-group-cell',
-      cellRenderer: (params) => (
-        <div className="py-1 px-2">
-          <span className="text-sm font-medium">{params.value || '-'}</span>
-        </div>
-      )
-    },
-    {
-      headerName: 'TD',
-      headerClass: 'rushing-group-header',
-      field: 'rushing_tds',
-      width: 50,
-      type: 'numericColumn',
-      cellClass: 'rushing-group-cell',
-      cellRenderer: (params) => (
-        <div className="py-1 px-2">
-          <span className="text-sm font-medium">{params.value || '-'}</span>
-        </div>
-      )
+      children: [
+        {
+          headerName: 'Att',
+          field: 'rushing_attempts',
+          width: 50,
+          type: 'numericColumn',
+          cellClass: 'rushing-group-cell',
+          valueGetter: (params) => params.data.rushing_yards > 0 ? Math.ceil(params.data.rushing_yards / 4.5) : 0,
+          cellRenderer: (params) => (
+            <div className="py-1 px-2">
+              <span className="text-sm">{params.value || '-'}</span>
+            </div>
+          )
+        },
+        {
+          headerName: 'Yds',
+          field: 'rushing_yards',
+          width: 60,
+          type: 'numericColumn',
+          cellClass: 'rushing-group-cell',
+          cellRenderer: (params) => (
+            <div className="py-1 px-2">
+              <span className="text-sm font-medium">{params.value || '-'}</span>
+            </div>
+          )
+        },
+        {
+          headerName: 'TD',
+          field: 'rushing_tds',
+          width: 50,
+          type: 'numericColumn',
+          cellClass: 'rushing-group-cell',
+          cellRenderer: (params) => (
+            <div className="py-1 px-2">
+              <span className="text-sm font-medium">{params.value || '-'}</span>
+            </div>
+          )
+        }]
     },
     // Receiving Stats (Light Purple Background)
     {
