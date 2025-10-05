@@ -942,54 +942,50 @@ const FantasyDashboard = () => {
 
         {/* Tab Content */}
         {activeTab === 'data-table' && (
-          <div className="h-full">
-            {/* Collapsible Filter Section */}
-            <div className="bg-gray-50 border-b border-gray-200">
-              <div className="px-6 py-3">
+          <div className="flex h-full">
+            {/* Left Sidebar Filters */}
+            <div className={`bg-gray-50 border-r border-gray-200 transition-all duration-300 ${filtersCollapsed ? 'w-16' : 'w-72'} flex-shrink-0`}>
+              <div className="p-4 h-full">
+                {/* Filter Toggle Button */}
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => setFiltersCollapsed(!filtersCollapsed)}
-                  className="flex items-center space-x-2 text-sm font-medium text-gray-700 hover:text-gray-900"
+                  className="flex items-center space-x-2 text-sm font-medium text-gray-700 hover:text-gray-900 mb-4"
                 >
                   <Filter className="h-4 w-4" />
-                  <span>Filters</span>
-                  <span className={`transform transition-transform ${filtersCollapsed ? '' : 'rotate-180'}`}>
-                    ▼
-                  </span>
+                  {!filtersCollapsed && <span>Filters</span>}
                 </Button>
-              </div>
-              
-              {!filtersCollapsed && (
-                <div className="px-6 pb-4">
+                
+                {!filtersCollapsed && (
                   <div className="bg-white rounded-lg border border-gray-200 p-4">
-                    <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+                    <div className="space-y-4">
                       {/* Season Filter */}
                       <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-1">Season</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Season</label>
                         <Select value={filters.season} onValueChange={(value) => handleFilterChange('season', value)}>
-                          <SelectTrigger className="h-9">
+                          <SelectTrigger className="h-10">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="2024">2024 Regular Season</SelectItem>
-                            <SelectItem value="2025">2025 Regular Season</SelectItem>
+                            <SelectItem value="2024">2025</SelectItem>
+                            <SelectItem value="2025">2025</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
 
                       {/* Week Range */}
                       <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-1">Week</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Week</label>
                         <Select value={filters.week} onValueChange={(value) => handleFilterChange('week', value)}>
-                          <SelectTrigger className="h-9">
-                            <SelectValue placeholder="Week 1" />
+                          <SelectTrigger className="h-10">
+                            <SelectValue placeholder="4" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="all">All Weeks</SelectItem>
+                            <SelectItem value="all">All</SelectItem>
                             {Array.from({length: 18}, (_, i) => (
                               <SelectItem key={i + 1} value={(i + 1).toString()}>
-                                Week {i + 1}
+                                {i + 1}
                               </SelectItem>
                             ))}
                           </SelectContent>
@@ -998,13 +994,13 @@ const FantasyDashboard = () => {
 
                       {/* Position Filter */}
                       <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-1">Pos</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Pos</label>
                         <Select value={filters.position} onValueChange={(value) => handleFilterChange('position', value)}>
-                          <SelectTrigger className="h-9">
-                            <SelectValue placeholder="All Players" />
+                          <SelectTrigger className="h-10">
+                            <SelectValue placeholder="QB" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="all">All Players</SelectItem>
+                            <SelectItem value="all">All</SelectItem>
                             <SelectItem value="QB">QB</SelectItem>
                             <SelectItem value="RB">RB</SelectItem>
                             <SelectItem value="WR">WR</SelectItem>
@@ -1015,13 +1011,13 @@ const FantasyDashboard = () => {
 
                       {/* Team Filter */}
                       <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-1">Team</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Team</label>
                         <Select value={filters.team} onValueChange={(value) => handleFilterChange('team', value)}>
-                          <SelectTrigger className="h-9">
-                            <SelectValue placeholder="All Teams" />
+                          <SelectTrigger className="h-10">
+                            <SelectValue placeholder="All" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="all">All Teams</SelectItem>
+                            <SelectItem value="all">All</SelectItem>
                             {Object.entries(NFL_TEAMS).map(([abbr, name]) => (
                               <SelectItem key={abbr} value={abbr}>{abbr}</SelectItem>
                             ))}
@@ -1031,21 +1027,22 @@ const FantasyDashboard = () => {
 
                       {/* Salary Filter */}
                       <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-1">$</label>
-                        <Input 
-                          type="number" 
-                          placeholder="Min Salary"
-                          value={filters.minSalary}
-                          onChange={(e) => handleFilterChange('minSalary', e.target.value)}
-                          className="h-9"
-                        />
+                        <label className="block text-sm font-medium text-gray-700 mb-2">$</label>
+                        <Select value="all">
+                          <SelectTrigger className="h-10">
+                            <SelectValue placeholder="All" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="all">All</SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
 
                       {/* PPR Toggle */}
                       <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-1">Scoring</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Scoring</label>
                         <Select value={isPPR ? 'ppr' : 'half-ppr'} onValueChange={(value) => setIsPPR(value === 'ppr')}>
-                          <SelectTrigger className="h-9">
+                          <SelectTrigger className="h-10">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
@@ -1057,21 +1054,21 @@ const FantasyDashboard = () => {
                     </div>
 
                     {/* Auto-apply indicator */}
-                    <div className="mt-4 flex justify-end">
+                    <div className="mt-4 flex justify-center">
                       <div className="text-xs text-gray-500">
                         <span className="inline-flex items-center">
                           <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-                          Filters apply automatically
+                          Auto-apply
                         </span>
                       </div>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
 
-            {/* Data Table Content */}
-            <div className="px-6 py-4 flex gap-4">
+            {/* Main Data Table Content */}
+            <div className="flex-1 p-6 flex gap-4 overflow-hidden">
               {/* Main Data Grid */}
               <Card 
                 className="shadow-lg border-0 bg-white transition-all duration-300 ease-in-out" 
