@@ -399,7 +399,7 @@ const FantasyDashboard = () => {
     {
       headerName: 'DK Salary',
       field: 'dk_salary',
-      width: 80,
+      width: 90,
       type: 'numericColumn',
       headerClass: 'ag-header-cell-text',
       cellRenderer: (params) => {
