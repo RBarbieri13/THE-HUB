@@ -259,16 +259,17 @@ const FantasyDashboard = () => {
       pinned: 'left',
       width: 100,
       cellRenderer: (params) => {
-        // Mock game result for display - you can replace with actual game data
-        const isWin = Math.random() > 0.5; // Random for demo
-        const score = isWin ? 'W 21-14' : 'L 14-21';
+        const opponent = params.value;
+        const playerTeam = params.data.team;
+        const week = params.data.week;
+        
         return (
           <div className="py-1 px-2">
-            <div className={`text-xs font-semibold ${isWin ? 'text-green-600' : 'text-red-600'}`}>
-              {score}
+            <div className="text-xs font-semibold text-gray-700">
+              {playerTeam} vs {opponent || 'BYE'}
             </div>
             <div className="text-xs text-gray-500">
-              {params.value ? `@ ${params.value}` : 'vs TBD'}
+              Week {week}
             </div>
           </div>
         );
