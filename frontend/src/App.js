@@ -84,6 +84,11 @@ const FantasyDashboard = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(280); // pixels
   const [isResizing, setIsResizing] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortConfig, setSortConfig] = useState({ key: 'fantasy_points', direction: 'desc' });
+  const [lastUpdated, setLastUpdated] = useState(null);
+  const [favorites, setFavorites] = useState([]);
+  const [selectedPlayers, setSelectedPlayers] = useState([]);
 
   // Calculate fantasy points based on PPR setting
   const calculateFantasyPoints = (player) => {
