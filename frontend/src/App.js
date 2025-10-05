@@ -786,11 +786,42 @@ const FantasyDashboard = () => {
   const fetchPlayersWithFilters = async (filterParams = filters) => {
     try {
       setLoading(true);
+      
+      // Prepare clean parameters for backend
+      const cleanParams = {
+        season: filterParams.season,
+        limit: 1000
+      };
+      
+      // Add week if not 'all'
+      if (filterParams.week && filterParams.week !== 'all') {
+        cleanParams.week = filterParams.week;
+      }
+      
+      // Add position if not 'all'
+      if (filterParams.position && filterParams.position !== 'all') {
+        cleanParams.position = filterParams.position;
+      }
+      
+      // Add team if not 'all' 
+      if (filterParams.team && filterParams.team !== 'all') {
+        cleanParams.team = filterParams.team;
+      }
+      
+      // Add salary filter if specified
+      if (filterParams.minSalary) {
+        cleanParams.minSalary = filterParams.minSalary;
+      }
+      
+      // Add snaps filter if specified
+      if (filterParams.minSnaps) {
+        cleanParams.minSnaps = filterParams.minSnaps;
+      }
+      
+      console.log('Fetching with params:', cleanParams);
+      
       const response = await axios.get(`${API}/players`, { 
-        params: { 
-          ...filterParams, 
-          limit: 1000 
-        } 
+        params: cleanParams
       });
       
       const playersData = response.data || [];
