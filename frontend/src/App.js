@@ -424,13 +424,23 @@ const FantasyDashboard = () => {
         {
           headerName: 'DK $',
           field: 'dk_salary',
-          width: 65,
+          width: 75,
           type: 'numericColumn',
-          cellRenderer: (params) => (
-            <span className="text-xs font-medium text-green-600">
-              {params.value ? `$${params.value.toLocaleString()}` : '-'}
-            </span>
-          )
+          cellRenderer: (params) => {
+            const salary = params.value;
+            if (salary && salary > 0) {
+              return (
+                <span className="text-xs font-bold text-green-700 bg-green-50 px-2 py-1 rounded">
+                  ${salary.toLocaleString()}
+                </span>
+              );
+            }
+            return (
+              <span className="text-xs text-gray-400">
+                -
+              </span>
+            );
+          }
         }
       ]
     }
