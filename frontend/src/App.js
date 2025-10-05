@@ -340,7 +340,7 @@ const FantasyDashboard = () => {
     {
       headerName: 'Rec-Yds',
       field: 'receiving_yards',
-      width: 70,
+      width: 75,
       type: 'numericColumn',
       headerClass: 'ag-header-cell-text',
       cellRenderer: (params) => (
@@ -352,7 +352,7 @@ const FantasyDashboard = () => {
     {
       headerName: 'Rec-TD',
       field: 'receiving_tds',
-      width: 60,
+      width: 65,
       type: 'numericColumn',
       headerClass: 'ag-header-cell-text',
       cellRenderer: (params) => (
