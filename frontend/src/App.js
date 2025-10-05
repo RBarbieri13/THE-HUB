@@ -292,128 +292,120 @@ const FantasyDashboard = () => {
       sort: 'desc'
     },
     {
-      headerName: 'RUSHING',
-      headerClass: 'rushing-header',
-      children: [
-        {
-          headerName: 'ATT',
-          field: 'rushing_attempts',
-          width: 45,
-          type: 'numericColumn',
-          valueGetter: (params) => params.data.rushing_yards > 0 ? Math.ceil(params.data.rushing_yards / 4.5) : 0,
-          cellRenderer: (params) => (
-            <span className="text-xs">{params.value || '-'}</span>
-          )
-        },
-        {
-          headerName: 'YDS',
-          field: 'rushing_yards',
-          width: 50,
-          type: 'numericColumn',
-          cellRenderer: (params) => (
-            <span className="text-xs font-medium text-orange-600">
-              {params.value || '-'}
-            </span>
-          )
-        },
-        {
-          headerName: 'RTD',
-          field: 'rushing_tds',
-          width: 40,
-          type: 'numericColumn',
-          cellRenderer: (params) => (
-            <span className="text-xs font-medium">
-              {params.value || '-'}
-            </span>
-          )
-        }
-      ]
+      headerName: 'R-Att',
+      field: 'rushing_attempts',
+      width: 55,
+      type: 'numericColumn',
+      headerClass: 'ag-header-cell-text',
+      valueGetter: (params) => params.data.rushing_yards > 0 ? Math.ceil(params.data.rushing_yards / 4.5) : 0,
+      cellRenderer: (params) => (
+        <span className="text-sm text-gray-700">{params.value || '-'}</span>
+      )
     },
     {
-      headerName: 'RECEIVING',
-      headerClass: 'receiving-header',
-      children: [
-        {
-          headerName: 'TGT',
-          field: 'targets',
-          width: 45,
-          type: 'numericColumn',
-          cellRenderer: (params) => (
-            <span className="text-xs">{params.value || '-'}</span>
-          )
-        },
-        {
-          headerName: 'REC',
-          field: 'receptions',
-          width: 45,
-          type: 'numericColumn',
-          cellRenderer: (params) => (
-            <span className="text-xs font-medium text-purple-600">
-              {params.value || '-'}
-            </span>
-          )
-        },
-        {
-          headerName: 'YDS',
-          field: 'receiving_yards',
-          width: 50,
-          type: 'numericColumn',
-          cellRenderer: (params) => (
-            <span className="text-xs font-medium text-purple-600">
-              {params.value || '-'}
-            </span>
-          )
-        },
-        {
-          headerName: 'RTD',
-          field: 'receiving_tds',
-          width: 40,
-          type: 'numericColumn',
-          cellRenderer: (params) => (
-            <span className="text-xs font-medium">
-              {params.value || '-'}
-            </span>
-          )
-        }
-      ]
+      headerName: 'R-Yds',
+      field: 'rushing_yards',
+      width: 55,
+      type: 'numericColumn',
+      headerClass: 'ag-header-cell-text',
+      cellRenderer: (params) => (
+        <span className="text-sm font-medium text-gray-800">
+          {params.value || '-'}
+        </span>
+      )
     },
     {
-      headerName: 'PASSING',
-      headerClass: 'passing-header',
-      children: [
-        {
-          headerName: 'ATT',
-          field: 'passing_attempts',
-          width: 45,
-          type: 'numericColumn',
-          valueGetter: (params) => params.data.passing_yards > 0 ? Math.ceil(params.data.passing_yards / 8.5) : 0,
-          cellRenderer: (params) => (
-            <span className="text-xs">{params.value || '-'}</span>
-          )
-        },
-        {
-          headerName: 'YDS',
-          field: 'passing_yards',
-          width: 50,
-          type: 'numericColumn',
-          cellRenderer: (params) => (
-            <span className="text-xs font-medium text-blue-600">
-              {params.value || '-'}
-            </span>
-          )
-        },
-        {
-          headerName: 'PTD',
-          field: 'passing_tds',
-          width: 40,
-          type: 'numericColumn',
-          cellRenderer: (params) => (
-            <span className="text-xs font-medium">
-              {params.value || '-'}
-            </span>
-          )
-        }
-      ]
+      headerName: 'R-TD',
+      field: 'rushing_tds',
+      width: 50,
+      type: 'numericColumn',
+      headerClass: 'ag-header-cell-text',
+      cellRenderer: (params) => (
+        <span className="text-sm font-medium text-gray-800">
+          {params.value || '-'}
+        </span>
+      )
+    },
+    {
+      headerName: 'Tgt',
+      field: 'targets',
+      width: 50,
+      type: 'numericColumn',
+      headerClass: 'ag-header-cell-text',
+      cellRenderer: (params) => (
+        <span className="text-sm text-gray-700">{params.value || '-'}</span>
+      )
+    },
+    {
+      headerName: 'Rec',
+      field: 'receptions',
+      width: 50,
+      type: 'numericColumn',
+      headerClass: 'ag-header-cell-text',
+      cellRenderer: (params) => (
+        <span className="text-sm font-medium text-gray-800">
+          {params.value || '-'}
+        </span>
+      )
+    },
+    {
+      headerName: 'Rec-Yds',
+      field: 'receiving_yards',
+      width: 70,
+      type: 'numericColumn',
+      headerClass: 'ag-header-cell-text',
+      cellRenderer: (params) => (
+        <span className="text-sm font-medium text-gray-800">
+          {params.value || '-'}
+        </span>
+      )
+    },
+    {
+      headerName: 'Rec-TD',
+      field: 'receiving_tds',
+      width: 60,
+      type: 'numericColumn',
+      headerClass: 'ag-header-cell-text',
+      cellRenderer: (params) => (
+        <span className="text-sm font-medium text-gray-800">
+          {params.value || '-'}
+        </span>
+      )
+    },
+    {
+      headerName: 'P-Att',
+      field: 'passing_attempts',
+      width: 55,
+      type: 'numericColumn',
+      headerClass: 'ag-header-cell-text',
+      valueGetter: (params) => params.data.passing_yards > 0 ? Math.ceil(params.data.passing_yards / 8.5) : 0,
+      cellRenderer: (params) => (
+        <span className="text-sm text-gray-700">{params.value || '-'}</span>
+      )
+    },
+    {
+      headerName: 'P-Yds',
+      field: 'passing_yards',
+      width: 55,
+      type: 'numericColumn',
+      headerClass: 'ag-header-cell-text',
+      cellRenderer: (params) => (
+        <span className="text-sm font-medium text-gray-800">
+          {params.value || '-'}
+        </span>
+      )
+    },
+    {
+      headerName: 'P-TD',
+      field: 'passing_tds',
+      width: 50,
+      type: 'numericColumn',
+      headerClass: 'ag-header-cell-text',
+      cellRenderer: (params) => (
+        <span className="text-sm font-medium text-gray-800">
+          {params.value || '-'}
+        </span>
+      )
     },
     {
       headerName: 'FANTASY/DFS',
