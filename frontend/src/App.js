@@ -927,10 +927,10 @@ const FantasyDashboard = () => {
                 </div>
 
                 {/* Data Actions */}
-                <div className="space-y-4">
-                  <div className="bg-gradient-to-r from-gray-50 to-slate-50 rounded-lg p-3 border border-gray-200">
-                    <h3 className="text-sm font-semibold text-gray-800 mb-3 flex items-center">
-                      <Database className="h-4 w-4 mr-2 text-gray-600" />
+                <div className="space-y-2">
+                  <div className="bg-gradient-to-r from-gray-50 to-slate-50 rounded-lg p-2 border border-gray-200">
+                    <h3 className="text-xs font-semibold text-gray-800 mb-2 flex items-center">
+                      <Database className="h-3 w-3 mr-1 text-gray-600" />
                       Data Management
                     </h3>
                     
