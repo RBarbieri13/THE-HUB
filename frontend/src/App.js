@@ -100,6 +100,10 @@ const FantasyDashboard = () => {
     season: '2025'
   });
   const [trendData, setTrendData] = useState([]);
+  const [columnWidths, setColumnWidths] = useState(() => {
+    const saved = localStorage.getItem('trendToolColumnWidths');
+    return saved ? JSON.parse(saved) : {};
+  });
 
   // Calculate fantasy points based on PPR setting
   const calculateFantasyPoints = (player) => {
