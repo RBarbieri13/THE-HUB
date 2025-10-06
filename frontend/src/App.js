@@ -1730,8 +1730,16 @@ const FantasyDashboard = () => {
                                             {weekData && weekData.receiving_tds > 0 ? weekData.receiving_tds : (weekData && weekData.receiving_yards > 0 ? '0' : '')}
                                           </td>
                                           
-                                          {/* FPTS column - Pink background */}
-                                          <td className="px-1 py-1 text-center text-xs border border-gray-400 bg-pink-500 font-bold text-white">
+                                          {/* FPTS column - Conditionally formatted */}
+                                          <td className={`px-1 py-1 text-center text-xs border border-gray-400 font-bold ${
+                                            !weekData || (weekData.fantasy_points || 0) === 0 ? '' :
+                                            (weekData.fantasy_points || 0) >= 25 ? 'bg-green-600 text-white' :
+                                            (weekData.fantasy_points || 0) >= 20 ? 'bg-green-400 text-white' :
+                                            (weekData.fantasy_points || 0) >= 15 ? 'bg-yellow-400 text-black' :
+                                            (weekData.fantasy_points || 0) >= 10 ? 'bg-orange-400 text-white' :
+                                            (weekData.fantasy_points || 0) >= 5 ? 'bg-red-400 text-white' :
+                                            'bg-red-600 text-white'
+                                          }`}>
                                             {weekData ? (weekData.fantasy_points || 0).toFixed(1) : ''}
                                           </td>
                                         </React.Fragment>
