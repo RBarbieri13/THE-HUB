@@ -1222,6 +1222,10 @@ async def load_draftkings_pricing_from_sheets():
         
         # Commit the transaction
         conn.commit()
+        
+        # Verify data was inserted
+        count_result = conn.execute("SELECT COUNT(*) FROM draftkings_pricing WHERE season = 2025 AND week IN (4, 5)").fetchone()
+        print(f"✅ Verified: {count_result[0]} records in database for weeks 4 and 5, 2025")
             
         print("✅ DraftKings pricing data loaded successfully from Google Sheets")
         print(f"✅ Loaded {len(pricing_data)} salary records for weeks 4 and 5, 2025 season")
