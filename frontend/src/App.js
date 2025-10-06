@@ -1555,67 +1555,122 @@ const FantasyDashboard = () => {
                   </div>
                 ) : (
                   <div className="overflow-auto h-full">
-                    <table className="w-full text-xs border-collapse">
-                      <thead className="bg-gray-50 sticky top-0">
-                        <tr>
-                          {/* Fixed columns */}
-                          <th className="px-2 py-1 text-left font-semibold text-gray-900 border border-gray-300 bg-gray-100 w-10">Pos</th>
-                          <th className="px-2 py-1 text-left font-semibold text-gray-900 border border-gray-300 bg-gray-100 w-32">Player</th>
-                          <th className="px-2 py-1 text-center font-semibold text-gray-900 border border-gray-300 bg-gray-100 w-16">$</th>
-                          <th className="px-2 py-1 text-center font-semibold text-gray-900 border border-gray-300 bg-gray-100 w-12">Proj.</th>
-                          
-                          {/* Week columns */}
-                          {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
-                            const week = trendFilters.startWeek + i;
-                            return (
-                              <React.Fragment key={week}>
-                                {/* Week header group */}
-                                <th colSpan="13" className="px-1 py-2 text-center font-bold text-gray-900 border border-gray-300 bg-blue-100">
-                                  Week {week}
-                                </th>
-                              </React.Fragment>
-                            );
-                          })}
-                        </tr>
-                        <tr>
-                          {/* Fixed column spacers */}
-                          <th className="border border-gray-300"></th>
-                          <th className="border border-gray-300"></th>
-                          <th className="border border-gray-300"></th>
-                          <th className="border border-gray-300"></th>
-                          
-                          {/* Detailed week sub-headers */}
-                          {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
-                            return (
-                              <React.Fragment key={i}>
-                                {/* Misc columns */}
-                                <th className="px-1 py-1 text-center font-semibold text-xs text-gray-700 border border-gray-300 bg-gray-50 w-12">$</th>
-                                <th className="px-1 py-1 text-center font-semibold text-xs text-gray-700 border border-gray-300 bg-gray-50 w-8">#</th>
-                                
-                                {/* Passing columns */}
-                                <th className="px-1 py-1 text-center font-semibold text-xs text-blue-700 border border-gray-300 bg-blue-50 w-16">Cmp-Att</th>
-                                <th className="px-1 py-1 text-center font-semibold text-xs text-blue-700 border border-gray-300 bg-blue-50 w-12">Yds</th>
-                                <th className="px-1 py-1 text-center font-semibold text-xs text-blue-700 border border-gray-300 bg-blue-50 w-8">TD</th>
-                                <th className="px-1 py-1 text-center font-semibold text-xs text-blue-700 border border-gray-300 bg-blue-50 w-8">Int</th>
-                                
-                                {/* Rushing columns */}
-                                <th className="px-1 py-1 text-center font-semibold text-xs text-green-700 border border-gray-300 bg-green-50 w-8">Att</th>
-                                <th className="px-1 py-1 text-center font-semibold text-xs text-green-700 border border-gray-300 bg-green-50 w-12">Yds</th>
-                                <th className="px-1 py-1 text-center font-semibold text-xs text-green-700 border border-gray-300 bg-green-50 w-8">TD</th>
-                                
-                                {/* Receiving columns */}
-                                <th className="px-1 py-1 text-center font-semibold text-xs text-purple-700 border border-gray-300 bg-purple-50 w-8">Tgt</th>
-                                <th className="px-1 py-1 text-center font-semibold text-xs text-purple-700 border border-gray-300 bg-purple-50 w-8">Rec</th>
-                                <th className="px-1 py-1 text-center font-semibold text-xs text-purple-700 border border-gray-300 bg-purple-50 w-12">Yds</th>
-                                <th className="px-1 py-1 text-center font-semibold text-xs text-purple-700 border border-gray-300 bg-purple-50 w-8">TD</th>
-                                
-                                {/* FPTS column */}
-                                <th className="px-1 py-1 text-center font-bold text-xs text-orange-700 border border-gray-300 bg-orange-100 w-12">FPTS</th>
-                              </React.Fragment>
-                            );
-                          })}
-                        </tr>
-                      </thead>
+                    <div className="overflow-auto h-full">
+                      {/* Position Groups */}
+                      {['QB', 'RB', 'WR', 'TE'].map(position => {
+                        const positionPlayers = trendData.filter(player => player.position === position);
+                        if (positionPlayers.length === 0) return null;
+                        
+                        return (
+                          <div key={position} className="mb-8">
+                            {/* Position Header */}
+                            <div className={`text-lg font-bold py-2 px-4 mb-2 ${
+                              position === 'QB' ? 'bg-blue-100 text-blue-800' :
+                              position === 'RB' ? 'bg-green-100 text-green-800' :
+                              position === 'WR' ? 'bg-purple-100 text-purple-800' :
+                              'bg-orange-100 text-orange-800'
+                            }`}>
+                              {position}
+                            </div>
+                            
+                            <table className="w-full text-xs border-collapse mb-4">
+                              <thead className="bg-gray-50 sticky top-0">
+                                <tr>
+                                  {/* Fixed columns */}
+                                  <th className="px-2 py-2 text-left font-semibold text-gray-900 border border-gray-400 bg-gray-200 w-32">Player</th>
+                                  <th className="px-2 py-2 text-center font-semibold text-gray-900 border border-gray-400 bg-gray-200 w-16">$</th>
+                                  <th className="px-2 py-2 text-center font-semibold text-gray-900 border border-gray-400 bg-gray-200 w-12">Proj.</th>
+                                  
+                                  {/* Week columns */}
+                                  {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                                    const week = trendFilters.startWeek + i;
+                                    // Mock game results based on team and week
+                                    const gameResults = {
+                                      'NYG-4': 'vs LAC - W 27-10',
+                                      'NYG-5': 'vs NO - L 14-24', 
+                                      'NYG-6': 'vs DAL - L 15-20',
+                                      'DAL-4': 'vs GB - W 31-17',
+                                      'DAL-5': 'vs NYJ - W 35-17',
+                                      'DAL-6': 'vs NYG - W 20-15'
+                                    };
+                                    const gameResult = gameResults[`${trendFilters.team}-${week}`] || `vs TBD`;
+                                    
+                                    return (
+                                      <React.Fragment key={week}>
+                                        {/* Week header group */}
+                                        <th colSpan="14" className="px-2 py-2 text-center font-bold text-black border-2 border-gray-600 bg-blue-200">
+                                          Week {week} {gameResult}
+                                        </th>
+                                      </React.Fragment>
+                                    );
+                                  })}
+                                </tr>
+                                <tr>
+                                  {/* Fixed column spacers */}
+                                  <th className="border border-gray-400"></th>
+                                  <th className="border border-gray-400"></th>
+                                  <th className="border border-gray-400"></th>
+                                  
+                                  {/* Detailed week sub-headers */}
+                                  {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                                    return (
+                                      <React.Fragment key={i}>
+                                        {/* Misc header */}
+                                        <th colSpan="2" className="px-1 py-1 text-center font-bold text-xs text-white bg-black border border-gray-600">Misc</th>
+                                        
+                                        {/* Passing header */}
+                                        <th colSpan="4" className="px-1 py-1 text-center font-bold text-xs text-white bg-black border border-gray-600">Passing</th>
+                                        
+                                        {/* Rushing header */}
+                                        <th colSpan="3" className="px-1 py-1 text-center font-bold text-xs text-white bg-black border border-gray-600">Rushing</th>
+                                        
+                                        {/* Receiving header */}
+                                        <th colSpan="4" className="px-1 py-1 text-center font-bold text-xs text-white bg-black border border-gray-600">Receiving</th>
+                                        
+                                        {/* FPTS header */}
+                                        <th className="px-1 py-1 text-center font-bold text-xs text-white bg-pink-600 border border-gray-600">FPTS</th>
+                                      </React.Fragment>
+                                    );
+                                  })}
+                                </tr>
+                                <tr>
+                                  {/* Fixed column spacers */}
+                                  <th className="border border-gray-400"></th>
+                                  <th className="border border-gray-400"></th>
+                                  <th className="border border-gray-400"></th>
+                                  
+                                  {/* Detailed sub-sub-headers */}
+                                  {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                                    return (
+                                      <React.Fragment key={i}>
+                                        {/* Misc columns */}
+                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-12">$</th>
+                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-8">#</th>
+                                        
+                                        {/* Passing columns */}
+                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-16">Cmp-Att</th>
+                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-12">Yds</th>
+                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-8">TD</th>
+                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-8">Int</th>
+                                        
+                                        {/* Rushing columns */}
+                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-8">Att</th>
+                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-12">Yds</th>
+                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-8">TD</th>
+                                        
+                                        {/* Receiving columns */}
+                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-8">Tgt</th>
+                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-8">Rec</th>
+                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-12">Yds</th>
+                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-8">TD</th>
+                                        
+                                        {/* FPTS column */}
+                                        <th className="px-1 py-1 text-center font-bold text-xs text-white bg-pink-600 border border-gray-600 w-12">FPTS</th>
+                                      </React.Fragment>
+                                    );
+                                  })}
+                                </tr>
+                              </thead>
                       <tbody>
                         {trendData.map((player, index) => (
                           <tr key={`${player.player_name}-${index}`} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
