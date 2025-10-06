@@ -1745,6 +1745,7 @@ const FantasyDashboard = () => {
                                           {/* FPTS column - Pink background */}
                                           <td className="px-1 py-1 text-center text-xs border border-gray-400 bg-pink-500 font-bold text-white">
                                             {weekData ? (weekData.fantasy_points || 0).toFixed(1) : ''}
+                                          </td>
                     </div>
                           </div>
                         );
