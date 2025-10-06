@@ -1380,8 +1380,8 @@ const FantasyDashboard = () => {
           </div>
         )}
         
-        {/* Analytics Tab Content */}
-        {activeTab === 'analytics' && (
+        {/* Trend Tool Tab Content */}
+        {activeTab === 'trend-tool' && (
           <div className="p-6">
             <Card>
               <CardContent className="p-8 text-center">
