@@ -875,7 +875,7 @@ const FantasyDashboard = () => {
           }
           playerMap.get(key).weeks[weekNum] = {
             ...player,
-            fantasy_points: calculateFantasyPoints(player)
+            fantasy_points: parseFloat(calculateFantasyPoints(player)) || 0
           };
         });
       });
