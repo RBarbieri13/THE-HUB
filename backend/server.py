@@ -1211,7 +1211,7 @@ async def load_draftkings_pricing_from_sheets():
                     datetime.now(timezone.utc)
                 ))
                 inserted_count += 1
-            except Exception as e:
+            except Exception:
                 # Handle duplicate entries by updating existing records
                 try:
                     conn.execute("""
