@@ -1185,40 +1185,40 @@ async def load_draftkings_pricing_from_sheets():
         ]
         
         # Use the global connection
-            # Clear existing data for weeks 4 and 5 of 2025
-            conn.execute("DELETE FROM draftkings_pricing WHERE season = 2025 AND week IN (4, 5)")
-            
-            # Insert new pricing data
-            for player in pricing_data:
-                try:
-                    conn.execute("""
-                        INSERT INTO draftkings_pricing 
-                        (player_name, team, position, season, week, salary, dk_player_id, created_at) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                    """, (
-                        player["name"], 
-                        player["team"], 
-                        player["pos"], 
-                        2025, 
-                        player["week"], 
-                        player["salary"],
-                        '',  # dk_player_id
-                        datetime.now(timezone.utc)
-                    ))
-                except Exception as e:
-                    # Handle duplicate entries by updating existing records
-                    conn.execute("""
-                        UPDATE draftkings_pricing 
-                        SET salary = ?, created_at = ?
-                        WHERE player_name = ? AND team = ? AND season = ? AND week = ?
-                    """, (
-                        player["salary"],
-                        datetime.now(timezone.utc),
-                        player["name"], 
-                        player["team"], 
-                        2025, 
-                        player["week"]
-                    ))
+        # Clear existing data for weeks 4 and 5 of 2025
+        conn.execute("DELETE FROM draftkings_pricing WHERE season = 2025 AND week IN (4, 5)")
+        
+        # Insert new pricing data
+        for player in pricing_data:
+            try:
+                conn.execute("""
+                    INSERT INTO draftkings_pricing 
+                    (player_name, team, position, season, week, salary, dk_player_id, created_at) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    player["name"], 
+                    player["team"], 
+                    player["pos"], 
+                    2025, 
+                    player["week"], 
+                    player["salary"],
+                    '',  # dk_player_id
+                    datetime.now(timezone.utc)
+                ))
+            except Exception as e:
+                # Handle duplicate entries by updating existing records
+                conn.execute("""
+                    UPDATE draftkings_pricing 
+                    SET salary = ?, created_at = ?
+                    WHERE player_name = ? AND team = ? AND season = ? AND week = ?
+                """, (
+                    player["salary"],
+                    datetime.now(timezone.utc),
+                    player["name"], 
+                    player["team"], 
+                    2025, 
+                    player["week"]
+                ))
             
         print("✅ DraftKings pricing data loaded successfully from Google Sheets")
         print(f"✅ Loaded {len(pricing_data)} salary records for weeks 4 and 5, 2025 season")
