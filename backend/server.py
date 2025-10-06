@@ -1193,11 +1193,14 @@ async def load_draftkings_pricing_from_sheets():
         updated_count = 0
         for player in pricing_data:
             try:
+                # Generate a unique ID for the record
+                record_id = f"{player['name']}_{player['team']}_{2025}_{player['week']}"
                 conn.execute("""
                     INSERT INTO draftkings_pricing 
-                    (player_name, team, position, season, week, salary, dk_player_id, created_at) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                    (id, player_name, team, position, season, week, salary, dk_player_id, created_at) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, (
+                    hash(record_id) % 2147483647,  # Generate a positive integer ID
                     player["name"], 
                     player["team"], 
                     player["pos"], 
