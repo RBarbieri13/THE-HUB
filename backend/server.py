@@ -1212,7 +1212,6 @@ async def load_draftkings_pricing_from_sheets():
                 ))
                 inserted_count += 1
             except Exception as e:
-                print(f"Insert failed for {player['name']}: {str(e)}")
                 # Handle duplicate entries by updating existing records
                 try:
                     conn.execute("""
@@ -1229,9 +1228,7 @@ async def load_draftkings_pricing_from_sheets():
                     ))
                     updated_count += 1
                 except Exception as e2:
-                    print(f"Update also failed for {player['name']}: {str(e2)}")
-        
-        print(f"Inserted: {inserted_count}, Updated: {updated_count}")
+                    print(f"Error updating {player['name']}: {str(e2)}")
         
         # Commit the transaction
         conn.commit()
