@@ -1775,89 +1775,104 @@ const FantasyDashboard = () => {
                                     })}
                                   </tr>
                               </thead>
-                              <tbody>
-                                {positionPlayers.map((player, index) => (
-                                  <tr key={`${player.player_name}-${index}`} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                                    {/* Fixed columns */}
-                                    <td className="px-2 py-2 font-medium text-gray-900 border border-gray-400">
-                                      {player.player_name}
-                                    </td>
-                                    
-                                    {/* Week data columns */}
-                                    {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
-                                      const week = trendFilters.startWeek + i;
-                                      const weekData = player.weeks[week];
-                                      const passingAttempts = weekData ? Math.ceil((weekData.passing_yards || 0) / 8.5) : 0;
-                                      const passingCompletions = weekData ? Math.ceil(passingAttempts * 0.65) : 0;
-                                      const rushingAttempts = weekData ? Math.ceil((weekData.rushing_yards || 0) / 4.5) : 0;
+                                <tbody>
+                                  {positionPlayers.map((player, index) => (
+                                    <tr key={`${player.player_name}-${index}`} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-25'}>
+                                      {/* Fixed columns */}
+                                      <td className="px-2 py-2 font-medium text-gray-900 bg-gray-50"
+                                          style={{ width: columnWidths.player || '160px' }}>
+                                        {player.player_name}
+                                      </td>
                                       
-                                      return (
-                                        <React.Fragment key={week}>
-                                          {/* Misc columns */}
-                                          <td className="px-1 py-1 text-center text-xs border border-gray-400">
-                                            {weekData && weekData.dk_salary ? `$${weekData.dk_salary}` : ''}
-                                          </td>
-                                          <td className="px-1 py-1 text-center text-xs border border-gray-400 font-medium">
-                                            {weekData ? (weekData.snap_count || weekData.snap_percentage || '') : ''}
-                                          </td>
-                                          
-                                          {/* Passing columns */}
-                                          <td className="px-1 py-1 text-center text-xs border border-gray-400">
-                                            {weekData && weekData.passing_yards > 0 ? `${passingCompletions}-${passingAttempts}` : ''}
-                                          </td>
-                                          <td className="px-1 py-1 text-center text-xs border border-gray-400 font-medium">
-                                            {weekData && weekData.passing_yards > 0 ? weekData.passing_yards : ''}
-                                          </td>
-                                          <td className="px-1 py-1 text-center text-xs border border-gray-400 font-medium">
-                                            {weekData && weekData.passing_tds > 0 ? weekData.passing_tds : (weekData && weekData.passing_yards > 0 ? '0' : '')}
-                                          </td>
-                                          <td className="px-1 py-1 text-center text-xs border border-gray-400">
-                                            {weekData && weekData.interceptions > 0 ? weekData.interceptions : (weekData && weekData.passing_yards > 0 ? '0' : '')}
-                                          </td>
-                                          
-                                          {/* Rushing columns */}
-                                          <td className="px-1 py-1 text-center text-xs border border-gray-400">
-                                            {weekData && weekData.rushing_yards > 0 ? rushingAttempts : ''}
-                                          </td>
-                                          <td className="px-1 py-1 text-center text-xs border border-gray-400 font-medium">
-                                            {weekData && weekData.rushing_yards > 0 ? weekData.rushing_yards : ''}
-                                          </td>
-                                          <td className="px-1 py-1 text-center text-xs border border-gray-400 font-medium">
-                                            {weekData && weekData.rushing_tds > 0 ? weekData.rushing_tds : (weekData && weekData.rushing_yards > 0 ? '0' : '')}
-                                          </td>
-                                          
-                                          {/* Receiving columns */}
-                                          <td className="px-1 py-1 text-center text-xs border border-gray-400">
-                                            {weekData && weekData.targets > 0 ? weekData.targets : ''}
-                                          </td>
-                                          <td className="px-1 py-1 text-center text-xs border border-gray-400 font-medium">
-                                            {weekData && weekData.receptions > 0 ? weekData.receptions : ''}
-                                          </td>
-                                          <td className="px-1 py-1 text-center text-xs border border-gray-400 font-medium">
-                                            {weekData && weekData.receiving_yards > 0 ? weekData.receiving_yards : ''}
-                                          </td>
-                                          <td className="px-1 py-1 text-center text-xs border border-gray-400 font-medium">
-                                            {weekData && weekData.receiving_tds > 0 ? weekData.receiving_tds : (weekData && weekData.receiving_yards > 0 ? '0' : '')}
-                                          </td>
-                                          
-                                          {/* FPTS column - Conditionally formatted */}
-                                          <td className={`px-1 py-1 text-center text-xs border border-gray-400 font-bold ${
-                                            !weekData || (weekData.fantasy_points || 0) === 0 ? '' :
-                                            (weekData.fantasy_points || 0) >= 25 ? 'bg-green-600 text-white' :
-                                            (weekData.fantasy_points || 0) >= 20 ? 'bg-green-400 text-white' :
-                                            (weekData.fantasy_points || 0) >= 15 ? 'bg-yellow-400 text-black' :
-                                            (weekData.fantasy_points || 0) >= 10 ? 'bg-orange-400 text-white' :
-                                            (weekData.fantasy_points || 0) >= 5 ? 'bg-red-400 text-white' :
-                                            'bg-red-600 text-white'
-                                          }`}>
-                                            {weekData ? (weekData.fantasy_points || 0).toFixed(1) : ''}
-                                          </td>
-                                        </React.Fragment>
-                                      );
-                                    })}
-                                  </tr>
-                                ))}
-                              </tbody>
+                                      {/* Week data columns */}
+                                      {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                                        const week = trendFilters.startWeek + i;
+                                        const weekData = player.weeks[week];
+                                        const passingAttempts = weekData ? Math.ceil((weekData.passing_yards || 0) / 8.5) : 0;
+                                        const passingCompletions = weekData ? Math.ceil(passingAttempts * 0.65) : 0;
+                                        const rushingAttempts = weekData ? Math.ceil((weekData.rushing_yards || 0) / 4.5) : 0;
+                                        
+                                        return (
+                                          <React.Fragment key={week}>
+                                            {/* Misc columns */}
+                                            <td className="px-1 py-1 text-center text-xs bg-blue-25 text-gray-700"
+                                                style={{ width: columnWidths[`misc-price-${i}`] || '50px' }}>
+                                              {weekData && weekData.dk_salary ? `$${weekData.dk_salary}` : ''}
+                                            </td>
+                                            <td className="px-1 py-1 text-center text-xs bg-blue-25 text-gray-700 font-medium"
+                                                style={{ width: columnWidths[`misc-snaps-${i}`] || '40px' }}>
+                                              {weekData ? (weekData.snap_count || weekData.snap_percentage || '') : ''}
+                                            </td>
+                                            
+                                            {/* Passing columns */}
+                                            <td className="px-1 py-1 text-center text-xs bg-blue-50 text-gray-700"
+                                                style={{ width: columnWidths[`pass-comp-${i}`] || '60px' }}>
+                                              {weekData && weekData.passing_yards > 0 ? `${passingCompletions}-${passingAttempts}` : ''}
+                                            </td>
+                                            <td className="px-1 py-1 text-center text-xs bg-blue-50 text-gray-700 font-medium"
+                                                style={{ width: columnWidths[`pass-yds-${i}`] || '45px' }}>
+                                              {weekData && weekData.passing_yards > 0 ? weekData.passing_yards : ''}
+                                            </td>
+                                            <td className="px-1 py-1 text-center text-xs bg-blue-50 text-gray-700 font-medium"
+                                                style={{ width: columnWidths[`pass-td-${i}`] || '35px' }}>
+                                              {weekData && weekData.passing_tds > 0 ? weekData.passing_tds : (weekData && weekData.passing_yards > 0 ? '0' : '')}
+                                            </td>
+                                            <td className="px-1 py-1 text-center text-xs bg-blue-50 text-gray-700"
+                                                style={{ width: columnWidths[`pass-int-${i}`] || '35px' }}>
+                                              {weekData && weekData.interceptions > 0 ? weekData.interceptions : (weekData && weekData.passing_yards > 0 ? '0' : '')}
+                                            </td>
+                                            
+                                            {/* Rushing columns */}
+                                            <td className="px-1 py-1 text-center text-xs bg-green-50 text-gray-700"
+                                                style={{ width: columnWidths[`rush-att-${i}`] || '35px' }}>
+                                              {weekData && weekData.rushing_yards > 0 ? rushingAttempts : ''}
+                                            </td>
+                                            <td className="px-1 py-1 text-center text-xs bg-green-50 text-gray-700 font-medium"
+                                                style={{ width: columnWidths[`rush-yds-${i}`] || '45px' }}>
+                                              {weekData && weekData.rushing_yards > 0 ? weekData.rushing_yards : ''}
+                                            </td>
+                                            <td className="px-1 py-1 text-center text-xs bg-green-50 text-gray-700 font-medium"
+                                                style={{ width: columnWidths[`rush-td-${i}`] || '35px' }}>
+                                              {weekData && weekData.rushing_tds > 0 ? weekData.rushing_tds : (weekData && weekData.rushing_yards > 0 ? '0' : '')}
+                                            </td>
+                                            
+                                            {/* Receiving columns */}
+                                            <td className="px-1 py-1 text-center text-xs bg-purple-50 text-gray-700"
+                                                style={{ width: columnWidths[`rec-tgt-${i}`] || '35px' }}>
+                                              {weekData && weekData.targets > 0 ? weekData.targets : ''}
+                                            </td>
+                                            <td className="px-1 py-1 text-center text-xs bg-purple-50 text-gray-700 font-medium"
+                                                style={{ width: columnWidths[`rec-rec-${i}`] || '35px' }}>
+                                              {weekData && weekData.receptions > 0 ? weekData.receptions : ''}
+                                            </td>
+                                            <td className="px-1 py-1 text-center text-xs bg-purple-50 text-gray-700 font-medium"
+                                                style={{ width: columnWidths[`rec-yds-${i}`] || '45px' }}>
+                                              {weekData && weekData.receiving_yards > 0 ? weekData.receiving_yards : ''}
+                                            </td>
+                                            <td className="px-1 py-1 text-center text-xs bg-purple-50 text-gray-700 font-medium"
+                                                style={{ width: columnWidths[`rec-td-${i}`] || '35px' }}>
+                                              {weekData && weekData.receiving_tds > 0 ? weekData.receiving_tds : (weekData && weekData.receiving_yards > 0 ? '0' : '')}
+                                            </td>
+                                            
+                                            {/* FPTS column - Subtle conditional formatting */}
+                                            <td className={`px-1 py-1 text-center text-xs font-bold ${
+                                              !weekData || (weekData.fantasy_points || 0) === 0 ? 'bg-white text-gray-500' :
+                                              (weekData.fantasy_points || 0) >= 25 ? 'bg-emerald-100 text-emerald-800' :
+                                              (weekData.fantasy_points || 0) >= 20 ? 'bg-green-100 text-green-800' :
+                                              (weekData.fantasy_points || 0) >= 15 ? 'bg-yellow-100 text-yellow-800' :
+                                              (weekData.fantasy_points || 0) >= 10 ? 'bg-orange-100 text-orange-800' :
+                                              (weekData.fantasy_points || 0) >= 5 ? 'bg-red-100 text-red-800' :
+                                              'bg-red-200 text-red-900'
+                                            }`}
+                                            style={{ width: columnWidths[`fpts-${i}`] || '50px' }}>
+                                              {weekData ? (weekData.fantasy_points || 0).toFixed(1) : ''}
+                                            </td>
+                                          </React.Fragment>
+                                        );
+                                      })}
+                                    </tr>
+                                  ))}
+                                </tbody>
                             </table>
                           </div>
                         );
