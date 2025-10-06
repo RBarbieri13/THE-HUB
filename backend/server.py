@@ -1189,6 +1189,8 @@ async def load_draftkings_pricing_from_sheets():
         conn.execute("DELETE FROM draftkings_pricing WHERE season = 2025 AND week IN (4, 5)")
         
         # Insert new pricing data
+        inserted_count = 0
+        updated_count = 0
         for player in pricing_data:
             try:
                 conn.execute("""
@@ -1205,20 +1207,28 @@ async def load_draftkings_pricing_from_sheets():
                     '',  # dk_player_id
                     datetime.now(timezone.utc)
                 ))
+                inserted_count += 1
             except Exception as e:
+                print(f"Insert failed for {player['name']}: {str(e)}")
                 # Handle duplicate entries by updating existing records
-                conn.execute("""
-                    UPDATE draftkings_pricing 
-                    SET salary = ?, created_at = ?
-                    WHERE player_name = ? AND team = ? AND season = ? AND week = ?
-                """, (
-                    player["salary"],
-                    datetime.now(timezone.utc),
-                    player["name"], 
-                    player["team"], 
-                    2025, 
-                    player["week"]
-                ))
+                try:
+                    conn.execute("""
+                        UPDATE draftkings_pricing 
+                        SET salary = ?, created_at = ?
+                        WHERE player_name = ? AND team = ? AND season = ? AND week = ?
+                    """, (
+                        player["salary"],
+                        datetime.now(timezone.utc),
+                        player["name"], 
+                        player["team"], 
+                        2025, 
+                        player["week"]
+                    ))
+                    updated_count += 1
+                except Exception as e2:
+                    print(f"Update also failed for {player['name']}: {str(e2)}")
+        
+        print(f"Inserted: {inserted_count}, Updated: {updated_count}")
         
         # Commit the transaction
         conn.commit()
