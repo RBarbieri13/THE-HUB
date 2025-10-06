@@ -1580,305 +1580,253 @@ const FantasyDashboard = () => {
                     <p>Loading trend data...</p>
                   </div>
                 ) : (
-                  <div className="overflow-auto h-full">
-                    <div className="overflow-auto h-full">
-                      {/* Position Groups */}
-                      {['QB', 'RB', 'WR', 'TE'].map(position => {
-                        const positionPlayers = trendData.filter(player => player.position === position);
-                        if (positionPlayers.length === 0) return null;
-                        
-                        return (
-                          <div key={position} className="mb-8">
-                            {/* Position Header */}
-                            <div className={`text-lg font-bold py-2 px-4 mb-2 ${
-                              position === 'QB' ? 'bg-blue-100 text-blue-800' :
-                              position === 'RB' ? 'bg-green-100 text-green-800' :
-                              position === 'WR' ? 'bg-purple-100 text-purple-800' :
-                              'bg-orange-100 text-orange-800'
-                            }`}>
-                              {position}
-                            </div>
+                  <div className="h-full overflow-x-auto" style={{ border: '2px solid #333' }}>
+                    <table className="min-w-full border-collapse text-xs font-sans">
+                      <thead>
+                        {/* Week Headers Row */}
+                        <tr>
+                          <th rowSpan="3" className="sticky left-0 bg-blue-200 border-r-2 border-gray-400 text-center font-bold text-black w-12 z-20">Pos</th>
+                          <th rowSpan="3" className="sticky left-12 bg-white border-r-2 border-gray-400 text-left font-bold text-black w-40 z-20 pl-2">Player</th>
+                          {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                            const week = trendFilters.startWeek + i;
+                            const gameResults = {
+                              'NYG-4': { opponent: 'vs DAL', result: 'L', score: '15-20' },
+                              'NYG-5': { opponent: 'vs NO', result: 'L', score: '14-24' }, 
+                              'NYG-6': { opponent: 'vs LAC', result: 'W', score: '27-10' },
+                              'DAL-4': { opponent: 'vs GB', result: 'W', score: '31-17' },
+                              'DAL-5': { opponent: 'vs NYJ', result: 'W', score: '35-17' },
+                              'DAL-6': { opponent: 'vs NYG', result: 'W', score: '20-15' }
+                            };
+                            const game = gameResults[`${trendFilters.team}-${week}`] || { opponent: 'vs TBD', result: '', score: '' };
                             
-                            <div className="overflow-x-auto">
-                              {/* Week Headers - Positioned above columns */}
-                              <div className="flex mb-2">
-                                <div className="w-40 flex-shrink-0"></div> {/* Player column space */}
-                                {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
-                                  const week = trendFilters.startWeek + i;
-                                  const gameResults = {
-                                    'NYG-4': { opponent: 'vs LAC', result: 'W', score: '27-10' },
-                                    'NYG-5': { opponent: 'vs NO', result: 'L', score: '14-24' }, 
-                                    'NYG-6': { opponent: 'vs DAL', result: 'L', score: '15-20' },
-                                    'DAL-4': { opponent: 'vs GB', result: 'W', score: '31-17' },
-                                    'DAL-5': { opponent: 'vs NYJ', result: 'W', score: '35-17' },
-                                    'DAL-6': { opponent: 'vs NYG', result: 'W', score: '20-15' }
-                                  };
-                                  const game = gameResults[`${trendFilters.team}-${week}`] || { opponent: 'vs TBD', result: '', score: '' };
-                                  
-                                  return (
-                                    <div key={week} className="flex-1 text-center px-1">
-                                      <div className="text-sm font-bold text-gray-800 mb-1">Week {week}</div>
-                                      <div className="text-xs text-gray-600">{game.opponent}</div>
-                                      {game.result && (
-                                        <div className={`text-xs font-semibold px-2 py-1 rounded ${
-                                          game.result === 'W' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                                        }`}>
-                                          {game.result} {game.score}
-                                        </div>
-                                      )}
-                                    </div>
-                                  );
-                                })}
-                              </div>
+                            return (
+                              <th key={week} colSpan="14" className="bg-blue-900 text-white font-bold text-center border border-gray-400 px-2 py-2">
+                                <div className="text-sm">
+                                  {week} {game.opponent} - <span className={game.result === 'W' ? 'text-green-300' : 'text-red-300'}>{game.result} {game.score}</span>
+                                </div>
+                              </th>
+                            );
+                          })}
+                        </tr>
+                        
+                        {/* Category Headers Row */}
+                        <tr>
+                          {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => (
+                            <React.Fragment key={i}>
+                              <th colSpan="2" className="bg-blue-200 text-black font-bold text-center text-xs border border-gray-300 py-1">Misc.</th>
+                              <th colSpan="4" className="bg-blue-200 text-black font-bold text-center text-xs border border-gray-300 py-1">Passing</th>
+                              <th colSpan="4" className="bg-blue-200 text-black font-bold text-center text-xs border border-gray-300 py-1">Receiving</th>
+                              <th colSpan="3" className="bg-blue-200 text-black font-bold text-center text-xs border border-gray-300 py-1">Rushing</th>
+                              <th className="bg-blue-200 text-black font-bold text-center text-xs border border-gray-300 py-1">FPTS</th>
+                            </React.Fragment>
+                          ))}
+                        </tr>
+                        
+                        {/* Individual Stat Headers Row */}
+                        <tr>
+                          {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => (
+                            <React.Fragment key={i}>
+                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-12">$</th>
+                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-8">#</th>
+                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-16">Cmp-Att</th>
+                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-12">Yds</th>
+                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-8">TD</th>
+                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-8">Int</th>
+                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-8">Tgts</th>
+                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-8">Rec</th>
+                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-12">Yds</th>
+                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-8">TD</th>
+                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-8">Att</th>
+                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-12">Yds</th>
+                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-8">TD</th>
+                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-12">FPTS</th>
+                            </React.Fragment>
+                          ))}
+                        </tr>
+                      </thead>
+                      
+                      <tbody>
+                        {/* QB Section */}
+                        {trendData.filter(player => player.position === 'QB').map((player, playerIndex, qbPlayers) => {
+                          const isFirstQB = playerIndex === 0;
+                          return (
+                            <tr key={`QB-${player.player_name}`}>
+                              {isFirstQB && (
+                                <td rowSpan={qbPlayers.length} className="sticky left-0 bg-blue-200 text-black font-bold text-center align-middle border-r-2 border-gray-400 z-20">
+                                  QB
+                                </td>
+                              )}
+                              <td className="sticky left-12 bg-white text-black font-normal text-left border-r-2 border-gray-400 pl-2 z-20">
+                                {player.player_name}
+                              </td>
                               
-                              <table className="w-full text-xs mb-4" style={{borderCollapse: 'separate', borderSpacing: '1px'}}>
-                                <thead className="sticky top-0">
-                                  <tr>
-                                    {/* Fixed columns */}
-                                    <th 
-                                      className="px-2 py-2 text-left font-semibold text-gray-800 bg-gray-100 resize-handle"
-                                      style={{ width: columnWidths.player || '160px', minWidth: '120px' }}
-                                    >
-                                      Player
-                                      <div 
-                                        className="absolute right-0 top-0 w-2 h-full cursor-col-resize hover:bg-blue-200"
-                                        onMouseDown={(e) => handleColumnResize(e, 'player')}
-                                      />
-                                    </th>
-                                    {/* Week columns with category headers */}
-                                    {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
-                                      return (
-                                        <React.Fragment key={i}>
-                                          {/* Misc columns */}
-                                          <th className="px-1 py-1 text-center font-semibold text-xs text-gray-700 bg-blue-50 relative"
-                                              style={{ width: columnWidths[`misc-price-${i}`] || '50px', minWidth: '40px' }}>
-                                            $
-                                            <div 
-                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-blue-300"
-                                              onMouseDown={(e) => handleColumnResize(e, `misc-price-${i}`)}
-                                            />
-                                          </th>
-                                          <th className="px-1 py-1 text-center font-semibold text-xs text-gray-700 bg-blue-50 relative"
-                                              style={{ width: columnWidths[`misc-snaps-${i}`] || '40px', minWidth: '30px' }}>
-                                            #
-                                            <div 
-                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-blue-300"
-                                              onMouseDown={(e) => handleColumnResize(e, `misc-snaps-${i}`)}
-                                            />
-                                          </th>
-                                          
-                                          {/* Passing columns */}
-                                          <th className="px-1 py-1 text-center font-semibold text-xs text-blue-700 bg-blue-100 relative"
-                                              style={{ width: columnWidths[`pass-comp-${i}`] || '60px', minWidth: '50px' }}>
-                                            Cmp-Att
-                                            <div 
-                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-blue-300"
-                                              onMouseDown={(e) => handleColumnResize(e, `pass-comp-${i}`)}
-                                            />
-                                          </th>
-                                          <th className="px-1 py-1 text-center font-semibold text-xs text-blue-700 bg-blue-100 relative"
-                                              style={{ width: columnWidths[`pass-yds-${i}`] || '45px', minWidth: '35px' }}>
-                                            Yds
-                                            <div 
-                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-blue-300"
-                                              onMouseDown={(e) => handleColumnResize(e, `pass-yds-${i}`)}
-                                            />
-                                          </th>
-                                          <th className="px-1 py-1 text-center font-semibold text-xs text-blue-700 bg-blue-100 relative"
-                                              style={{ width: columnWidths[`pass-td-${i}`] || '35px', minWidth: '25px' }}>
-                                            TD
-                                            <div 
-                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-blue-300"
-                                              onMouseDown={(e) => handleColumnResize(e, `pass-td-${i}`)}
-                                            />
-                                          </th>
-                                          <th className="px-1 py-1 text-center font-semibold text-xs text-blue-700 bg-blue-100 relative"
-                                              style={{ width: columnWidths[`pass-int-${i}`] || '35px', minWidth: '25px' }}>
-                                            Int
-                                            <div 
-                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-blue-300"
-                                              onMouseDown={(e) => handleColumnResize(e, `pass-int-${i}`)}
-                                            />
-                                          </th>
-                                          
-                                          {/* Rushing columns */}
-                                          <th className="px-1 py-1 text-center font-semibold text-xs text-green-700 bg-green-100 relative"
-                                              style={{ width: columnWidths[`rush-att-${i}`] || '35px', minWidth: '25px' }}>
-                                            Att
-                                            <div 
-                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-green-300"
-                                              onMouseDown={(e) => handleColumnResize(e, `rush-att-${i}`)}
-                                            />
-                                          </th>
-                                          <th className="px-1 py-1 text-center font-semibold text-xs text-green-700 bg-green-100 relative"
-                                              style={{ width: columnWidths[`rush-yds-${i}`] || '45px', minWidth: '35px' }}>
-                                            Yds
-                                            <div 
-                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-green-300"
-                                              onMouseDown={(e) => handleColumnResize(e, `rush-yds-${i}`)}
-                                            />
-                                          </th>
-                                          <th className="px-1 py-1 text-center font-semibold text-xs text-green-700 bg-green-100 relative"
-                                              style={{ width: columnWidths[`rush-td-${i}`] || '35px', minWidth: '25px' }}>
-                                            TD
-                                            <div 
-                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-green-300"
-                                              onMouseDown={(e) => handleColumnResize(e, `rush-td-${i}`)}
-                                            />
-                                          </th>
-                                          
-                                          {/* Receiving columns */}
-                                          <th className="px-1 py-1 text-center font-semibold text-xs text-purple-700 bg-purple-100 relative"
-                                              style={{ width: columnWidths[`rec-tgt-${i}`] || '35px', minWidth: '25px' }}>
-                                            Tgt
-                                            <div 
-                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-purple-300"
-                                              onMouseDown={(e) => handleColumnResize(e, `rec-tgt-${i}`)}
-                                            />
-                                          </th>
-                                          <th className="px-1 py-1 text-center font-semibold text-xs text-purple-700 bg-purple-100 relative"
-                                              style={{ width: columnWidths[`rec-rec-${i}`] || '35px', minWidth: '25px' }}>
-                                            Rec
-                                            <div 
-                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-purple-300"
-                                              onMouseDown={(e) => handleColumnResize(e, `rec-rec-${i}`)}
-                                            />
-                                          </th>
-                                          <th className="px-1 py-1 text-center font-semibold text-xs text-purple-700 bg-purple-100 relative"
-                                              style={{ width: columnWidths[`rec-yds-${i}`] || '45px', minWidth: '35px' }}>
-                                            Yds
-                                            <div 
-                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-purple-300"
-                                              onMouseDown={(e) => handleColumnResize(e, `rec-yds-${i}`)}
-                                            />
-                                          </th>
-                                          <th className="px-1 py-1 text-center font-semibold text-xs text-purple-700 bg-purple-100 relative"
-                                              style={{ width: columnWidths[`rec-td-${i}`] || '35px', minWidth: '25px' }}>
-                                            TD
-                                            <div 
-                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-purple-300"
-                                              onMouseDown={(e) => handleColumnResize(e, `rec-td-${i}`)}
-                                            />
-                                          </th>
-                                          
-                                          {/* FPTS column */}
-                                          <th className="px-1 py-1 text-center font-bold text-xs text-gray-800 bg-orange-100 relative"
-                                              style={{ width: columnWidths[`fpts-${i}`] || '50px', minWidth: '40px' }}>
-                                            FPTS
-                                            <div 
-                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-orange-300"
-                                              onMouseDown={(e) => handleColumnResize(e, `fpts-${i}`)}
-                                            />
-                                          </th>
-                                        </React.Fragment>
-                                      );
-                                    })}
-                                  </tr>
-                              </thead>
-                                <tbody>
-                                  {positionPlayers.map((player, index) => (
-                                    <tr key={`${player.player_name}-${index}`} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-25'}>
-                                      {/* Fixed columns */}
-                                      <td className="px-2 py-2 font-medium text-gray-900 bg-gray-50"
-                                          style={{ width: columnWidths.player || '160px' }}>
-                                        {player.player_name}
-                                      </td>
-                                      
-                                      {/* Week data columns */}
-                                      {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
-                                        const week = trendFilters.startWeek + i;
-                                        const weekData = player.weeks[week];
-                                        const passingAttempts = weekData ? Math.ceil((weekData.passing_yards || 0) / 8.5) : 0;
-                                        const passingCompletions = weekData ? Math.ceil(passingAttempts * 0.65) : 0;
-                                        const rushingAttempts = weekData ? Math.ceil((weekData.rushing_yards || 0) / 4.5) : 0;
-                                        
-                                        return (
-                                          <React.Fragment key={week}>
-                                            {/* Misc columns */}
-                                            <td className="px-1 py-1 text-center text-xs bg-blue-25 text-gray-700"
-                                                style={{ width: columnWidths[`misc-price-${i}`] || '50px' }}>
-                                              {weekData && weekData.dk_salary ? `$${weekData.dk_salary}` : ''}
-                                            </td>
-                                            <td className="px-1 py-1 text-center text-xs bg-blue-25 text-gray-700 font-medium"
-                                                style={{ width: columnWidths[`misc-snaps-${i}`] || '40px' }}>
-                                              {weekData ? (weekData.snap_count || weekData.snap_percentage || '') : ''}
-                                            </td>
-                                            
-                                            {/* Passing columns */}
-                                            <td className="px-1 py-1 text-center text-xs bg-blue-50 text-gray-700"
-                                                style={{ width: columnWidths[`pass-comp-${i}`] || '60px' }}>
-                                              {weekData && weekData.passing_yards > 0 ? `${passingCompletions}-${passingAttempts}` : ''}
-                                            </td>
-                                            <td className="px-1 py-1 text-center text-xs bg-blue-50 text-gray-700 font-medium"
-                                                style={{ width: columnWidths[`pass-yds-${i}`] || '45px' }}>
-                                              {weekData && weekData.passing_yards > 0 ? weekData.passing_yards : ''}
-                                            </td>
-                                            <td className="px-1 py-1 text-center text-xs bg-blue-50 text-gray-700 font-medium"
-                                                style={{ width: columnWidths[`pass-td-${i}`] || '35px' }}>
-                                              {weekData && weekData.passing_tds > 0 ? weekData.passing_tds : (weekData && weekData.passing_yards > 0 ? '0' : '')}
-                                            </td>
-                                            <td className="px-1 py-1 text-center text-xs bg-blue-50 text-gray-700"
-                                                style={{ width: columnWidths[`pass-int-${i}`] || '35px' }}>
-                                              {weekData && weekData.interceptions > 0 ? weekData.interceptions : (weekData && weekData.passing_yards > 0 ? '0' : '')}
-                                            </td>
-                                            
-                                            {/* Rushing columns */}
-                                            <td className="px-1 py-1 text-center text-xs bg-green-50 text-gray-700"
-                                                style={{ width: columnWidths[`rush-att-${i}`] || '35px' }}>
-                                              {weekData && weekData.rushing_yards > 0 ? rushingAttempts : ''}
-                                            </td>
-                                            <td className="px-1 py-1 text-center text-xs bg-green-50 text-gray-700 font-medium"
-                                                style={{ width: columnWidths[`rush-yds-${i}`] || '45px' }}>
-                                              {weekData && weekData.rushing_yards > 0 ? weekData.rushing_yards : ''}
-                                            </td>
-                                            <td className="px-1 py-1 text-center text-xs bg-green-50 text-gray-700 font-medium"
-                                                style={{ width: columnWidths[`rush-td-${i}`] || '35px' }}>
-                                              {weekData && weekData.rushing_tds > 0 ? weekData.rushing_tds : (weekData && weekData.rushing_yards > 0 ? '0' : '')}
-                                            </td>
-                                            
-                                            {/* Receiving columns */}
-                                            <td className="px-1 py-1 text-center text-xs bg-purple-50 text-gray-700"
-                                                style={{ width: columnWidths[`rec-tgt-${i}`] || '35px' }}>
-                                              {weekData && weekData.targets > 0 ? weekData.targets : ''}
-                                            </td>
-                                            <td className="px-1 py-1 text-center text-xs bg-purple-50 text-gray-700 font-medium"
-                                                style={{ width: columnWidths[`rec-rec-${i}`] || '35px' }}>
-                                              {weekData && weekData.receptions > 0 ? weekData.receptions : ''}
-                                            </td>
-                                            <td className="px-1 py-1 text-center text-xs bg-purple-50 text-gray-700 font-medium"
-                                                style={{ width: columnWidths[`rec-yds-${i}`] || '45px' }}>
-                                              {weekData && weekData.receiving_yards > 0 ? weekData.receiving_yards : ''}
-                                            </td>
-                                            <td className="px-1 py-1 text-center text-xs bg-purple-50 text-gray-700 font-medium"
-                                                style={{ width: columnWidths[`rec-td-${i}`] || '35px' }}>
-                                              {weekData && weekData.receiving_tds > 0 ? weekData.receiving_tds : (weekData && weekData.receiving_yards > 0 ? '0' : '')}
-                                            </td>
-                                            
-                                            {/* FPTS column - Subtle conditional formatting */}
-                                            <td className={`px-1 py-1 text-center text-xs font-bold ${
-                                              !weekData || (weekData.fantasy_points || 0) === 0 ? 'bg-white text-gray-500' :
-                                              (weekData.fantasy_points || 0) >= 25 ? 'bg-emerald-100 text-emerald-800' :
-                                              (weekData.fantasy_points || 0) >= 20 ? 'bg-green-100 text-green-800' :
-                                              (weekData.fantasy_points || 0) >= 15 ? 'bg-yellow-100 text-yellow-800' :
-                                              (weekData.fantasy_points || 0) >= 10 ? 'bg-orange-100 text-orange-800' :
-                                              (weekData.fantasy_points || 0) >= 5 ? 'bg-red-100 text-red-800' :
-                                              'bg-red-200 text-red-900'
-                                            }`}
-                                            style={{ width: columnWidths[`fpts-${i}`] || '50px' }}>
-                                              {weekData ? (weekData.fantasy_points || 0).toFixed(1) : ''}
-                                            </td>
-                                          </React.Fragment>
-                                        );
-                                      })}
-                                    </tr>
-                                  ))}
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
+                              {/* Week Data */}
+                              {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                                const week = trendFilters.startWeek + i;
+                                const weekData = player.weeks[week];
+                                const passingAttempts = weekData ? Math.ceil((weekData.passing_yards || 0) / 8.5) : 0;
+                                const passingCompletions = weekData ? Math.ceil(passingAttempts * 0.65) : 0;
+                                const rushingAttempts = weekData ? Math.ceil((weekData.rushing_yards || 0) / 4.5) : 0;
+                                
+                                return (
+                                  <React.Fragment key={week}>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData?.dk_salary ? `$${weekData.dk_salary}` : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData?.snap_count || weekData?.snap_percentage || ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.passing_yards > 0 ? `${passingCompletions}-${passingAttempts}` : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs font-medium">{weekData && weekData.passing_yards > 0 ? weekData.passing_yards : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.passing_tds > 0 ? weekData.passing_tds : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.interceptions > 0 ? weekData.interceptions : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.targets > 0 ? weekData.targets : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.receptions > 0 ? weekData.receptions : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.receiving_yards > 0 ? weekData.receiving_yards : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.receiving_tds > 0 ? weekData.receiving_tds : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.rushing_yards > 0 ? rushingAttempts : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.rushing_yards > 0 ? weekData.rushing_yards : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.rushing_tds > 0 ? weekData.rushing_tds : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs font-bold">{weekData ? (weekData.fantasy_points || 0).toFixed(1) : ''}</td>
+                                  </React.Fragment>
+                                );
+                              })}
+                            </tr>
+                          );
+                        })}
+                        
+                        {/* RB Section */}
+                        {trendData.filter(player => player.position === 'RB').map((player, playerIndex, rbPlayers) => {
+                          const isFirstRB = playerIndex === 0;
+                          return (
+                            <tr key={`RB-${player.player_name}`}>
+                              {isFirstRB && (
+                                <td rowSpan={rbPlayers.length} className="sticky left-0 bg-pink-200 text-black font-bold text-center align-middle border-r-2 border-gray-400 z-20">
+                                  RB
+                                </td>
+                              )}
+                              <td className="sticky left-12 bg-white text-black font-normal text-left border-r-2 border-gray-400 pl-2 z-20">
+                                {player.player_name}
+                              </td>
+                              
+                              {/* Week Data */}
+                              {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                                const week = trendFilters.startWeek + i;
+                                const weekData = player.weeks[week];
+                                const passingAttempts = weekData ? Math.ceil((weekData.passing_yards || 0) / 8.5) : 0;
+                                const passingCompletions = weekData ? Math.ceil(passingAttempts * 0.65) : 0;
+                                const rushingAttempts = weekData ? Math.ceil((weekData.rushing_yards || 0) / 4.5) : 0;
+                                
+                                return (
+                                  <React.Fragment key={week}>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData?.dk_salary ? `$${weekData.dk_salary}` : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData?.snap_count || weekData?.snap_percentage || ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.passing_yards > 0 ? `${passingCompletions}-${passingAttempts}` : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs font-medium">{weekData && weekData.passing_yards > 0 ? weekData.passing_yards : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.passing_tds > 0 ? weekData.passing_tds : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.interceptions > 0 ? weekData.interceptions : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.targets > 0 ? weekData.targets : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.receptions > 0 ? weekData.receptions : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.receiving_yards > 0 ? weekData.receiving_yards : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.receiving_tds > 0 ? weekData.receiving_tds : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.rushing_yards > 0 ? rushingAttempts : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.rushing_yards > 0 ? weekData.rushing_yards : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.rushing_tds > 0 ? weekData.rushing_tds : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs font-bold">{weekData ? (weekData.fantasy_points || 0).toFixed(1) : ''}</td>
+                                  </React.Fragment>
+                                );
+                              })}
+                            </tr>
+                          );
+                        })}
+                        
+                        {/* WR Section */}
+                        {trendData.filter(player => player.position === 'WR').map((player, playerIndex, wrPlayers) => {
+                          const isFirstWR = playerIndex === 0;
+                          return (
+                            <tr key={`WR-${player.player_name}`}>
+                              {isFirstWR && (
+                                <td rowSpan={wrPlayers.length} className="sticky left-0 bg-green-200 text-black font-bold text-center align-middle border-r-2 border-gray-400 z-20">
+                                  WR
+                                </td>
+                              )}
+                              <td className="sticky left-12 bg-white text-black font-normal text-left border-r-2 border-gray-400 pl-2 z-20">
+                                {player.player_name}
+                              </td>
+                              
+                              {/* Week Data */}
+                              {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                                const week = trendFilters.startWeek + i;
+                                const weekData = player.weeks[week];
+                                const passingAttempts = weekData ? Math.ceil((weekData.passing_yards || 0) / 8.5) : 0;
+                                const passingCompletions = weekData ? Math.ceil(passingAttempts * 0.65) : 0;
+                                const rushingAttempts = weekData ? Math.ceil((weekData.rushing_yards || 0) / 4.5) : 0;
+                                
+                                return (
+                                  <React.Fragment key={week}>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData?.dk_salary ? `$${weekData.dk_salary}` : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData?.snap_count || weekData?.snap_percentage || ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.passing_yards > 0 ? `${passingCompletions}-${passingAttempts}` : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs font-medium">{weekData && weekData.passing_yards > 0 ? weekData.passing_yards : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.passing_tds > 0 ? weekData.passing_tds : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.interceptions > 0 ? weekData.interceptions : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.targets > 0 ? weekData.targets : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.receptions > 0 ? weekData.receptions : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.receiving_yards > 0 ? weekData.receiving_yards : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.receiving_tds > 0 ? weekData.receiving_tds : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.rushing_yards > 0 ? rushingAttempts : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.rushing_yards > 0 ? weekData.rushing_yards : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.rushing_tds > 0 ? weekData.rushing_tds : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs font-bold">{weekData ? (weekData.fantasy_points || 0).toFixed(1) : ''}</td>
+                                  </React.Fragment>
+                                );
+                              })}
+                            </tr>
+                          );
+                        })}
+                        
+                        {/* TE Section */}
+                        {trendData.filter(player => player.position === 'TE').map((player, playerIndex, tePlayers) => {
+                          const isFirstTE = playerIndex === 0;
+                          return (
+                            <tr key={`TE-${player.player_name}`}>
+                              {isFirstTE && tePlayers.length > 0 && (
+                                <td rowSpan={tePlayers.length} className="sticky left-0 bg-orange-200 text-black font-bold text-center align-middle border-r-2 border-gray-400 z-20">
+                                  TE
+                                </td>
+                              )}
+                              <td className="sticky left-12 bg-white text-black font-normal text-left border-r-2 border-gray-400 pl-2 z-20">
+                                {player.player_name}
+                              </td>
+                              
+                              {/* Week Data */}
+                              {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                                const week = trendFilters.startWeek + i;
+                                const weekData = player.weeks[week];
+                                const passingAttempts = weekData ? Math.ceil((weekData.passing_yards || 0) / 8.5) : 0;
+                                const passingCompletions = weekData ? Math.ceil(passingAttempts * 0.65) : 0;
+                                const rushingAttempts = weekData ? Math.ceil((weekData.rushing_yards || 0) / 4.5) : 0;
+                                
+                                return (
+                                  <React.Fragment key={week}>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData?.dk_salary ? `$${weekData.dk_salary}` : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData?.snap_count || weekData?.snap_percentage || ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.passing_yards > 0 ? `${passingCompletions}-${passingAttempts}` : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs font-medium">{weekData && weekData.passing_yards > 0 ? weekData.passing_yards : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.passing_tds > 0 ? weekData.passing_tds : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.interceptions > 0 ? weekData.interceptions : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.targets > 0 ? weekData.targets : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.receptions > 0 ? weekData.receptions : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.receiving_yards > 0 ? weekData.receiving_yards : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.receiving_tds > 0 ? weekData.receiving_tds : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.rushing_yards > 0 ? rushingAttempts : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.rushing_yards > 0 ? weekData.rushing_yards : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs">{weekData && weekData.rushing_tds > 0 ? weekData.rushing_tds : ''}</td>
+                                    <td className="text-center border-dotted border border-gray-300 text-xs font-bold">{weekData ? (weekData.fantasy_points || 0).toFixed(1) : ''}</td>
+                                  </React.Fragment>
+                                );
+                              })}
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
                   </div>
                 )}
               </CardContent>
