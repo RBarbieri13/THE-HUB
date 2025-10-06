@@ -1650,6 +1650,15 @@ async def get_players(
         logging.error(f"Error fetching players: {e}")
         raise HTTPException(status_code=500, detail=f"Error fetching players: {str(e)}")
 
+@api_router.post("/load-sheets-pricing")
+async def load_sheets_pricing():
+    """Load DraftKings pricing from Google Sheets data"""
+    try:
+        await load_draftkings_pricing_from_sheets()
+        return {"message": "DraftKings pricing data loaded successfully from Google Sheets"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error loading pricing data: {str(e)}")
+
 @api_router.get("/stats/summary")
 async def get_stats_summary():
     """Get summary statistics about the database"""
