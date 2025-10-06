@@ -104,6 +104,10 @@ const FantasyDashboard = () => {
     const saved = localStorage.getItem('trendToolColumnWidths');
     return saved ? JSON.parse(saved) : {};
   });
+  const [collapsedColumns, setCollapsedColumns] = useState(() => {
+    const saved = localStorage.getItem('trendToolCollapsedColumns');
+    return saved ? JSON.parse(saved) : {};
+  });
 
   // Calculate fantasy points based on PPR setting
   const calculateFantasyPoints = (player) => {
