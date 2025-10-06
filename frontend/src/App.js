@@ -1747,9 +1747,7 @@ const FantasyDashboard = () => {
                                             {weekData ? (weekData.fantasy_points || 0).toFixed(1) : ''}
                                           </td>
                                         </React.Fragment>
-                    </div>
-                          </div>
-                        );
+                                      );
                       })}
                     </table>
                   </div>
