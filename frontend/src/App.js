@@ -1671,82 +1671,91 @@ const FantasyDashboard = () => {
                                   })}
                                 </tr>
                               </thead>
-                      <tbody>
-                        {trendData.map((player, index) => (
-                          <tr key={`${player.player_name}-${index}`} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                            {/* Fixed columns */}
-                            <td className="px-2 py-1 font-medium text-blue-600 border border-gray-300 text-center">{player.position}</td>
-                            <td className="px-2 py-1 font-medium text-gray-900 border border-gray-300">{player.player_name}</td>
-                            <td className="px-2 py-1 text-center text-xs border border-gray-300">$5,200</td>
-                            <td className="px-2 py-1 text-center text-xs border border-gray-300 font-medium">18.4</td>
-                            
-                            {/* Week data columns */}
-                            {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
-                              const week = trendFilters.startWeek + i;
-                              const weekData = player.weeks[week];
-                              const passingAttempts = weekData ? Math.ceil((weekData.passing_yards || 0) / 8.5) : 0;
-                              const passingCompletions = weekData ? Math.ceil(passingAttempts * 0.65) : 0;
-                              const rushingAttempts = weekData ? Math.ceil((weekData.rushing_yards || 0) / 4.5) : 0;
-                              
-                              return (
-                                <React.Fragment key={week}>
-                                  {/* Misc columns */}
-                                  <td className="px-1 py-1 text-center text-xs border border-gray-300">
-                                    {weekData ? '$5,200' : '-'}
-                                  </td>
-                                  <td className="px-1 py-1 text-center text-xs border border-gray-300 font-medium">
-                                    {weekData ? (weekData.snap_count || weekData.targets || '-') : '-'}
-                                  </td>
-                                  
-                                  {/* Passing columns */}
-                                  <td className="px-1 py-1 text-center text-xs border border-gray-300 bg-blue-50">
-                                    {weekData && weekData.passing_yards > 0 ? `${passingCompletions}-${passingAttempts}` : '-'}
-                                  </td>
-                                  <td className="px-1 py-1 text-center text-xs border border-gray-300 bg-blue-50 font-medium">
-                                    {weekData && weekData.passing_yards > 0 ? weekData.passing_yards : '-'}
-                                  </td>
-                                  <td className="px-1 py-1 text-center text-xs border border-gray-300 bg-blue-50 font-medium">
-                                    {weekData && weekData.passing_tds > 0 ? weekData.passing_tds : (weekData && weekData.passing_yards > 0 ? '0' : '-')}
-                                  </td>
-                                  <td className="px-1 py-1 text-center text-xs border border-gray-300 bg-blue-50">
-                                    {weekData && weekData.interceptions > 0 ? weekData.interceptions : (weekData && weekData.passing_yards > 0 ? '0' : '-')}
-                                  </td>
-                                  
-                                  {/* Rushing columns */}
-                                  <td className="px-1 py-1 text-center text-xs border border-gray-300 bg-green-50">
-                                    {weekData && weekData.rushing_yards > 0 ? rushingAttempts : '-'}
-                                  </td>
-                                  <td className="px-1 py-1 text-center text-xs border border-gray-300 bg-green-50 font-medium">
-                                    {weekData && weekData.rushing_yards > 0 ? weekData.rushing_yards : '-'}
-                                  </td>
-                                  <td className="px-1 py-1 text-center text-xs border border-gray-300 bg-green-50 font-medium">
-                                    {weekData && weekData.rushing_tds > 0 ? weekData.rushing_tds : (weekData && weekData.rushing_yards > 0 ? '0' : '-')}
-                                  </td>
-                                  
-                                  {/* Receiving columns */}
-                                  <td className="px-1 py-1 text-center text-xs border border-gray-300 bg-purple-50">
-                                    {weekData && weekData.targets > 0 ? weekData.targets : '-'}
-                                  </td>
-                                  <td className="px-1 py-1 text-center text-xs border border-gray-300 bg-purple-50 font-medium">
-                                    {weekData && weekData.receptions > 0 ? weekData.receptions : '-'}
-                                  </td>
-                                  <td className="px-1 py-1 text-center text-xs border border-gray-300 bg-purple-50 font-medium">
-                                    {weekData && weekData.receiving_yards > 0 ? weekData.receiving_yards : '-'}
-                                  </td>
-                                  <td className="px-1 py-1 text-center text-xs border border-gray-300 bg-purple-50 font-medium">
-                                    {weekData && weekData.receiving_tds > 0 ? weekData.receiving_tds : (weekData && weekData.receiving_yards > 0 ? '0' : '-')}
-                                  </td>
-                                  
-                                  {/* FPTS column */}
-                                  <td className="px-1 py-1 text-center text-xs border border-gray-300 bg-orange-100 font-bold text-orange-800">
-                                    {weekData ? (weekData.fantasy_points || 0).toFixed(1) : '-'}
-                                  </td>
-                                </React.Fragment>
-                              );
-                            })}
-                          </tr>
-                        ))}
-                      </tbody>
+                              <tbody>
+                                {positionPlayers.map((player, index) => (
+                                  <tr key={`${player.player_name}-${index}`} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                                    {/* Fixed columns */}
+                                    <td className="px-2 py-2 font-medium text-gray-900 border border-gray-400">
+                                      {player.player_name}
+                                    </td>
+                                    <td className="px-2 py-2 text-center text-xs border border-gray-400 font-medium">
+                                      $5,200
+                                    </td>
+                                    <td className="px-2 py-2 text-center text-xs border border-gray-400 font-medium">
+                                      18.4
+                                    </td>
+                                    
+                                    {/* Week data columns */}
+                                    {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                                      const week = trendFilters.startWeek + i;
+                                      const weekData = player.weeks[week];
+                                      const passingAttempts = weekData ? Math.ceil((weekData.passing_yards || 0) / 8.5) : 0;
+                                      const passingCompletions = weekData ? Math.ceil(passingAttempts * 0.65) : 0;
+                                      const rushingAttempts = weekData ? Math.ceil((weekData.rushing_yards || 0) / 4.5) : 0;
+                                      
+                                      return (
+                                        <React.Fragment key={week}>
+                                          {/* Misc columns */}
+                                          <td className="px-1 py-1 text-center text-xs border border-gray-400">
+                                            {weekData && weekData.dk_salary ? `$${weekData.dk_salary}` : ''}
+                                          </td>
+                                          <td className="px-1 py-1 text-center text-xs border border-gray-400 font-medium">
+                                            {weekData ? (weekData.snap_count || weekData.snap_percentage || '') : ''}
+                                          </td>
+                                          
+                                          {/* Passing columns */}
+                                          <td className="px-1 py-1 text-center text-xs border border-gray-400">
+                                            {weekData && weekData.passing_yards > 0 ? `${passingCompletions}-${passingAttempts}` : ''}
+                                          </td>
+                                          <td className="px-1 py-1 text-center text-xs border border-gray-400 font-medium">
+                                            {weekData && weekData.passing_yards > 0 ? weekData.passing_yards : ''}
+                                          </td>
+                                          <td className="px-1 py-1 text-center text-xs border border-gray-400 font-medium">
+                                            {weekData && weekData.passing_tds > 0 ? weekData.passing_tds : (weekData && weekData.passing_yards > 0 ? '0' : '')}
+                                          </td>
+                                          <td className="px-1 py-1 text-center text-xs border border-gray-400">
+                                            {weekData && weekData.interceptions > 0 ? weekData.interceptions : (weekData && weekData.passing_yards > 0 ? '0' : '')}
+                                          </td>
+                                          
+                                          {/* Rushing columns */}
+                                          <td className="px-1 py-1 text-center text-xs border border-gray-400">
+                                            {weekData && weekData.rushing_yards > 0 ? rushingAttempts : ''}
+                                          </td>
+                                          <td className="px-1 py-1 text-center text-xs border border-gray-400 font-medium">
+                                            {weekData && weekData.rushing_yards > 0 ? weekData.rushing_yards : ''}
+                                          </td>
+                                          <td className="px-1 py-1 text-center text-xs border border-gray-400 font-medium">
+                                            {weekData && weekData.rushing_tds > 0 ? weekData.rushing_tds : (weekData && weekData.rushing_yards > 0 ? '0' : '')}
+                                          </td>
+                                          
+                                          {/* Receiving columns */}
+                                          <td className="px-1 py-1 text-center text-xs border border-gray-400">
+                                            {weekData && weekData.targets > 0 ? weekData.targets : ''}
+                                          </td>
+                                          <td className="px-1 py-1 text-center text-xs border border-gray-400 font-medium">
+                                            {weekData && weekData.receptions > 0 ? weekData.receptions : ''}
+                                          </td>
+                                          <td className="px-1 py-1 text-center text-xs border border-gray-400 font-medium">
+                                            {weekData && weekData.receiving_yards > 0 ? weekData.receiving_yards : ''}
+                                          </td>
+                                          <td className="px-1 py-1 text-center text-xs border border-gray-400 font-medium">
+                                            {weekData && weekData.receiving_tds > 0 ? weekData.receiving_tds : (weekData && weekData.receiving_yards > 0 ? '0' : '')}
+                                          </td>
+                                          
+                                          {/* FPTS column - Pink background */}
+                                          <td className="px-1 py-1 text-center text-xs border border-gray-400 bg-pink-500 font-bold text-white">
+                                            {weekData ? (weekData.fantasy_points || 0).toFixed(1) : ''}
+                                          </td>
+                                        </React.Fragment>
+                                      );
+                                    })}
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        );
+                      })}
                     </table>
                   </div>
                 )}
