@@ -1584,82 +1584,134 @@ const FantasyDashboard = () => {
                     <p>Loading trend data...</p>
                   </div>
                 ) : (
-                  <div className="h-full overflow-x-auto" style={{ border: '2px solid #333' }}>
-                    <table className="min-w-full border-collapse text-xs font-sans">
-                      <thead>
-                        {/* Week Headers Row */}
-                        <tr>
-                          <th rowSpan="3" className="sticky left-0 bg-blue-200 border-r-2 border-gray-400 text-center font-bold text-black w-12 z-20">Pos</th>
-                          <th rowSpan="3" className="sticky left-12 bg-white border-r-2 border-gray-400 text-left font-bold text-black w-40 z-20 pl-2">Player</th>
-                          {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
-                            const week = trendFilters.startWeek + i;
-                            const gameResults = {
-                              // NYG 2025 Schedule
-                              'NYG-1': { opponent: 'vs MIN', result: 'L', score: '6-28' },
-                              'NYG-2': { opponent: '@WAS', result: 'W', score: '21-18' }, 
-                              'NYG-3': { opponent: 'vs CLE', result: 'W', score: '21-15' },
-                              'NYG-4': { opponent: 'vs DAL', result: 'L', score: '15-20' },
-                              'NYG-5': { opponent: '@SEA', result: 'L', score: '17-29' },
-                              'NYG-6': { opponent: 'vs CIN', result: 'W', score: '17-7' },
-                              // DAL 2025 Schedule  
-                              'DAL-1': { opponent: '@CLE', result: 'W', score: '33-17' },
-                              'DAL-2': { opponent: 'vs NO', result: 'W', score: '44-19' },
-                              'DAL-3': { opponent: '@BAL', result: 'L', score: '25-28' },
-                              'DAL-4': { opponent: '@NYG', result: 'W', score: '20-15' },
-                              'DAL-5': { opponent: 'vs PIT', result: 'W', score: 20-17' },
-                              'DAL-6': { opponent: '@DET', result: 'L', score: '38-47' },
-                              // Other teams
-                              'KC-1': { opponent: 'vs BAL', result: 'W', score: '27-20' },
-                              'KC-2': { opponent: '@CIN', result: 'W', score: '26-25' },
-                              'KC-3': { opponent: 'vs ATL', result: 'W', score: '22-17' }
-                            };
-                            const game = gameResults[`${trendFilters.team}-${week}`] || { opponent: `vs OPP`, result: 'TBD', score: '' };
-                            
-                            return (
-                              <th key={week} colSpan="14" className="bg-blue-900 text-white font-bold text-center border border-gray-400 px-2 py-2">
-                                <div className="text-sm">
-                                  {week} {game.opponent} - <span className={game.result === 'W' ? 'text-green-300' : 'text-red-300'}>{game.result} {game.score}</span>
-                                </div>
-                              </th>
-                            );
-                          })}
-                        </tr>
-                        
-                        {/* Category Headers Row */}
-                        <tr>
-                          {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => (
-                            <React.Fragment key={i}>
-                              <th colSpan="2" className="bg-blue-200 text-black font-bold text-center text-xs border border-gray-300 py-1">Misc.</th>
-                              <th colSpan="4" className="bg-blue-200 text-black font-bold text-center text-xs border border-gray-300 py-1">Passing</th>
-                              <th colSpan="4" className="bg-blue-200 text-black font-bold text-center text-xs border border-gray-300 py-1">Receiving</th>
-                              <th colSpan="3" className="bg-blue-200 text-black font-bold text-center text-xs border border-gray-300 py-1">Rushing</th>
-                              <th className="bg-blue-200 text-black font-bold text-center text-xs border border-gray-300 py-1">FPTS</th>
-                            </React.Fragment>
-                          ))}
-                        </tr>
-                        
-                        {/* Individual Stat Headers Row */}
-                        <tr>
-                          {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => (
-                            <React.Fragment key={i}>
-                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-12">$</th>
-                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-8">#</th>
-                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-16">Cmp-Att</th>
-                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-12">Yds</th>
-                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-8">TD</th>
-                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-8">Int</th>
-                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-8">Tgts</th>
-                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-8">Rec</th>
-                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-12">Yds</th>
-                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-8">TD</th>
-                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-8">Att</th>
-                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-12">Yds</th>
-                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-8">TD</th>
-                              <th className="bg-white text-black font-bold text-center text-xs border-dotted border-2 border-gray-300 w-12">FPTS</th>
-                            </React.Fragment>
-                          ))}
-                        </tr>
-                      </thead>
+                  <div className="h-full overflow-hidden bg-gradient-to-br from-slate-50 to-gray-100">
+                    <div className="h-full overflow-x-auto shadow-inner">
+                      <table className="min-w-full border-collapse text-xs font-sans bg-white shadow-lg rounded-lg overflow-hidden">
+                        <thead>
+                          {/* Week Headers Row */}
+                          <tr className="bg-gradient-to-r from-slate-800 to-slate-900">
+                            <th rowSpan="3" className="sticky left-0 bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-center w-16 z-30 shadow-lg border-r-2 border-slate-300">
+                              <div className="py-3">Pos</div>
+                            </th>
+                            <th rowSpan="3" className="sticky left-16 bg-white text-slate-800 font-bold text-left w-40 z-30 shadow-lg border-r-2 border-slate-300 pl-3">
+                              <div className="py-3">Player</div>
+                            </th>
+                            {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                              const week = trendFilters.startWeek + i;
+                              const gameResults = {
+                                // NYG 2025 Schedule
+                                'NYG-1': { opponent: 'vs MIN', result: 'L', score: '6-28' },
+                                'NYG-2': { opponent: '@WAS', result: 'W', score: '21-18' }, 
+                                'NYG-3': { opponent: 'vs CLE', result: 'W', score: '21-15' },
+                                'NYG-4': { opponent: 'vs DAL', result: 'L', score: '15-20' },
+                                'NYG-5': { opponent: '@SEA', result: 'L', score: '17-29' },
+                                'NYG-6': { opponent: 'vs CIN', result: 'W', score: '17-7' },
+                                // DAL 2025 Schedule  
+                                'DAL-1': { opponent: '@CLE', result: 'W', score: '33-17' },
+                                'DAL-2': { opponent: 'vs NO', result: 'W', score: '44-19' },
+                                'DAL-3': { opponent: '@BAL', result: 'L', score: '25-28' },
+                                'DAL-4': { opponent: '@NYG', result: 'W', score: '20-15' },
+                                'DAL-5': { opponent: 'vs PIT', result: 'W', score: '20-17' },
+                                'DAL-6': { opponent: '@DET', result: 'L', score: '38-47' },
+                                // Other teams
+                                'KC-1': { opponent: 'vs BAL', result: 'W', score: '27-20' },
+                                'KC-2': { opponent: '@CIN', result: 'W', score: '26-25' },
+                                'KC-3': { opponent: 'vs ATL', result: 'W', score: '22-17' }
+                              };
+                              const game = gameResults[`${trendFilters.team}-${week}`] || { opponent: `vs OPP`, result: 'TBD', score: '' };
+                              
+                              return (
+                                <th key={week} colSpan="11" className="bg-gradient-to-r from-slate-800 to-slate-900 text-white font-bold text-center border-l-4 border-slate-700 px-3 py-3 relative group">
+                                  <div className="flex items-center justify-between">
+                                    <div className="text-sm">
+                                      <div className="font-bold text-lg">Week {week}</div>
+                                      <div className="text-xs text-slate-300">{game.opponent}</div>
+                                      {game.result && game.result !== 'TBD' && (
+                                        <div className={`text-xs font-bold px-2 py-1 rounded-full mt-1 inline-block ${
+                                          game.result === 'W' 
+                                            ? 'bg-green-500 text-green-100' 
+                                            : 'bg-red-500 text-red-100'
+                                        }`}>
+                                          {game.result} {game.score}
+                                        </div>
+                                      )}
+                                    </div>
+                                    <button
+                                      onClick={() => {
+                                        const newCollapsed = { ...collapsedColumns };
+                                        newCollapsed[`week-${week}`] = !newCollapsed[`week-${week}`];
+                                        setCollapsedColumns(newCollapsed);
+                                        localStorage.setItem('trendToolCollapsedColumns', JSON.stringify(newCollapsed));
+                                      }}
+                                      className="ml-2 p-1 rounded hover:bg-slate-700 transition-colors opacity-0 group-hover:opacity-100"
+                                    >
+                                      {collapsedColumns[`week-${week}`] ? '▶' : '◀'}
+                                    </button>
+                                  </div>
+                                </th>
+                              );
+                            })}
+                          </tr>
+                          
+                          {/* Category Headers Row */}
+                          <tr className="bg-gradient-to-r from-slate-700 to-slate-800">
+                            {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                              const week = trendFilters.startWeek + i;
+                              if (collapsedColumns[`week-${week}`]) {
+                                return <th key={i} className="w-8 bg-slate-700 border-l border-slate-600 text-white text-xs">•••</th>;
+                              }
+                              return (
+                                <React.Fragment key={i}>
+                                  <th colSpan="2" className="bg-gradient-to-r from-amber-400 to-amber-500 text-amber-900 font-bold text-center text-xs py-2 shadow-sm">Misc</th>
+                                  <th colSpan="4" className="bg-gradient-to-r from-blue-400 to-blue-500 text-blue-900 font-bold text-center text-xs py-2 shadow-sm">Pass/Rec</th>
+                                  <th colSpan="3" className="bg-gradient-to-r from-green-400 to-green-500 text-green-900 font-bold text-center text-xs py-2 shadow-sm">Rush</th>
+                                  <th colSpan="2" className="bg-gradient-to-r from-purple-400 to-purple-500 text-purple-900 font-bold text-center text-xs py-2 shadow-sm">Fantasy</th>
+                                </React.Fragment>
+                              );
+                            })}
+                          </tr>
+                          
+                          {/* Individual Stat Headers Row */}
+                          <tr className="bg-slate-100">
+                            {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                              const week = trendFilters.startWeek + i;
+                              if (collapsedColumns[`week-${week}`]) {
+                                return <td key={i} className="w-8"></td>;
+                              }
+                              return (
+                                <React.Fragment key={i}>
+                                  {/* Misc */}
+                                  <th className="bg-amber-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">$</th>
+                                  <th className="bg-amber-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">#</th>
+                                  {/* Pass/Rec Combined - Space Saving */}
+                                  <th className="bg-blue-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-14">
+                                    <div>Cmp-Att</div>
+                                    <div className="text-xs text-slate-500">Tgts</div>
+                                  </th>
+                                  <th className="bg-blue-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">
+                                    <div>P.Yds</div>
+                                    <div className="text-xs text-slate-500">Rec</div>
+                                  </th>
+                                  <th className="bg-blue-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">
+                                    <div>P.TD</div>
+                                    <div className="text-xs text-slate-500">R.Yds</div>
+                                  </th>
+                                  <th className="bg-blue-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">
+                                    <div>Int</div>
+                                    <div className="text-xs text-slate-500">R.TD</div>
+                                  </th>
+                                  {/* Rush */}
+                                  <th className="bg-green-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">Att</th>
+                                  <th className="bg-green-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">Yds</th>
+                                  <th className="bg-green-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">TD</th>
+                                  {/* Fantasy */}
+                                  <th className="bg-purple-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">FPTS</th>
+                                  <th className="bg-purple-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">Rnk</th>
+                                </React.Fragment>
+                              );
+                            })}
+                          </tr>
+                        </thead>
                       
                       <tbody>
                         {/* QB Section */}
