@@ -1219,6 +1219,9 @@ async def load_draftkings_pricing_from_sheets():
                     2025, 
                     player["week"]
                 ))
+        
+        # Commit the transaction
+        conn.commit()
             
         print("✅ DraftKings pricing data loaded successfully from Google Sheets")
         print(f"✅ Loaded {len(pricing_data)} salary records for weeks 4 and 5, 2025 season")
