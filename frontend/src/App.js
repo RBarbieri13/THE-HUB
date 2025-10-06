@@ -1623,67 +1623,135 @@ const FantasyDashboard = () => {
                                         onMouseDown={(e) => handleColumnResize(e, 'player')}
                                       />
                                     </th>
-                                <tr>
-                                  {/* Fixed column spacers */}
-                                  <th className="border border-gray-400"></th>
-                                  
-                                  {/* Detailed week sub-headers */}
-                                  {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
-                                    return (
-                                      <React.Fragment key={i}>
-                                        {/* Misc header */}
-                                        <th colSpan="2" className="px-1 py-1 text-center font-bold text-xs text-white bg-black border border-gray-600">Misc</th>
-                                        
-                                        {/* Passing header */}
-                                        <th colSpan="4" className="px-1 py-1 text-center font-bold text-xs text-white bg-black border border-gray-600">Passing</th>
-                                        
-                                        {/* Rushing header */}
-                                        <th colSpan="3" className="px-1 py-1 text-center font-bold text-xs text-white bg-black border border-gray-600">Rushing</th>
-                                        
-                                        {/* Receiving header */}
-                                        <th colSpan="4" className="px-1 py-1 text-center font-bold text-xs text-white bg-black border border-gray-600">Receiving</th>
-                                        
-                                        {/* FPTS header */}
-                                        <th className="px-1 py-1 text-center font-bold text-xs text-white bg-pink-600 border border-gray-600">FPTS</th>
-                                      </React.Fragment>
-                                    );
-                                  })}
-                                </tr>
-                                <tr>
-                                  {/* Fixed column spacers */}
-                                  <th className="border border-gray-400"></th>
-                                  
-                                  {/* Detailed sub-sub-headers */}
-                                  {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
-                                    return (
-                                      <React.Fragment key={i}>
-                                        {/* Misc columns */}
-                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-12">$</th>
-                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-8">#</th>
-                                        
-                                        {/* Passing columns */}
-                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-16">Cmp-Att</th>
-                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-12">Yds</th>
-                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-8">TD</th>
-                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-8">Int</th>
-                                        
-                                        {/* Rushing columns */}
-                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-8">Att</th>
-                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-12">Yds</th>
-                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-8">TD</th>
-                                        
-                                        {/* Receiving columns */}
-                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-8">Tgt</th>
-                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-8">Rec</th>
-                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-12">Yds</th>
-                                        <th className="px-1 py-1 text-center font-semibold text-xs text-white bg-black border border-gray-600 w-8">TD</th>
-                                        
-                                        {/* FPTS column */}
-                                        <th className="px-1 py-1 text-center font-bold text-xs text-white bg-pink-600 border border-gray-600 w-12">FPTS</th>
-                                      </React.Fragment>
-                                    );
-                                  })}
-                                </tr>
+                                    {/* Week columns with category headers */}
+                                    {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                                      return (
+                                        <React.Fragment key={i}>
+                                          {/* Misc columns */}
+                                          <th className="px-1 py-1 text-center font-semibold text-xs text-gray-700 bg-blue-50 relative"
+                                              style={{ width: columnWidths[`misc-price-${i}`] || '50px', minWidth: '40px' }}>
+                                            $
+                                            <div 
+                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-blue-300"
+                                              onMouseDown={(e) => handleColumnResize(e, `misc-price-${i}`)}
+                                            />
+                                          </th>
+                                          <th className="px-1 py-1 text-center font-semibold text-xs text-gray-700 bg-blue-50 relative"
+                                              style={{ width: columnWidths[`misc-snaps-${i}`] || '40px', minWidth: '30px' }}>
+                                            #
+                                            <div 
+                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-blue-300"
+                                              onMouseDown={(e) => handleColumnResize(e, `misc-snaps-${i}`)}
+                                            />
+                                          </th>
+                                          
+                                          {/* Passing columns */}
+                                          <th className="px-1 py-1 text-center font-semibold text-xs text-blue-700 bg-blue-100 relative"
+                                              style={{ width: columnWidths[`pass-comp-${i}`] || '60px', minWidth: '50px' }}>
+                                            Cmp-Att
+                                            <div 
+                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-blue-300"
+                                              onMouseDown={(e) => handleColumnResize(e, `pass-comp-${i}`)}
+                                            />
+                                          </th>
+                                          <th className="px-1 py-1 text-center font-semibold text-xs text-blue-700 bg-blue-100 relative"
+                                              style={{ width: columnWidths[`pass-yds-${i}`] || '45px', minWidth: '35px' }}>
+                                            Yds
+                                            <div 
+                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-blue-300"
+                                              onMouseDown={(e) => handleColumnResize(e, `pass-yds-${i}`)}
+                                            />
+                                          </th>
+                                          <th className="px-1 py-1 text-center font-semibold text-xs text-blue-700 bg-blue-100 relative"
+                                              style={{ width: columnWidths[`pass-td-${i}`] || '35px', minWidth: '25px' }}>
+                                            TD
+                                            <div 
+                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-blue-300"
+                                              onMouseDown={(e) => handleColumnResize(e, `pass-td-${i}`)}
+                                            />
+                                          </th>
+                                          <th className="px-1 py-1 text-center font-semibold text-xs text-blue-700 bg-blue-100 relative"
+                                              style={{ width: columnWidths[`pass-int-${i}`] || '35px', minWidth: '25px' }}>
+                                            Int
+                                            <div 
+                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-blue-300"
+                                              onMouseDown={(e) => handleColumnResize(e, `pass-int-${i}`)}
+                                            />
+                                          </th>
+                                          
+                                          {/* Rushing columns */}
+                                          <th className="px-1 py-1 text-center font-semibold text-xs text-green-700 bg-green-100 relative"
+                                              style={{ width: columnWidths[`rush-att-${i}`] || '35px', minWidth: '25px' }}>
+                                            Att
+                                            <div 
+                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-green-300"
+                                              onMouseDown={(e) => handleColumnResize(e, `rush-att-${i}`)}
+                                            />
+                                          </th>
+                                          <th className="px-1 py-1 text-center font-semibold text-xs text-green-700 bg-green-100 relative"
+                                              style={{ width: columnWidths[`rush-yds-${i}`] || '45px', minWidth: '35px' }}>
+                                            Yds
+                                            <div 
+                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-green-300"
+                                              onMouseDown={(e) => handleColumnResize(e, `rush-yds-${i}`)}
+                                            />
+                                          </th>
+                                          <th className="px-1 py-1 text-center font-semibold text-xs text-green-700 bg-green-100 relative"
+                                              style={{ width: columnWidths[`rush-td-${i}`] || '35px', minWidth: '25px' }}>
+                                            TD
+                                            <div 
+                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-green-300"
+                                              onMouseDown={(e) => handleColumnResize(e, `rush-td-${i}`)}
+                                            />
+                                          </th>
+                                          
+                                          {/* Receiving columns */}
+                                          <th className="px-1 py-1 text-center font-semibold text-xs text-purple-700 bg-purple-100 relative"
+                                              style={{ width: columnWidths[`rec-tgt-${i}`] || '35px', minWidth: '25px' }}>
+                                            Tgt
+                                            <div 
+                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-purple-300"
+                                              onMouseDown={(e) => handleColumnResize(e, `rec-tgt-${i}`)}
+                                            />
+                                          </th>
+                                          <th className="px-1 py-1 text-center font-semibold text-xs text-purple-700 bg-purple-100 relative"
+                                              style={{ width: columnWidths[`rec-rec-${i}`] || '35px', minWidth: '25px' }}>
+                                            Rec
+                                            <div 
+                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-purple-300"
+                                              onMouseDown={(e) => handleColumnResize(e, `rec-rec-${i}`)}
+                                            />
+                                          </th>
+                                          <th className="px-1 py-1 text-center font-semibold text-xs text-purple-700 bg-purple-100 relative"
+                                              style={{ width: columnWidths[`rec-yds-${i}`] || '45px', minWidth: '35px' }}>
+                                            Yds
+                                            <div 
+                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-purple-300"
+                                              onMouseDown={(e) => handleColumnResize(e, `rec-yds-${i}`)}
+                                            />
+                                          </th>
+                                          <th className="px-1 py-1 text-center font-semibold text-xs text-purple-700 bg-purple-100 relative"
+                                              style={{ width: columnWidths[`rec-td-${i}`] || '35px', minWidth: '25px' }}>
+                                            TD
+                                            <div 
+                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-purple-300"
+                                              onMouseDown={(e) => handleColumnResize(e, `rec-td-${i}`)}
+                                            />
+                                          </th>
+                                          
+                                          {/* FPTS column */}
+                                          <th className="px-1 py-1 text-center font-bold text-xs text-gray-800 bg-orange-100 relative"
+                                              style={{ width: columnWidths[`fpts-${i}`] || '50px', minWidth: '40px' }}>
+                                            FPTS
+                                            <div 
+                                              className="absolute right-0 top-0 w-1 h-full cursor-col-resize hover:bg-orange-300"
+                                              onMouseDown={(e) => handleColumnResize(e, `fpts-${i}`)}
+                                            />
+                                          </th>
+                                        </React.Fragment>
+                                      );
+                                    })}
+                                  </tr>
                               </thead>
                               <tbody>
                                 {positionPlayers.map((player, index) => (
