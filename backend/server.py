@@ -1185,28 +1185,25 @@ async def load_draftkings_pricing_from_sheets():
         ]
         
         with duckdb.connect(str(db_path)) as conn:
-            # Create table if it doesn't exist
-            conn.execute("""
-                CREATE TABLE IF NOT EXISTS draftkings_pricing (
-                    player_name TEXT,
-                    team TEXT,
-                    season TEXT,
-                    week INTEGER,
-                    salary INTEGER,
-                    PRIMARY KEY (player_name, team, season, week)
-                )
-            """)
-            
             # Clear existing data for weeks 4 and 5 of 2025
-            conn.execute("DELETE FROM draftkings_pricing WHERE season = '2025' AND week IN (4, 5)")
+            conn.execute("DELETE FROM draftkings_pricing WHERE season = 2025 AND week IN (4, 5)")
             
             # Insert new pricing data
             for player in pricing_data:
                 conn.execute("""
-                    INSERT OR REPLACE INTO draftkings_pricing 
-                    (player_name, team, season, week, salary) 
-                    VALUES (?, ?, ?, ?, ?)
-                """, (player["name"], player["team"], "2025", player["week"], player["salary"]))
+                    INSERT INTO draftkings_pricing 
+                    (player_name, team, position, season, week, salary, dk_player_id, created_at) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    player["name"], 
+                    player["team"], 
+                    player["pos"], 
+                    2025, 
+                    player["week"], 
+                    player["salary"],
+                    '',  # dk_player_id
+                    datetime.now(timezone.utc)
+                ))
             
             conn.execute("COMMIT")
             
