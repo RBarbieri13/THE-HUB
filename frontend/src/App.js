@@ -1467,6 +1467,14 @@ const FantasyDashboard = () => {
             {/* Trend Tool Filters */}
             <div className="mb-6">
               <Card className="p-4">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-lg font-semibold text-gray-900">
+                    NFL Trend Analysis: {trendFilters.team} | Weeks {trendFilters.startWeek}-{trendFilters.endWeek} | {trendFilters.season}
+                  </h2>
+                  <Badge className="bg-blue-100 text-blue-800">
+                    {trendData.length} Players
+                  </Badge>
+                </div>
                 <div className="flex items-center space-x-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Team</label>
