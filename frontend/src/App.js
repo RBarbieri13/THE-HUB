@@ -1577,9 +1577,7 @@ const FantasyDashboard = () => {
                               <thead className="bg-gray-50 sticky top-0">
                                 <tr>
                                   {/* Fixed columns */}
-                                  <th className="px-2 py-2 text-left font-semibold text-gray-900 border border-gray-400 bg-gray-200 w-32">Player</th>
-                                  <th className="px-2 py-2 text-center font-semibold text-gray-900 border border-gray-400 bg-gray-200 w-16">$</th>
-                                  <th className="px-2 py-2 text-center font-semibold text-gray-900 border border-gray-400 bg-gray-200 w-12">Proj.</th>
+                                  <th className="px-2 py-2 text-left font-semibold text-gray-900 border border-gray-400 bg-gray-200 w-40">Player</th>
                                   
                                   {/* Week columns */}
                                   {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
