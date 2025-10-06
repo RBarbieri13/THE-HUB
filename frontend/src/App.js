@@ -834,6 +834,78 @@ const FantasyDashboard = () => {
     fetchPlayersWithFilters();
   }, [filters, selectedPlayerType]);
 
+  // Fetch trend data
+  const fetchTrendData = async () => {
+    try {
+      setLoading(true);
+      const promises = [];
+      
+      // Fetch data for each week in the range
+      for (let week = trendFilters.startWeek; week <= trendFilters.endWeek; week++) {
+        const response = axios.get(`${API}/players`, {
+          params: {
+            season: trendFilters.season,
+            week: week,
+            team: trendFilters.team,
+            limit: 100
+          }
+        });
+        promises.push(response);
+      }
+      
+      const results = await Promise.all(promises);
+      
+      // Process and combine the data
+      const processedData = [];
+      const playerMap = new Map();
+      
+      results.forEach((response, index) => {
+        const weekNum = trendFilters.startWeek + index;
+        const weekData = response.data || [];
+        
+        weekData.forEach(player => {
+          const key = `${player.player_name}-${player.position}`;
+          if (!playerMap.has(key)) {
+            playerMap.set(key, {
+              player_name: player.player_name,
+              position: player.position,
+              team: player.team,
+              weeks: {}
+            });
+          }
+          playerMap.get(key).weeks[weekNum] = {
+            ...player,
+            fantasy_points: calculateFantasyPoints(player)
+          };
+        });
+      });
+      
+      // Convert to array and sort by position and name
+      const trendArray = Array.from(playerMap.values()).sort((a, b) => {
+        if (a.position !== b.position) {
+          const posOrder = ['QB', 'RB', 'WR', 'TE'];
+          return posOrder.indexOf(a.position) - posOrder.indexOf(b.position);
+        }
+        return a.player_name.localeCompare(b.player_name);
+      });
+      
+      setTrendData(trendArray);
+      
+    } catch (error) {
+      console.error('Error fetching trend data:', error);
+      toast.error('Error loading trend data');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch trend data when filters change
+  useEffect(() => {
+    if (activeTab === 'trend-tool') {
+      fetchTrendData();
+    }
+  }, [trendFilters, activeTab]);
+
   const onGridReady = (params) => {
     setGridApi(params.api);
     params.api.sizeColumnsToFit();
