@@ -1184,7 +1184,7 @@ async def load_draftkings_pricing_from_sheets():
             {"week": 5, "name": "Mitchell Trubisky", "team": "BUF", "pos": "QB", "salary": 4000}
         ]
         
-        with duckdb.connect(str(db_path)) as conn:
+        # Use the global connection
             # Clear existing data for weeks 4 and 5 of 2025
             conn.execute("DELETE FROM draftkings_pricing WHERE season = 2025 AND week IN (4, 5)")
             
