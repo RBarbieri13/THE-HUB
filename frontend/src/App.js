@@ -1751,7 +1751,8 @@ const FantasyDashboard = () => {
                                     })}
                                   </tr>
                                 ))}
-                    </table>
+                              </tbody>
+                            </table>
                   </div>
                 )}
               </CardContent>
