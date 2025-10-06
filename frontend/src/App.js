@@ -1550,20 +1550,20 @@ const FantasyDashboard = () => {
                     <table className="w-full text-sm">
                       <thead className="bg-gray-50 sticky top-0">
                         <tr>
-                          <th className="px-3 py-2 text-left font-semibold text-gray-900 border-r border-gray-200 bg-gray-100">Pos</th>
-                          <th className="px-3 py-2 text-left font-semibold text-gray-900 border-r border-gray-200 bg-gray-100">Player</th>
+                          <th className="px-3 py-2 text-left font-semibold text-gray-900 border-r border-gray-200 bg-gray-100 w-12">Pos</th>
+                          <th className="px-3 py-2 text-left font-semibold text-gray-900 border-r border-gray-200 bg-gray-100 w-40">Player</th>
                           {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
                             const week = trendFilters.startWeek + i;
                             return (
-                              <th key={week} className="border-r border-gray-200">
+                              <th key={week} className="border-r border-gray-200 min-w-48">
                                 <div className="text-center py-2">
-                                  <div className="font-semibold text-gray-900">Week {week}</div>
+                                  <div className="font-bold text-gray-900 mb-1">Week {week}</div>
                                 </div>
-                                <div className="grid grid-cols-4 text-xs font-medium text-gray-600">
-                                  <div className="px-1 py-1 bg-blue-50 border-r border-gray-200">Pass</div>
-                                  <div className="px-1 py-1 bg-green-50 border-r border-gray-200">Rush</div>
-                                  <div className="px-1 py-1 bg-purple-50 border-r border-gray-200">Rec</div>
-                                  <div className="px-1 py-1 bg-yellow-50">FPTS</div>
+                                <div className="grid grid-cols-4 text-xs font-semibold text-gray-700 border-t border-gray-300">
+                                  <div className="px-2 py-1 bg-blue-100 border-r border-gray-300 text-center">Pass</div>
+                                  <div className="px-2 py-1 bg-green-100 border-r border-gray-300 text-center">Rush</div>
+                                  <div className="px-2 py-1 bg-purple-100 border-r border-gray-300 text-center">Rec</div>
+                                  <div className="px-2 py-1 bg-amber-100 text-center">FPTS</div>
                                 </div>
                               </th>
                             );
