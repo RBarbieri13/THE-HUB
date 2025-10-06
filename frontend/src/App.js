@@ -1753,6 +1753,10 @@ const FantasyDashboard = () => {
                                 ))}
                               </tbody>
                             </table>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 )}
               </CardContent>
