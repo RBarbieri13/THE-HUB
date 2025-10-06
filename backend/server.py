@@ -1233,12 +1233,8 @@ async def load_draftkings_pricing_from_sheets():
         # Commit the transaction
         conn.commit()
         
-        # Verify data was inserted
-        count_result = conn.execute("SELECT COUNT(*) FROM draftkings_pricing WHERE season = 2025 AND week IN (4, 5)").fetchone()
-        print(f"✅ Verified: {count_result[0]} records in database for weeks 4 and 5, 2025")
-            
         print("✅ DraftKings pricing data loaded successfully from Google Sheets")
-        print(f"✅ Loaded {len(pricing_data)} salary records for weeks 4 and 5, 2025 season")
+        print(f"✅ Loaded {inserted_count + updated_count} salary records for weeks 4 and 5, 2025 season")
         
     except Exception as e:
         print(f"❌ Error loading DraftKings pricing: {str(e)}")
@@ -1829,10 +1825,13 @@ async def load_sheets_pricing():
         
         await load_draftkings_pricing_from_sheets()
         
+        # Get the actual count of records loaded
+        count_result = conn.execute("SELECT COUNT(*) FROM draftkings_pricing WHERE season = 2025 AND week IN (4, 5)").fetchone()
+        
         return DraftKingsResponse(
             success=True,
-            message="Successfully loaded DraftKings pricing data from Google Sheets for weeks 4 and 5, 2025 season",
-            records_processed=400,  # Approximate count
+            message=f"Successfully loaded DraftKings pricing data from Google Sheets for weeks 4 and 5, 2025 season. {count_result[0]} records loaded.",
+            records_processed=count_result[0],
             timestamp=datetime.now(timezone.utc)
         )
         
