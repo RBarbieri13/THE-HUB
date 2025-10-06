@@ -1672,12 +1672,6 @@ const FantasyDashboard = () => {
                                     <td className="px-2 py-2 font-medium text-gray-900 border border-gray-400">
                                       {player.player_name}
                                     </td>
-                                    <td className="px-2 py-2 text-center text-xs border border-gray-400 font-medium">
-                                      $5,200
-                                    </td>
-                                    <td className="px-2 py-2 text-center text-xs border border-gray-400 font-medium">
-                                      18.4
-                                    </td>
                                     
                                     {/* Week data columns */}
                                     {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
