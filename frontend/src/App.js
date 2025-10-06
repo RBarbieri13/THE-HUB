@@ -1581,17 +1581,34 @@ const FantasyDashboard = () => {
                               return (
                                 <td key={week} className="border-r border-gray-200">
                                   <div className="grid grid-cols-4 text-xs">
-                                    <div className="px-1 py-2 border-r border-gray-100 text-center">
-                                      {weekData ? `${weekData.passing_yards || 0}/${weekData.passing_tds || 0}` : '-'}
+                                    <div className={`px-2 py-2 border-r border-gray-200 text-center ${weekData ? 'bg-blue-50' : 'bg-gray-50'}`}>
+                                      <div className="font-medium">
+                                        {weekData ? `${weekData.passing_yards || 0}` : '-'}
+                                      </div>
+                                      <div className="text-xs text-gray-500">
+                                        {weekData ? `${weekData.passing_tds || 0} TD` : ''}
+                                      </div>
                                     </div>
-                                    <div className="px-1 py-2 border-r border-gray-100 text-center">
-                                      {weekData ? `${weekData.rushing_yards || 0}/${weekData.rushing_tds || 0}` : '-'}
+                                    <div className={`px-2 py-2 border-r border-gray-200 text-center ${weekData ? 'bg-green-50' : 'bg-gray-50'}`}>
+                                      <div className="font-medium">
+                                        {weekData ? `${weekData.rushing_yards || 0}` : '-'}
+                                      </div>
+                                      <div className="text-xs text-gray-500">
+                                        {weekData ? `${weekData.rushing_tds || 0} TD` : ''}
+                                      </div>
                                     </div>
-                                    <div className="px-1 py-2 border-r border-gray-100 text-center">
-                                      {weekData ? `${weekData.receiving_yards || 0}/${weekData.receiving_tds || 0}` : '-'}
+                                    <div className={`px-2 py-2 border-r border-gray-200 text-center ${weekData ? 'bg-purple-50' : 'bg-gray-50'}`}>
+                                      <div className="font-medium">
+                                        {weekData ? `${weekData.receiving_yards || 0}` : '-'}
+                                      </div>
+                                      <div className="text-xs text-gray-500">
+                                        {weekData ? `${weekData.receiving_tds || 0} TD` : ''}
+                                      </div>
                                     </div>
-                                    <div className="px-1 py-2 text-center font-semibold text-blue-600">
-                                      {weekData ? (weekData.fantasy_points || 0).toFixed(1) : '-'}
+                                    <div className={`px-2 py-2 text-center ${weekData ? 'bg-amber-50' : 'bg-gray-50'}`}>
+                                      <div className="font-bold text-lg text-blue-700">
+                                        {weekData ? (weekData.fantasy_points || 0).toFixed(1) : '-'}
+                                      </div>
                                     </div>
                                   </div>
                                 </td>
