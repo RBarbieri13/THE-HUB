@@ -1591,7 +1591,7 @@ const FantasyDashboard = () => {
                                       {weekData ? `${weekData.receiving_yards || 0}/${weekData.receiving_tds || 0}` : '-'}
                                     </div>
                                     <div className="px-1 py-2 text-center font-semibold text-blue-600">
-                                      {weekData ? weekData.fantasy_points?.toFixed(1) || '0.0' : '-'}
+                                      {weekData ? (weekData.fantasy_points ? weekData.fantasy_points.toFixed(1) : '0.0') : '-'}
                                     </div>
                                   </div>
                                 </td>
