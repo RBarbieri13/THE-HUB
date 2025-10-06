@@ -1606,8 +1606,6 @@ const FantasyDashboard = () => {
                                 <tr>
                                   {/* Fixed column spacers */}
                                   <th className="border border-gray-400"></th>
-                                  <th className="border border-gray-400"></th>
-                                  <th className="border border-gray-400"></th>
                                   
                                   {/* Detailed week sub-headers */}
                                   {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
@@ -1633,8 +1631,6 @@ const FantasyDashboard = () => {
                                 </tr>
                                 <tr>
                                   {/* Fixed column spacers */}
-                                  <th className="border border-gray-400"></th>
-                                  <th className="border border-gray-400"></th>
                                   <th className="border border-gray-400"></th>
                                   
                                   {/* Detailed sub-sub-headers */}
