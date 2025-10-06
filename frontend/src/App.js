@@ -1748,7 +1748,9 @@ const FantasyDashboard = () => {
                                           </td>
                                         </React.Fragment>
                                       );
-                      })}
+                                    })}
+                                  </tr>
+                                ))}
                     </table>
                   </div>
                 )}
