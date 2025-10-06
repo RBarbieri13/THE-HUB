@@ -910,6 +910,28 @@ const FantasyDashboard = () => {
     }
   }, [trendFilters, activeTab]);
 
+  // Column resize handler
+  const handleColumnResize = (e, columnKey) => {
+    e.preventDefault();
+    const startX = e.clientX;
+    const startWidth = parseInt(columnWidths[columnKey] || '50px');
+    
+    const handleMouseMove = (e) => {
+      const newWidth = Math.max(25, startWidth + (e.clientX - startX));
+      const newWidths = { ...columnWidths, [columnKey]: `${newWidth}px` };
+      setColumnWidths(newWidths);
+      localStorage.setItem('trendToolColumnWidths', JSON.stringify(newWidths));
+    };
+    
+    const handleMouseUp = () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+    
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  };
+
   const onGridReady = (params) => {
     setGridApi(params.api);
     params.api.sizeColumnsToFit();
