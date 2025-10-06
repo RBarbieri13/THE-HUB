@@ -1463,14 +1463,146 @@ const FantasyDashboard = () => {
         
         {/* Trend Tool Tab Content */}
         {activeTab === 'trend-tool' && (
-          <div className="p-6">
-            <Card>
-              <CardContent className="p-8 text-center">
-                <div className="flex flex-col items-center space-y-4">
-                  <BarChart3 className="h-16 w-16 text-gray-400" />
-                  <h3 className="text-lg font-semibold text-gray-900">Analytics Dashboard</h3>
-                  <p className="text-gray-600">Advanced analytics and visualizations coming soon!</p>
+          <div className="p-6 h-full flex flex-col">
+            {/* Trend Tool Filters */}
+            <div className="mb-6">
+              <Card className="p-4">
+                <div className="flex items-center space-x-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Team</label>
+                    <Select 
+                      value={trendFilters.team} 
+                      onValueChange={(value) => setTrendFilters(prev => ({...prev, team: value}))}
+                    >
+                      <SelectTrigger className="w-20">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.entries(NFL_TEAMS).map(([abbr, name]) => (
+                          <SelectItem key={abbr} value={abbr}>{abbr}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Week Range</label>
+                    <div className="flex items-center space-x-2">
+                      <Select 
+                        value={trendFilters.startWeek.toString()} 
+                        onValueChange={(value) => setTrendFilters(prev => ({...prev, startWeek: parseInt(value)}))}
+                      >
+                        <SelectTrigger className="w-16">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Array.from({length: 18}, (_, i) => (
+                            <SelectItem key={i + 1} value={(i + 1).toString()}>{i + 1}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <span className="text-sm text-gray-500">to</span>
+                      <Select 
+                        value={trendFilters.endWeek.toString()} 
+                        onValueChange={(value) => setTrendFilters(prev => ({...prev, endWeek: parseInt(value)}))}
+                      >
+                        <SelectTrigger className="w-16">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Array.from({length: 18}, (_, i) => (
+                            <SelectItem key={i + 1} value={(i + 1).toString()}>{i + 1}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Season</label>
+                    <Select 
+                      value={trendFilters.season} 
+                      onValueChange={(value) => setTrendFilters(prev => ({...prev, season: value}))}
+                    >
+                      <SelectTrigger className="w-20">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="2024">2024</SelectItem>
+                        <SelectItem value="2025">2025</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
+              </Card>
+            </div>
+
+            {/* Trend Data Table */}
+            <Card className="flex-1 overflow-hidden">
+              <CardContent className="p-0 h-full">
+                {loading ? (
+                  <div className="p-8 text-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                    <p>Loading trend data...</p>
+                  </div>
+                ) : (
+                  <div className="overflow-auto h-full">
+                    <table className="w-full text-sm">
+                      <thead className="bg-gray-50 sticky top-0">
+                        <tr>
+                          <th className="px-3 py-2 text-left font-semibold text-gray-900 border-r border-gray-200 bg-gray-100">Pos</th>
+                          <th className="px-3 py-2 text-left font-semibold text-gray-900 border-r border-gray-200 bg-gray-100">Player</th>
+                          {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                            const week = trendFilters.startWeek + i;
+                            return (
+                              <th key={week} className="border-r border-gray-200">
+                                <div className="text-center py-2">
+                                  <div className="font-semibold text-gray-900">Week {week}</div>
+                                </div>
+                                <div className="grid grid-cols-4 text-xs font-medium text-gray-600">
+                                  <div className="px-1 py-1 bg-blue-50 border-r border-gray-200">Pass</div>
+                                  <div className="px-1 py-1 bg-green-50 border-r border-gray-200">Rush</div>
+                                  <div className="px-1 py-1 bg-purple-50 border-r border-gray-200">Rec</div>
+                                  <div className="px-1 py-1 bg-yellow-50">FPTS</div>
+                                </div>
+                              </th>
+                            );
+                          })}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {trendData.map((player, index) => (
+                          <tr key={`${player.player_name}-${index}`} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                            <td className="px-3 py-2 font-medium text-blue-600 border-r border-gray-200">{player.position}</td>
+                            <td className="px-3 py-2 font-medium text-gray-900 border-r border-gray-200">{player.player_name}</td>
+                            {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                              const week = trendFilters.startWeek + i;
+                              const weekData = player.weeks[week];
+                              return (
+                                <td key={week} className="border-r border-gray-200">
+                                  <div className="grid grid-cols-4 text-xs">
+                                    <div className="px-1 py-2 border-r border-gray-100 text-center">
+                                      {weekData ? `${weekData.passing_yards || 0}/${weekData.passing_tds || 0}` : '-'}
+                                    </div>
+                                    <div className="px-1 py-2 border-r border-gray-100 text-center">
+                                      {weekData ? `${weekData.rushing_yards || 0}/${weekData.rushing_tds || 0}` : '-'}
+                                    </div>
+                                    <div className="px-1 py-2 border-r border-gray-100 text-center">
+                                      {weekData ? `${weekData.receiving_yards || 0}/${weekData.receiving_tds || 0}` : '-'}
+                                    </div>
+                                    <div className="px-1 py-2 text-center font-semibold text-blue-600">
+                                      {weekData ? weekData.fantasy_points?.toFixed(1) || '0.0' : '-'}
+                                    </div>
+                                  </div>
+                                </td>
+                              );
+                            })}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>
