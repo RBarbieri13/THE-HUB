@@ -91,6 +91,15 @@ const FantasyDashboard = () => {
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [activeTab, setActiveTab] = useState('data-table');
   const [filtersCollapsed, setFiltersCollapsed] = useState(false);
+  
+  // Trend Tool state
+  const [trendFilters, setTrendFilters] = useState({
+    team: 'NYG',
+    startWeek: 4,
+    endWeek: 6,
+    season: '2025'
+  });
+  const [trendData, setTrendData] = useState([]);
 
   // Calculate fantasy points based on PPR setting
   const calculateFantasyPoints = (player) => {
