@@ -1577,36 +1577,52 @@ const FantasyDashboard = () => {
                               {position}
                             </div>
                             
-                            <table className="w-full text-xs border-collapse mb-4">
-                              <thead className="bg-gray-50 sticky top-0">
-                                <tr>
-                                  {/* Fixed columns */}
-                                  <th className="px-2 py-2 text-left font-semibold text-gray-900 border border-gray-400 bg-gray-200 w-40">Player</th>
+                            <div className="overflow-x-auto">
+                              {/* Week Headers - Positioned above columns */}
+                              <div className="flex mb-2">
+                                <div className="w-40 flex-shrink-0"></div> {/* Player column space */}
+                                {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                                  const week = trendFilters.startWeek + i;
+                                  const gameResults = {
+                                    'NYG-4': { opponent: 'vs LAC', result: 'W', score: '27-10' },
+                                    'NYG-5': { opponent: 'vs NO', result: 'L', score: '14-24' }, 
+                                    'NYG-6': { opponent: 'vs DAL', result: 'L', score: '15-20' },
+                                    'DAL-4': { opponent: 'vs GB', result: 'W', score: '31-17' },
+                                    'DAL-5': { opponent: 'vs NYJ', result: 'W', score: '35-17' },
+                                    'DAL-6': { opponent: 'vs NYG', result: 'W', score: '20-15' }
+                                  };
+                                  const game = gameResults[`${trendFilters.team}-${week}`] || { opponent: 'vs TBD', result: '', score: '' };
                                   
-                                  {/* Week columns */}
-                                  {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
-                                    const week = trendFilters.startWeek + i;
-                                    // Mock game results based on team and week
-                                    const gameResults = {
-                                      'NYG-4': 'vs LAC - W 27-10',
-                                      'NYG-5': 'vs NO - L 14-24', 
-                                      'NYG-6': 'vs DAL - L 15-20',
-                                      'DAL-4': 'vs GB - W 31-17',
-                                      'DAL-5': 'vs NYJ - W 35-17',
-                                      'DAL-6': 'vs NYG - W 20-15'
-                                    };
-                                    const gameResult = gameResults[`${trendFilters.team}-${week}`] || `vs TBD`;
-                                    
-                                    return (
-                                      <React.Fragment key={week}>
-                                        {/* Week header group */}
-                                        <th colSpan="14" className="px-2 py-2 text-center font-bold text-black border-2 border-gray-600 bg-blue-200">
-                                          Week {week} {gameResult}
-                                        </th>
-                                      </React.Fragment>
-                                    );
-                                  })}
-                                </tr>
+                                  return (
+                                    <div key={week} className="flex-1 text-center px-1">
+                                      <div className="text-sm font-bold text-gray-800 mb-1">Week {week}</div>
+                                      <div className="text-xs text-gray-600">{game.opponent}</div>
+                                      {game.result && (
+                                        <div className={`text-xs font-semibold px-2 py-1 rounded ${
+                                          game.result === 'W' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                                        }`}>
+                                          {game.result} {game.score}
+                                        </div>
+                                      )}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                              
+                              <table className="w-full text-xs mb-4" style={{borderCollapse: 'separate', borderSpacing: '1px'}}>
+                                <thead className="sticky top-0">
+                                  <tr>
+                                    {/* Fixed columns */}
+                                    <th 
+                                      className="px-2 py-2 text-left font-semibold text-gray-800 bg-gray-100 resize-handle"
+                                      style={{ width: columnWidths.player || '160px', minWidth: '120px' }}
+                                    >
+                                      Player
+                                      <div 
+                                        className="absolute right-0 top-0 w-2 h-full cursor-col-resize hover:bg-blue-200"
+                                        onMouseDown={(e) => handleColumnResize(e, 'player')}
+                                      />
+                                    </th>
                                 <tr>
                                   {/* Fixed column spacers */}
                                   <th className="border border-gray-400"></th>
