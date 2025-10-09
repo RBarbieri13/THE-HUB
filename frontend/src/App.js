@@ -1708,60 +1708,61 @@ const FantasyDashboard = () => {
                             })}
                           </tr>
                           
-                          {/* Category Headers Row */}
-                          <tr className="bg-gradient-to-r from-slate-700 to-slate-800">
-                            {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
-                              const week = trendFilters.startWeek + i;
-                              if (collapsedColumns[`week-${week}`]) {
-                                return <th key={i} className="w-8 bg-slate-700 border-l border-slate-600 text-white text-xs">•••</th>;
-                              }
-                              return (
-                                <React.Fragment key={i}>
-                                  <th colSpan="2" className="bg-gradient-to-r from-amber-400 to-amber-500 text-amber-900 font-bold text-center text-xs py-2 shadow-sm">Misc</th>
-                                  <th colSpan="4" className="bg-gradient-to-r from-blue-400 to-blue-500 text-blue-900 font-bold text-center text-xs py-2 shadow-sm">Pass/Rec</th>
-                                  <th colSpan="3" className="bg-gradient-to-r from-green-400 to-green-500 text-green-900 font-bold text-center text-xs py-2 shadow-sm">Rush</th>
-                                  <th colSpan="2" className="bg-gradient-to-r from-purple-400 to-purple-500 text-purple-900 font-bold text-center text-xs py-2 shadow-sm">Fantasy</th>
-                                </React.Fragment>
-                              );
-                            })}
-                          </tr>
-                          
                           {/* Individual Stat Headers Row */}
                           <tr className="bg-slate-100">
                             {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
                               const week = trendFilters.startWeek + i;
-                              if (collapsedColumns[`week-${week}`]) {
-                                return <td key={i} className="w-8"></td>;
-                              }
+                              
                               return (
                                 <React.Fragment key={i}>
-                                  {/* Misc */}
-                                  <th className="bg-amber-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">$</th>
-                                  <th className="bg-amber-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">#</th>
-                                  {/* Pass/Rec Combined - Space Saving */}
-                                  <th className="bg-blue-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-14">
-                                    <div>Cmp-Att</div>
-                                    <div className="text-xs text-slate-500">Tgts</div>
-                                  </th>
-                                  <th className="bg-blue-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">
-                                    <div>P.Yds</div>
-                                    <div className="text-xs text-slate-500">Rec</div>
-                                  </th>
-                                  <th className="bg-blue-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">
-                                    <div>P.TD</div>
-                                    <div className="text-xs text-slate-500">R.Yds</div>
-                                  </th>
-                                  <th className="bg-blue-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">
-                                    <div>Int</div>
-                                    <div className="text-xs text-slate-500">R.TD</div>
-                                  </th>
-                                  {/* Rush */}
-                                  <th className="bg-green-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">Att</th>
-                                  <th className="bg-green-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">Yds</th>
-                                  <th className="bg-green-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">TD</th>
-                                  {/* Fantasy */}
-                                  <th className="bg-purple-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">FPTS</th>
-                                  <th className="bg-purple-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">Rnk</th>
+                                  {trendViewMode === 'summary' ? (
+                                    // Summary View - Only 4 columns
+                                    <>
+                                      <th className="bg-amber-50 text-slate-700 font-semibold text-center text-xs py-2 border border-slate-300 w-16">
+                                        <div className="font-bold">DK $</div>
+                                      </th>
+                                      <th className="bg-blue-50 text-slate-700 font-semibold text-center text-xs py-2 border border-slate-300 w-14">
+                                        <div className="font-bold">Snaps</div>
+                                      </th>
+                                      <th className="bg-green-50 text-slate-700 font-semibold text-center text-xs py-2 border border-slate-300 w-16">
+                                        <div className="font-bold">FPTS</div>
+                                      </th>
+                                      <th className="bg-purple-50 text-slate-700 font-semibold text-center text-xs py-2 border border-slate-300 w-12">
+                                        <div className="font-bold">Rank</div>
+                                      </th>
+                                    </>
+                                  ) : (
+                                    // Full Detail View - All 11 columns
+                                    <>
+                                      {/* Misc */}
+                                      <th className="bg-amber-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">$</th>
+                                      <th className="bg-amber-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">#</th>
+                                      {/* Pass/Rec Combined - Space Saving */}
+                                      <th className="bg-blue-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-14">
+                                        <div>Cmp-Att</div>
+                                        <div className="text-xs text-slate-500">Tgts</div>
+                                      </th>
+                                      <th className="bg-blue-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">
+                                        <div>P.Yds</div>
+                                        <div className="text-xs text-slate-500">Rec</div>
+                                      </th>
+                                      <th className="bg-blue-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">
+                                        <div>P.TD</div>
+                                        <div className="text-xs text-slate-500">R.Yds</div>
+                                      </th>
+                                      <th className="bg-blue-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">
+                                        <div>Int</div>
+                                        <div className="text-xs text-slate-500">R.TD</div>
+                                      </th>
+                                      {/* Rush */}
+                                      <th className="bg-green-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">Att</th>
+                                      <th className="bg-green-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">Yds</th>
+                                      <th className="bg-green-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">TD</th>
+                                      {/* Fantasy */}
+                                      <th className="bg-purple-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">FPTS</th>
+                                      <th className="bg-purple-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">Rnk</th>
+                                    </>
+                                  )}
                                 </React.Fragment>
                               );
                             })}
