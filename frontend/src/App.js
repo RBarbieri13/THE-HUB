@@ -2070,7 +2070,7 @@ const FantasyDashboard = () => {
                                     <div className="grid" style={{gridTemplateColumns: trendViewMode === 'summary' ? 'repeat(4, 1fr)' : 'repeat(11, 1fr)', gap: '2px'}}>
                                       {trendViewMode === 'summary' ? (
                                         <>
-                                          <div className="text-[10px] font-bold text-slate-800 px-1">$</div>
+                                          <div className="text-[10px] font-bold text-slate-800 px-1" title="DraftKings Salary">$</div>
                                           <div className="text-[10px] font-bold text-slate-800 px-1">Snaps</div>
                                           <div className="text-[10px] font-bold text-slate-800 px-1">FPTS</div>
                                           <div className="text-[10px] font-bold text-slate-800 px-1">Rnk</div>
@@ -2155,7 +2155,7 @@ const FantasyDashboard = () => {
                                     <div className="grid" style={{gridTemplateColumns: trendViewMode === 'summary' ? 'repeat(4, 1fr)' : 'repeat(11, 1fr)', gap: '2px'}}>
                                       {trendViewMode === 'summary' ? (
                                         <>
-                                          <div className="text-[10px] font-bold text-slate-800 px-1">$</div>
+                                          <div className="text-[10px] font-bold text-slate-800 px-1" title="DraftKings Salary">$</div>
                                           <div className="text-[10px] font-bold text-slate-800 px-1">Snaps</div>
                                           <div className="text-[10px] font-bold text-slate-800 px-1">FPTS</div>
                                           <div className="text-[10px] font-bold text-slate-800 px-1">Rnk</div>
