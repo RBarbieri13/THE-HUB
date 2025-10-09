@@ -2080,7 +2080,7 @@ const FantasyDashboard = () => {
                                           <div className="text-[10px] font-bold text-slate-800" title="Salary">$</div>
                                           <div className="text-[10px] font-bold text-slate-800" title="Snaps">#</div>
                                           <div className="text-[10px] font-bold text-slate-800" title="Targets">TGT</div>
-                                          <div className="text-[10px] font-bold text-slate-800">REC</div>
+                                          <div className="text-[10px] font-bold text-slate-800" title="Receptions">REC</div>
                                           <div className="text-[10px] font-bold text-slate-800">YDS</div>
                                           <div className="text-[10px] font-bold text-slate-800">TD</div>
                                           <div className="text-[10px] font-bold text-slate-800">ATT</div>
@@ -2165,7 +2165,7 @@ const FantasyDashboard = () => {
                                           <div className="text-[10px] font-bold text-slate-800" title="Salary">$</div>
                                           <div className="text-[10px] font-bold text-slate-800" title="Snaps">#</div>
                                           <div className="text-[10px] font-bold text-slate-800" title="Targets">TGT</div>
-                                          <div className="text-[10px] font-bold text-slate-800">REC</div>
+                                          <div className="text-[10px] font-bold text-slate-800" title="Receptions">REC</div>
                                           <div className="text-[10px] font-bold text-slate-800">YDS</div>
                                           <div className="text-[10px] font-bold text-slate-800">TD</div>
                                           <div className="text-[10px] font-bold text-slate-800">ATT</div>
