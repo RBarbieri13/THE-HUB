@@ -1970,19 +1970,21 @@ const FantasyDashboard = () => {
                                             <td className="text-center border border-slate-200 text-xs bg-green-25 py-2 font-medium">{weekData && weekData.rushing_yards > 0 ? rushingAttempts : ''}</td>
                                             <td className="text-center border border-slate-200 text-xs bg-green-25 py-2 font-bold">{weekData && weekData.rushing_yards > 0 ? weekData.rushing_yards : ''}</td>
                                             <td className="text-center border border-slate-200 text-xs bg-green-25 py-2 font-bold">{weekData && weekData.rushing_tds > 0 ? weekData.rushing_tds : ''}</td>
-                                        {/* Fantasy */}
-                                        <td className={`text-center border border-slate-200 text-xs py-2 font-bold ${
-                                          fantasyPoints >= 25 ? 'bg-green-200 text-green-800' :
-                                          fantasyPoints >= 20 ? 'bg-green-100 text-green-700' :
-                                          fantasyPoints >= 15 ? 'bg-yellow-100 text-yellow-700' :
-                                          fantasyPoints >= 10 ? 'bg-orange-100 text-orange-700' :
-                                          fantasyPoints > 0 ? 'bg-red-100 text-red-700' : 'bg-purple-25'
-                                        }`}>
-                                          {weekData ? fantasyPoints.toFixed(1) : ''}
-                                        </td>
-                                        <td className="text-center border border-slate-200 text-xs bg-purple-25 py-2">
-                                          {weekData && fantasyPoints > 0 ? Math.ceil(Math.random() * 32) : ''}
-                                        </td>
+                                            {/* Fantasy */}
+                                            <td className={`text-center border border-slate-200 text-xs py-2 font-bold ${
+                                              fantasyPoints >= 25 ? 'bg-green-200 text-green-800' :
+                                              fantasyPoints >= 20 ? 'bg-green-100 text-green-700' :
+                                              fantasyPoints >= 15 ? 'bg-yellow-100 text-yellow-700' :
+                                              fantasyPoints >= 10 ? 'bg-orange-100 text-orange-700' :
+                                              fantasyPoints > 0 ? 'bg-red-100 text-red-700' : 'bg-purple-25'
+                                            }`}>
+                                              {weekData ? fantasyPoints.toFixed(1) : ''}
+                                            </td>
+                                            <td className="text-center border border-slate-200 text-xs bg-purple-25 py-2">
+                                              {weekData ? (weekData.position_rank || '-') : '-'}
+                                            </td>
+                                          </>
+                                        )}
                                       </React.Fragment>
                                     );
                                   })}
