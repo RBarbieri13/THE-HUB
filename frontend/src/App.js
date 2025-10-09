@@ -1498,84 +1498,143 @@ const FantasyDashboard = () => {
         {/* Trend Tool Tab Content */}
         {activeTab === 'trend-tool' && (
           <div className="p-6 h-full flex flex-col">
-            {/* Trend Tool Filters */}
-            <div className="mb-6">
-              <Card className="p-4">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-lg font-semibold text-gray-900">
-                    NFL Trend Analysis: {trendFilters.team} | Weeks {trendFilters.startWeek}-{trendFilters.endWeek} | {trendFilters.season}
-                  </h2>
-                  <Badge className="bg-blue-100 text-blue-800">
-                    {trendData.length} Players
-                  </Badge>
-                </div>
-                <div className="flex items-center space-x-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Team</label>
-                    <Select 
-                      value={trendFilters.team} 
-                      onValueChange={(value) => setTrendFilters(prev => ({...prev, team: value}))}
-                    >
-                      <SelectTrigger className="w-20">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {Object.entries(NFL_TEAMS).map(([abbr, name]) => (
-                          <SelectItem key={abbr} value={abbr}>{abbr}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+            {/* Trend Tool Filters - Collapsible */}
+            <div className="mb-4">
+              <Card className="shadow-md">
+                {/* Filter Header with Collapse Button */}
+                <div 
+                  className="flex items-center justify-between p-3 cursor-pointer hover:bg-gray-50 transition-colors border-b"
+                  onClick={() => setTrendFiltersCollapsed(!trendFiltersCollapsed)}
+                >
+                  <div className="flex items-center space-x-3">
+                    <Filter className="h-5 w-5 text-blue-600" />
+                    <h2 className="text-md font-semibold text-gray-900">
+                      Filters: {trendFilters.team} | Weeks {trendFilters.startWeek}-{trendFilters.endWeek} | {trendFilters.season}
+                    </h2>
+                    <Badge className="bg-blue-100 text-blue-800">
+                      {trendData.length} Players
+                    </Badge>
                   </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Week Range</label>
-                    <div className="flex items-center space-x-2">
-                      <Select 
-                        value={trendFilters.startWeek.toString()} 
-                        onValueChange={(value) => setTrendFilters(prev => ({...prev, startWeek: parseInt(value)}))}
-                      >
-                        <SelectTrigger className="w-16">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {Array.from({length: 18}, (_, i) => (
-                            <SelectItem key={i + 1} value={(i + 1).toString()}>{i + 1}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <span className="text-sm text-gray-500">to</span>
-                      <Select 
-                        value={trendFilters.endWeek.toString()} 
-                        onValueChange={(value) => setTrendFilters(prev => ({...prev, endWeek: parseInt(value)}))}
-                      >
-                        <SelectTrigger className="w-16">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {Array.from({length: 18}, (_, i) => (
-                            <SelectItem key={i + 1} value={(i + 1).toString()}>{i + 1}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                  <div className="flex items-center space-x-4">
+                    {/* View Mode Toggle */}
+                    <div className="flex items-center space-x-2 mr-4">
+                      <span className="text-xs text-gray-600 font-medium">View:</span>
+                      <div className="flex border border-gray-300 rounded-md overflow-hidden">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setTrendViewMode('summary');
+                          }}
+                          className={`px-3 py-1 text-xs font-medium transition-colors ${
+                            trendViewMode === 'summary'
+                              ? 'bg-blue-600 text-white'
+                              : 'bg-white text-gray-700 hover:bg-gray-100'
+                          }`}
+                        >
+                          Summary
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setTrendViewMode('full');
+                          }}
+                          className={`px-3 py-1 text-xs font-medium transition-colors border-l ${
+                            trendViewMode === 'full'
+                              ? 'bg-blue-600 text-white'
+                              : 'bg-white text-gray-700 hover:bg-gray-100'
+                          }`}
+                        >
+                          Full Detail
+                        </button>
+                      </div>
+                    </div>
+                    <button className="text-gray-500 hover:text-gray-700 transition-colors">
+                      {trendFiltersCollapsed ? '▼' : '▲'}
+                    </button>
+                  </div>
+                </div>
+                
+                {/* Filter Content - Collapsible */}
+                {!trendFiltersCollapsed && (
+                  <div className="p-4">
+                    <div className="flex items-center space-x-6">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Team</label>
+                        <Select 
+                          value={trendFilters.team} 
+                          onValueChange={(value) => setTrendFilters(prev => ({...prev, team: value}))}
+                        >
+                          <SelectTrigger className="w-24">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {Object.entries(NFL_TEAMS).map(([abbr, name]) => (
+                              <SelectItem key={abbr} value={abbr}>{abbr}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Week Range</label>
+                        <div className="flex items-center space-x-2">
+                          <Select 
+                            value={trendFilters.startWeek.toString()} 
+                            onValueChange={(value) => setTrendFilters(prev => ({...prev, startWeek: parseInt(value)}))}
+                          >
+                            <SelectTrigger className="w-16">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {Array.from({length: 18}, (_, i) => (
+                                <SelectItem key={i + 1} value={(i + 1).toString()}>{i + 1}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <span className="text-sm text-gray-500">to</span>
+                          <Select 
+                            value={trendFilters.endWeek.toString()} 
+                            onValueChange={(value) => setTrendFilters(prev => ({...prev, endWeek: parseInt(value)}))}
+                          >
+                            <SelectTrigger className="w-16">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {Array.from({length: 18}, (_, i) => (
+                                <SelectItem key={i + 1} value={(i + 1).toString()}>{i + 1}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Season</label>
+                        <Select 
+                          value={trendFilters.season} 
+                          onValueChange={(value) => setTrendFilters(prev => ({...prev, season: value}))}
+                        >
+                          <SelectTrigger className="w-20">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="2024">2024</SelectItem>
+                            <SelectItem value="2025">2025</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div className="flex-1"></div>
+                      
+                      <div className="text-xs text-gray-500">
+                        <div className="bg-blue-50 px-3 py-2 rounded border border-blue-200">
+                          <div className="font-medium text-blue-900">💡 Week-to-Week Comparison</div>
+                          <div className="text-blue-700 mt-1">Compare player performance across selected weeks</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Season</label>
-                    <Select 
-                      value={trendFilters.season} 
-                      onValueChange={(value) => setTrendFilters(prev => ({...prev, season: value}))}
-                    >
-                      <SelectTrigger className="w-20">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="2024">2024</SelectItem>
-                        <SelectItem value="2025">2025</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
+                )}
               </Card>
             </div>
 
