@@ -2053,6 +2053,8 @@ const FantasyDashboard = () => {
                             </tr>
                           );
                         })}
+                          </>
+                        )}
                         
                         {/* TE Section */}
                         {trendData.filter(player => player.position === 'TE').length > 0 && (
