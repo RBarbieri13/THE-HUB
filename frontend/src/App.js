@@ -2070,24 +2070,24 @@ const FantasyDashboard = () => {
                                     <div className="grid" style={{gridTemplateColumns: trendViewMode === 'summary' ? 'repeat(4, 1fr)' : 'repeat(11, 1fr)', gap: '2px'}}>
                                       {trendViewMode === 'summary' ? (
                                         <>
-                                          <div className="text-[10px] font-semibold text-slate-700 px-1">$</div>
-                                          <div className="text-[10px] font-semibold text-slate-700 px-1">Snaps</div>
-                                          <div className="text-[10px] font-semibold text-slate-700 px-1">FPTS</div>
-                                          <div className="text-[10px] font-semibold text-slate-700 px-1">Rnk</div>
+                                          <div className="text-[10px] font-bold text-slate-800 px-1">$</div>
+                                          <div className="text-[10px] font-bold text-slate-800 px-1">Snaps</div>
+                                          <div className="text-[10px] font-bold text-slate-800 px-1">FPTS</div>
+                                          <div className="text-[10px] font-bold text-slate-800 px-1">Rnk</div>
                                         </>
                                       ) : (
                                         <>
-                                          <div className="text-[10px] font-semibold text-slate-700">$</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">#</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">TGT</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">REC</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">YDS</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">TD</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">ATT</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">R.YD</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">R.TD</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">FPT</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">RNK</div>
+                                          <div className="text-[10px] font-bold text-slate-800">$</div>
+                                          <div className="text-[10px] font-bold text-slate-800">#</div>
+                                          <div className="text-[10px] font-bold text-slate-800">TGT</div>
+                                          <div className="text-[10px] font-bold text-slate-800">REC</div>
+                                          <div className="text-[10px] font-bold text-slate-800">YDS</div>
+                                          <div className="text-[10px] font-bold text-slate-800">TD</div>
+                                          <div className="text-[10px] font-bold text-slate-800">ATT</div>
+                                          <div className="text-[10px] font-bold text-slate-800">R.YD</div>
+                                          <div className="text-[10px] font-bold text-slate-800">R.TD</div>
+                                          <div className="text-[10px] font-bold text-slate-800">FPT</div>
+                                          <div className="text-[10px] font-bold text-slate-800">RNK</div>
                                         </>
                                       )}
                                     </div>
@@ -2155,24 +2155,24 @@ const FantasyDashboard = () => {
                                     <div className="grid" style={{gridTemplateColumns: trendViewMode === 'summary' ? 'repeat(4, 1fr)' : 'repeat(11, 1fr)', gap: '2px'}}>
                                       {trendViewMode === 'summary' ? (
                                         <>
-                                          <div className="text-[10px] font-semibold text-slate-700 px-1">$</div>
-                                          <div className="text-[10px] font-semibold text-slate-700 px-1">Snaps</div>
-                                          <div className="text-[10px] font-semibold text-slate-700 px-1">FPTS</div>
-                                          <div className="text-[10px] font-semibold text-slate-700 px-1">Rnk</div>
+                                          <div className="text-[10px] font-bold text-slate-800 px-1">$</div>
+                                          <div className="text-[10px] font-bold text-slate-800 px-1">Snaps</div>
+                                          <div className="text-[10px] font-bold text-slate-800 px-1">FPTS</div>
+                                          <div className="text-[10px] font-bold text-slate-800 px-1">Rnk</div>
                                         </>
                                       ) : (
                                         <>
-                                          <div className="text-[10px] font-semibold text-slate-700">$</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">#</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">TGT</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">REC</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">YDS</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">TD</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">ATT</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">R.YD</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">R.TD</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">FPT</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">RNK</div>
+                                          <div className="text-[10px] font-bold text-slate-800">$</div>
+                                          <div className="text-[10px] font-bold text-slate-800">#</div>
+                                          <div className="text-[10px] font-bold text-slate-800">TGT</div>
+                                          <div className="text-[10px] font-bold text-slate-800">REC</div>
+                                          <div className="text-[10px] font-bold text-slate-800">YDS</div>
+                                          <div className="text-[10px] font-bold text-slate-800">TD</div>
+                                          <div className="text-[10px] font-bold text-slate-800">ATT</div>
+                                          <div className="text-[10px] font-bold text-slate-800">R.YD</div>
+                                          <div className="text-[10px] font-bold text-slate-800">R.TD</div>
+                                          <div className="text-[10px] font-bold text-slate-800">FPT</div>
+                                          <div className="text-[10px] font-bold text-slate-800">RNK</div>
                                         </>
                                       )}
                                     </div>
