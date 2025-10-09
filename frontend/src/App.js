@@ -1687,21 +1687,19 @@ const FantasyDashboard = () => {
                               const colSpan = trendViewMode === 'summary' ? 4 : 11;
                               
                               return (
-                                <th key={week} colSpan={colSpan} className="bg-gradient-to-r from-slate-800 to-slate-900 text-white font-bold text-center border-l-4 border-slate-700 px-3 py-2 relative group">
-                                  <div className="flex items-center justify-between">
-                                    <div className="flex-1 text-center">
-                                      <div className="font-bold text-base">Week {week}</div>
-                                      <div className="text-xs text-slate-300 mt-0.5">{game.opponent}</div>
-                                      {game.result && game.result !== 'TBD' && (
-                                        <div className={`text-xs font-bold px-2 py-0.5 rounded-full mt-1 inline-block ${
-                                          game.result === 'W' 
-                                            ? 'bg-green-500 text-green-100' 
-                                            : 'bg-red-500 text-red-100'
-                                        }`}>
-                                          {game.result} {game.score}
-                                        </div>
-                                      )}
-                                    </div>
+                                <th key={week} colSpan={colSpan} className="bg-gradient-to-b from-slate-700 to-slate-800 text-white font-bold text-center border-l-2 border-slate-600 px-4 py-3 relative">
+                                  <div className="text-center">
+                                    <div className="font-bold text-lg tracking-wide">Week {week}</div>
+                                    <div className="text-[11px] text-slate-300 mt-1 font-medium">{game.opponent}</div>
+                                    {game.result && game.result !== 'TBD' && (
+                                      <div className={`text-[10px] font-bold px-2 py-0.5 rounded mt-1.5 inline-block ${
+                                        game.result === 'W' 
+                                          ? 'bg-green-500 text-white' 
+                                          : 'bg-red-500 text-white'
+                                      }`}>
+                                        {game.result} {game.score}
+                                      </div>
+                                    )}
                                   </div>
                                 </th>
                               );
