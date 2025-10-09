@@ -2143,25 +2143,53 @@ const FantasyDashboard = () => {
                         {/* TE Section */}
                         {trendData.filter(player => player.position === 'TE').length > 0 && (
                           <>
-                            <tr className="bg-gradient-to-r from-amber-100 to-amber-50 border-t-4 border-amber-400">
-                              <td colSpan="100" className="py-2 px-3 font-bold text-amber-800 text-sm">
-                                🎯 TIGHT ENDS ({trendData.filter(p => p.position === 'TE').length})
+                            {/* TE Position Header */}
+                            <tr className="bg-amber-50 border-t-2 border-amber-300">
+                              <td colSpan="2" className="py-2 px-3 font-bold text-amber-900 text-sm">
+                                🏈 TIGHT ENDS ({trendData.filter(p => p.position === 'TE').length})
                               </td>
+                              {/* Repeating column headers for TE section */}
+                              {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                                const week = trendFilters.startWeek + i;
+                                const colSpan = trendViewMode === 'summary' ? 4 : 11;
+                                return (
+                                  <td key={week} colSpan={colSpan} className="text-center py-1 px-1">
+                                    <div className="grid" style={{gridTemplateColumns: trendViewMode === 'summary' ? 'repeat(4, 1fr)' : 'repeat(11, 1fr)', gap: '0px'}}>
+                                      {trendViewMode === 'summary' ? (
+                                        <>
+                                          <div className="text-[10px] font-semibold text-slate-700 px-1">$</div>
+                                          <div className="text-[10px] font-semibold text-slate-700 px-1">Snaps</div>
+                                          <div className="text-[10px] font-semibold text-slate-700 px-1">FPTS</div>
+                                          <div className="text-[10px] font-semibold text-slate-700 px-1">Rnk</div>
+                                        </>
+                                      ) : (
+                                        <>
+                                          <div className="text-[10px] font-semibold text-slate-700">$</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">#</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">TGT</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">REC</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">YDS</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">TD</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">ATT</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">R.YD</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">R.TD</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">FPT</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">RNK</div>
+                                        </>
+                                      )}
+                                    </div>
+                                  </td>
+                                );
+                              })}
                             </tr>
                             {trendData.filter(player => player.position === 'TE').map((player, playerIndex, tePlayers) => {
-                              const isFirstTE = playerIndex === 0;
                               return (
-                                <tr key={`TE-${player.player_name}`} className="hover:bg-amber-25 transition-colors border-b border-slate-200">
-                                  {isFirstTE && (
-                                    <td rowSpan={tePlayers.length} className="sticky left-0 bg-gradient-to-br from-amber-500 to-amber-600 text-white font-bold text-center align-middle z-20 shadow-lg">
-                                      <div className="writing-mode-vertical py-4">TE</div>
-                                    </td>
-                                  )}
-                                  <td className="sticky left-16 bg-white text-slate-800 font-medium text-left border-r border-slate-200 pl-3 z-20 py-3">
-                                    <div className="flex items-center">
-                                      <div className="w-2 h-8 bg-amber-400 rounded mr-2"></div>
-                                      {player.player_name}
-                                    </div>
+                                <tr key={`TE-${player.player_name}`} className="bg-amber-50/30 hover:bg-amber-100/50 transition-colors border-b border-amber-100">
+                                  <td className="sticky left-0 bg-amber-500 text-white font-bold text-center text-xs w-12 z-20">
+                                    TE
+                                  </td>
+                                  <td className="sticky left-12 bg-gradient-to-r from-amber-50/90 to-white text-slate-900 font-medium text-left border-r border-amber-200 pl-3 z-20 py-2 min-w-[140px]">
+                                    {player.player_name}
                                   </td>
                                   
                                   {/* Week Data */}
