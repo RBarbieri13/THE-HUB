@@ -1687,15 +1687,15 @@ const FantasyDashboard = () => {
                               const colSpan = trendViewMode === 'summary' ? 4 : 11;
                               
                               return (
-                                <th key={week} colSpan={colSpan} className="bg-gradient-to-b from-slate-700 to-slate-800 text-white font-bold text-center border-l-2 border-slate-600 px-4 py-3 relative">
+                                <th key={week} colSpan={colSpan} className="bg-slate-100 text-slate-800 font-medium text-center border-l border-slate-200 px-3 py-1.5 relative">
                                   <div className="text-center">
-                                    <div className="font-bold text-lg tracking-wide">Week {week}</div>
-                                    <div className="text-[11px] text-slate-300 mt-1 font-medium">{game.opponent}</div>
+                                    <div className="text-[11px] tracking-wide">Week {week}</div>
+                                    <div className="text-[9px] text-slate-500 mt-0.5">{game.opponent}</div>
                                     {game.result && game.result !== 'TBD' && (
-                                      <div className={`text-[10px] font-bold px-2 py-0.5 rounded mt-1.5 inline-block ${
+                                      <div className={`text-[8px] font-medium px-1.5 py-0.5 rounded mt-0.5 inline-block ${
                                         game.result === 'W' 
-                                          ? 'bg-green-500 text-white' 
-                                          : 'bg-red-500 text-white'
+                                          ? 'bg-green-100 text-green-700' 
+                                          : 'bg-red-100 text-red-700'
                                       }`}>
                                         {game.result} {game.score}
                                       </div>
