@@ -2172,6 +2172,7 @@ const FantasyDashboard = () => {
                       </tbody>
                     </table>
                   </div>
+                </div>
                 )}
               </CardContent>
             </Card>
