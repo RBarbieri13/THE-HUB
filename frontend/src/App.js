@@ -2086,7 +2086,7 @@ const FantasyDashboard = () => {
                                           <div className="text-[10px] font-bold text-slate-800" title="Rush Attempts">ATT</div>
                                           <div className="text-[10px] font-bold text-slate-800">R.YD</div>
                                           <div className="text-[10px] font-bold text-slate-800">R.TD</div>
-                                          <div className="text-[10px] font-bold text-slate-800">FPT</div>
+                                          <div className="text-[10px] font-bold text-slate-800" title="Fantasy Points">FPT</div>
                                           <div className="text-[10px] font-bold text-slate-800">RNK</div>
                                         </>
                                       )}
@@ -2171,7 +2171,7 @@ const FantasyDashboard = () => {
                                           <div className="text-[10px] font-bold text-slate-800" title="Rush Attempts">ATT</div>
                                           <div className="text-[10px] font-bold text-slate-800">R.YD</div>
                                           <div className="text-[10px] font-bold text-slate-800">R.TD</div>
-                                          <div className="text-[10px] font-bold text-slate-800">FPT</div>
+                                          <div className="text-[10px] font-bold text-slate-800" title="Fantasy Points">FPT</div>
                                           <div className="text-[10px] font-bold text-slate-800">RNK</div>
                                         </>
                                       )}
