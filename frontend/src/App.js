@@ -1870,8 +1870,10 @@ const FantasyDashboard = () => {
                                                 {weekData ? fantasyPoints.toFixed(1) : ''}
                                               </td>
                                               <td className="text-center border border-slate-200 text-xs bg-purple-25 py-2">
-                                            {weekData && fantasyPoints > 0 ? Math.ceil(Math.random() * 32) : ''}
-                                          </td>
+                                                {weekData ? (weekData.position_rank || '-') : '-'}
+                                              </td>
+                                            </>
+                                          )}
                                         </React.Fragment>
                                       );
                                     })}
