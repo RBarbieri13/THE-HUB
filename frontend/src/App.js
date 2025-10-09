@@ -1873,7 +1873,8 @@ const FantasyDashboard = () => {
                                                 {weekData ? (weekData.position_rank || '-') : '-'}
                                               </td>
                                             </>
-                                          )}
+                                          )
+                                        }
                                         </React.Fragment>
                                       );
                                     })}
