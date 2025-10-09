@@ -1916,25 +1916,53 @@ const FantasyDashboard = () => {
                         {/* RB Section */}
                         {trendData.filter(player => player.position === 'RB').length > 0 && (
                           <>
-                            <tr className="bg-gradient-to-r from-emerald-100 to-emerald-50 border-t-4 border-emerald-400">
-                              <td colSpan="100" className="py-2 px-3 font-bold text-emerald-800 text-sm">
-                                🏃 RUNNING BACKS ({trendData.filter(p => p.position === 'RB').length})
+                            {/* RB Position Header */}
+                            <tr className="bg-emerald-50 border-t-2 border-emerald-300">
+                              <td colSpan="2" className="py-2 px-3 font-bold text-emerald-900 text-sm">
+                                💪 RUNNING BACKS ({trendData.filter(p => p.position === 'RB').length})
                               </td>
+                              {/* Repeating column headers for RB section */}
+                              {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                                const week = trendFilters.startWeek + i;
+                                const colSpan = trendViewMode === 'summary' ? 4 : 11;
+                                return (
+                                  <td key={week} colSpan={colSpan} className="text-center py-1 px-1">
+                                    <div className="grid" style={{gridTemplateColumns: trendViewMode === 'summary' ? 'repeat(4, 1fr)' : 'repeat(11, 1fr)', gap: '0px'}}>
+                                      {trendViewMode === 'summary' ? (
+                                        <>
+                                          <div className="text-[10px] font-semibold text-slate-700 px-1">$</div>
+                                          <div className="text-[10px] font-semibold text-slate-700 px-1">Snaps</div>
+                                          <div className="text-[10px] font-semibold text-slate-700 px-1">FPTS</div>
+                                          <div className="text-[10px] font-semibold text-slate-700 px-1">Rnk</div>
+                                        </>
+                                      ) : (
+                                        <>
+                                          <div className="text-[10px] font-semibold text-slate-700">$</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">#</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">TGT</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">REC</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">R.YD</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">R.TD</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">ATT</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">RU.Y</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">RU.T</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">FPT</div>
+                                          <div className="text-[10px] font-semibold text-slate-700">RNK</div>
+                                        </>
+                                      )}
+                                    </div>
+                                  </td>
+                                );
+                              })}
                             </tr>
                             {trendData.filter(player => player.position === 'RB').map((player, playerIndex, rbPlayers) => {
-                              const isFirstRB = playerIndex === 0;
                               return (
-                                <tr key={`RB-${player.player_name}`} className="hover:bg-emerald-25 transition-colors border-b border-slate-200">
-                                  {isFirstRB && (
-                                    <td rowSpan={rbPlayers.length} className="sticky left-0 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white font-bold text-center align-middle z-20 shadow-lg">
-                                      <div className="writing-mode-vertical py-4">RB</div>
-                                    </td>
-                                  )}
-                                  <td className="sticky left-16 bg-white text-slate-800 font-medium text-left border-r border-slate-200 pl-3 z-20 py-3">
-                                    <div className="flex items-center">
-                                      <div className="w-2 h-8 bg-emerald-400 rounded mr-2"></div>
-                                      {player.player_name}
-                                    </div>
+                                <tr key={`RB-${player.player_name}`} className="bg-emerald-50/30 hover:bg-emerald-100/50 transition-colors border-b border-emerald-100">
+                                  <td className="sticky left-0 bg-emerald-500 text-white font-bold text-center text-xs w-12 z-20">
+                                    RB
+                                  </td>
+                                  <td className="sticky left-12 bg-gradient-to-r from-emerald-50/90 to-white text-slate-900 font-medium text-left border-r border-emerald-200 pl-3 z-20 py-2 min-w-[140px]">
+                                    {player.player_name}
                                   </td>
                                   
                                   {/* Week Data */}
