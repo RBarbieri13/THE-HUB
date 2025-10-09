@@ -1782,28 +1782,26 @@ const FantasyDashboard = () => {
                                   const week = trendFilters.startWeek + i;
                                   const colSpan = trendViewMode === 'summary' ? 4 : 11;
                                   return (
-                                    <td key={week} colSpan={colSpan} className="text-center py-1.5 px-1 bg-blue-50/50">
-                                      <div className="grid" style={{gridTemplateColumns: trendViewMode === 'summary' ? 'repeat(4, 1fr)' : 'repeat(11, 1fr)', gap: '2px'}}>
+                                    <td key={week} colSpan={trendViewMode === 'summary' ? 3 : 10} className="text-center py-1 px-0 bg-white border-l border-slate-200">
+                                      <div className="grid" style={{gridTemplateColumns: trendViewMode === 'summary' ? 'repeat(3, 1fr)' : 'repeat(10, 1fr)', gap: '0px'}}>
                                         {trendViewMode === 'summary' ? (
                                           <>
-                                            <div className="text-[10px] font-bold text-slate-800 px-1" title="DraftKings Salary">$</div>
-                                            <div className="text-[10px] font-bold text-slate-800 px-1" title="Snap Count">Snaps</div>
-                                            <div className="text-[10px] font-bold text-slate-800 px-1" title="Fantasy Points">FPTS</div>
-                                            <div className="text-[10px] font-bold text-slate-800 px-1" title="Position Rank">Rnk</div>
+                                            <div className="text-[10px] font-normal text-slate-700 px-1 border-r border-slate-100" title="DraftKings Salary">$</div>
+                                            <div className="text-[10px] font-normal text-slate-700 px-1 border-r border-slate-100" title="Snap Count">Snaps</div>
+                                            <div className="text-[10px] font-normal text-slate-700 px-1" title="Fantasy Points">FPTS</div>
                                           </>
                                         ) : (
                                           <>
-                                            <div className="text-[10px] font-bold text-slate-800" title="Salary">$</div>
-                                            <div className="text-[10px] font-bold text-slate-800" title="Snaps">#</div>
-                                            <div className="text-[10px] font-bold text-slate-800" title="Completions">CMP</div>
-                                            <div className="text-[10px] font-bold text-slate-800" title="Pass Yards">PYD</div>
-                                            <div className="text-[10px] font-bold text-slate-800" title="Pass TD">PTD</div>
-                                            <div className="text-[10px] font-bold text-slate-800" title="Interceptions">INT</div>
-                                            <div className="text-[10px] font-bold text-slate-800" title="Rush Attempts">ATT</div>
-                                            <div className="text-[10px] font-bold text-slate-800" title="Rush Yards">RYD</div>
-                                            <div className="text-[10px] font-bold text-slate-800" title="Rush TD">RTD</div>
-                                            <div className="text-[10px] font-bold text-slate-800" title="Fantasy Points">FPT</div>
-                                            <div className="text-[10px] font-bold text-slate-800" title="Rank">RNK</div>
+                                            <div className="text-[10px] font-normal text-slate-700 border-r border-slate-100" title="Salary">$</div>
+                                            <div className="text-[10px] font-normal text-slate-700 border-r border-slate-100" title="Snaps">#</div>
+                                            <div className="text-[10px] font-normal text-slate-700 border-r border-slate-100" title="Completions">CMP</div>
+                                            <div className="text-[10px] font-normal text-slate-700 border-r border-slate-100" title="Pass Yards">PYD</div>
+                                            <div className="text-[10px] font-normal text-slate-700 border-r border-slate-100" title="Pass TD">PTD</div>
+                                            <div className="text-[10px] font-normal text-slate-700 border-r border-slate-100" title="Interceptions">INT</div>
+                                            <div className="text-[10px] font-normal text-slate-700 border-r border-slate-100" title="Rush Attempts">ATT</div>
+                                            <div className="text-[10px] font-normal text-slate-700 border-r border-slate-100" title="Rush Yards">RYD</div>
+                                            <div className="text-[10px] font-normal text-slate-700 border-r border-slate-100" title="Rush TD">RTD</div>
+                                            <div className="text-[10px] font-normal text-slate-700" title="Fantasy Points">FPT</div>
                                           </>
                                         )}
                                       </div>
