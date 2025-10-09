@@ -1774,10 +1774,44 @@ const FantasyDashboard = () => {
                           {/* QB Section */}
                           {trendData.filter(player => player.position === 'QB').length > 0 && (
                             <>
-                              <tr className="bg-gradient-to-r from-blue-100 to-blue-50 border-t-4 border-blue-400">
-                                <td colSpan="100" className="py-2 px-3 font-bold text-blue-800 text-sm">
+                              {/* QB Position Header */}
+                              <tr className="bg-blue-50 border-t-2 border-blue-300">
+                                <td colSpan="2" className="py-2 px-3 font-bold text-blue-900 text-sm">
                                   🏈 QUARTERBACKS ({trendData.filter(p => p.position === 'QB').length})
                                 </td>
+                                {/* Repeating column headers for QB section */}
+                                {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                                  const week = trendFilters.startWeek + i;
+                                  const colSpan = trendViewMode === 'summary' ? 4 : 11;
+                                  return (
+                                    <td key={week} colSpan={colSpan} className="text-center py-1 px-1">
+                                      <div className="grid" style={{gridTemplateColumns: trendViewMode === 'summary' ? 'repeat(4, 1fr)' : 'repeat(11, 1fr)', gap: '0px'}}>
+                                        {trendViewMode === 'summary' ? (
+                                          <>
+                                            <div className="text-[10px] font-semibold text-slate-700 px-1">$</div>
+                                            <div className="text-[10px] font-semibold text-slate-700 px-1">Snaps</div>
+                                            <div className="text-[10px] font-semibold text-slate-700 px-1">FPTS</div>
+                                            <div className="text-[10px] font-semibold text-slate-700 px-1">Rnk</div>
+                                          </>
+                                        ) : (
+                                          <>
+                                            <div className="text-[10px] font-semibold text-slate-700">$</div>
+                                            <div className="text-[10px] font-semibold text-slate-700">#</div>
+                                            <div className="text-[10px] font-semibold text-slate-700">CMP</div>
+                                            <div className="text-[10px] font-semibold text-slate-700">P.YD</div>
+                                            <div className="text-[10px] font-semibold text-slate-700">P.TD</div>
+                                            <div className="text-[10px] font-semibold text-slate-700">INT</div>
+                                            <div className="text-[10px] font-semibold text-slate-700">ATT</div>
+                                            <div className="text-[10px] font-semibold text-slate-700">R.YD</div>
+                                            <div className="text-[10px] font-semibold text-slate-700">R.TD</div>
+                                            <div className="text-[10px] font-semibold text-slate-700">FPT</div>
+                                            <div className="text-[10px] font-semibold text-slate-700">RNK</div>
+                                          </>
+                                        )}
+                                      </div>
+                                    </td>
+                                  );
+                                })}
                               </tr>
                               {trendData.filter(player => player.position === 'QB').map((player, playerIndex, qbPlayers) => {
                                 const isFirstQB = playerIndex === 0;
