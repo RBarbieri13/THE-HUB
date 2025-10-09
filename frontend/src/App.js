@@ -2073,7 +2073,7 @@ const FantasyDashboard = () => {
                                           <div className="text-[10px] font-bold text-slate-800 px-1" title="DraftKings Salary">$</div>
                                           <div className="text-[10px] font-bold text-slate-800 px-1" title="Snap Count">Snaps</div>
                                           <div className="text-[10px] font-bold text-slate-800 px-1" title="Fantasy Points">FPTS</div>
-                                          <div className="text-[10px] font-bold text-slate-800 px-1">Rnk</div>
+                                          <div className="text-[10px] font-bold text-slate-800 px-1" title="Position Rank">Rnk</div>
                                         </>
                                       ) : (
                                         <>
@@ -2158,7 +2158,7 @@ const FantasyDashboard = () => {
                                           <div className="text-[10px] font-bold text-slate-800 px-1" title="DraftKings Salary">$</div>
                                           <div className="text-[10px] font-bold text-slate-800 px-1" title="Snap Count">Snaps</div>
                                           <div className="text-[10px] font-bold text-slate-800 px-1" title="Fantasy Points">FPTS</div>
-                                          <div className="text-[10px] font-bold text-slate-800 px-1">Rnk</div>
+                                          <div className="text-[10px] font-bold text-slate-800 px-1" title="Position Rank">Rnk</div>
                                         </>
                                       ) : (
                                         <>
