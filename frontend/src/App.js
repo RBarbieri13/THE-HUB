@@ -1762,7 +1762,8 @@ const FantasyDashboard = () => {
                                       <th className="bg-purple-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">FPTS</th>
                                       <th className="bg-purple-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">Rnk</th>
                                     </>
-                                  )}
+                                  )
+                                  }
                                 </React.Fragment>
                               );
                             })}
