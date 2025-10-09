@@ -1814,19 +1814,13 @@ const FantasyDashboard = () => {
                                 })}
                               </tr>
                               {trendData.filter(player => player.position === 'QB').map((player, playerIndex, qbPlayers) => {
-                                const isFirstQB = playerIndex === 0;
                                 return (
-                                  <tr key={`QB-${player.player_name}`} className="hover:bg-blue-25 transition-colors border-b border-slate-200">
-                                    {isFirstQB && (
-                                      <td rowSpan={qbPlayers.length} className="sticky left-0 bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-center align-middle z-20 shadow-lg">
-                                        <div className="writing-mode-vertical py-4">QB</div>
-                                      </td>
-                                    )}
-                                    <td className="sticky left-16 bg-white text-slate-800 font-medium text-left border-r border-slate-200 pl-3 z-20 py-3">
-                                      <div className="flex items-center">
-                                        <div className="w-2 h-8 bg-blue-400 rounded mr-2"></div>
-                                        {player.player_name}
-                                      </div>
+                                  <tr key={`QB-${player.player_name}`} className="bg-blue-50/30 hover:bg-blue-100/50 transition-colors border-b border-blue-100">
+                                    <td className="sticky left-0 bg-blue-500 text-white font-bold text-center text-xs w-12 z-20">
+                                      QB
+                                    </td>
+                                    <td className="sticky left-12 bg-gradient-to-r from-blue-50/90 to-white text-slate-900 font-medium text-left border-r border-blue-200 pl-3 z-20 py-2 min-w-[140px]">
+                                      {player.player_name}
                                     </td>
                                     
                                     {/* Week Data */}
