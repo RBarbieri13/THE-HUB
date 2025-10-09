@@ -1995,18 +1995,28 @@ const FantasyDashboard = () => {
                         )}
                         
                         {/* WR Section */}
-                        {trendData.filter(player => player.position === 'WR').map((player, playerIndex, wrPlayers) => {
-                          const isFirstWR = playerIndex === 0;
-                          return (
-                            <tr key={`WR-${player.player_name}`}>
-                              {isFirstWR && (
-                                <td rowSpan={wrPlayers.length} className="sticky left-0 bg-green-200 text-black font-bold text-center align-middle border-r-2 border-gray-400 z-20">
-                                  WR
-                                </td>
-                              )}
-                              <td className="sticky left-12 bg-white text-black font-normal text-left border-r-2 border-gray-400 pl-2 z-20">
-                                {player.player_name}
+                        {trendData.filter(player => player.position === 'WR').length > 0 && (
+                          <>
+                            <tr className="bg-gradient-to-r from-sky-100 to-sky-50 border-t-4 border-sky-400">
+                              <td colSpan="100" className="py-2 px-3 font-bold text-sky-800 text-sm">
+                                🎯 WIDE RECEIVERS ({trendData.filter(p => p.position === 'WR').length})
                               </td>
+                            </tr>
+                            {trendData.filter(player => player.position === 'WR').map((player, playerIndex, wrPlayers) => {
+                              const isFirstWR = playerIndex === 0;
+                              return (
+                                <tr key={`WR-${player.player_name}`} className="hover:bg-sky-25 transition-colors border-b border-slate-200">
+                                  {isFirstWR && (
+                                    <td rowSpan={wrPlayers.length} className="sticky left-0 bg-gradient-to-br from-sky-500 to-sky-600 text-white font-bold text-center align-middle z-20 shadow-lg">
+                                      <div className="writing-mode-vertical py-4">WR</div>
+                                    </td>
+                                  )}
+                                  <td className="sticky left-16 bg-white text-slate-800 font-medium text-left border-r border-slate-200 pl-3 z-20 py-3">
+                                    <div className="flex items-center">
+                                      <div className="w-2 h-8 bg-sky-400 rounded mr-2"></div>
+                                      {player.player_name}
+                                    </div>
+                                  </td>
                               
                               {/* Week Data */}
                               {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
