@@ -108,6 +108,10 @@ const FantasyDashboard = () => {
     const saved = localStorage.getItem('trendToolCollapsedColumns');
     return saved ? JSON.parse(saved) : {};
   });
+  
+  // New states for Trend Tool enhancements
+  const [trendViewMode, setTrendViewMode] = useState('summary'); // 'summary' or 'full'
+  const [trendFiltersCollapsed, setTrendFiltersCollapsed] = useState(false);
 
   // Calculate fantasy points based on PPR setting
   const calculateFantasyPoints = (player) => {
