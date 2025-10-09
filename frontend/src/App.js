@@ -2067,7 +2067,7 @@ const FantasyDashboard = () => {
                                 const colSpan = trendViewMode === 'summary' ? 4 : 11;
                                 return (
                                   <td key={week} colSpan={colSpan} className="text-center py-1.5 px-1 bg-blue-50/50">
-                                    <div className="grid" style={{gridTemplateColumns: trendViewMode === 'summary' ? 'repeat(4, 1fr)' : 'repeat(11, 1fr)', gap: '0px'}}>
+                                    <div className="grid" style={{gridTemplateColumns: trendViewMode === 'summary' ? 'repeat(4, 1fr)' : 'repeat(11, 1fr)', gap: '2px'}}>
                                       {trendViewMode === 'summary' ? (
                                         <>
                                           <div className="text-[10px] font-semibold text-slate-700 px-1">$</div>
@@ -2152,7 +2152,7 @@ const FantasyDashboard = () => {
                                 const colSpan = trendViewMode === 'summary' ? 4 : 11;
                                 return (
                                   <td key={week} colSpan={colSpan} className="text-center py-1.5 px-1 bg-blue-50/50">
-                                    <div className="grid" style={{gridTemplateColumns: trendViewMode === 'summary' ? 'repeat(4, 1fr)' : 'repeat(11, 1fr)', gap: '0px'}}>
+                                    <div className="grid" style={{gridTemplateColumns: trendViewMode === 'summary' ? 'repeat(4, 1fr)' : 'repeat(11, 1fr)', gap: '2px'}}>
                                       {trendViewMode === 'summary' ? (
                                         <>
                                           <div className="text-[10px] font-semibold text-slate-700 px-1">$</div>
