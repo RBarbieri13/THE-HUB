@@ -2085,7 +2085,7 @@ const FantasyDashboard = () => {
                                           <div className="text-[10px] font-bold text-slate-800" title="Receiving TD">TD</div>
                                           <div className="text-[10px] font-bold text-slate-800" title="Rush Attempts">ATT</div>
                                           <div className="text-[10px] font-bold text-slate-800" title="Rush Yards">R.YD</div>
-                                          <div className="text-[10px] font-bold text-slate-800">R.TD</div>
+                                          <div className="text-[10px] font-bold text-slate-800" title="Rush TD">R.TD</div>
                                           <div className="text-[10px] font-bold text-slate-800" title="Fantasy Points">FPT</div>
                                           <div className="text-[10px] font-bold text-slate-800" title="Rank">RNK</div>
                                         </>
@@ -2170,7 +2170,7 @@ const FantasyDashboard = () => {
                                           <div className="text-[10px] font-bold text-slate-800" title="Receiving TD">TD</div>
                                           <div className="text-[10px] font-bold text-slate-800" title="Rush Attempts">ATT</div>
                                           <div className="text-[10px] font-bold text-slate-800" title="Rush Yards">R.YD</div>
-                                          <div className="text-[10px] font-bold text-slate-800">R.TD</div>
+                                          <div className="text-[10px] font-bold text-slate-800" title="Rush TD">R.TD</div>
                                           <div className="text-[10px] font-bold text-slate-800" title="Fantasy Points">FPT</div>
                                           <div className="text-[10px] font-bold text-slate-800" title="Rank">RNK</div>
                                         </>
