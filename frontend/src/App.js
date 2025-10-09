@@ -1924,28 +1924,28 @@ const FantasyDashboard = () => {
                                 const week = trendFilters.startWeek + i;
                                 const colSpan = trendViewMode === 'summary' ? 4 : 11;
                                 return (
-                                  <td key={week} colSpan={colSpan} className="text-center py-1 px-1">
-                                    <div className="grid" style={{gridTemplateColumns: trendViewMode === 'summary' ? 'repeat(4, 1fr)' : 'repeat(11, 1fr)', gap: '0px'}}>
+                                  <td key={week} colSpan={colSpan} className="text-center py-1.5 px-1 bg-blue-50/50">
+                                    <div className="grid" style={{gridTemplateColumns: trendViewMode === 'summary' ? 'repeat(4, 1fr)' : 'repeat(11, 1fr)', gap: '2px'}}>
                                       {trendViewMode === 'summary' ? (
                                         <>
-                                          <div className="text-[10px] font-semibold text-slate-700 px-1">$</div>
-                                          <div className="text-[10px] font-semibold text-slate-700 px-1">Snaps</div>
-                                          <div className="text-[10px] font-semibold text-slate-700 px-1">FPTS</div>
-                                          <div className="text-[10px] font-semibold text-slate-700 px-1">Rnk</div>
+                                          <div className="text-[10px] font-bold text-slate-800 px-1" title="DraftKings Salary">$</div>
+                                          <div className="text-[10px] font-bold text-slate-800 px-1" title="Snap Count">Snaps</div>
+                                          <div className="text-[10px] font-bold text-slate-800 px-1" title="Fantasy Points">FPTS</div>
+                                          <div className="text-[10px] font-bold text-slate-800 px-1" title="Position Rank">Rnk</div>
                                         </>
                                       ) : (
                                         <>
-                                          <div className="text-[10px] font-semibold text-slate-700">$</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">#</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">TGT</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">REC</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">R.YD</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">R.TD</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">ATT</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">RU.Y</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">RU.T</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">FPT</div>
-                                          <div className="text-[10px] font-semibold text-slate-700">RNK</div>
+                                          <div className="text-[10px] font-bold text-slate-800" title="Salary">$</div>
+                                          <div className="text-[10px] font-bold text-slate-800" title="Snaps">#</div>
+                                          <div className="text-[10px] font-bold text-slate-800" title="Targets">TGT</div>
+                                          <div className="text-[10px] font-bold text-slate-800" title="Receptions">REC</div>
+                                          <div className="text-[10px] font-bold text-slate-800" title="Receiving Yards">RYD</div>
+                                          <div className="text-[10px] font-bold text-slate-800" title="Receiving TD">RTD</div>
+                                          <div className="text-[10px] font-bold text-slate-800" title="Rush Attempts">ATT</div>
+                                          <div className="text-[10px] font-bold text-slate-800" title="Rush Yards">RUY</div>
+                                          <div className="text-[10px] font-bold text-slate-800" title="Rush TD">RUT</div>
+                                          <div className="text-[10px] font-bold text-slate-800" title="Fantasy Points">FPT</div>
+                                          <div className="text-[10px] font-bold text-slate-800" title="Rank">RNK</div>
                                         </>
                                       )}
                                     </div>
