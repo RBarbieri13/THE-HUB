@@ -1676,21 +1676,24 @@ const FantasyDashboard = () => {
                                 'DAL-4': { opponent: '@NYG', result: 'W', score: '20-15' },
                                 'DAL-5': { opponent: 'vs PIT', result: 'W', score: '20-17' },
                                 'DAL-6': { opponent: '@DET', result: 'L', score: '38-47' },
-                                // Other teams
+                                // Other teams - add more as needed
                                 'KC-1': { opponent: 'vs BAL', result: 'W', score: '27-20' },
                                 'KC-2': { opponent: '@CIN', result: 'W', score: '26-25' },
                                 'KC-3': { opponent: 'vs ATL', result: 'W', score: '22-17' }
                               };
                               const game = gameResults[`${trendFilters.team}-${week}`] || { opponent: `vs OPP`, result: 'TBD', score: '' };
                               
+                              // Calculate colspan based on view mode
+                              const colSpan = trendViewMode === 'summary' ? 4 : 11;
+                              
                               return (
-                                <th key={week} colSpan="11" className="bg-gradient-to-r from-slate-800 to-slate-900 text-white font-bold text-center border-l-4 border-slate-700 px-3 py-3 relative group">
+                                <th key={week} colSpan={colSpan} className="bg-gradient-to-r from-slate-800 to-slate-900 text-white font-bold text-center border-l-4 border-slate-700 px-3 py-2 relative group">
                                   <div className="flex items-center justify-between">
-                                    <div className="text-sm">
-                                      <div className="font-bold text-lg">Week {week}</div>
-                                      <div className="text-xs text-slate-300">{game.opponent}</div>
+                                    <div className="flex-1 text-center">
+                                      <div className="font-bold text-base">Week {week}</div>
+                                      <div className="text-xs text-slate-300 mt-0.5">{game.opponent}</div>
                                       {game.result && game.result !== 'TBD' && (
-                                        <div className={`text-xs font-bold px-2 py-1 rounded-full mt-1 inline-block ${
+                                        <div className={`text-xs font-bold px-2 py-0.5 rounded-full mt-1 inline-block ${
                                           game.result === 'W' 
                                             ? 'bg-green-500 text-green-100' 
                                             : 'bg-red-500 text-red-100'
@@ -1699,17 +1702,6 @@ const FantasyDashboard = () => {
                                         </div>
                                       )}
                                     </div>
-                                    <button
-                                      onClick={() => {
-                                        const newCollapsed = { ...collapsedColumns };
-                                        newCollapsed[`week-${week}`] = !newCollapsed[`week-${week}`];
-                                        setCollapsedColumns(newCollapsed);
-                                        localStorage.setItem('trendToolCollapsedColumns', JSON.stringify(newCollapsed));
-                                      }}
-                                      className="ml-2 p-1 rounded hover:bg-slate-700 transition-colors opacity-0 group-hover:opacity-100"
-                                    >
-                                      {collapsedColumns[`week-${week}`] ? '▶' : '◀'}
-                                    </button>
                                   </div>
                                 </th>
                               );
