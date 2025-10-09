@@ -1773,9 +1773,9 @@ const FantasyDashboard = () => {
                           {trendData.filter(player => player.position === 'QB').length > 0 && (
                             <>
                               {/* QB Position Header */}
-                              <tr className="bg-blue-50 border-t-2 border-blue-300">
-                                <td colSpan="2" className="py-2 px-3 font-bold text-blue-900 text-sm">
-                                  🏈 QUARTERBACKS ({trendData.filter(p => p.position === 'QB').length})
+                              <tr className="bg-blue-50 border-t border-blue-200">
+                                <td colSpan="2" className="py-1.5 px-3 font-semibold text-blue-900 text-xs uppercase tracking-wide">
+                                  QUARTERBACKS ({trendData.filter(p => p.position === 'QB').length})
                                 </td>
                                 {/* Repeating column headers for QB section */}
                                 {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
