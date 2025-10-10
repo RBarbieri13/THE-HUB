@@ -1647,10 +1647,10 @@ const FantasyDashboard = () => {
                     <p>Loading trend data...</p>
                   </div>
                 ) : (
-                  <div className="h-full overflow-hidden bg-gradient-to-br from-slate-50 to-gray-100">
-                    <div className="h-full overflow-x-auto overflow-y-auto shadow-inner">
-                      <table className="min-w-full border-collapse text-xs font-sans bg-white shadow-lg rounded-lg overflow-hidden">
-                        <thead className="sticky top-0 z-30">
+                  <div className="h-full overflow-hidden bg-white">
+                    <div className="h-full overflow-x-auto overflow-y-auto">
+                      <table className="min-w-full border-collapse text-xs font-sans bg-white" style={{tableLayout: 'fixed'}}>
+                        <thead className="sticky top-0 z-30 bg-white">
                           {/* Week Headers Row */}
                           <tr className="bg-gradient-to-r from-slate-800 to-slate-900">
                             <th rowSpan="3" className="sticky left-0 bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-center w-16 z-30 shadow-lg border-r-2 border-slate-300">
