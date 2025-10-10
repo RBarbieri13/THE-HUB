@@ -1684,7 +1684,7 @@ const FantasyDashboard = () => {
                               const game = gameResults[`${trendFilters.team}-${week}`] || { opponent: `vs OPP`, result: 'TBD', score: '' };
                               
                               // Calculate colspan based on view mode
-                              const colSpan = trendViewMode === 'summary' ? 4 : 11;
+                              const colSpan = trendViewMode === 'summary' ? 3 : 10;
                               
                               return (
                                 <th key={week} colSpan={colSpan} className="bg-slate-100 text-slate-800 font-medium text-center border-l border-slate-200 px-3 py-1.5 relative">
