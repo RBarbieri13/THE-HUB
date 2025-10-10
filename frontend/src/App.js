@@ -1786,18 +1786,18 @@ const FantasyDashboard = () => {
                                           {trendViewMode === 'summary' ? (
                                             // Summary View - Only 3 columns
                                             <>
-                                              <td className="text-center border border-slate-200 text-xs bg-amber-25 py-2">
+                                              <td className="text-center text-[10px] bg-white py-1.5" style={{borderRight: '1px solid #E0E0E0'}}>
                                                 {weekData?.dk_salary ? `$${(weekData.dk_salary/1000).toFixed(1)}k` : '-'}
                                               </td>
-                                              <td className="text-center border border-slate-200 text-xs bg-blue-25 py-2 font-medium">
+                                              <td className="text-center text-[10px] bg-white py-1.5" style={{borderRight: '1px solid #E0E0E0'}}>
                                                 {weekData?.snap_count || weekData?.snap_percentage || '-'}
                                               </td>
-                                              <td className={`text-center border border-slate-200 text-xs py-2 font-bold ${
-                                                fantasyPoints >= 25 ? 'bg-green-200 text-green-800' :
-                                                fantasyPoints >= 20 ? 'bg-green-100 text-green-700' :
-                                                fantasyPoints >= 15 ? 'bg-yellow-100 text-yellow-700' :
-                                                fantasyPoints >= 10 ? 'bg-orange-100 text-orange-700' :
-                                                fantasyPoints > 0 ? 'bg-red-100 text-red-700' : 'bg-green-25'
+                                              <td className={`text-center text-[10px] py-1.5 font-medium ${
+                                                fantasyPoints >= 25 ? 'bg-green-100 text-green-800' :
+                                                fantasyPoints >= 20 ? 'bg-green-50 text-green-700' :
+                                                fantasyPoints >= 15 ? 'bg-yellow-50 text-yellow-700' :
+                                                fantasyPoints >= 10 ? 'bg-orange-50 text-orange-700' :
+                                                fantasyPoints > 0 ? 'bg-red-50 text-red-700' : 'bg-white'
                                               }`}>
                                                 {weekData ? fantasyPoints.toFixed(1) : '-'}
                                               </td>
