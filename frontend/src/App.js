@@ -1781,7 +1781,7 @@ const FantasyDashboard = () => {
                                       return (
                                         <React.Fragment key={week}>
                                           {trendViewMode === 'summary' ? (
-                                            // Summary View - Only 4 columns
+                                            // Summary View - Only 3 columns
                                             <>
                                               <td className="text-center border border-slate-200 text-xs bg-amber-25 py-2">
                                                 {weekData?.dk_salary ? `$${(weekData.dk_salary/1000).toFixed(1)}k` : '-'}
@@ -1797,9 +1797,6 @@ const FantasyDashboard = () => {
                                                 fantasyPoints > 0 ? 'bg-red-100 text-red-700' : 'bg-green-25'
                                               }`}>
                                                 {weekData ? fantasyPoints.toFixed(1) : '-'}
-                                              </td>
-                                              <td className="text-center border border-slate-200 text-xs bg-purple-25 py-2">
-                                                {weekData ? (weekData.position_rank || '-') : '-'}
                                               </td>
                                             </>
                                           ) : (
