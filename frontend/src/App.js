@@ -1803,47 +1803,44 @@ const FantasyDashboard = () => {
                                               </td>
                                             </>
                                           ) : (
-                                            // Full Detail View - All 11 columns
+                                            // Full Detail View - 10 columns (QB)
                                             <>
-                                              {/* Misc */}
-                                              <td className="text-center border border-slate-200 text-xs bg-amber-25 py-2">
+                                              <td className="text-center text-[10px] bg-white py-1.5" style={{borderRight: '1px solid #E0E0E0'}}>
                                                 {weekData?.dk_salary ? `$${(weekData.dk_salary/1000).toFixed(1)}k` : ''}
                                               </td>
-                                              <td className="text-center border border-slate-200 text-xs bg-amber-25 py-2 font-medium">
+                                              <td className="text-center text-[10px] bg-white py-1.5" style={{borderRight: '1px solid #E0E0E0'}}>
                                                 {weekData?.snap_count || weekData?.snap_percentage || ''}
                                               </td>
-                                              {/* Pass/Rec Combined */}
-                                              <td className="text-center border border-slate-200 text-xs bg-blue-25 py-2">
-                                                <div>{weekData && weekData.passing_yards > 0 ? `${passingCompletions}-${passingAttempts}` : ''}</div>
-                                                <div className="text-xs text-slate-500">{weekData && weekData.targets > 0 ? weekData.targets : ''}</div>
+                                              <td className="text-center text-[10px] bg-white py-1.5" style={{borderRight: '1px solid #E0E0E0'}}>
+                                                {weekData && weekData.passing_yards > 0 ? `${passingCompletions}-${passingAttempts}` : ''}
                                               </td>
-                                              <td className="text-center border border-slate-200 text-xs bg-blue-25 py-2">
-                                                <div className="font-medium">{weekData && weekData.passing_yards > 0 ? weekData.passing_yards : ''}</div>
-                                                <div className="text-xs text-slate-500">{weekData && weekData.receptions > 0 ? weekData.receptions : ''}</div>
+                                              <td className="text-center text-[10px] bg-white py-1.5" style={{borderRight: '1px solid #E0E0E0'}}>
+                                                {weekData && weekData.passing_yards > 0 ? weekData.passing_yards : ''}
                                               </td>
-                                              <td className="text-center border border-slate-200 text-xs bg-blue-25 py-2">
-                                                <div className="font-medium">{weekData && weekData.passing_tds > 0 ? weekData.passing_tds : ''}</div>
-                                                <div className="text-xs text-slate-500">{weekData && weekData.receiving_yards > 0 ? weekData.receiving_yards : ''}</div>
+                                              <td className="text-center text-[10px] bg-white py-1.5" style={{borderRight: '1px solid #E0E0E0'}}>
+                                                {weekData && weekData.passing_tds > 0 ? weekData.passing_tds : ''}
                                               </td>
-                                              <td className="text-center border border-slate-200 text-xs bg-blue-25 py-2">
-                                                <div>{weekData && weekData.interceptions > 0 ? weekData.interceptions : ''}</div>
-                                                <div className="text-xs text-slate-500">{weekData && weekData.receiving_tds > 0 ? weekData.receiving_tds : ''}</div>
+                                              <td className="text-center text-[10px] bg-white py-1.5" style={{borderRight: '1px solid #E0E0E0'}}>
+                                                {weekData && weekData.interceptions > 0 ? weekData.interceptions : ''}
                                               </td>
-                                              {/* Rush */}
-                                              <td className="text-center border border-slate-200 text-xs bg-green-25 py-2">{weekData && weekData.rushing_yards > 0 ? rushingAttempts : ''}</td>
-                                              <td className="text-center border border-slate-200 text-xs bg-green-25 py-2 font-medium">{weekData && weekData.rushing_yards > 0 ? weekData.rushing_yards : ''}</td>
-                                              <td className="text-center border border-slate-200 text-xs bg-green-25 py-2 font-medium">{weekData && weekData.rushing_tds > 0 ? weekData.rushing_tds : ''}</td>
-                                              {/* Fantasy */}
-                                              <td className={`text-center border border-slate-200 text-xs py-2 font-bold ${
-                                                fantasyPoints >= 25 ? 'bg-green-200 text-green-800' :
-                                                fantasyPoints >= 20 ? 'bg-green-100 text-green-700' :
-                                                fantasyPoints >= 15 ? 'bg-yellow-100 text-yellow-700' :
-                                                fantasyPoints >= 10 ? 'bg-orange-100 text-orange-700' :
-                                                fantasyPoints > 0 ? 'bg-red-100 text-red-700' : 'bg-purple-25'
+                                              <td className="text-center text-[10px] bg-white py-1.5" style={{borderRight: '1px solid #E0E0E0'}}>
+                                                {weekData && weekData.rushing_yards > 0 ? rushingAttempts : ''}
+                                              </td>
+                                              <td className="text-center text-[10px] bg-white py-1.5" style={{borderRight: '1px solid #E0E0E0'}}>
+                                                {weekData && weekData.rushing_yards > 0 ? weekData.rushing_yards : ''}
+                                              </td>
+                                              <td className="text-center text-[10px] bg-white py-1.5" style={{borderRight: '1px solid #E0E0E0'}}>
+                                                {weekData && weekData.rushing_tds > 0 ? weekData.rushing_tds : ''}
+                                              </td>
+                                              <td className={`text-center text-[10px] py-1.5 font-medium ${
+                                                fantasyPoints >= 25 ? 'bg-green-100 text-green-800' :
+                                                fantasyPoints >= 20 ? 'bg-green-50 text-green-700' :
+                                                fantasyPoints >= 15 ? 'bg-yellow-50 text-yellow-700' :
+                                                fantasyPoints >= 10 ? 'bg-orange-50 text-orange-700' :
+                                                fantasyPoints > 0 ? 'bg-red-50 text-red-700' : 'bg-white'
                                               }`}>
                                                 {weekData ? fantasyPoints.toFixed(1) : ''}
                                               </td>
-                                              <td className="text-center border border-slate-200 text-xs bg-purple-25 py-2">
                                                 {weekData ? (weekData.position_rank || '-') : '-'}
                                               </td>
                                             </>
