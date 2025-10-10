@@ -1759,12 +1759,15 @@ const FantasyDashboard = () => {
                                 </td>
                               </tr>
                               {trendData.filter(player => player.position === 'QB').map((player, playerIndex, qbPlayers) => {
+                                const isFirstQB = playerIndex === 0;
                                 return (
-                                  <tr key={`QB-${player.player_name}`} className="bg-blue-50/30 hover:bg-blue-100/50 transition-colors border-b border-blue-100">
-                                    <td className="sticky left-0 bg-blue-500 text-white font-bold text-center text-xs w-12 z-20">
-                                      QB
-                                    </td>
-                                    <td className="sticky left-12 bg-gradient-to-r from-blue-50/90 to-white text-slate-900 font-medium text-left border-r border-blue-200 pl-3 z-20 py-2 min-w-[140px]">
+                                  <tr key={`QB-${player.player_name}`} className="hover:bg-blue-50/30 transition-colors" style={{borderBottom: '1px solid #E0E0E0'}}>
+                                    {isFirstQB && (
+                                      <td rowSpan={qbPlayers.length} className="sticky left-0 text-slate-700 font-semibold text-center align-middle z-20 text-[10px] border-r" style={{backgroundColor: '#EBF5FB', borderRight: '1px solid #E0E0E0', width: '40px'}}>
+                                        QB
+                                      </td>
+                                    )}
+                                    <td className="sticky left-10 bg-white text-slate-800 font-normal text-left pl-2 z-20 py-2 text-[10px]" style={{borderRight: '1px solid #E0E0E0', width: '140px'}}>
                                       {player.player_name}
                                     </td>
                                     
