@@ -1714,51 +1714,31 @@ const FantasyDashboard = () => {
                               return (
                                 <React.Fragment key={i}>
                                   {trendViewMode === 'summary' ? (
-                                    // Summary View - Only 4 columns
+                                    // Summary View - Only 3 columns
                                     <>
-                                      <th className="bg-amber-50 text-slate-700 font-semibold text-center text-xs py-2 border border-slate-300 w-16">
-                                        <div className="font-bold">DK $</div>
+                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200 w-16">
+                                        $
                                       </th>
-                                      <th className="bg-blue-50 text-slate-700 font-semibold text-center text-xs py-2 border border-slate-300 w-14">
-                                        <div className="font-bold">Snaps</div>
+                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200 w-14">
+                                        Snaps
                                       </th>
-                                      <th className="bg-green-50 text-slate-700 font-semibold text-center text-xs py-2 border border-slate-300 w-16">
-                                        <div className="font-bold">FPTS</div>
-                                      </th>
-                                      <th className="bg-purple-50 text-slate-700 font-semibold text-center text-xs py-2 border border-slate-300 w-12">
-                                        <div className="font-bold">Rank</div>
+                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 w-16">
+                                        FPTS
                                       </th>
                                     </>
                                   ) : (
-                                    // Full Detail View - All 11 columns
+                                    // Full Detail View - QB headers (10 columns)
                                     <>
-                                      {/* Misc */}
-                                      <th className="bg-amber-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">$</th>
-                                      <th className="bg-amber-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">#</th>
-                                      {/* Pass/Rec Combined - Space Saving */}
-                                      <th className="bg-blue-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-14">
-                                        <div>Cmp-Att</div>
-                                        <div className="text-xs text-slate-500">Tgts</div>
-                                      </th>
-                                      <th className="bg-blue-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">
-                                        <div>P.Yds</div>
-                                        <div className="text-xs text-slate-500">Rec</div>
-                                      </th>
-                                      <th className="bg-blue-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">
-                                        <div>P.TD</div>
-                                        <div className="text-xs text-slate-500">R.Yds</div>
-                                      </th>
-                                      <th className="bg-blue-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">
-                                        <div>Int</div>
-                                        <div className="text-xs text-slate-500">R.TD</div>
-                                      </th>
-                                      {/* Rush */}
-                                      <th className="bg-green-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">Att</th>
-                                      <th className="bg-green-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">Yds</th>
-                                      <th className="bg-green-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">TD</th>
-                                      {/* Fantasy */}
-                                      <th className="bg-purple-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-12">FPTS</th>
-                                      <th className="bg-purple-50 text-slate-700 font-semibold text-center text-xs py-1 border border-slate-200 w-8">Rnk</th>
+                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200">$</th>
+                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200">#</th>
+                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200">Cmp-Att</th>
+                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200">P.Yds</th>
+                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200">P.TD</th>
+                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200">Int</th>
+                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200">R.Att</th>
+                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200">R.Yds</th>
+                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200">R.TD</th>
+                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1">FPTS</th>
                                     </>
                                   )
                                   }
