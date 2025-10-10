@@ -1841,8 +1841,6 @@ const FantasyDashboard = () => {
                                               }`}>
                                                 {weekData ? fantasyPoints.toFixed(1) : ''}
                                               </td>
-                                                {weekData ? (weekData.position_rank || '-') : '-'}
-                                              </td>
                                             </>
                                           )
                                         }
