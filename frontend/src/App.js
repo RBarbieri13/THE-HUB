@@ -1991,43 +1991,10 @@ const FantasyDashboard = () => {
                         {trendData.filter(player => player.position === 'WR').length > 0 && (
                           <>
                             {/* WR Position Header */}
-                            <tr className="bg-sky-50 border-t-2 border-sky-300">
-                              <td colSpan="2" className="py-2 px-3 font-bold text-sky-900 text-sm">
-                                🎯 WIDE RECEIVERS ({trendData.filter(p => p.position === 'WR').length})
+                            <tr className="bg-sky-50/40 border-t border-slate-200">
+                              <td colSpan="100" className="py-1 px-3 font-medium text-slate-700 text-[10px] uppercase tracking-wide">
+                                WIDE RECEIVERS ({trendData.filter(p => p.position === 'WR').length})
                               </td>
-                              {/* Repeating column headers for WR section */}
-                              {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
-                                const week = trendFilters.startWeek + i;
-                                const colSpan = trendViewMode === 'summary' ? 4 : 11;
-                                return (
-                                  <td key={week} colSpan={colSpan} className="text-center py-1.5 px-1 bg-blue-50/50">
-                                    <div className="grid" style={{gridTemplateColumns: trendViewMode === 'summary' ? 'repeat(4, 1fr)' : 'repeat(11, 1fr)', gap: '2px'}}>
-                                      {trendViewMode === 'summary' ? (
-                                        <>
-                                          <div className="text-[10px] font-bold text-slate-800 px-1" title="DraftKings Salary">$</div>
-                                          <div className="text-[10px] font-bold text-slate-800 px-1" title="Snap Count">Snaps</div>
-                                          <div className="text-[10px] font-bold text-slate-800 px-1" title="Fantasy Points">FPTS</div>
-                                          <div className="text-[10px] font-bold text-slate-800 px-1" title="Position Rank">Rnk</div>
-                                        </>
-                                      ) : (
-                                        <>
-                                          <div className="text-[10px] font-bold text-slate-800" title="Salary">$</div>
-                                          <div className="text-[10px] font-bold text-slate-800" title="Snaps">#</div>
-                                          <div className="text-[10px] font-bold text-slate-800" title="Targets">TGT</div>
-                                          <div className="text-[10px] font-bold text-slate-800" title="Receptions">REC</div>
-                                          <div className="text-[10px] font-bold text-slate-800" title="Receiving Yards">YDS</div>
-                                          <div className="text-[10px] font-bold text-slate-800" title="Receiving TD">TD</div>
-                                          <div className="text-[10px] font-bold text-slate-800" title="Rush Attempts">ATT</div>
-                                          <div className="text-[10px] font-bold text-slate-800" title="Rush Yards">R.YD</div>
-                                          <div className="text-[10px] font-bold text-slate-800" title="Rush TD">R.TD</div>
-                                          <div className="text-[10px] font-bold text-slate-800" title="Fantasy Points">FPT</div>
-                                          <div className="text-[10px] font-bold text-slate-800" title="Rank">RNK</div>
-                                        </>
-                                      )}
-                                    </div>
-                                  </td>
-                                );
-                              })}
                             </tr>
                             {trendData.filter(player => player.position === 'WR').map((player, playerIndex, wrPlayers) => {
                               return (
