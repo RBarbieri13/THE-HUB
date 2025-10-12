@@ -1652,12 +1652,12 @@ const FantasyDashboard = () => {
                       <table className="min-w-full border-collapse text-xs font-sans bg-white" style={{tableLayout: 'fixed'}}>
                         <thead className="sticky top-0 z-30 bg-white">
                           {/* Week Headers Row */}
-                          <tr className="bg-gradient-to-r from-slate-800 to-slate-900">
-                            <th rowSpan="3" className="sticky left-0 bg-gradient-to-br from-blue-500 to-blue-600 text-white font-bold text-center w-16 z-30 shadow-lg border-r-2 border-slate-300">
-                              <div className="py-3">Pos</div>
+                          <tr className="bg-gray-700">
+                            <th rowSpan="3" className="sticky left-0 bg-blue-600 text-white font-black text-center w-16 z-30 shadow-lg border-r-2 border-gray-400">
+                              <div className="py-2 text-sm">Pos</div>
                             </th>
-                            <th rowSpan="3" className="sticky left-16 bg-white text-slate-800 font-bold text-left w-40 z-30 shadow-lg border-r-2 border-slate-300 pl-3">
-                              <div className="py-3">Player</div>
+                            <th rowSpan="3" className="sticky left-16 bg-gray-100 text-gray-900 font-black text-left w-40 z-30 shadow-lg border-r-2 border-gray-400 pl-3">
+                              <div className="py-2 text-sm">Player</div>
                             </th>
                             {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
                               const week = trendFilters.startWeek + i;
