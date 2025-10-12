@@ -1763,11 +1763,11 @@ const FantasyDashboard = () => {
                                 return (
                                   <tr key={`QB-${player.player_name}`} className="hover:bg-blue-50/30 transition-colors" style={{borderBottom: '1px solid #E0E0E0'}}>
                                     {isFirstQB && (
-                                      <td rowSpan={qbPlayers.length} className="sticky left-0 text-slate-700 font-semibold text-center align-middle z-20 text-[10px] border-r" style={{backgroundColor: '#EBF5FB', borderRight: '1px solid #E0E0E0', width: '40px'}}>
+                                      <td rowSpan={qbPlayers.length} className="sticky left-0 text-gray-900 font-bold text-center align-middle z-20 text-[11px] border-r" style={{backgroundColor: '#EBF5FB', borderRight: '1px solid #E0E0E0', width: '40px'}}>
                                         QB
                                       </td>
                                     )}
-                                    <td className="sticky left-10 bg-white text-slate-800 font-normal text-left pl-2 z-20 py-2 text-[10px]" style={{borderRight: '1px solid #E0E0E0', width: '140px'}}>
+                                    <td className="sticky left-10 bg-white text-gray-900 font-semibold text-left pl-2 z-20 py-1 text-[11px]" style={{borderRight: '1px solid #E0E0E0', width: '140px'}}>
                                       {player.player_name}
                                     </td>
                                     
