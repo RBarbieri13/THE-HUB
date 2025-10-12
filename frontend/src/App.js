@@ -2070,9 +2070,9 @@ const FantasyDashboard = () => {
                         {trendData.filter(player => player.position === 'TE').length > 0 && (
                           <>
                             {/* TE Position Header */}
-                            <tr className="border-t-2 border-slate-300" style={{backgroundColor: '#FADBD8'}}>
-                              <td colSpan="100" className="py-1.5 px-3 font-semibold text-slate-800 text-[11px] uppercase tracking-wide border-b border-slate-300">
-                                TIGHT ENDS ({trendData.filter(p => p.position === 'TE').length})
+                            <tr className="border-t-2 border-slate-400" style={{backgroundColor: '#FFAA99'}}>
+                              <td colSpan="100" className="py-2 px-3 font-bold text-slate-900 text-[12px] uppercase tracking-wide border-b-2 border-slate-400">
+                                TIGHT ENDS
                               </td>
                             </tr>
                             {trendData.filter(player => player.position === 'TE').map((player, playerIndex, tePlayers) => {
