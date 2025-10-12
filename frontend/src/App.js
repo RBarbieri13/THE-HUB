@@ -1707,7 +1707,7 @@ const FantasyDashboard = () => {
                           </tr>
                           
                           {/* Individual Stat Headers Row */}
-                          <tr className="bg-slate-100">
+                          <tr className="bg-gray-200">
                             {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
                               const week = trendFilters.startWeek + i;
                               
@@ -1716,29 +1716,29 @@ const FantasyDashboard = () => {
                                   {trendViewMode === 'summary' ? (
                                     // Summary View - Only 3 columns
                                     <>
-                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200 w-16">
+                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300 w-16">
                                         $
                                       </th>
-                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200 w-14">
+                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300 w-14">
                                         Snaps
                                       </th>
-                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 w-16">
+                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 w-16">
                                         FPTS
                                       </th>
                                     </>
                                   ) : (
                                     // Full Detail View - QB headers (10 columns)
                                     <>
-                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200">$</th>
-                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200">#</th>
-                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200">Cmp-Att</th>
-                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200">P.Yds</th>
-                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200">P.TD</th>
-                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200">Int</th>
-                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200">R.Att</th>
-                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200">R.Yds</th>
-                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1 border-r border-slate-200">R.TD</th>
-                                      <th className="bg-white text-slate-700 font-normal text-center text-[10px] py-1">FPTS</th>
+                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300">$</th>
+                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300">#</th>
+                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300">Cmp-Att</th>
+                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300">P.Yds</th>
+                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300">P.TD</th>
+                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300">Int</th>
+                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300">R.Att</th>
+                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300">R.Yds</th>
+                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300">R.TD</th>
+                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5">FPTS</th>
                                     </>
                                   )
                                   }
