@@ -1500,32 +1500,32 @@ const FantasyDashboard = () => {
           <div className="p-6 h-full flex flex-col">
             {/* Trend Tool Filters - Collapsible */}
             <div className="mb-4">
-              <Card className="shadow-md">
+              <Card className="shadow-lg border-2 border-blue-200">
                 {/* Filter Header with Collapse Button */}
                 <div 
-                  className="flex items-center justify-between p-3 cursor-pointer hover:bg-gray-50 transition-colors border-b"
+                  className="flex items-center justify-between p-4 cursor-pointer bg-blue-50 hover:bg-blue-100 transition-colors border-b-2 border-blue-300"
                   onClick={() => setTrendFiltersCollapsed(!trendFiltersCollapsed)}
                 >
                   <div className="flex items-center space-x-3">
-                    <Filter className="h-5 w-5 text-blue-600" />
-                    <h2 className="text-md font-semibold text-gray-900">
+                    <Filter className="h-5 w-5 text-blue-700" />
+                    <h2 className="text-md font-bold text-gray-900">
                       Filters: {trendFilters.team} | Weeks {trendFilters.startWeek}-{trendFilters.endWeek} | {trendFilters.season}
                     </h2>
-                    <Badge className="bg-blue-100 text-blue-800">
+                    <Badge className="bg-blue-200 text-blue-900 font-semibold">
                       {trendData.length} Players
                     </Badge>
                   </div>
                   <div className="flex items-center space-x-4">
                     {/* View Mode Toggle */}
                     <div className="flex items-center space-x-2 mr-4">
-                      <span className="text-xs text-gray-600 font-medium">View:</span>
-                      <div className="flex border border-gray-300 rounded-md overflow-hidden">
+                      <span className="text-xs text-gray-700 font-bold">View:</span>
+                      <div className="flex border-2 border-gray-400 rounded-md overflow-hidden shadow-sm">
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
                             setTrendViewMode('summary');
                           }}
-                          className={`px-3 py-1 text-xs font-medium transition-colors ${
+                          className={`px-3 py-1 text-xs font-bold transition-colors ${
                             trendViewMode === 'summary'
                               ? 'bg-blue-600 text-white'
                               : 'bg-white text-gray-700 hover:bg-gray-100'
@@ -1538,7 +1538,7 @@ const FantasyDashboard = () => {
                             e.stopPropagation();
                             setTrendViewMode('full');
                           }}
-                          className={`px-3 py-1 text-xs font-medium transition-colors border-l ${
+                          className={`px-3 py-1 text-xs font-bold transition-colors border-l-2 border-gray-400 ${
                             trendViewMode === 'full'
                               ? 'bg-blue-600 text-white'
                               : 'bg-white text-gray-700 hover:bg-gray-100'
@@ -1548,7 +1548,7 @@ const FantasyDashboard = () => {
                         </button>
                       </div>
                     </div>
-                    <button className="text-gray-500 hover:text-gray-700 transition-colors">
+                    <button className="text-gray-700 hover:text-gray-900 transition-colors font-bold">
                       {trendFiltersCollapsed ? '▼' : '▲'}
                     </button>
                   </div>
@@ -1556,7 +1556,7 @@ const FantasyDashboard = () => {
                 
                 {/* Filter Content - Collapsible */}
                 {!trendFiltersCollapsed && (
-                  <div className="p-4">
+                  <div className="p-4 bg-blue-50 border-t border-blue-200">
                     <div className="flex items-center space-x-6">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Team</label>
