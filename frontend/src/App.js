@@ -1753,9 +1753,9 @@ const FantasyDashboard = () => {
                           {trendData.filter(player => player.position === 'QB').length > 0 && (
                             <>
                               {/* QB Position Header */}
-                              <tr className="border-t-2 border-slate-300" style={{backgroundColor: '#D6EAF8'}}>
-                                <td colSpan="100" className="py-1.5 px-3 font-semibold text-slate-800 text-[11px] uppercase tracking-wide border-b border-slate-300">
-                                  QUARTERBACKS ({trendData.filter(p => p.position === 'QB').length})
+                              <tr className="border-t-2 border-slate-400" style={{backgroundColor: '#A9D9F3'}}>
+                                <td colSpan="100" className="py-2 px-3 font-bold text-slate-900 text-[12px] uppercase tracking-wide border-b-2 border-slate-400">
+                                  QUARTERBACKS
                                 </td>
                               </tr>
                               {trendData.filter(player => player.position === 'QB').map((player, playerIndex, qbPlayers) => {
