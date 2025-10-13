@@ -1852,6 +1852,69 @@ const FantasyDashboard = () => {
                             </>
                           )}
                         
+                        {/* RB/WR/TE Section - New Headers with Receiving */}
+                        {(trendData.filter(player => ['RB', 'WR', 'TE'].includes(player.position)).length > 0) && (
+                          <>
+                            {/* Category Headers Row for RB/WR/TE */}
+                            <tr className="bg-gray-600 sticky" style={{top: '120px', zIndex: 15}}>
+                              <th className="sticky left-0 bg-gray-600 z-20 border-r-4 border-gray-900"></th>
+                              <th className="sticky left-12 bg-gray-600 z-20 border-r-4 border-gray-900"></th>
+                              {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                                return (
+                                  <React.Fragment key={i}>
+                                    {trendViewMode === 'summary' ? (
+                                      <>
+                                        <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[10px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
+                                        <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[10px] py-1 border-r-4 border-gray-900">FPTS</th>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[10px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
+                                        <th colSpan="4" className="bg-orange-600 text-white font-bold text-center text-[10px] py-1 border-r border-gray-500">Receiving</th>
+                                        <th colSpan="4" className="bg-green-700 text-white font-bold text-center text-[10px] py-1 border-r border-gray-500">Rushing</th>
+                                        <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[10px] py-1 border-r-4 border-gray-900">FPTS</th>
+                                      </>
+                                    )}
+                                  </React.Fragment>
+                                );
+                              })}
+                            </tr>
+                            
+                            {/* Individual Stat Headers for RB/WR/TE */}
+                            <tr className="bg-gray-200 sticky" style={{top: '145px', zIndex: 15}}>
+                              <th className="sticky left-0 bg-gray-200 z-20 border-r-4 border-gray-900"></th>
+                              <th className="sticky left-12 bg-gray-200 z-20 border-r-4 border-gray-900"></th>
+                              {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                                return (
+                                  <React.Fragment key={i}>
+                                    {trendViewMode === 'summary' ? (
+                                      <>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-12">$</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-10">#</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-10">$</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-400 w-8">#</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-8">Tgt</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-8">Rec</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-10">Yds</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-400 w-8">TD</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-8">Att</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-10">Yds</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-8">TD</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-400 w-8">Fum</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
+                                      </>
+                                    )}
+                                  </React.Fragment>
+                                );
+                              })}
+                            </tr>
+                          </>
+                        )}
+                        
                         {/* RB Section */}
                         {trendData.filter(player => player.position === 'RB').length > 0 && (
                           <>
