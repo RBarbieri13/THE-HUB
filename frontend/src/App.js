@@ -1650,98 +1650,97 @@ const FantasyDashboard = () => {
                   <div className="h-full overflow-hidden bg-white">
                     <div className="h-full overflow-x-auto overflow-y-auto">
                       <table className="min-w-full border-collapse text-xs font-sans bg-white" style={{tableLayout: 'fixed'}}>
-                        <thead className="sticky top-0 z-30 bg-white">
-                          {/* Week Headers Row */}
+                        <thead className="sticky top-0 z-20">
+                          {/* Row 1: Week Headers */}
                           <tr className="bg-gray-700">
-                            <th rowSpan="3" className="sticky left-0 bg-blue-600 text-white font-black text-center w-16 z-30 shadow-lg border-r-2 border-gray-400">
-                              <div className="py-2 text-sm">Pos</div>
+                            <th rowSpan="3" className="sticky left-0 bg-blue-600 text-white font-black text-center w-12 z-30 shadow-lg border-r-4 border-gray-900">
+                              <div className="py-2 text-xs">Pos</div>
                             </th>
-                            <th rowSpan="3" className="sticky left-16 bg-gray-100 text-gray-900 font-black text-left w-40 z-30 shadow-lg border-r-2 border-gray-400 pl-3">
-                              <div className="py-2 text-sm">Player</div>
+                            <th rowSpan="3" className="sticky left-12 bg-gray-100 text-gray-900 font-black text-left w-32 z-30 shadow-lg border-r-4 border-gray-900 pl-2">
+                              <div className="py-2 text-xs">Player</div>
                             </th>
                             {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
                               const week = trendFilters.startWeek + i;
                               const gameResults = {
-                                // NYG 2025 Schedule
                                 'NYG-1': { opponent: 'vs MIN', result: 'L', score: '6-28' },
                                 'NYG-2': { opponent: '@WAS', result: 'W', score: '21-18' }, 
                                 'NYG-3': { opponent: 'vs CLE', result: 'W', score: '21-15' },
                                 'NYG-4': { opponent: 'vs DAL', result: 'L', score: '15-20' },
                                 'NYG-5': { opponent: '@SEA', result: 'L', score: '17-29' },
                                 'NYG-6': { opponent: 'vs CIN', result: 'W', score: '17-7' },
-                                // DAL 2025 Schedule  
                                 'DAL-1': { opponent: '@CLE', result: 'W', score: '33-17' },
                                 'DAL-2': { opponent: 'vs NO', result: 'W', score: '44-19' },
                                 'DAL-3': { opponent: '@BAL', result: 'L', score: '25-28' },
                                 'DAL-4': { opponent: '@NYG', result: 'W', score: '20-15' },
                                 'DAL-5': { opponent: 'vs PIT', result: 'W', score: '20-17' },
                                 'DAL-6': { opponent: '@DET', result: 'L', score: '38-47' },
-                                // Other teams - add more as needed
                                 'KC-1': { opponent: 'vs BAL', result: 'W', score: '27-20' },
                                 'KC-2': { opponent: '@CIN', result: 'W', score: '26-25' },
                                 'KC-3': { opponent: 'vs ATL', result: 'W', score: '22-17' }
                               };
                               const game = gameResults[`${trendFilters.team}-${week}`] || { opponent: `vs OPP`, result: 'TBD', score: '' };
-                              
-                              // Calculate colspan based on view mode
-                              const colSpan = trendViewMode === 'summary' ? 3 : 10;
+                              const colSpan = trendViewMode === 'summary' ? 3 : 11;
                               
                               return (
-                                <th key={week} colSpan={colSpan} className="bg-gray-300 text-gray-900 font-bold text-center border-l-2 border-gray-400 px-3 py-2 relative">
+                                <th key={week} colSpan={colSpan} className="bg-black text-white font-bold text-center border-l-4 border-r-4 border-gray-900 px-2 py-1.5">
                                   <div className="text-center">
-                                    <div className="text-[12px] tracking-wide font-bold">Week {week}</div>
-                                    <div className="text-[10px] text-gray-700 mt-0.5 font-semibold">{game.opponent}</div>
-                                    {game.result && game.result !== 'TBD' && (
-                                      <div className={`text-[9px] font-bold px-1.5 py-0.5 rounded mt-0.5 inline-block ${
-                                        game.result === 'W' 
-                                          ? 'bg-green-200 text-green-800' 
-                                          : 'bg-red-200 text-red-800'
-                                      }`}>
-                                        {game.result} {game.score}
-                                      </div>
-                                    )}
+                                    <div className="text-[13px] tracking-wide font-bold">Week {week}</div>
+                                    <div className="text-[10px] text-gray-300 mt-0.5 font-semibold">{game.opponent} - {game.result} {game.score}</div>
                                   </div>
                                 </th>
                               );
                             })}
                           </tr>
                           
-                          {/* Individual Stat Headers Row */}
-                          <tr className="bg-gray-200">
+                          {/* Row 2: Category Headers (Misc, Passing, Rushing, FPTS for QB) */}
+                          <tr className="bg-gray-600">
                             {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
-                              const week = trendFilters.startWeek + i;
-                              
                               return (
                                 <React.Fragment key={i}>
                                   {trendViewMode === 'summary' ? (
-                                    // Summary View - Only 3 columns
                                     <>
-                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300 w-16">
-                                        $
-                                      </th>
-                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300 w-14">
-                                        Snaps
-                                      </th>
-                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 w-16">
-                                        FPTS
-                                      </th>
+                                      <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[10px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
+                                      <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[10px] py-1 border-r-4 border-gray-900">FPTS</th>
                                     </>
                                   ) : (
-                                    // Full Detail View - QB headers (10 columns)
                                     <>
-                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300">$</th>
-                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300">#</th>
-                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300">Cmp-Att</th>
-                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300">P.Yds</th>
-                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300">P.TD</th>
-                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300">Int</th>
-                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300">R.Att</th>
-                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300">R.Yds</th>
-                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5 border-r border-gray-300">R.TD</th>
-                                      <th className="bg-gray-100 text-gray-900 font-bold text-center text-[11px] py-1.5">FPTS</th>
+                                      <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[10px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
+                                      <th colSpan="5" className="bg-blue-700 text-white font-bold text-center text-[10px] py-1 border-r border-gray-500">Passing</th>
+                                      <th colSpan="3" className="bg-green-700 text-white font-bold text-center text-[10px] py-1 border-r border-gray-500">Rushing</th>
+                                      <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[10px] py-1 border-r-4 border-gray-900">FPTS</th>
                                     </>
-                                  )
-                                  }
+                                  )}
+                                </React.Fragment>
+                              );
+                            })}
+                          </tr>
+                          
+                          {/* Row 3: Individual Stat Headers */}
+                          <tr className="bg-gray-200">
+                            {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
+                              return (
+                                <React.Fragment key={i}>
+                                  {trendViewMode === 'summary' ? (
+                                    <>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-12">$</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-10">#</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-10">$</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-400 w-8">#</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-10">Cmp</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-10">Att</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-10">Yds</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-8">TD</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-400 w-8">Int</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-8">Att</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-10">Yds</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-400 w-8">TD</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
+                                    </>
+                                  )}
                                 </React.Fragment>
                               );
                             })}
