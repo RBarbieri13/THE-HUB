@@ -1,4 +1,4 @@
-# Claude Code Rollover Guide - NFL Fantasy Analytics Platform
+# Claude Code Rollover Guide - NFL DK DASHBOARD
 **Transitioning from Emergent to Local Claude Code Development**
 
 ---
