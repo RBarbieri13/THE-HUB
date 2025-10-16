@@ -103,7 +103,7 @@ NEXT STEPS - QUICK START
    - In Cursor, press Cmd+L (Mac) or Ctrl+L (Windows)
    - Paste this:
 
-   "Hi! I just set up the NFL Fantasy Analytics Platform locally.
+   "Hi! I just set up the NFL DK DASHBOARD locally.
    
    Please read CLAUDE_CODE_ROLLOVER_GUIDE.md for full context.
    
