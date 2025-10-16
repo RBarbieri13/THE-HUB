@@ -428,10 +428,10 @@ cursor .
 ```bash
 # In project root
 cat > .cursorrules << 'EOF'
-# NFL Fantasy Analytics Platform - Cursor Rules
+# NFL DK DASHBOARD - Cursor Rules
 
 ## Project Context
-This is an NFL Fantasy Analytics platform with React frontend and FastAPI backend.
+This is the NFL DK DASHBOARD with React frontend and FastAPI backend.
 
 ## Code Style
 - React: Functional components with hooks (no classes)
