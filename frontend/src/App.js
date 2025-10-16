@@ -1949,13 +1949,13 @@ const FantasyDashboard = () => {
                                       <React.Fragment key={week}>
                                         {trendViewMode === 'summary' ? (
                                           <>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData?.dk_salary ? `$${(weekData.dk_salary/1000).toFixed(1)}k` : '-'}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData?.snap_count || weekData?.snap_percentage || '-'}
                                             </td>
-                                            <td className={`text-center text-[10px] py-0.5 font-semibold border-r-4 border-gray-900 ${
+                                            <td className={`text-center text-[13px] py-0 font-semibold border-r-4 border-gray-900 ${
                                               fantasyPoints >= 25 ? 'bg-green-100 text-green-800' :
                                               fantasyPoints >= 20 ? 'bg-green-50 text-green-700' :
                                               fantasyPoints >= 15 ? 'bg-yellow-50 text-yellow-700' :
@@ -1967,37 +1967,37 @@ const FantasyDashboard = () => {
                                           </>
                                         ) : (
                                           <>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData?.dk_salary ? `$${(weekData.dk_salary/1000).toFixed(1)}k` : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData?.snap_count || weekData?.snap_percentage || ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.targets > 0 ? weekData.targets : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.receptions > 0 ? weekData.receptions : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.receiving_yards > 0 ? weekData.receiving_yards : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData && weekData.receiving_tds > 0 ? weekData.receiving_tds : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.rushing_yards > 0 ? rushingAttempts : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.rushing_yards > 0 ? weekData.rushing_yards : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.rushing_tds > 0 ? weekData.rushing_tds : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData && weekData.fumbles_lost > 0 ? weekData.fumbles_lost : ''}
                                             </td>
-                                            <td className={`text-center text-[10px] py-0.5 font-semibold border-r-4 border-gray-900 ${
+                                            <td className={`text-center text-[13px] py-0 font-semibold border-r-4 border-gray-900 ${
                                               fantasyPoints >= 25 ? 'bg-green-100 text-green-800' :
                                               fantasyPoints >= 20 ? 'bg-green-50 text-green-700' :
                                               fantasyPoints >= 15 ? 'bg-yellow-50 text-yellow-700' :
@@ -2048,13 +2048,13 @@ const FantasyDashboard = () => {
                                       <React.Fragment key={week}>
                                         {trendViewMode === 'summary' ? (
                                           <>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData?.dk_salary ? `$${(weekData.dk_salary/1000).toFixed(1)}k` : '-'}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData?.snap_count || weekData?.snap_percentage || '-'}
                                             </td>
-                                            <td className={`text-center text-[10px] py-0.5 font-semibold border-r-4 border-gray-900 ${
+                                            <td className={`text-center text-[13px] py-0 font-semibold border-r-4 border-gray-900 ${
                                               fantasyPoints >= 25 ? 'bg-green-100 text-green-800' :
                                               fantasyPoints >= 20 ? 'bg-green-50 text-green-700' :
                                               fantasyPoints >= 15 ? 'bg-yellow-50 text-yellow-700' :
@@ -2066,37 +2066,37 @@ const FantasyDashboard = () => {
                                           </>
                                         ) : (
                                           <>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData?.dk_salary ? `$${(weekData.dk_salary/1000).toFixed(1)}k` : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData?.snap_count || weekData?.snap_percentage || ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.targets > 0 ? weekData.targets : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.receptions > 0 ? weekData.receptions : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.receiving_yards > 0 ? weekData.receiving_yards : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData && weekData.receiving_tds > 0 ? weekData.receiving_tds : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.rushing_yards > 0 ? rushingAttempts : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.rushing_yards > 0 ? weekData.rushing_yards : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.rushing_tds > 0 ? weekData.rushing_tds : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData && weekData.fumbles_lost > 0 ? weekData.fumbles_lost : ''}
                                             </td>
-                                            <td className={`text-center text-[10px] py-0.5 font-semibold border-r-4 border-gray-900 ${
+                                            <td className={`text-center text-[13px] py-0 font-semibold border-r-4 border-gray-900 ${
                                               fantasyPoints >= 25 ? 'bg-green-100 text-green-800' :
                                               fantasyPoints >= 20 ? 'bg-green-50 text-green-700' :
                                               fantasyPoints >= 15 ? 'bg-yellow-50 text-yellow-700' :
@@ -2150,13 +2150,13 @@ const FantasyDashboard = () => {
                                       <React.Fragment key={week}>
                                         {trendViewMode === 'summary' ? (
                                           <>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData?.dk_salary ? `$${(weekData.dk_salary/1000).toFixed(1)}k` : '-'}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData?.snap_count || weekData?.snap_percentage || '-'}
                                             </td>
-                                            <td className={`text-center text-[10px] py-0.5 font-semibold border-r-4 border-gray-900 ${
+                                            <td className={`text-center text-[13px] py-0 font-semibold border-r-4 border-gray-900 ${
                                               fantasyPoints >= 25 ? 'bg-green-100 text-green-800' :
                                               fantasyPoints >= 20 ? 'bg-green-50 text-green-700' :
                                               fantasyPoints >= 15 ? 'bg-yellow-50 text-yellow-700' :
@@ -2168,37 +2168,37 @@ const FantasyDashboard = () => {
                                           </>
                                         ) : (
                                           <>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData?.dk_salary ? `$${(weekData.dk_salary/1000).toFixed(1)}k` : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData?.snap_count || weekData?.snap_percentage || ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.targets > 0 ? weekData.targets : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.receptions > 0 ? weekData.receptions : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.receiving_yards > 0 ? weekData.receiving_yards : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData && weekData.receiving_tds > 0 ? weekData.receiving_tds : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.rushing_yards > 0 ? rushingAttempts : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.rushing_yards > 0 ? weekData.rushing_yards : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.rushing_tds > 0 ? weekData.rushing_tds : ''}
                                             </td>
-                                            <td className="text-center text-[10px] text-gray-900 bg-white py-0.5" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData && weekData.fumbles_lost > 0 ? weekData.fumbles_lost : ''}
                                             </td>
-                                            <td className={`text-center text-[10px] py-0.5 font-semibold border-r-4 border-gray-900 ${
+                                            <td className={`text-center text-[13px] py-0 font-semibold border-r-4 border-gray-900 ${
                                               fantasyPoints >= 25 ? 'bg-green-100 text-green-800' :
                                               fantasyPoints >= 20 ? 'bg-green-50 text-green-700' :
                                               fantasyPoints >= 15 ? 'bg-yellow-50 text-yellow-700' :
