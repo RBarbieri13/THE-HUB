@@ -1,6 +1,6 @@
 # Database Setup Guide for Claude Code
 
-**Context for Claude:** The NFL Fantasy Analytics Platform uses DuckDB (not MongoDB despite the env variable) for storing player statistics and DraftKings pricing data.
+**Context for Claude:** The NFL DK DASHBOARD uses DuckDB (not MongoDB despite the env variable) for storing player statistics and DraftKings pricing data.
 
 ---
 
