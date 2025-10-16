@@ -1053,8 +1053,8 @@ const FantasyDashboard = () => {
                     />
                   </div>
                   <div>
-                    <h1 className="text-2xl font-bold text-white tracking-tight">NFL Fantasy Analytics</h1>
-                    <p className="text-blue-200 text-sm">Professional Grade Statistics Platform</p>
+                    <h1 className="text-2xl font-bold text-white tracking-tight">NFL DK DASHBOARD</h1>
+                    <p className="text-blue-200 text-sm">DraftKings Analytics & Player Stats</p>
                   </div>
                 </div>
                 <div className="hidden md:flex items-center space-x-2">
