@@ -23,7 +23,7 @@
 ## Executive Summary
 
 ### What This Application Does
-The NFL Fantasy Analytics Platform is a professional-grade statistics dashboard for analyzing NFL player performance data. It combines real-time NFL statistics with DraftKings pricing to provide actionable insights for fantasy football players.
+The NFL DK DASHBOARD is a professional-grade statistics dashboard for analyzing NFL player performance data. It combines real-time NFL statistics with DraftKings pricing to provide actionable insights for fantasy football players.
 
 ### Core Value Proposition
 - **Week-to-week player trend analysis** with granular stat breakdowns
