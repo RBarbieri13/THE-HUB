@@ -1050,7 +1050,7 @@ Pick the most important concept and:
 Open Cursor, press Cmd/Ctrl+L, and start with:
 
 ```
-Hi! I've just set up the NFL Fantasy Analytics Platform locally.
+Hi! I've just set up the NFL DK DASHBOARD locally.
 
 ✅ Backend running: http://localhost:8001
 ✅ Frontend running: http://localhost:3000
