@@ -529,7 +529,7 @@ EOF
 Hi! I'm taking over development of the NFL Fantasy Analytics Platform.
 
 Context:
-1. This is a React + FastAPI app for NFL player statistics and DraftKings pricing
+1. This is the NFL DK DASHBOARD - a React + FastAPI app for NFL player statistics and DraftKings pricing
 2. I have the complete codebase running locally
 3. I've read the Developer Handoff Packet (DEVELOPER_HANDOFF_PACKET.md)
 4. The app has two main views: Data Table (AG-Grid) and Trend Tool (custom table)
