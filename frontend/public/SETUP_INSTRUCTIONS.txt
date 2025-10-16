@@ -1,5 +1,5 @@
-NFL FANTASY ANALYTICS PLATFORM - SETUP INSTRUCTIONS
-===================================================
+NFL DK DASHBOARD - SETUP INSTRUCTIONS
+======================================
 
 You've downloaded: nfl-fantasy-analytics-complete.tar.gz (3.7 MB)
 
