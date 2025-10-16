@@ -119,7 +119,7 @@ You should see the dashboard! 🎉
 Once setup is complete, open Cursor Chat (`Cmd/Ctrl+L`) and paste:
 
 ```
-Hi! I just set up the NFL Fantasy Analytics Platform locally.
+Hi! I just set up the NFL DK DASHBOARD locally.
 
 Please read CLAUDE_CODE_ROLLOVER_GUIDE.md for full project context.
 
