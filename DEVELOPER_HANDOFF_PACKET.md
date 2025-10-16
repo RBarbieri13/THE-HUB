@@ -1,4 +1,4 @@
-# NFL Fantasy Analytics Platform - Developer Handoff Packet
+# NFL DK DASHBOARD - Developer Handoff Packet
 **Last Updated:** January 2025  
 **Version:** 1.0  
 **Current Status:** Production-Ready MVP with Advanced Analytics
