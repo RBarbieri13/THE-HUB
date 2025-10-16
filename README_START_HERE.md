@@ -1,4 +1,4 @@
-# 🏈 NFL Fantasy Analytics Platform
+# 🏈 NFL DK DASHBOARD
 
 **Welcome! You've successfully downloaded the complete project.**
 
