@@ -1685,7 +1685,7 @@ const FantasyDashboard = () => {
                                 <th key={week} colSpan={colSpan} className="bg-black text-white font-bold text-center border-l-4 border-r-4 border-gray-900 px-2 py-1.5">
                                   <div className="text-center">
                                     <div className="text-[13px] tracking-wide font-bold">Week {week}</div>
-                                    <div className="text-[10px] text-gray-300 mt-0.5 font-semibold">{game.opponent} - {game.result} {game.score}</div>
+                                    <div className="text-[13px] text-gray-300 mt-0.5 font-semibold">{game.opponent} - {game.result} {game.score}</div>
                                   </div>
                                 </th>
                               );
@@ -1699,15 +1699,15 @@ const FantasyDashboard = () => {
                                 <React.Fragment key={i}>
                                   {trendViewMode === 'summary' ? (
                                     <>
-                                      <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[10px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
-                                      <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[10px] py-1 border-r-4 border-gray-900">FPTS</th>
+                                      <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[13px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
+                                      <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[13px] py-1 border-r-4 border-gray-900">FPTS</th>
                                     </>
                                   ) : (
                                     <>
-                                      <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[10px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
-                                      <th colSpan="5" className="bg-blue-700 text-white font-bold text-center text-[10px] py-1 border-r border-gray-500">Passing</th>
-                                      <th colSpan="3" className="bg-green-700 text-white font-bold text-center text-[10px] py-1 border-r border-gray-500">Rushing</th>
-                                      <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[10px] py-1 border-r-4 border-gray-900">FPTS</th>
+                                      <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[13px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
+                                      <th colSpan="5" className="bg-blue-700 text-white font-bold text-center text-[13px] py-1 border-r border-gray-500">Passing</th>
+                                      <th colSpan="3" className="bg-green-700 text-white font-bold text-center text-[13px] py-1 border-r border-gray-500">Rushing</th>
+                                      <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[13px] py-1 border-r-4 border-gray-900">FPTS</th>
                                     </>
                                   )}
                                 </React.Fragment>
@@ -1722,23 +1722,23 @@ const FantasyDashboard = () => {
                                 <React.Fragment key={i}>
                                   {trendViewMode === 'summary' ? (
                                     <>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-12">$</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-10">#</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-12">$</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-10">#</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
                                     </>
                                   ) : (
                                     <>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-10">$</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-400 w-8">#</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-10">Cmp</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-10">Att</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-10">Yds</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-8">TD</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-400 w-8">Int</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-8">Att</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-10">Yds</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-400 w-8">TD</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-10">$</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-400 w-8">#</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-10">Cmp</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-10">Att</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-10">Yds</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-8">TD</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-400 w-8">Int</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-8">Att</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-10">Yds</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-400 w-8">TD</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
                                     </>
                                   )}
                                 </React.Fragment>
@@ -1865,15 +1865,15 @@ const FantasyDashboard = () => {
                                   <React.Fragment key={i}>
                                     {trendViewMode === 'summary' ? (
                                       <>
-                                        <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[10px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
-                                        <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[10px] py-1 border-r-4 border-gray-900">FPTS</th>
+                                        <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[13px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
+                                        <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[13px] py-1 border-r-4 border-gray-900">FPTS</th>
                                       </>
                                     ) : (
                                       <>
-                                        <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[10px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
-                                        <th colSpan="4" className="bg-orange-600 text-white font-bold text-center text-[10px] py-1 border-r border-gray-500">Receiving</th>
-                                        <th colSpan="4" className="bg-green-700 text-white font-bold text-center text-[10px] py-1 border-r border-gray-500">Rushing</th>
-                                        <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[10px] py-1 border-r-4 border-gray-900">FPTS</th>
+                                        <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[13px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
+                                        <th colSpan="4" className="bg-orange-600 text-white font-bold text-center text-[13px] py-1 border-r border-gray-500">Receiving</th>
+                                        <th colSpan="4" className="bg-green-700 text-white font-bold text-center text-[13px] py-1 border-r border-gray-500">Rushing</th>
+                                        <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[13px] py-1 border-r-4 border-gray-900">FPTS</th>
                                       </>
                                     )}
                                   </React.Fragment>
@@ -1890,23 +1890,23 @@ const FantasyDashboard = () => {
                                   <React.Fragment key={i}>
                                     {trendViewMode === 'summary' ? (
                                       <>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-12">$</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-10">#</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-12">$</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-10">#</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
                                       </>
                                     ) : (
                                       <>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-10">$</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-400 w-8">#</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-8">Tgt</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-8">Rec</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-10">Yds</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-400 w-8">TD</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-8">Att</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-10">Yds</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-300 w-8">TD</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r border-gray-400 w-8">Fum</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[10px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-10">$</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-400 w-8">#</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-8">Tgt</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-8">Rec</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-10">Yds</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-400 w-8">TD</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-8">Att</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-10">Yds</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-8">TD</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-400 w-8">Fum</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
                                       </>
                                     )}
                                   </React.Fragment>
