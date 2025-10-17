@@ -2163,6 +2163,15 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+async def load_nfl_data_background():
+    """Background task to load NFL data on startup"""
+    try:
+        logger.info("Starting background NFL data load...")
+        await load_nfl_data([2024, 2025])
+        logger.info("Background NFL data load completed successfully")
+    except Exception as e:
+        logger.error(f"Background NFL data load failed: {e}")
+
 @app.on_event("startup")
 async def startup_event():
     logger.info("Fantasy Football Database API started successfully")
