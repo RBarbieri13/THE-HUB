@@ -2166,6 +2166,20 @@ logger = logging.getLogger(__name__)
 @app.on_event("startup")
 async def startup_event():
     logger.info("Fantasy Football Database API started successfully")
+    
+    # Check if database has data, if not, auto-load
+    try:
+        result = conn.execute("SELECT COUNT(*) as count FROM player_stats WHERE season = 2025").fetchone()
+        row_count = result[0] if result else 0
+        
+        if row_count < 100:  # If less than 100 records, database is likely empty or outdated
+            logger.info(f"Database has only {row_count} records for 2025. Auto-loading NFL data...")
+            # Don't await here, run in background
+            asyncio.create_task(load_nfl_data_background())
+        else:
+            logger.info(f"Database already populated with {row_count} records for 2025 season")
+    except Exception as e:
+        logger.warning(f"Could not check database status: {e}. Skipping auto-load.")
 
 @app.on_event("shutdown")
 async def shutdown_event():
