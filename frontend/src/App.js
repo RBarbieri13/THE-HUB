@@ -1662,21 +1662,62 @@ const FantasyDashboard = () => {
                             {Array.from({length: trendFilters.endWeek - trendFilters.startWeek + 1}, (_, i) => {
                               const week = trendFilters.startWeek + i;
                               const gameResults = {
+                                // NYG
                                 'NYG-1': { opponent: 'vs MIN', result: 'L', score: '6-28' },
                                 'NYG-2': { opponent: '@WAS', result: 'W', score: '21-18' }, 
                                 'NYG-3': { opponent: 'vs CLE', result: 'W', score: '21-15' },
                                 'NYG-4': { opponent: 'vs DAL', result: 'L', score: '15-20' },
                                 'NYG-5': { opponent: '@SEA', result: 'L', score: '17-29' },
                                 'NYG-6': { opponent: 'vs CIN', result: 'W', score: '17-7' },
+                                'NYG-7': { opponent: '@PHI', result: 'TBD', score: '' },
+                                // DAL
                                 'DAL-1': { opponent: '@CLE', result: 'W', score: '33-17' },
                                 'DAL-2': { opponent: 'vs NO', result: 'W', score: '44-19' },
                                 'DAL-3': { opponent: '@BAL', result: 'L', score: '25-28' },
                                 'DAL-4': { opponent: '@NYG', result: 'W', score: '20-15' },
-                                'DAL-5': { opponent: 'vs PIT', result: 'W', score: '20-17' },
+                                'DAL-5': { opponent: '@PIT', result: 'L', score: '17-20' },
                                 'DAL-6': { opponent: '@DET', result: 'L', score: '38-47' },
+                                'DAL-7': { opponent: 'vs SF', result: 'TBD', score: '' },
+                                // KC
                                 'KC-1': { opponent: 'vs BAL', result: 'W', score: '27-20' },
                                 'KC-2': { opponent: '@CIN', result: 'W', score: '26-25' },
-                                'KC-3': { opponent: 'vs ATL', result: 'W', score: '22-17' }
+                                'KC-3': { opponent: 'vs ATL', result: 'W', score: '22-17' },
+                                'KC-4': { opponent: '@LAC', result: 'W', score: '17-10' },
+                                'KC-5': { opponent: 'vs NO', result: 'W', score: '26-13' },
+                                'KC-6': { opponent: '@BUF', result: 'L', score: '27-30' },
+                                'KC-7': { opponent: 'vs LV', result: 'TBD', score: '' },
+                                // PIT
+                                'PIT-1': { opponent: '@ATL', result: 'W', score: '18-10' },
+                                'PIT-2': { opponent: 'vs DEN', result: 'W', score: '13-6' },
+                                'PIT-3': { opponent: '@LAC', result: 'W', score: '20-10' },
+                                'PIT-4': { opponent: 'vs IND', result: 'W', score: '27-24' },
+                                'PIT-5': { opponent: 'vs DAL', result: 'W', score: '20-17' },
+                                'PIT-6': { opponent: '@LV', result: 'W', score: '32-13' },
+                                'PIT-7': { opponent: 'vs NYJ', result: 'TBD', score: '' },
+                                // BUF
+                                'BUF-1': { opponent: 'vs ARI', result: 'W', score: '34-28' },
+                                'BUF-2': { opponent: '@MIA', result: 'W', score: '31-10' },
+                                'BUF-3': { opponent: 'vs JAX', result: 'W', score: '47-10' },
+                                'BUF-4': { opponent: 'vs BAL', result: 'W', score: '35-10' },
+                                'BUF-5': { opponent: '@HOU', result: 'W', score: '23-20' },
+                                'BUF-6': { opponent: 'vs KC', result: 'W', score: '30-27' },
+                                'BUF-7': { opponent: '@TEN', result: 'TBD', score: '' },
+                                // PHI
+                                'PHI-1': { opponent: 'vs GB', result: 'L', score: '29-34' },
+                                'PHI-2': { opponent: '@ATL', result: 'W', score: '22-21' },
+                                'PHI-3': { opponent: 'vs NO', result: 'W', score: '15-12' },
+                                'PHI-4': { opponent: '@TB', result: 'W', score: '33-16' },
+                                'PHI-5': { opponent: '@CLE', result: 'W', score: '20-16' },
+                                'PHI-6': { opponent: 'vs NYJ', result: 'W', score: '20-14' },
+                                'PHI-7': { opponent: 'vs NYG', result: 'TBD', score: '' },
+                                // BAL  
+                                'BAL-1': { opponent: '@KC', result: 'L', score: '20-27' },
+                                'BAL-2': { opponent: 'vs LV', result: 'W', score: '23-13' },
+                                'BAL-3': { opponent: 'vs DAL', result: 'W', score: '28-25' },
+                                'BAL-4': { opponent: '@BUF', result: 'L', score: '10-35' },
+                                'BAL-5': { opponent: 'vs CIN', result: 'L', score: '38-41' },
+                                'BAL-6': { opponent: '@WAS', result: 'W', score: '30-23' },
+                                'BAL-7': { opponent: 'vs TB', result: 'TBD', score: '' }
                               };
                               const game = gameResults[`${trendFilters.team}-${week}`] || { opponent: `vs OPP`, result: 'TBD', score: '' };
                               const colSpan = trendViewMode === 'summary' ? 3 : 11;
