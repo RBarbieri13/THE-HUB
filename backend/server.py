@@ -2164,6 +2164,42 @@ async def load_sheets_pricing():
             detail=f"Error loading sheets pricing: {str(e)}"
         )
 
+
+@api_router.post("/scrape-draftkings-salaries", response_model=DraftKingsResponse)
+async def scrape_salaries():
+    """Manually trigger DraftKings salary scraping from FantasyPros"""
+    try:
+        logging.info("Manual DraftKings salary scrape triggered")
+        
+        result = await scrape_draftkings_salaries_from_fantasypros()
+        
+        if result['success']:
+            return DraftKingsResponse(
+                success=True,
+                message=result['message'],
+                records_processed=result.get('count', 0),
+                timestamp=datetime.now(timezone.utc),
+                data={
+                    'inserted': result.get('inserted', 0),
+                    'updated': result.get('updated', 0),
+                    'season': result.get('season'),
+                    'week': result.get('week')
+                }
+            )
+        else:
+            raise HTTPException(
+                status_code=500,
+                detail=result['message']
+            )
+            
+    except Exception as e:
+        logging.error(f"Error in manual salary scrape: {e}")
+        logging.error(traceback.format_exc())
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error scraping salaries: {str(e)}"
+        )
+
 @api_router.get("/snap-counts")
 async def get_snap_counts(
     season: Optional[int] = Query(None, description="Season year"),
