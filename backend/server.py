@@ -2413,7 +2413,7 @@ async def startup_event():
     
     # Check if database has data, if not, auto-load
     try:
-        result = conn.execute("SELECT COUNT(*) as count FROM player_stats WHERE season = 2025").fetchone()
+        result = conn.execute("SELECT COUNT(*) as count FROM weekly_stats WHERE season = 2025").fetchone()
         row_count = result[0] if result else 0
         
         if row_count < 100:  # If less than 100 records, database is likely empty or outdated
