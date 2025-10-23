@@ -1367,6 +1367,191 @@ async def load_draftkings_pricing_from_sheets():
         print(f"❌ Error loading DraftKings pricing: {str(e)}")
         raise
 
+
+async def scrape_draftkings_salaries_from_fantasypros():
+    """Scrape current DraftKings salaries from FantasyPros website"""
+    try:
+        url = "https://www.fantasypros.com/daily-fantasy/nfl/draftkings-salary-changes.php"
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        }
+        
+        logging.info(f"Scraping DraftKings salaries from FantasyPros...")
+        
+        # Fetch the page
+        response = requests.get(url, headers=headers, timeout=30)
+        response.raise_for_status()
+        
+        # Parse HTML
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        # Find the main data table
+        table = soup.find('table', {'id': 'data'})
+        if not table:
+            # Try alternative selectors
+            table = soup.find('table', class_='table')
+        
+        if not table:
+            logging.error("Could not find salary table on FantasyPros page")
+            return {
+                'success': False,
+                'message': 'Could not find salary table on page',
+                'count': 0
+            }
+        
+        players_data = []
+        rows = table.find('tbody').find_all('tr') if table.find('tbody') else table.find_all('tr')[1:]
+        
+        # Determine current week (we'll extract from page or default to latest)
+        current_week = 8  # Default for now, can be dynamically determined
+        current_season = 2025
+        
+        for row in rows:
+            try:
+                cols = row.find_all('td')
+                if len(cols) < 7:  # Skip rows without enough data
+                    continue
+                
+                # Extract player info
+                # Typical structure: Rank, Player, Team-Pos, Game Time, Opp, Old Salary, New Salary, Change
+                player_cell = cols[1].get_text(strip=True) if len(cols) > 1 else ""
+                team_pos_cell = cols[2].get_text(strip=True) if len(cols) > 2 else ""
+                new_salary_cell = cols[6].get_text(strip=True) if len(cols) > 6 else "$0"
+                
+                if not player_cell or not team_pos_cell:
+                    continue
+                
+                # Parse player name
+                player_name = player_cell
+                
+                # Parse team and position from "TEAM - POS" format (e.g., "KC - WR")
+                team_match = re.match(r'([A-Z]{2,3})\s*-\s*([A-Z]{2,3})', team_pos_cell)
+                if team_match:
+                    team = team_match.group(1)
+                    position = team_match.group(2)
+                else:
+                    # Fallback parsing
+                    parts = team_pos_cell.split('-')
+                    team = parts[0].strip() if len(parts) > 0 else "UNK"
+                    position = parts[1].strip() if len(parts) > 1 else "UNK"
+                
+                # Only include skill positions
+                if position not in SKILL_POSITIONS:
+                    continue
+                
+                # Parse salary (remove $, commas)
+                salary_str = new_salary_cell.replace('$', '').replace(',', '').strip()
+                try:
+                    salary = int(salary_str) if salary_str and salary_str.isdigit() else 0
+                except:
+                    salary = 0
+                
+                if salary == 0:
+                    continue
+                
+                players_data.append({
+                    'player_name': player_name,
+                    'team': team,
+                    'position': position,
+                    'salary': salary,
+                    'season': current_season,
+                    'week': current_week
+                })
+                
+            except Exception as e:
+                logging.warning(f"Error parsing row: {e}")
+                continue
+        
+        if not players_data:
+            logging.warning("No player salary data scraped from FantasyPros")
+            return {
+                'success': False,
+                'message': 'No salary data found on page',
+                'count': 0
+            }
+        
+        # Insert into database
+        inserted_count = 0
+        updated_count = 0
+        
+        for player in players_data:
+            try:
+                # Try to insert
+                conn.execute("""
+                    INSERT INTO draftkings_pricing 
+                    (id, player_name, team, position, season, week, salary, created_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    str(uuid.uuid4()),
+                    player['player_name'],
+                    player['team'],
+                    player['position'],
+                    player['season'],
+                    player['week'],
+                    player['salary'],
+                    datetime.now(timezone.utc)
+                ))
+                inserted_count += 1
+            except Exception as e:
+                # If exists, update
+                if 'Constraint Error' in str(e) or 'UNIQUE' in str(e):
+                    try:
+                        conn.execute("""
+                            UPDATE draftkings_pricing 
+                            SET salary = ?, created_at = ?
+                            WHERE player_name = ? AND team = ? AND season = ? AND week = ?
+                        """, (
+                            player['salary'],
+                            datetime.now(timezone.utc),
+                            player['player_name'],
+                            player['team'],
+                            player['season'],
+                            player['week']
+                        ))
+                        updated_count += 1
+                    except Exception as e2:
+                        logging.error(f"Error updating {player['player_name']}: {e2}")
+        
+        conn.commit()
+        
+        total_count = inserted_count + updated_count
+        logging.info(f"✅ Scraped and loaded {total_count} DraftKings salaries from FantasyPros")
+        
+        return {
+            'success': True,
+            'message': f'Successfully scraped {total_count} player salaries',
+            'count': total_count,
+            'inserted': inserted_count,
+            'updated': updated_count,
+            'season': current_season,
+            'week': current_week
+        }
+        
+    except Exception as e:
+        logging.error(f"Error scraping FantasyPros: {e}")
+        return {
+            'success': False,
+            'message': f'Error: {str(e)}',
+            'count': 0
+        }
+
+# Initialize scheduler for automatic weekly updates
+scheduler = BackgroundScheduler()
+
+def scheduled_scrape_salaries():
+    """Scheduled job to scrape DraftKings salaries every Wednesday"""
+    logging.info("Running scheduled DraftKings salary scrape...")
+    try:
+        # Run the async function in a new event loop
+        import asyncio
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        result = loop.run_until_complete(scrape_draftkings_salaries_from_fantasypros())
+        loop.close()
+        logging.info(f"Scheduled scrape completed: {result}")
+    except Exception as e:
+        logging.error(f"Scheduled scrape failed: {e}")
+
 def init_database():
     """Initialize DuckDB tables"""
     try:
