@@ -2365,6 +2365,16 @@ async def load_nfl_data_background():
 async def startup_event():
     logger.info("Fantasy Football Database API started successfully")
     
+    # Start the scheduler for automatic Wednesday scraping
+    scheduler.add_job(
+        scheduled_scrape_salaries,
+        CronTrigger(day_of_week='wed', hour=10, minute=0),  # Every Wednesday at 10 AM
+        id='weekly_salary_scrape',
+        replace_existing=True
+    )
+    scheduler.start()
+    logger.info("Scheduler started: DraftKings salaries will be scraped every Wednesday at 10 AM")
+    
     # Check if database has data, if not, auto-load
     try:
         result = conn.execute("SELECT COUNT(*) as count FROM player_stats WHERE season = 2025").fetchone()
@@ -2376,6 +2386,10 @@ async def startup_event():
             asyncio.create_task(load_nfl_data_background())
         else:
             logger.info(f"Database already populated with {row_count} records for 2025 season")
+            
+        # Trigger immediate salary scrape on startup to get latest data
+        logger.info("Triggering immediate DraftKings salary scrape...")
+        asyncio.create_task(scrape_draftkings_salaries_from_fantasypros())
     except Exception as e:
         logger.warning(f"Could not check database status: {e}. Skipping auto-load.")
 
