@@ -2395,6 +2395,7 @@ async def startup_event():
 
 @app.on_event("shutdown")
 async def shutdown_event():
+    scheduler.shutdown(wait=False)
     conn.close()
     executor.shutdown(wait=True)
     logger.info("Fantasy Football Database API shutdown complete")
