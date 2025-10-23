@@ -72,7 +72,7 @@ ls -lh backend/nfl_data.db
 
 1. **Download the database file:**
    ```
-   https://football-stats-dash.preview.emergentagent.com/nfl_data.db
+   https://fantasy-trends.preview.emergentagent.com/nfl_data.db
    ```
    
 2. **Place it in backend folder:**

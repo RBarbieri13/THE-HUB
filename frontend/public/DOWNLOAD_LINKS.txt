@@ -9,7 +9,7 @@ Open in your browser:
 → http://localhost:3000/download.html
 
 Or if on production:
-→ https://football-stats-dash.preview.emergentagent.com/download.html
+→ https://fantasy-trends.preview.emergentagent.com/download.html
 
 
 DIRECT DOWNLOAD LINKS
@@ -20,7 +20,7 @@ Option 1: TAR.GZ Archive (7.3 MB) - For Mac/Linux
 → http://localhost:3000/nfl-fantasy-analytics-COMPLETE.tar.gz
 
 Or:
-→ https://football-stats-dash.preview.emergentagent.com/nfl-fantasy-analytics-COMPLETE.tar.gz
+→ https://fantasy-trends.preview.emergentagent.com/nfl-fantasy-analytics-COMPLETE.tar.gz
 
 
 Option 2: ZIP Archive (15 MB) - For Windows
@@ -28,7 +28,7 @@ Option 2: ZIP Archive (15 MB) - For Windows
 → http://localhost:3000/nfl-fantasy-analytics-COMPLETE.zip
 
 Or:
-→ https://football-stats-dash.preview.emergentagent.com/nfl-fantasy-analytics-COMPLETE.zip
+→ https://fantasy-trends.preview.emergentagent.com/nfl-fantasy-analytics-COMPLETE.zip
 
 
 DOCUMENTATION DOWNLOADS

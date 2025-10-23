@@ -13,7 +13,7 @@ This guide will help you:
 
 **Prerequisites:**
 - You have the Developer Handoff Packet (DEVELOPER_HANDOFF_PACKET.md)
-- You're viewing this on: https://football-stats-dash.preview.emergentagent.com/
+- You're viewing this on: https://fantasy-trends.preview.emergentagent.com/
 - You have Claude Code / Cursor IDE installed (or will install it)
 
 ---
@@ -92,7 +92,7 @@ ls -lh nfl_data.db
    ```
 3. Then download from browser:
    ```
-   https://football-stats-dash.preview.emergentagent.com/nfl_data.db
+   https://fantasy-trends.preview.emergentagent.com/nfl_data.db
    ```
 
 **Option B: Recreate Database Locally**
@@ -134,7 +134,7 @@ EOF
 
 Then download:
 ```
-https://football-stats-dash.preview.emergentagent.com/dk_pricing_backup.json
+https://fantasy-trends.preview.emergentagent.com/dk_pricing_backup.json
 ```
 
 ---
@@ -509,7 +509,7 @@ EOF
 **Import the documentation:**
 
 1. **Download** the Developer Handoff Packet:
-   - From: https://football-stats-dash.preview.emergentagent.com/DEVELOPER_HANDOFF_PACKET.md
+   - From: https://fantasy-trends.preview.emergentagent.com/DEVELOPER_HANDOFF_PACKET.md
    - Save to project root: `/nfl-fantasy-analytics/DEVELOPER_HANDOFF_PACKET.md`
 
 2. **In Cursor**, you can now reference it:

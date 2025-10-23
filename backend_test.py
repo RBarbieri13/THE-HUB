@@ -11,7 +11,7 @@ from datetime import datetime
 from typing import Dict, List, Any, Optional
 
 # Backend URL from frontend .env
-BACKEND_URL = "https://football-stats-dash.preview.emergentagent.com/api"
+BACKEND_URL = "https://fantasy-trends.preview.emergentagent.com/api"
 
 # All NFL Teams for validation
 NFL_TEAMS = {
