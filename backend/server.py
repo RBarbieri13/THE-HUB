@@ -1385,69 +1385,111 @@ async def scrape_draftkings_salaries_from_fantasypros():
         # Parse HTML
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        # Find the main data table
-        table = soup.find('table', {'id': 'data'})
-        if not table:
-            # Try alternative selectors
-            table = soup.find('table', class_='table')
+        # Find the main data table - try multiple selectors
+        table = None
+        table_selectors = [
+            ('id', 'data'),
+            ('id', 'salary-changes-table'),
+            ('class', 'table'),
+            ('class', 'salary-table')
+        ]
+        
+        for selector_type, selector_value in table_selectors:
+            if selector_type == 'id':
+                table = soup.find('table', {'id': selector_value})
+            else:
+                table = soup.find('table', class_=selector_value)
+            
+            if table:
+                logging.info(f"Found table using {selector_type}='{selector_value}'")
+                break
         
         if not table:
-            logging.error("Could not find salary table on FantasyPros page")
-            return {
-                'success': False,
-                'message': 'Could not find salary table on page',
-                'count': 0
-            }
+            # Try finding any table
+            tables = soup.find_all('table')
+            if tables:
+                table = tables[0]  # Use first table found
+                logging.info(f"Using first table found ({len(tables)} tables total)")
+            else:
+                logging.error("Could not find any salary table on FantasyPros page")
+                return {
+                    'success': False,
+                    'message': 'Could not find salary table on page',
+                    'count': 0
+                }
         
         players_data = []
-        rows = table.find('tbody').find_all('tr') if table.find('tbody') else table.find_all('tr')[1:]
+        
+        # Find table body
+        tbody = table.find('tbody')
+        if tbody:
+            rows = tbody.find_all('tr')
+        else:
+            # Skip header row if no tbody
+            all_rows = table.find_all('tr')
+            rows = all_rows[1:] if len(all_rows) > 1 else all_rows
+        
+        logging.info(f"Found {len(rows)} rows in salary table")
         
         # Determine current week (we'll extract from page or default to latest)
         current_week = 8  # Default for now, can be dynamically determined
         current_season = 2025
         
-        for row in rows:
+        for idx, row in enumerate(rows):
             try:
                 cols = row.find_all('td')
-                if len(cols) < 7:  # Skip rows without enough data
+                if len(cols) < 5:  # Skip rows without enough data
                     continue
                 
-                # Extract player info
-                # Typical structure: Rank, Player, Team-Pos, Game Time, Opp, Old Salary, New Salary, Change
-                player_cell = cols[1].get_text(strip=True) if len(cols) > 1 else ""
-                team_pos_cell = cols[2].get_text(strip=True) if len(cols) > 2 else ""
-                new_salary_cell = cols[6].get_text(strip=True) if len(cols) > 6 else "$0"
+                # Extract player info - structure may vary
+                # Common structure: Rank, Player (Name + Team-Pos), Game Time, Opp, Old Salary, New Salary, Change
+                # Or: Player, Position, Team, Salary
                 
-                if not player_cell or not team_pos_cell:
+                # Try to identify player name and position from different column positions
+                player_name = None
+                team = None
+                position = None
+                salary = 0
+                
+                # Check each column for player data
+                for col_idx, col in enumerate(cols):
+                    text = col.get_text(strip=True)
+                    
+                    # Look for team-pos pattern (e.g., "KC - WR" or "MIN - QB")
+                    team_pos_match = re.search(r'([A-Z]{2,3})\s*-\s*([A-Z]{2,3})', text)
+                    if team_pos_match and not team:
+                        team = team_pos_match.group(1)
+                        position = team_pos_match.group(2)
+                        # Player name is typically in previous column or same column before team-pos
+                        if col_idx > 0:
+                            player_text = cols[col_idx - 1].get_text(strip=True)
+                            if player_text and not player_text.isdigit():
+                                player_name = player_text
+                        
+                        # Or player name might be in same cell before team-pos
+                        name_in_cell = text.split('(')[0].strip() if '(' in text else text.split('-')[0].strip()
+                        if name_in_cell and len(name_in_cell) > 3:
+                            player_name = name_in_cell
+                    
+                    # Look for salary ($X,XXX format)
+                    salary_match = re.search(r'\$([0-9,]+)', text)
+                    if salary_match and salary == 0:
+                        try:
+                            salary = int(salary_match.group(1).replace(',', ''))
+                        except:
+                            pass
+                
+                # Validate we have minimum required data
+                if not player_name or not position or salary == 0:
                     continue
-                
-                # Parse player name
-                player_name = player_cell
-                
-                # Parse team and position from "TEAM - POS" format (e.g., "KC - WR")
-                team_match = re.match(r'([A-Z]{2,3})\s*-\s*([A-Z]{2,3})', team_pos_cell)
-                if team_match:
-                    team = team_match.group(1)
-                    position = team_match.group(2)
-                else:
-                    # Fallback parsing
-                    parts = team_pos_cell.split('-')
-                    team = parts[0].strip() if len(parts) > 0 else "UNK"
-                    position = parts[1].strip() if len(parts) > 1 else "UNK"
                 
                 # Only include skill positions
                 if position not in SKILL_POSITIONS:
                     continue
                 
-                # Parse salary (remove $, commas)
-                salary_str = new_salary_cell.replace('$', '').replace(',', '').strip()
-                try:
-                    salary = int(salary_str) if salary_str and salary_str.isdigit() else 0
-                except:
-                    salary = 0
-                
-                if salary == 0:
-                    continue
+                # Default team if not found
+                if not team:
+                    team = "UNK"
                 
                 players_data.append({
                     'player_name': player_name,
@@ -1459,8 +1501,10 @@ async def scrape_draftkings_salaries_from_fantasypros():
                 })
                 
             except Exception as e:
-                logging.warning(f"Error parsing row: {e}")
+                logging.warning(f"Error parsing row {idx}: {e}")
                 continue
+        
+        logging.info(f"Parsed {len(players_data)} player salary records")
         
         if not players_data:
             logging.warning("No player salary data scraped from FantasyPros")
@@ -1529,6 +1573,7 @@ async def scrape_draftkings_salaries_from_fantasypros():
         
     except Exception as e:
         logging.error(f"Error scraping FantasyPros: {e}")
+        logging.error(traceback.format_exc())
         return {
             'success': False,
             'message': f'Error: {str(e)}',
