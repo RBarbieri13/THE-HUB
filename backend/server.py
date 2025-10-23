@@ -1385,13 +1385,13 @@ async def scrape_draftkings_salaries_from_fantasypros():
         # Parse HTML
         soup = BeautifulSoup(response.text, 'html.parser')
         
-        # Find the main data table - try multiple selectors
+        # Find the main data table
         table = None
         table_selectors = [
             ('id', 'data'),
             ('id', 'salary-changes-table'),
             ('class', 'table'),
-            ('class', 'salary-table')
+            ('class', 'player-salary-table')
         ]
         
         for selector_type, selector_value in table_selectors:
@@ -1431,9 +1431,17 @@ async def scrape_draftkings_salaries_from_fantasypros():
         
         logging.info(f"Found {len(rows)} rows in salary table")
         
-        # Determine current week (we'll extract from page or default to latest)
-        current_week = 8  # Default for now, can be dynamically determined
+        # Determine current week from page
+        current_week = 8  # Default
         current_season = 2025
+        
+        # Try to extract week number from page heading
+        heading = soup.find('h1')
+        if heading:
+            week_match = re.search(r'Week\s+(\d+)', heading.get_text())
+            if week_match:
+                current_week = int(week_match.group(1))
+                logging.info(f"Detected current week: {current_week}")
         
         for idx, row in enumerate(rows):
             try:
@@ -1441,55 +1449,65 @@ async def scrape_draftkings_salaries_from_fantasypros():
                 if len(cols) < 5:  # Skip rows without enough data
                     continue
                 
-                # Extract player info - structure may vary
-                # Common structure: Rank, Player (Name + Team-Pos), Game Time, Opp, Old Salary, New Salary, Change
-                # Or: Player, Position, Team, Salary
+                # Column structure (from crawl tool output):
+                # 0: ECR (rank)
+                # 1: Player (name with team-pos in parentheses)
+                # 2: Kickoff time
+                # 3: Opponent
+                # 4: This Week (current salary) 
+                # 5: Last Week (previous salary)
+                # 6: Difference
                 
-                # Try to identify player name and position from different column positions
-                player_name = None
-                team = None
-                position = None
-                salary = 0
-                
-                # Check each column for player data
-                for col_idx, col in enumerate(cols):
+                # Get player cell (typically column 1)
+                player_cell_text = ""
+                for col in cols[0:3]:  # Check first few columns for player data
                     text = col.get_text(strip=True)
-                    
-                    # Look for team-pos pattern (e.g., "KC - WR" or "MIN - QB")
-                    team_pos_match = re.search(r'([A-Z]{2,3})\s*-\s*([A-Z]{2,3})', text)
-                    if team_pos_match and not team:
-                        team = team_pos_match.group(1)
-                        position = team_pos_match.group(2)
-                        # Player name is typically in previous column or same column before team-pos
-                        if col_idx > 0:
-                            player_text = cols[col_idx - 1].get_text(strip=True)
-                            if player_text and not player_text.isdigit():
-                                player_name = player_text
-                        
-                        # Or player name might be in same cell before team-pos
-                        name_in_cell = text.split('(')[0].strip() if '(' in text else text.split('-')[0].strip()
-                        if name_in_cell and len(name_in_cell) > 3:
-                            player_name = name_in_cell
-                    
-                    # Look for salary ($X,XXX format)
-                    salary_match = re.search(r'\$([0-9,]+)', text)
-                    if salary_match and salary == 0:
-                        try:
-                            salary = int(salary_match.group(1).replace(',', ''))
-                        except:
-                            pass
+                    # Look for pattern: "Name (TEAM - POS)" or just "(TEAM - POS)"
+                    if '(' in text and '-' in text and ')' in text:
+                        player_cell_text = text
+                        break
                 
-                # Validate we have minimum required data
-                if not player_name or not position or salary == 0:
+                if not player_cell_text:
                     continue
+                
+                # Parse player name and team-position from format: "Player Name (TEAM - POS)"
+                # Example: "Oronde Gadsden II (LAC - TE)"
+                match = re.match(r'(.+?)\s*\(([A-Z]{2,3})\s*-\s*([A-Z]{2,3})\)', player_cell_text)
+                
+                if not match:
+                    # Try alternative: just "(TEAM - POS)" without name
+                    match = re.match(r'\(([A-Z]{2,3})\s*-\s*([A-Z]{2,3})\)', player_cell_text)
+                    if match:
+                        team = match.group(1)
+                        position = match.group(2)
+                        # Try to get name from previous column or link
+                        player_name = cols[1].find('a').get_text(strip=True) if cols[1].find('a') else "Unknown"
+                    else:
+                        continue
+                else:
+                    player_name = match.group(1).strip()
+                    team = match.group(2)
+                    position = match.group(3)
                 
                 # Only include skill positions
                 if position not in SKILL_POSITIONS:
                     continue
                 
-                # Default team if not found
-                if not team:
-                    team = "UNK"
+                # Extract salary from "This Week" column (usually column 4 or 5)
+                salary = 0
+                for col in cols[3:]:  # Check columns starting from opponent/time
+                    text = col.get_text(strip=True)
+                    salary_match = re.search(r'\$([0-9,]+)', text)
+                    if salary_match:
+                        try:
+                            salary = int(salary_match.group(1).replace(',', ''))
+                            if salary > 1000:  # Valid salary found
+                                break
+                        except:
+                            pass
+                
+                if salary == 0 or salary < 2000:  # Skip invalid salaries
+                    continue
                 
                 players_data.append({
                     'player_name': player_name,
@@ -1563,7 +1581,7 @@ async def scrape_draftkings_salaries_from_fantasypros():
         
         return {
             'success': True,
-            'message': f'Successfully scraped {total_count} player salaries',
+            'message': f'Successfully scraped {total_count} player salaries for Week {current_week}',
             'count': total_count,
             'inserted': inserted_count,
             'updated': updated_count,
