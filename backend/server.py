@@ -147,6 +147,7 @@ class PlayerStats(BaseModel):
     fumbles_lost: Optional[int] = 0
     fantasy_points: Optional[float] = 0
     snap_percentage: Optional[int] = None
+    snap_count: Optional[int] = None
     targets: Optional[int] = 0
     dk_salary: Optional[int] = None
 
