@@ -1794,7 +1794,7 @@ const FantasyDashboard = () => {
                             <>
                               {/* QB Position Header */}
                               <tr className="border-t-2 border-slate-400" style={{backgroundColor: '#A9D9F3'}}>
-                                <td colSpan="100" className="py-2 px-3 font-bold text-slate-900 text-[12px] uppercase tracking-wide border-b-2 border-slate-400">
+                                <td colSpan="100" className="py-1 px-3 font-bold text-slate-900 text-[12px] uppercase tracking-wide border-b-2 border-slate-400">
                                   QUARTERBACKS
                                 </td>
                               </tr>
