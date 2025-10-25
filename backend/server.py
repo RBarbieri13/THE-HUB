@@ -2333,10 +2333,9 @@ async def load_excel_salaries():
                     try:
                         conn.execute("""
                             INSERT INTO draftkings_pricing 
-                            (id, player_name, team, position, season, week, salary, created_at)
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                            (player_name, team, position, season, week, salary, created_at)
+                            VALUES (?, ?, ?, ?, ?, ?, ?)
                         """, (
-                            str(uuid.uuid4()),
                             name,
                             team,
                             position,
