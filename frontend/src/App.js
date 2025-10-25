@@ -1437,7 +1437,7 @@ const FantasyDashboard = () => {
                       </Button>
                     </div>
                     <CardDescription className="text-xs">
-                      {selectedPlayer?.team} • Last 10 games from {filters.week === 'all' ? 'current season' : `Week ${filters.week}`} backwards
+                      {selectedPlayer?.team} • Last 5 games from {filters.week === 'all' ? 'current season' : `Week ${filters.week}`} backwards
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="p-4 overflow-y-auto" style={{ height: '550px' }}>
