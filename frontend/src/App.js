@@ -1452,33 +1452,101 @@ const FantasyDashboard = () => {
                     
                     {/* Game History */}
                     <div>
-                      <h4 className="text-sm font-semibold mb-2">Recent Games</h4>
-                      <div className="space-y-2">
+                      <h4 className="text-sm font-semibold mb-3">Last 5 Games</h4>
+                      <div className="space-y-3">
                         {playerGameHistory.length > 0 ? (
                           playerGameHistory.map((game, index) => (
-                            <div key={index} className="p-3 bg-white border rounded-lg hover:shadow-md transition-shadow">
-                              <div className="flex justify-between items-center mb-1">
-                                <span className="text-xs font-medium">Week {game.week} vs {game.opponent}</span>
-                                <span className="text-xs font-bold text-blue-600">
-                                  {calculateFantasyPoints(game)} pts
+                            <div key={index} className="p-4 bg-gradient-to-r from-blue-50 to-white border-l-4 border-blue-500 rounded-lg shadow-sm hover:shadow-md transition-all">
+                              {/* Game Header */}
+                              <div className="flex justify-between items-center mb-3 pb-2 border-b border-gray-200">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-sm font-bold text-gray-900">Week {game.week}</span>
+                                  <span className="text-xs text-gray-500">vs {game.opponent || 'OPP'}</span>
+                                </div>
+                                <span className="text-sm font-bold text-blue-600 bg-blue-100 px-2 py-1 rounded">
+                                  {calculateFantasyPoints(game).toFixed(1)} pts
                                 </span>
                               </div>
-                              <div className="grid grid-cols-3 gap-1 text-xs text-gray-600">
-                                {game.position === 'QB' && (
-                                  <>
-                                    <div>{game.passing_yards || 0} pass yds</div>
-                                    <div>{game.passing_tds || 0} pass TD</div>
-                                    <div>{game.interceptions || 0} INT</div>
-                                  </>
-                                )}
-                                {(game.position === 'RB' || game.position === 'WR' || game.position === 'TE') && (
-                                  <>
-                                    <div>{game.receiving_yards || 0} rec yds</div>
-                                    <div>{game.receptions || 0} rec</div>
-                                    <div>{game.rushing_yards || 0} rush yds</div>
-                                  </>
-                                )}
+                              
+                              {/* DK Salary & Snaps Row */}
+                              <div className="grid grid-cols-2 gap-2 mb-3 pb-2 border-b border-gray-100">
+                                <div className="bg-green-50 px-2 py-1.5 rounded">
+                                  <div className="text-[10px] text-gray-500 uppercase font-medium">DK Salary</div>
+                                  <div className="text-sm font-bold text-green-700">
+                                    {game.dk_salary ? `$${(game.dk_salary / 1000).toFixed(1)}k` : '-'}
+                                  </div>
+                                </div>
+                                <div className="bg-indigo-50 px-2 py-1.5 rounded">
+                                  <div className="text-[10px] text-gray-500 uppercase font-medium">Snaps</div>
+                                  <div className="text-sm font-bold text-indigo-700">
+                                    {game.snap_count || game.snap_percentage || '-'}
+                                  </div>
+                                </div>
                               </div>
+                              
+                              {/* Position-Specific Stats */}
+                              {game.position === 'QB' && (
+                                <div className="grid grid-cols-2 gap-2 text-xs">
+                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
+                                    <span className="text-gray-500">Passing:</span>
+                                    <span className="ml-1 font-semibold text-gray-900">{game.passing_yards || 0} yds</span>
+                                  </div>
+                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
+                                    <span className="text-gray-500">Pass TD:</span>
+                                    <span className="ml-1 font-semibold text-gray-900">{game.passing_tds || 0}</span>
+                                  </div>
+                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
+                                    <span className="text-gray-500">Rushing:</span>
+                                    <span className="ml-1 font-semibold text-gray-900">{game.rushing_yards || 0} yds</span>
+                                  </div>
+                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
+                                    <span className="text-gray-500">INT:</span>
+                                    <span className="ml-1 font-semibold text-red-600">{game.interceptions || 0}</span>
+                                  </div>
+                                </div>
+                              )}
+                              
+                              {game.position === 'RB' && (
+                                <div className="grid grid-cols-2 gap-2 text-xs">
+                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
+                                    <span className="text-gray-500">Rushing:</span>
+                                    <span className="ml-1 font-semibold text-gray-900">{game.rushing_yards || 0} yds</span>
+                                  </div>
+                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
+                                    <span className="text-gray-500">Rush TD:</span>
+                                    <span className="ml-1 font-semibold text-gray-900">{game.rushing_tds || 0}</span>
+                                  </div>
+                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
+                                    <span className="text-gray-500">Receiving:</span>
+                                    <span className="ml-1 font-semibold text-gray-900">{game.receiving_yards || 0} yds</span>
+                                  </div>
+                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
+                                    <span className="text-gray-500">Receptions:</span>
+                                    <span className="ml-1 font-semibold text-gray-900">{game.receptions || 0}</span>
+                                  </div>
+                                </div>
+                              )}
+                              
+                              {(game.position === 'WR' || game.position === 'TE') && (
+                                <div className="grid grid-cols-2 gap-2 text-xs">
+                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
+                                    <span className="text-gray-500">Receiving:</span>
+                                    <span className="ml-1 font-semibold text-gray-900">{game.receiving_yards || 0} yds</span>
+                                  </div>
+                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
+                                    <span className="text-gray-500">Rec TD:</span>
+                                    <span className="ml-1 font-semibold text-gray-900">{game.receiving_tds || 0}</span>
+                                  </div>
+                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
+                                    <span className="text-gray-500">Receptions:</span>
+                                    <span className="ml-1 font-semibold text-gray-900">{game.receptions || 0}</span>
+                                  </div>
+                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
+                                    <span className="text-gray-500">Targets:</span>
+                                    <span className="ml-1 font-semibold text-gray-900">{game.targets || 0}</span>
+                                  </div>
+                                </div>
+                              )}
                             </div>
                           ))
                         ) : (
