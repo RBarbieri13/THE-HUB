@@ -2394,7 +2394,65 @@ async def load_excel_salaries():
             detail=f"Error loading Excel: {str(e)}"
         )
 
-@api_router.get("/snap-counts")
+@api_router.get("/draftkings-pricing-summary")
+async def get_pricing_summary():
+    """Get summary of DraftKings pricing data"""
+    try:
+        # Get weekly breakdown
+        weekly_data = conn.execute("""
+            SELECT week, COUNT(*) as count, COUNT(DISTINCT position) as positions,
+                   MIN(salary) as min_salary, MAX(salary) as max_salary
+            FROM draftkings_pricing
+            WHERE season = 2025
+            GROUP BY week
+            ORDER BY week
+        """).fetchall()
+        
+        # Get sample data from latest week
+        latest_week = conn.execute("""
+            SELECT MAX(week) FROM draftkings_pricing WHERE season = 2025
+        """).fetchone()[0] if weekly_data else 0
+        
+        sample_data = []
+        if latest_week:
+            samples = conn.execute("""
+                SELECT player_name, team, position, salary
+                FROM draftkings_pricing
+                WHERE season = 2025 AND week = ?
+                ORDER BY salary DESC
+                LIMIT 20
+            """, [latest_week]).fetchall()
+            
+            sample_data = [
+                {
+                    'player': row[0],
+                    'team': row[1],
+                    'pos': row[2],
+                    'salary': row[3]
+                }
+                for row in samples
+            ]
+        
+        return {
+            'success': True,
+            'season': 2025,
+            'weeks': [
+                {
+                    'week': row[0],
+                    'player_count': row[1],
+                    'positions': row[2],
+                    'min_salary': row[3],
+                    'max_salary': row[4]
+                }
+                for row in weekly_data
+            ],
+            'latest_week': latest_week,
+            'sample_players': sample_data
+        }
+        
+    except Exception as e:
+        logging.error(f"Error getting pricing summary: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 async def get_snap_counts(
     season: Optional[int] = Query(None, description="Season year"),
     week: Optional[int] = Query(None, description="Week number"),
