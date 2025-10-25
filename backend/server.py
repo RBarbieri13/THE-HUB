@@ -2283,16 +2283,16 @@ async def load_excel_salaries():
         
         for sheet_name in xl.sheet_names:
             df = pd.read_excel(excel_file, sheet_name=sheet_name)
-            logging.info(f"Processing sheet: {sheet_name}, rows: {len(df)}")
+            logging.info(f"Processing sheet: {sheet_name}, rows: {len(df)}, columns: {df.columns.tolist()}")
             
             for idx, row in df.iterrows():
                 try:
-                    # Extract data
-                    week = row.get('WEEK', 1)
+                    # Extract data - try different column name variations
+                    week = row.get('Week', row.get('WEEK', row.get('week', 1)))
                     name = row.get('NAME', row.get('name', row.get('Player', '')))
                     team = row.get('TEAM', row.get('team', row.get('Team', '')))
                     position = row.get('POS', row.get('pos', row.get('Position', '')))
-                    salary_raw = row.get('$', row.get('Salary', row.get('salary', 0)))
+                    salary_raw = row.get('$', row.get('Salary', row.get('salary', row.get('DK $', 0))))
                     
                     # Clean up data
                     if pd.isna(name) or name == '':
@@ -2303,13 +2303,22 @@ async def load_excel_salaries():
                     team = str(team).strip().upper() if not pd.isna(team) else 'UNK'
                     position = str(position).strip().upper() if not pd.isna(position) else 'UNK'
                     
-                    # Parse salary
+                    # Parse salary - handle string format like "7400"
                     if pd.isna(salary_raw):
                         salary = 0
                     elif isinstance(salary_raw, str):
-                        salary = int(salary_raw.replace('$', '').replace(',', '').strip())
+                        # Remove any non-numeric characters except comma and period
+                        cleaned = ''.join(c for c in salary_raw if c.isdigit() or c in '.,')
+                        cleaned = cleaned.replace(',', '')
+                        try:
+                            salary = int(float(cleaned)) if cleaned else 0
+                        except:
+                            salary = 0
                     else:
-                        salary = int(salary_raw)
+                        try:
+                            salary = int(float(salary_raw))
+                        except:
+                            salary = 0
                     
                     if salary == 0 or salary < 2000:
                         total_skipped += 1
@@ -2354,6 +2363,7 @@ async def load_excel_salaries():
                             ))
                             total_updated += 1
                         else:
+                            logging.warning(f"Database error on row {idx}: {e}")
                             total_skipped += 1
                             
                 except Exception as e:
@@ -2367,7 +2377,7 @@ async def load_excel_salaries():
         
         return DraftKingsResponse(
             success=True,
-            message=f"Successfully loaded {total_count} salary records from Excel",
+            message=f"Successfully loaded {total_count} salary records from Excel (Weeks 1-8)",
             records_processed=total_count,
             timestamp=datetime.now(timezone.utc),
             data={
