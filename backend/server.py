@@ -1975,6 +1975,7 @@ async def get_players(
                 ws.fumbles_lost,
                 ws.fantasy_points,
                 COALESCE(sc.offense_snaps, CAST(ws.snap_percentage * 100 AS INTEGER)) as snap_percentage,
+                COALESCE(sc.offense_snaps, 0) as snap_count,
                 COALESCE(dp.salary, NULL) as dk_salary
             FROM weekly_stats ws
             LEFT JOIN skill_snap_counts sc ON (
