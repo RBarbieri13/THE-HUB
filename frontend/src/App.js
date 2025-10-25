@@ -2173,7 +2173,7 @@ const FantasyDashboard = () => {
                                   <td className="sticky left-0 bg-amber-500 text-white font-bold text-center text-xs w-12 z-20">
                                     TE
                                   </td>
-                                  <td className="sticky left-12 bg-gradient-to-r from-amber-50/90 to-white text-slate-900 font-medium text-left border-r border-amber-200 pl-3 z-20 py-2 min-w-[140px]">
+                                  <td className="sticky left-12 bg-gradient-to-r from-amber-50/90 to-white text-slate-900 font-bold text-left border-r border-amber-200 pl-3 z-20 py-2 min-w-[140px] text-[13px]">
                                     {player.player_name}
                                   </td>
                                   
