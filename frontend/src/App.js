@@ -1723,10 +1723,10 @@ const FantasyDashboard = () => {
                               const colSpan = trendViewMode === 'summary' ? 3 : 11;
                               
                               return (
-                                <th key={week} colSpan={colSpan} className="bg-black text-white font-bold text-center border-l-4 border-r-4 border-gray-900 px-2 py-1.5">
+                                <th key={week} colSpan={colSpan} className="bg-black text-white font-bold text-center border-l-4 border-r-4 border-gray-900 px-3 py-2">
                                   <div className="text-center">
-                                    <div className="text-[13px] tracking-wide font-bold">Week {week}</div>
-                                    <div className="text-[13px] text-gray-300 mt-0.5 font-semibold">{game.opponent} - {game.result} {game.score}</div>
+                                    <div className="text-[15px] tracking-wider font-extrabold">Week {week}</div>
+                                    <div className="text-[14px] text-gray-200 mt-1 font-semibold tracking-wide">{game.opponent} - {game.result} {game.score}</div>
                                   </div>
                                 </th>
                               );
