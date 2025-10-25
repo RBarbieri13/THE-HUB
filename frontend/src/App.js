@@ -208,7 +208,7 @@ const FantasyDashboard = () => {
     await fetchPlayerGameHistory(player);
   };
 
-  // Fetch last 10 games for selected player
+  // Fetch last 5 games for selected player with DK pricing and snaps
   const fetchPlayerGameHistory = async (player) => {
     try {
       const currentWeek = filters.week === 'all' ? 18 : parseInt(filters.week);
@@ -217,19 +217,19 @@ const FantasyDashboard = () => {
       const response = await axios.get(`${API}/players`, {
         params: {
           season: season,
-          limit: 50, // Get more to find last 10 games
+          limit: 50,
           player_name: player.player_name
         }
       });
       
-      // Filter and sort to get last 10 games from current week backwards
+      // Filter and sort to get last 5 games from current week backwards
       const games = response.data
         .filter(game => 
           game.player_name === player.player_name && 
           (filters.week === 'all' || game.week <= currentWeek)
         )
         .sort((a, b) => b.week - a.week)
-        .slice(0, 10);
+        .slice(0, 5); // Changed to 5 games
       
       setPlayerGameHistory(games);
     } catch (error) {
