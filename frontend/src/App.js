@@ -2163,7 +2163,7 @@ const FantasyDashboard = () => {
                           <>
                             {/* TE Position Header */}
                             <tr className="border-t-2 border-slate-400" style={{backgroundColor: '#FFAA99'}}>
-                              <td colSpan="100" className="py-2 px-3 font-bold text-slate-900 text-[12px] uppercase tracking-wide border-b-2 border-slate-400">
+                              <td colSpan="100" className="py-1 px-3 font-bold text-slate-900 text-[12px] uppercase tracking-wide border-b-2 border-slate-400">
                                 TIGHT ENDS
                               </td>
                             </tr>
