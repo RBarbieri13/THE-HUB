@@ -2263,6 +2263,128 @@ async def scrape_salaries():
             detail=f"Error scraping salaries: {str(e)}"
         )
 
+@api_router.post("/load-excel-salaries", response_model=DraftKingsResponse)
+async def load_excel_salaries():
+    """Load DraftKings salaries from Excel file"""
+    try:
+        logging.info("Loading DraftKings salaries from Excel file")
+        
+        excel_file = ROOT_DIR / "dk_salaries.xlsx"
+        if not excel_file.exists():
+            raise HTTPException(status_code=404, detail="Excel file not found")
+        
+        # Read Excel file
+        xl = pd.ExcelFile(excel_file)
+        logging.info(f"Found sheets: {xl.sheet_names}")
+        
+        total_inserted = 0
+        total_updated = 0
+        total_skipped = 0
+        
+        for sheet_name in xl.sheet_names:
+            df = pd.read_excel(excel_file, sheet_name=sheet_name)
+            logging.info(f"Processing sheet: {sheet_name}, rows: {len(df)}")
+            
+            for idx, row in df.iterrows():
+                try:
+                    # Extract data
+                    week = row.get('WEEK', 1)
+                    name = row.get('NAME', row.get('name', row.get('Player', '')))
+                    team = row.get('TEAM', row.get('team', row.get('Team', '')))
+                    position = row.get('POS', row.get('pos', row.get('Position', '')))
+                    salary_raw = row.get('$', row.get('Salary', row.get('salary', 0)))
+                    
+                    # Clean up data
+                    if pd.isna(name) or name == '':
+                        total_skipped += 1
+                        continue
+                        
+                    name = str(name).strip()
+                    team = str(team).strip().upper() if not pd.isna(team) else 'UNK'
+                    position = str(position).strip().upper() if not pd.isna(position) else 'UNK'
+                    
+                    # Parse salary
+                    if pd.isna(salary_raw):
+                        salary = 0
+                    elif isinstance(salary_raw, str):
+                        salary = int(salary_raw.replace('$', '').replace(',', '').strip())
+                    else:
+                        salary = int(salary_raw)
+                    
+                    if salary == 0 or salary < 2000:
+                        total_skipped += 1
+                        continue
+                    
+                    # Only QB, RB, WR, TE
+                    if position not in ['QB', 'RB', 'WR', 'TE']:
+                        total_skipped += 1
+                        continue
+                    
+                    # Try to insert
+                    try:
+                        conn.execute("""
+                            INSERT INTO draftkings_pricing 
+                            (id, player_name, team, position, season, week, salary, created_at)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                        """, (
+                            str(uuid.uuid4()),
+                            name,
+                            team,
+                            position,
+                            2025,
+                            int(week),
+                            salary,
+                            datetime.now(timezone.utc)
+                        ))
+                        total_inserted += 1
+                    except Exception as e:
+                        # If exists, update
+                        if 'Constraint Error' in str(e) or 'UNIQUE' in str(e):
+                            conn.execute("""
+                                UPDATE draftkings_pricing 
+                                SET salary = ?, created_at = ?
+                                WHERE player_name = ? AND team = ? AND season = ? AND week = ?
+                            """, (
+                                salary,
+                                datetime.now(timezone.utc),
+                                name,
+                                team,
+                                2025,
+                                int(week)
+                            ))
+                            total_updated += 1
+                        else:
+                            total_skipped += 1
+                            
+                except Exception as e:
+                    logging.warning(f"Error processing row {idx}: {e}")
+                    total_skipped += 1
+            
+            conn.commit()
+        
+        total_count = total_inserted + total_updated
+        logging.info(f"Excel load complete: {total_inserted} inserted, {total_updated} updated, {total_skipped} skipped")
+        
+        return DraftKingsResponse(
+            success=True,
+            message=f"Successfully loaded {total_count} salary records from Excel",
+            records_processed=total_count,
+            timestamp=datetime.now(timezone.utc),
+            data={
+                'inserted': total_inserted,
+                'updated': total_updated,
+                'skipped': total_skipped
+            }
+        )
+        
+    except Exception as e:
+        logging.error(f"Error loading Excel salaries: {e}")
+        logging.error(traceback.format_exc())
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error loading Excel: {str(e)}"
+        )
+
 @api_router.get("/snap-counts")
 async def get_snap_counts(
     season: Optional[int] = Query(None, description="Season year"),
