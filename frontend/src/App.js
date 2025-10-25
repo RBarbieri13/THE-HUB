@@ -1807,7 +1807,7 @@ const FantasyDashboard = () => {
                                         QB
                                       </td>
                                     )}
-                                    <td className="sticky left-10 bg-white text-gray-900 font-semibold text-left pl-2 z-20 py-1 text-[11px]" style={{borderRight: '1px solid #E0E0E0', width: '140px'}}>
+                                    <td className="sticky left-10 bg-white text-gray-900 font-bold text-left pl-2 z-20 py-1 text-[13px]" style={{borderRight: '1px solid #E0E0E0', width: '140px'}}>
                                       {player.player_name}
                                     </td>
                                     
