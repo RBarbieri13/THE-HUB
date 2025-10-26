@@ -1938,6 +1938,11 @@ async def load_snap_counts_async(seasons: List[int]) -> Dict:
 async def root():
     return {"message": "Fantasy Football Database API", "version": "1.0.0"}
 
+@api_router.get("/health")
+async def health_check():
+    """Health check endpoint for deployment platforms"""
+    return {"status": "healthy", "timestamp": datetime.now(timezone.utc).isoformat()}
+
 @api_router.get("/nfl-teams")
 async def get_nfl_teams():
     """Get all NFL teams"""
