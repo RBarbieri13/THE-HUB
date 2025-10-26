@@ -2044,7 +2044,10 @@ const FantasyDashboard = () => {
                                   <td className="sticky left-0 bg-emerald-500 text-white font-bold text-center text-xs w-12 z-20">
                                     RB
                                   </td>
-                                  <td className="sticky left-12 bg-gradient-to-r from-emerald-50/90 to-white text-slate-900 font-bold text-left border-r border-emerald-200 pl-3 z-20 py-2 min-w-[140px] text-[13px]">
+                                  <td 
+                                    className="sticky left-12 bg-gradient-to-r from-emerald-50/90 to-white text-slate-900 font-bold text-left border-r border-emerald-200 pl-3 z-20 py-2 min-w-[140px] text-[13px] cursor-pointer hover:bg-emerald-100 hover:text-emerald-700 transition-colors"
+                                    onClick={() => handlePlayerClick(player)}
+                                  >
                                     {player.player_name}
                                   </td>
                                   
