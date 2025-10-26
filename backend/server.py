@@ -32,6 +32,12 @@ app = FastAPI(title="Fantasy Football Database API", version="1.0.0")
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
+# Health check endpoint for Railway
+@api_router.get("/health")
+async def health_check():
+    """Health check endpoint for deployment platforms"""
+    return {"status": "healthy", "service": "fantasy-football-api"}
+
 # Initialize DuckDB connection
 db_path = ROOT_DIR / "fantasy_football.db"
 conn = duckdb.connect(str(db_path))
