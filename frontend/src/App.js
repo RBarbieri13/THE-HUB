@@ -1414,146 +1414,195 @@ const FantasyDashboard = () => {
               {/* Player Detail Panel */}
               {playerDetailOpen && selectedPlayer && (
                 <Card 
-                  className="w-[30%] shadow-xl border-l-4 border-blue-500"
-                  style={{ minWidth: '300px' }}
+                  className="w-[38%] shadow-2xl border-l-4 border-blue-500 flex flex-col"
+                  style={{ minWidth: '420px', maxWidth: '640px', height: '100%' }}
                 >
-                  <CardHeader className="pb-2 bg-gradient-to-r from-blue-50 to-indigo-50 px-4 py-3">
+                  {/* Header - Sticky */}
+                  <CardHeader className="pb-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-4 sticky top-0 z-30 shadow-md">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <CardTitle className="text-base font-semibold">
-                          {selectedPlayer?.player_name}
-                        </CardTitle>
-                        <Badge className="text-xs px-2 py-0.5.5 font-medium bg-blue-100 text-blue-800 border-blue-200">
+                      <div className="flex items-center space-x-4">
+                        <div>
+                          <CardTitle className="text-xl font-bold">
+                            {selectedPlayer?.player_name}
+                          </CardTitle>
+                          <CardDescription className="text-blue-100 text-sm mt-1">
+                            {selectedPlayer?.team} • {selectedPlayer?.position} • Season {filters.season}
+                          </CardDescription>
+                        </div>
+                        <Badge className="text-sm px-3 py-1.5 font-bold bg-white text-blue-600 border-0 shadow-lg">
                           {selectedPlayer?.position}
                         </Badge>
                       </div>
                       <Button 
                         size="sm" 
-                        variant="outline" 
-                        className="text-xs h-7 w-7 p-0"
+                        variant="ghost" 
+                        className="text-white hover:bg-white/20 h-8 w-8 p-0 rounded-full"
                         onClick={() => setPlayerDetailOpen(false)}
                       >
                         ×
                       </Button>
                     </div>
-                    <CardDescription className="text-xs">
-                      {selectedPlayer?.team} • Last 5 games from {filters.week === 'all' ? 'current season' : `Week ${filters.week}`} backwards
-                    </CardDescription>
+                    
+                    {/* Rankings Bar */}
+                    <div className="mt-3 bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2">
+                      <div className="text-xs text-blue-100 mb-1 font-semibold">2025 RANKINGS (PPR)</div>
+                      <div className="grid grid-cols-3 gap-3 text-center">
+                        <div>
+                          <div className="text-xs text-blue-200">Preseason</div>
+                          <div className="text-sm font-bold text-white">{selectedPlayer?.position}??</div>
+                        </div>
+                        <div>
+                          <div className="text-xs text-blue-200">Current</div>
+                          <div className="text-sm font-bold text-white">{selectedPlayer?.position}??</div>
+                        </div>
+                        <div>
+                          <div className="text-xs text-blue-200">Week {filters.week}</div>
+                          <div className="text-sm font-bold text-white">{selectedPlayer?.position}??</div>
+                        </div>
+                      </div>
+                    </div>
                   </CardHeader>
-                  <CardContent className="p-4 overflow-y-auto" style={{ height: '550px' }}>
-                    {/* Player Stats Summary */}
-                    <div className="mb-4 p-3 bg-gray-50 rounded-lg">
-                      <h4 className="text-sm font-semibold mb-2">Season Averages</h4>
-                      <div className="grid grid-cols-2 gap-2 text-xs">
-                        <div>Fantasy Pts: <span className="font-semibold text-green-600">{calculateFantasyPoints(selectedPlayer || {})}</span></div>
-                        <div>Snap Count: <span className="font-semibold text-indigo-600">{selectedPlayer?.snap_percentage || 0}</span></div>
+                  
+                  <CardContent className="p-0 overflow-y-auto flex-1" style={{ height: 'calc(100vh - 200px)' }}>
+                    {/* Game-by-Game Stats Table */}
+                    <div className="p-4">
+                      <h4 className="text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Game-by-Game Statistics</h4>
+                      <div className="overflow-x-auto border rounded-lg">
+                        <table className="w-full text-xs">
+                          <thead className="bg-gradient-to-r from-gray-100 to-gray-50 sticky top-0 z-20">
+                            <tr>
+                              <th className="px-2 py-2 text-left font-bold text-gray-700 border-b border-r">Week</th>
+                              <th className="px-2 py-2 text-left font-bold text-gray-700 border-b border-r">Opp</th>
+                              <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r">Result</th>
+                              <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r bg-indigo-50">Snaps</th>
+                              <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r bg-green-50">DK $</th>
+                              
+                              {selectedPlayer?.position === 'QB' && (
+                                <>
+                                  <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r">Cmp</th>
+                                  <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r">Att</th>
+                                  <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r">Yds</th>
+                                  <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r">TD</th>
+                                  <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r">INT</th>
+                                  <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r">Rush Yds</th>
+                                </>
+                              )}
+                              
+                              {selectedPlayer?.position === 'RB' && (
+                                <>
+                                  <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r">Att</th>
+                                  <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r">Rush Yds</th>
+                                  <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r">Rush TD</th>
+                                  <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r">Rec</th>
+                                  <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r">Rec Yds</th>
+                                  <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r">Rec TD</th>
+                                </>
+                              )}
+                              
+                              {(selectedPlayer?.position === 'WR' || selectedPlayer?.position === 'TE') && (
+                                <>
+                                  <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r">Tgts</th>
+                                  <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r">Rec</th>
+                                  <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r">Rec Yds</th>
+                                  <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r">Rec TD</th>
+                                  <th className="px-2 py-2 text-center font-bold text-gray-700 border-b border-r">Lng</th>
+                                </>
+                              )}
+                              
+                              <th className="px-2 py-2 text-center font-bold text-white border-b bg-blue-600">FPTS</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {playerGameHistory.length > 0 ? (
+                              playerGameHistory.map((game, index) => (
+                                <tr key={index} className="hover:bg-blue-50/50 transition-colors border-b">
+                                  <td className="px-2 py-2 text-left font-semibold text-gray-900 border-r">W{game.week}</td>
+                                  <td className="px-2 py-2 text-left text-gray-700 border-r">{game.opponent || 'OPP'}</td>
+                                  <td className="px-2 py-2 text-center text-xs text-gray-600 border-r">-</td>
+                                  <td className="px-2 py-2 text-center text-gray-900 border-r bg-indigo-50/50">
+                                    <div className="font-semibold">{game.snap_count || game.snap_percentage || '-'}</div>
+                                    {game.snap_percentage && <div className="text-[10px] text-gray-500">({game.snap_percentage}%)</div>}
+                                  </td>
+                                  <td className="px-2 py-2 text-center font-semibold text-green-700 border-r bg-green-50/50">
+                                    {game.dk_salary ? `$${(game.dk_salary / 1000).toFixed(1)}k` : '-'}
+                                  </td>
+                                  
+                                  {selectedPlayer?.position === 'QB' && (
+                                    <>
+                                      <td className="px-2 py-2 text-center text-gray-900 border-r">{Math.ceil((game.passing_yards || 0) / 8.5 * 0.65) || '-'}</td>
+                                      <td className="px-2 py-2 text-center text-gray-900 border-r">{Math.ceil((game.passing_yards || 0) / 8.5) || '-'}</td>
+                                      <td className="px-2 py-2 text-center text-gray-900 border-r font-medium">{game.passing_yards || '-'}</td>
+                                      <td className="px-2 py-2 text-center text-green-700 border-r font-semibold">{game.passing_tds || '-'}</td>
+                                      <td className="px-2 py-2 text-center text-red-600 border-r font-semibold">{game.interceptions || '-'}</td>
+                                      <td className="px-2 py-2 text-center text-gray-900 border-r">{game.rushing_yards || '-'}</td>
+                                    </>
+                                  )}
+                                  
+                                  {selectedPlayer?.position === 'RB' && (
+                                    <>
+                                      <td className="px-2 py-2 text-center text-gray-900 border-r">{Math.ceil((game.rushing_yards || 0) / 4.5) || '-'}</td>
+                                      <td className="px-2 py-2 text-center text-gray-900 border-r font-medium">{game.rushing_yards || '-'}</td>
+                                      <td className="px-2 py-2 text-center text-green-700 border-r font-semibold">{game.rushing_tds || '-'}</td>
+                                      <td className="px-2 py-2 text-center text-gray-900 border-r">{game.receptions || '-'}</td>
+                                      <td className="px-2 py-2 text-center text-gray-900 border-r">{game.receiving_yards || '-'}</td>
+                                      <td className="px-2 py-2 text-center text-green-700 border-r font-semibold">{game.receiving_tds || '-'}</td>
+                                    </>
+                                  )}
+                                  
+                                  {(selectedPlayer?.position === 'WR' || selectedPlayer?.position === 'TE') && (
+                                    <>
+                                      <td className="px-2 py-2 text-center text-gray-700 border-r">{game.targets || '-'}</td>
+                                      <td className="px-2 py-2 text-center text-gray-900 border-r font-medium">{game.receptions || '-'}</td>
+                                      <td className="px-2 py-2 text-center text-gray-900 border-r font-medium">{game.receiving_yards || '-'}</td>
+                                      <td className="px-2 py-2 text-center text-green-700 border-r font-semibold">{game.receiving_tds || '-'}</td>
+                                      <td className="px-2 py-2 text-center text-gray-600 border-r text-xs">-</td>
+                                    </>
+                                  )}
+                                  
+                                  <td className="px-2 py-2 text-center font-bold text-blue-600 bg-blue-50">
+                                    {calculateFantasyPoints(game).toFixed(1)}
+                                  </td>
+                                </tr>
+                              ))
+                            ) : (
+                              <tr>
+                                <td colSpan="15" className="text-center py-8 text-gray-500">
+                                  <div className="text-sm">Loading game history...</div>
+                                </td>
+                              </tr>
+                            )}
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                     
-                    {/* Game History */}
-                    <div>
-                      <h4 className="text-sm font-semibold mb-3">Last 5 Games</h4>
-                      <div className="space-y-3">
-                        {playerGameHistory.length > 0 ? (
-                          playerGameHistory.map((game, index) => (
-                            <div key={index} className="p-4 bg-gradient-to-r from-blue-50 to-white border-l-4 border-blue-500 rounded-lg shadow-sm hover:shadow-md transition-all">
-                              {/* Game Header */}
-                              <div className="flex justify-between items-center mb-3 pb-2 border-b border-gray-200">
-                                <div className="flex items-center gap-2">
-                                  <span className="text-sm font-bold text-gray-900">Week {game.week}</span>
-                                  <span className="text-xs text-gray-500">vs {game.opponent || 'OPP'}</span>
-                                </div>
-                                <span className="text-sm font-bold text-blue-600 bg-blue-100 px-2 py-1 rounded">
-                                  {calculateFantasyPoints(game).toFixed(1)} pts
-                                </span>
-                              </div>
-                              
-                              {/* DK Salary & Snaps Row */}
-                              <div className="grid grid-cols-2 gap-2 mb-3 pb-2 border-b border-gray-100">
-                                <div className="bg-green-50 px-2 py-1.5 rounded">
-                                  <div className="text-[10px] text-gray-500 uppercase font-medium">DK Salary</div>
-                                  <div className="text-sm font-bold text-green-700">
-                                    {game.dk_salary ? `$${(game.dk_salary / 1000).toFixed(1)}k` : '-'}
-                                  </div>
-                                </div>
-                                <div className="bg-indigo-50 px-2 py-1.5 rounded">
-                                  <div className="text-[10px] text-gray-500 uppercase font-medium">Snaps</div>
-                                  <div className="text-sm font-bold text-indigo-700">
-                                    {game.snap_count || game.snap_percentage || '-'}
-                                  </div>
-                                </div>
-                              </div>
-                              
-                              {/* Position-Specific Stats */}
-                              {game.position === 'QB' && (
-                                <div className="grid grid-cols-2 gap-2 text-xs">
-                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
-                                    <span className="text-gray-500">Passing:</span>
-                                    <span className="ml-1 font-semibold text-gray-900">{game.passing_yards || 0} yds</span>
-                                  </div>
-                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
-                                    <span className="text-gray-500">Pass TD:</span>
-                                    <span className="ml-1 font-semibold text-gray-900">{game.passing_tds || 0}</span>
-                                  </div>
-                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
-                                    <span className="text-gray-500">Rushing:</span>
-                                    <span className="ml-1 font-semibold text-gray-900">{game.rushing_yards || 0} yds</span>
-                                  </div>
-                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
-                                    <span className="text-gray-500">INT:</span>
-                                    <span className="ml-1 font-semibold text-red-600">{game.interceptions || 0}</span>
-                                  </div>
-                                </div>
-                              )}
-                              
-                              {game.position === 'RB' && (
-                                <div className="grid grid-cols-2 gap-2 text-xs">
-                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
-                                    <span className="text-gray-500">Rushing:</span>
-                                    <span className="ml-1 font-semibold text-gray-900">{game.rushing_yards || 0} yds</span>
-                                  </div>
-                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
-                                    <span className="text-gray-500">Rush TD:</span>
-                                    <span className="ml-1 font-semibold text-gray-900">{game.rushing_tds || 0}</span>
-                                  </div>
-                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
-                                    <span className="text-gray-500">Receiving:</span>
-                                    <span className="ml-1 font-semibold text-gray-900">{game.receiving_yards || 0} yds</span>
-                                  </div>
-                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
-                                    <span className="text-gray-500">Receptions:</span>
-                                    <span className="ml-1 font-semibold text-gray-900">{game.receptions || 0}</span>
-                                  </div>
-                                </div>
-                              )}
-                              
-                              {(game.position === 'WR' || game.position === 'TE') && (
-                                <div className="grid grid-cols-2 gap-2 text-xs">
-                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
-                                    <span className="text-gray-500">Receiving:</span>
-                                    <span className="ml-1 font-semibold text-gray-900">{game.receiving_yards || 0} yds</span>
-                                  </div>
-                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
-                                    <span className="text-gray-500">Rec TD:</span>
-                                    <span className="ml-1 font-semibold text-gray-900">{game.receiving_tds || 0}</span>
-                                  </div>
-                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
-                                    <span className="text-gray-500">Receptions:</span>
-                                    <span className="ml-1 font-semibold text-gray-900">{game.receptions || 0}</span>
-                                  </div>
-                                  <div className="bg-gray-50 px-2 py-1.5 rounded">
-                                    <span className="text-gray-500">Targets:</span>
-                                    <span className="ml-1 font-semibold text-gray-900">{game.targets || 0}</span>
-                                  </div>
-                                </div>
-                              )}
+                    {/* Depth Chart Section */}
+                    <div className="px-4 pb-4">
+                      <h4 className="text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Depth Chart</h4>
+                      <div className="bg-gradient-to-r from-gray-50 to-white border rounded-lg p-3">
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-between py-2 px-3 bg-blue-100 rounded-lg border border-blue-200">
+                            <div className="flex items-center gap-2">
+                              <span className="text-lg font-bold text-blue-600">1</span>
+                              <span className="font-bold text-gray-900">{selectedPlayer?.player_name}</span>
                             </div>
-                          ))
-                        ) : (
-                          <div className="text-center text-gray-500 py-8">
-                            <div className="text-sm">Loading game history...</div>
+                            <Badge className="bg-blue-600 text-white text-xs px-2 py-0.5">{selectedPlayer?.position}1</Badge>
                           </div>
-                        )}
+                          <div className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg">
+                            <div className="flex items-center gap-2">
+                              <span className="text-lg font-semibold text-gray-500">2</span>
+                              <span className="text-gray-600 text-sm">Backup Player</span>
+                            </div>
+                            <Badge variant="outline" className="text-xs">{selectedPlayer?.position}2</Badge>
+                          </div>
+                          <div className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg">
+                            <div className="flex items-center gap-2">
+                              <span className="text-lg font-semibold text-gray-500">3</span>
+                              <span className="text-gray-600 text-sm">Third String</span>
+                            </div>
+                            <Badge variant="outline" className="text-xs">{selectedPlayer?.position}3</Badge>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </CardContent>
