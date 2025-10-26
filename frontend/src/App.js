@@ -1808,15 +1808,15 @@ const FantasyDashboard = () => {
                                 <React.Fragment key={i}>
                                   {trendViewMode === 'summary' ? (
                                     <>
-                                      <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[13px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
-                                      <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[13px] py-1 border-r-4 border-gray-900">FPTS</th>
+                                      <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[14px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
+                                      <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[14px] py-1 border-r-4 border-gray-900">FPTS</th>
                                     </>
                                   ) : (
                                     <>
-                                      <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[13px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
-                                      <th colSpan="5" className="bg-blue-700 text-white font-bold text-center text-[13px] py-1 border-r border-gray-500">Passing</th>
-                                      <th colSpan="3" className="bg-green-700 text-white font-bold text-center text-[13px] py-1 border-r border-gray-500">Rushing</th>
-                                      <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[13px] py-1 border-r-4 border-gray-900">FPTS</th>
+                                      <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[14px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
+                                      <th colSpan="5" className="bg-blue-700 text-white font-bold text-center text-[14px] py-1 border-r border-gray-500">Passing</th>
+                                      <th colSpan="3" className="bg-green-700 text-white font-bold text-center text-[14px] py-1 border-r border-gray-500">Rushing</th>
+                                      <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[14px] py-1 border-r-4 border-gray-900">FPTS</th>
                                     </>
                                   )}
                                 </React.Fragment>
@@ -1831,23 +1831,23 @@ const FantasyDashboard = () => {
                                 <React.Fragment key={i}>
                                   {trendViewMode === 'summary' ? (
                                     <>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-12">$</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-10">#</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-12">$</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-300 w-10">#</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
                                     </>
                                   ) : (
                                     <>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-10">$</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-400 w-8">#</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-10">Cmp</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-10">Att</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-10">Yds</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-8">TD</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-400 w-8">Int</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-8">Att</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-10">Yds</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-400 w-8">TD</th>
-                                      <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-10">$</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-400 w-8">#</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-300 w-10">Cmp</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-300 w-10">Att</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-300 w-10">Yds</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-300 w-8">TD</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-400 w-8">Int</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-300 w-8">Att</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-300 w-10">Yds</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-400 w-8">TD</th>
+                                      <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
                                     </>
                                   )}
                                 </React.Fragment>
@@ -1876,7 +1876,7 @@ const FantasyDashboard = () => {
                                       </td>
                                     )}
                                     <td 
-                                      className="sticky left-10 bg-white text-gray-900 font-bold text-left pl-2 z-20 py-1 text-[13px] cursor-pointer hover:bg-blue-50 hover:text-blue-600 transition-colors" 
+                                      className="sticky left-10 bg-white text-gray-900 font-bold text-left pl-2 z-20 py-1 text-[14px] cursor-pointer hover:bg-blue-50 hover:text-blue-600 transition-colors" 
                                       style={{borderRight: '1px solid #E0E0E0', width: '140px'}}
                                       onClick={() => handlePlayerClick(player)}
                                     >
@@ -1978,15 +1978,15 @@ const FantasyDashboard = () => {
                                   <React.Fragment key={i}>
                                     {trendViewMode === 'summary' ? (
                                       <>
-                                        <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[13px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
-                                        <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[13px] py-1 border-r-4 border-gray-900">FPTS</th>
+                                        <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[14px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
+                                        <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[14px] py-1 border-r-4 border-gray-900">FPTS</th>
                                       </>
                                     ) : (
                                       <>
-                                        <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[13px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
-                                        <th colSpan="4" className="bg-orange-600 text-white font-bold text-center text-[13px] py-1 border-r border-gray-500">Receiving</th>
-                                        <th colSpan="4" className="bg-green-700 text-white font-bold text-center text-[13px] py-1 border-r border-gray-500">Rushing</th>
-                                        <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[13px] py-1 border-r-4 border-gray-900">FPTS</th>
+                                        <th colSpan="2" className="bg-gray-700 text-white font-bold text-center text-[14px] py-1 border-r border-gray-500 border-l-4 border-gray-900">Misc.</th>
+                                        <th colSpan="4" className="bg-orange-600 text-white font-bold text-center text-[14px] py-1 border-r border-gray-500">Receiving</th>
+                                        <th colSpan="4" className="bg-green-700 text-white font-bold text-center text-[14px] py-1 border-r border-gray-500">Rushing</th>
+                                        <th colSpan="1" className="bg-fuchsia-600 text-white font-bold text-center text-[14px] py-1 border-r-4 border-gray-900">FPTS</th>
                                       </>
                                     )}
                                   </React.Fragment>
@@ -2003,23 +2003,23 @@ const FantasyDashboard = () => {
                                   <React.Fragment key={i}>
                                     {trendViewMode === 'summary' ? (
                                       <>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-12">$</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-10">#</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-12">$</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-300 w-10">#</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
                                       </>
                                     ) : (
                                       <>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-10">$</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-400 w-8">#</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-8">Tgt</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-8">Rec</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-10">Yds</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-400 w-8">TD</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-8">Att</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-10">Yds</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-300 w-8">TD</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r border-gray-400 w-8">Fum</th>
-                                        <th className="bg-white text-gray-900 font-bold text-center text-[13px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-300 border-l-4 border-gray-900 w-10">$</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-400 w-8">#</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-300 w-8">Tgt</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-300 w-8">Rec</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-300 w-10">Yds</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-400 w-8">TD</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-300 w-8">Att</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-300 w-10">Yds</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-300 w-8">TD</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r border-gray-400 w-8">Fum</th>
+                                        <th className="bg-white text-gray-900 font-bold text-center text-[14px] py-1 border-r-4 border-gray-900 w-12">Pts</th>
                                       </>
                                     )}
                                   </React.Fragment>
@@ -2045,7 +2045,7 @@ const FantasyDashboard = () => {
                                     RB
                                   </td>
                                   <td 
-                                    className="sticky left-12 bg-gradient-to-r from-emerald-50/90 to-white text-slate-900 font-bold text-left border-r border-emerald-200 pl-3 z-20 py-2 min-w-[140px] text-[13px] cursor-pointer hover:bg-emerald-100 hover:text-emerald-700 transition-colors"
+                                    className="sticky left-12 bg-gradient-to-r from-emerald-50/90 to-white text-slate-900 font-bold text-left border-r border-emerald-200 pl-3 z-20 py-2 min-w-[140px] text-[14px] cursor-pointer hover:bg-emerald-100 hover:text-emerald-700 transition-colors"
                                     onClick={() => handlePlayerClick(player)}
                                   >
                                     {player.player_name}
@@ -2065,13 +2065,13 @@ const FantasyDashboard = () => {
                                       <React.Fragment key={week}>
                                         {trendViewMode === 'summary' ? (
                                           <>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData?.dk_salary ? `$${(weekData.dk_salary/1000).toFixed(1)}k` : '-'}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData?.snap_count || weekData?.snap_percentage || '-'}
                                             </td>
-                                            <td className={`text-center text-[13px] py-0 font-semibold border-r-4 border-gray-900 ${
+                                            <td className={`text-center text-[14px] py-0 font-semibold border-r-4 border-gray-900 ${
                                               fantasyPoints >= 25 ? 'bg-green-100 text-green-800' :
                                               fantasyPoints >= 20 ? 'bg-green-50 text-green-700' :
                                               fantasyPoints >= 15 ? 'bg-yellow-50 text-yellow-700' :
@@ -2083,37 +2083,37 @@ const FantasyDashboard = () => {
                                           </>
                                         ) : (
                                           <>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData?.dk_salary ? `$${(weekData.dk_salary/1000).toFixed(1)}k` : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData?.snap_count || weekData?.snap_percentage || ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.targets > 0 ? weekData.targets : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.receptions > 0 ? weekData.receptions : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.receiving_yards > 0 ? weekData.receiving_yards : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData && weekData.receiving_tds > 0 ? weekData.receiving_tds : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.rushing_yards > 0 ? rushingAttempts : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.rushing_yards > 0 ? weekData.rushing_yards : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.rushing_tds > 0 ? weekData.rushing_tds : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData && weekData.fumbles_lost > 0 ? weekData.fumbles_lost : ''}
                                             </td>
-                                            <td className={`text-center text-[13px] py-0 font-semibold border-r-4 border-gray-900 ${
+                                            <td className={`text-center text-[14px] py-0 font-semibold border-r-4 border-gray-900 ${
                                               fantasyPoints >= 25 ? 'bg-green-100 text-green-800' :
                                               fantasyPoints >= 20 ? 'bg-green-50 text-green-700' :
                                               fantasyPoints >= 15 ? 'bg-yellow-50 text-yellow-700' :
@@ -2149,7 +2149,7 @@ const FantasyDashboard = () => {
                                   <td className="sticky left-0 bg-sky-500 text-white font-bold text-center text-xs w-12 z-20">
                                     WR
                                   </td>
-                                  <td className="sticky left-12 bg-gradient-to-r from-sky-50/90 to-white text-slate-900 font-bold text-left border-r border-sky-200 pl-3 z-20 py-2 min-w-[140px] text-[13px]">
+                                  <td className="sticky left-12 bg-gradient-to-r from-sky-50/90 to-white text-slate-900 font-bold text-left border-r border-sky-200 pl-3 z-20 py-2 min-w-[140px] text-[14px]">
                                     {player.player_name}
                                   </td>
                               
@@ -2164,13 +2164,13 @@ const FantasyDashboard = () => {
                                       <React.Fragment key={week}>
                                         {trendViewMode === 'summary' ? (
                                           <>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData?.dk_salary ? `$${(weekData.dk_salary/1000).toFixed(1)}k` : '-'}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData?.snap_count || weekData?.snap_percentage || '-'}
                                             </td>
-                                            <td className={`text-center text-[13px] py-0 font-semibold border-r-4 border-gray-900 ${
+                                            <td className={`text-center text-[14px] py-0 font-semibold border-r-4 border-gray-900 ${
                                               fantasyPoints >= 25 ? 'bg-green-100 text-green-800' :
                                               fantasyPoints >= 20 ? 'bg-green-50 text-green-700' :
                                               fantasyPoints >= 15 ? 'bg-yellow-50 text-yellow-700' :
@@ -2182,37 +2182,37 @@ const FantasyDashboard = () => {
                                           </>
                                         ) : (
                                           <>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData?.dk_salary ? `$${(weekData.dk_salary/1000).toFixed(1)}k` : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData?.snap_count || weekData?.snap_percentage || ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.targets > 0 ? weekData.targets : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.receptions > 0 ? weekData.receptions : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.receiving_yards > 0 ? weekData.receiving_yards : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData && weekData.receiving_tds > 0 ? weekData.receiving_tds : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.rushing_yards > 0 ? rushingAttempts : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.rushing_yards > 0 ? weekData.rushing_yards : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.rushing_tds > 0 ? weekData.rushing_tds : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData && weekData.fumbles_lost > 0 ? weekData.fumbles_lost : ''}
                                             </td>
-                                            <td className={`text-center text-[13px] py-0 font-semibold border-r-4 border-gray-900 ${
+                                            <td className={`text-center text-[14px] py-0 font-semibold border-r-4 border-gray-900 ${
                                               fantasyPoints >= 25 ? 'bg-green-100 text-green-800' :
                                               fantasyPoints >= 20 ? 'bg-green-50 text-green-700' :
                                               fantasyPoints >= 15 ? 'bg-yellow-50 text-yellow-700' :
@@ -2248,7 +2248,7 @@ const FantasyDashboard = () => {
                                   <td className="sticky left-0 bg-amber-500 text-white font-bold text-center text-xs w-12 z-20">
                                     TE
                                   </td>
-                                  <td className="sticky left-12 bg-gradient-to-r from-amber-50/90 to-white text-slate-900 font-bold text-left border-r border-amber-200 pl-3 z-20 py-2 min-w-[140px] text-[13px]">
+                                  <td className="sticky left-12 bg-gradient-to-r from-amber-50/90 to-white text-slate-900 font-bold text-left border-r border-amber-200 pl-3 z-20 py-2 min-w-[140px] text-[14px]">
                                     {player.player_name}
                                   </td>
                                   
@@ -2266,13 +2266,13 @@ const FantasyDashboard = () => {
                                       <React.Fragment key={week}>
                                         {trendViewMode === 'summary' ? (
                                           <>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData?.dk_salary ? `$${(weekData.dk_salary/1000).toFixed(1)}k` : '-'}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData?.snap_count || weekData?.snap_percentage || '-'}
                                             </td>
-                                            <td className={`text-center text-[13px] py-0 font-semibold border-r-4 border-gray-900 ${
+                                            <td className={`text-center text-[14px] py-0 font-semibold border-r-4 border-gray-900 ${
                                               fantasyPoints >= 25 ? 'bg-green-100 text-green-800' :
                                               fantasyPoints >= 20 ? 'bg-green-50 text-green-700' :
                                               fantasyPoints >= 15 ? 'bg-yellow-50 text-yellow-700' :
@@ -2284,37 +2284,37 @@ const FantasyDashboard = () => {
                                           </>
                                         ) : (
                                           <>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0 border-l-4 border-gray-900" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData?.dk_salary ? `$${(weekData.dk_salary/1000).toFixed(1)}k` : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData?.snap_count || weekData?.snap_percentage || ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.targets > 0 ? weekData.targets : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.receptions > 0 ? weekData.receptions : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.receiving_yards > 0 ? weekData.receiving_yards : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData && weekData.receiving_tds > 0 ? weekData.receiving_tds : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.rushing_yards > 0 ? rushingAttempts : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.rushing_yards > 0 ? weekData.rushing_yards : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '1px solid #D1D5DB'}}>
                                               {weekData && weekData.rushing_tds > 0 ? weekData.rushing_tds : ''}
                                             </td>
-                                            <td className="text-center text-[13px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
+                                            <td className="text-center text-[14px] text-gray-900 bg-white py-0" style={{borderRight: '2px solid #9CA3AF'}}>
                                               {weekData && weekData.fumbles_lost > 0 ? weekData.fumbles_lost : ''}
                                             </td>
-                                            <td className={`text-center text-[13px] py-0 font-semibold border-r-4 border-gray-900 ${
+                                            <td className={`text-center text-[14px] py-0 font-semibold border-r-4 border-gray-900 ${
                                               fantasyPoints >= 25 ? 'bg-green-100 text-green-800' :
                                               fantasyPoints >= 20 ? 'bg-green-50 text-green-700' :
                                               fantasyPoints >= 15 ? 'bg-yellow-50 text-yellow-700' :
