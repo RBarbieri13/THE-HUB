@@ -1,0 +1,7 @@
+User-Agent: *
+Allow: /
+Disallow: /portal/
+Disallow: /account/
+Disallow: /api/
+
+Sitemap: https://donationcloset.org/sitemap.xml

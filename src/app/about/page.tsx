@@ -1,0 +1,223 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { PackageOpen, Wrench, Users, Truck, ArrowRight } from "lucide-react";
+import { SectionWrapper } from "@/components/layout/section-wrapper";
+import { PageHeader } from "@/components/shared/page-header";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { ScrollReveal } from "@/components/shared/scroll-reveal";
+
+export const metadata: Metadata = {
+  title: "About The Hub",
+};
+
+const OPERATION_STEPS = [
+  {
+    icon: PackageOpen,
+    title: "Intake",
+    description:
+      "We accept donated equipment from individuals, clinics, hospitals, and vendors.",
+  },
+  {
+    icon: Wrench,
+    title: "Refurbishment",
+    description:
+      "Items are cleaned, inspected, and prepared for distribution.",
+  },
+  {
+    icon: Users,
+    title: "Matching",
+    description:
+      "We connect available equipment with people who need it.",
+  },
+  {
+    icon: Truck,
+    title: "Distribution",
+    description:
+      "Equipment is provided at no cost with statewide reach.",
+  },
+] as const;
+
+export default function AboutPage() {
+  return (
+    <>
+      <PageHeader
+        title="About The Hub"
+        subtitle="Restoring access to essential equipment for Tennesseans with mobility disabilities"
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
+      />
+
+      {/* The Need — emotional storytelling section */}
+      <SectionWrapper bg="white">
+        <div className="section-divider mx-auto mb-5" />
+        <ScrollReveal animation="fade-left">
+          <h2 className="font-heading text-2xl md:text-3xl font-bold text-text-primary mb-6">
+            The Need
+          </h2>
+          <div className="max-w-3xl space-y-4 text-text-body">
+            <p>
+              People with spinal cord injuries in Tennessee face long waits —
+              often months to years — for wheelchairs and adaptive equipment
+              through insurance. Many cannot afford the out-of-pocket costs for
+              equipment that is essential to their independence.
+            </p>
+            <p>
+              Meanwhile, equipment that could change lives sits unused in
+              closets, garages, and clinics across the state. Perfectly
+              functional wheelchairs, cushions, and mobility aids go to waste
+              while the people who need them most continue to wait.
+            </p>
+          </div>
+        </ScrollReveal>
+        <ScrollReveal animation="fade-up" delay={150}>
+          <blockquote className="mt-8 max-w-3xl bg-accent/5 border-l-4 border-accent p-6 rounded-[3px] italic text-lg text-text-primary">
+            &ldquo;No one should have to wait years for a wheelchair. The equipment
+            exists — we just need to get it to the people who need it most.&rdquo;
+          </blockquote>
+        </ScrollReveal>
+      </SectionWrapper>
+
+      {/* Our Mission */}
+      <SectionWrapper bg="off-white">
+        <div className="section-divider mx-auto mb-5" />
+        <ScrollReveal animation="fade-right">
+          <h2 className="font-heading text-2xl md:text-3xl font-bold text-text-primary mb-6">
+            Our Mission
+          </h2>
+          <div className="max-w-3xl space-y-4 text-text-body">
+            <p>
+              The Hub bridges this gap. We collect, refurbish, and
+              distribute donated wheelchairs, adaptive equipment, and supplies
+              at no cost to eligible Tennesseans.
+            </p>
+            <p>
+              Our goal is to reduce the delays and barriers that stand between
+              people with mobility disabilities and the equipment they need to
+              live independently. No one should have to wait years for a
+              wheelchair.
+            </p>
+          </div>
+        </ScrollReveal>
+      </SectionWrapper>
+
+      {/* How We Operate — enhanced card grid */}
+      <SectionWrapper bg="white">
+        <div className="section-divider mx-auto mb-5" />
+        <ScrollReveal animation="fade-up">
+          <h2 className="font-heading text-2xl md:text-3xl font-bold text-text-primary mb-10 text-center">
+            How We Operate
+          </h2>
+        </ScrollReveal>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {OPERATION_STEPS.map((step, index) => (
+            <ScrollReveal key={step.title} animation="fade-up" delay={index * 100}>
+              <Card className="border border-[#E5E5E5] hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                <CardContent className="flex items-start gap-4 py-6">
+                  <div className="flex-shrink-0 w-12 h-12 bg-primary-dark/10 rounded-full flex items-center justify-center">
+                    <step.icon className="w-6 h-6 text-primary-dark" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <h3 className="font-heading text-lg font-semibold text-text-primary mb-1">
+                      {step.title}
+                    </h3>
+                    <p className="text-text-body text-sm">{step.description}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </ScrollReveal>
+          ))}
+        </div>
+      </SectionWrapper>
+
+      {/* Built on Trust — with radial gradient overlay */}
+      <SectionWrapper bg="primary">
+        <div className="relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.08),transparent_60%)]" aria-hidden="true" />
+          <ScrollReveal animation="fade-up">
+            <div className="relative max-w-3xl mx-auto text-center">
+              <div className="section-divider mx-auto mb-5" />
+              <h2 className="font-heading text-2xl md:text-3xl font-bold mb-6">
+                Built on Trust
+              </h2>
+              <div className="space-y-4 text-white/90">
+                <p>
+                  The Hub is a program of the United Spinal
+                  Association of Tennessee (USAT), a 501(c)(3) nonprofit
+                  organization dedicated to improving the quality of life for
+                  people with spinal cord injuries and related disabilities.
+                </p>
+                <p>
+                  This program is made possible through the generous support of
+                  the Craig H. Neilsen Foundation, whose commitment to the SCI
+                  community helps ensure that essential equipment reaches those
+                  who need it most.
+                </p>
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </SectionWrapper>
+
+      {/* Impact Metrics */}
+      <SectionWrapper bg="off-white">
+        <div className="section-divider mx-auto mb-5" />
+        <ScrollReveal animation="fade-up">
+          <div className="text-center mb-10">
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-text-primary">
+              Our Impact
+            </h2>
+          </div>
+        </ScrollReveal>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          {[
+            { number: "200+", label: "Items Distributed", desc: "Wheelchairs, walkers, cushions, and more placed with Tennesseans in need" },
+            { number: "5+", label: "Years of Service", desc: "Serving the Tennessee SCI community with reliable, refurbished equipment" },
+            { number: "10+", label: "Partner Organizations", desc: "Hospitals, rehab centers, and social service agencies across the state" },
+          ].map((stat, index) => (
+            <ScrollReveal key={stat.label} animation="scale-in" delay={index * 100}>
+              <div className="bg-white rounded-[3px] p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <div className="text-5xl font-bold text-accent mb-2 font-[family-name:var(--font-display)]">
+                  {stat.number}
+                </div>
+                <div className="text-sm uppercase tracking-wider mb-3 text-text-light font-semibold">
+                  {stat.label}
+                </div>
+                <p className="text-text-body text-sm">{stat.desc}</p>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </SectionWrapper>
+
+      {/* CTA */}
+      <SectionWrapper bg="white">
+        <ScrollReveal animation="fade-up">
+          <div className="max-w-2xl mx-auto text-center">
+            <div className="section-divider mx-auto mb-5" />
+            <h2 className="font-heading text-2xl md:text-3xl font-bold text-text-primary mb-4">
+              Ready to Get Involved?
+            </h2>
+            <p className="text-text-body mb-8">
+              Whether you need equipment or have equipment to give, we are here
+              to help.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/get-equipment">
+                <Button variant="primary" size="lg" className="group shadow-lg shadow-accent/20 hover:shadow-xl hover:shadow-accent/30 transition-all duration-300">
+                  Request Equipment
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
+                </Button>
+              </Link>
+              <Link href="/donate-equipment">
+                <Button variant="secondary" size="lg" className="group shadow-sm hover:shadow-md transition-all duration-300">
+                  Donate Equipment
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </ScrollReveal>
+      </SectionWrapper>
+    </>
+  );
+}

@@ -1,0 +1,7 @@
+{
+    "claudeCode.initialPermissionMode": "bypassPermissions",
+    "claudeCode.allowDangerouslySkipPermissions": true,
+    "claudeCode.disableLoginPrompt": true,
+    "claudeCode.autosave": true,
+    "git.ignoreLimitWarning": true
+}
