@@ -49,8 +49,16 @@ export function ScrollReveal({
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const prefersReducedMotion = useRef(false);
 
   useEffect(() => {
+    prefersReducedMotion.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion.current) {
+      setIsVisible(true);
+      return;
+    }
+
     const element = ref.current;
     if (!element) return;
 
@@ -74,14 +82,13 @@ export function ScrollReveal({
     <div
       ref={ref}
       className={cn(
-        "transition-all ease-out",
+        "transition-[transform,opacity] ease-out",
         isVisible ? anim.visible : anim.hidden,
         className
       )}
       style={{
-        transitionDuration: `${duration}ms`,
-        transitionDelay: `${delay}ms`,
-        willChange: isVisible ? "auto" : "transform, opacity",
+        transitionDuration: prefersReducedMotion.current ? "0ms" : `${duration}ms`,
+        transitionDelay: prefersReducedMotion.current ? "0ms" : `${delay}ms`,
       }}
     >
       {children}

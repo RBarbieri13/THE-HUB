@@ -51,7 +51,7 @@ export function CTATrio() {
       <ScrollReveal animation="fade-up">
         <div className="text-center mb-12">
           <div className="section-divider mx-auto mb-5" />
-          <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl font-bold text-text-primary">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary">
             How Can We Help?
           </h2>
           <p className="text-text-body text-lg mt-3 max-w-xl mx-auto">
@@ -68,7 +68,7 @@ export function CTATrio() {
                 <div className={`${card.iconBg} rounded-full p-5 mb-5 transition-transform duration-300 group-hover:scale-110`}>
                   <card.icon className={`h-10 w-10 ${card.iconColor}`} />
                 </div>
-                <h3 className="font-[family-name:var(--font-heading)] text-2xl font-bold mt-1">
+                <h3 className="font-heading text-2xl font-bold mt-1">
                   {card.title}
                 </h3>
                 <p className="text-text-body text-base mt-3 flex-1">{card.description}</p>

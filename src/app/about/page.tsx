@@ -70,7 +70,7 @@ export default function AboutPage() {
           </div>
         </ScrollReveal>
         <ScrollReveal animation="fade-up" delay={150}>
-          <blockquote className="mt-8 max-w-3xl bg-accent/5 border-l-4 border-accent p-6 rounded-[3px] italic text-lg text-text-primary">
+          <blockquote className="mt-8 max-w-3xl bg-accent/5 border-l-4 border-accent p-6 rounded-sm italic text-lg text-text-primary">
             &ldquo;No one should have to wait years for a wheelchair. The equipment
             exists — we just need to get it to the people who need it most.&rdquo;
           </blockquote>
@@ -111,7 +111,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {OPERATION_STEPS.map((step, index) => (
             <ScrollReveal key={step.title} animation="fade-up" delay={index * 100}>
-              <Card className="border border-[#E5E5E5] hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+              <Card className="border border-border hover:shadow-md hover:-translate-y-1 transition-all duration-300">
                 <CardContent className="flex items-start gap-4 py-6">
                   <div className="flex-shrink-0 w-12 h-12 bg-primary-dark/10 rounded-full flex items-center justify-center">
                     <step.icon className="w-6 h-6 text-primary-dark" aria-hidden="true" />
@@ -163,7 +163,7 @@ export default function AboutPage() {
         <div className="section-divider mx-auto mb-5" />
         <ScrollReveal animation="fade-up">
           <div className="text-center mb-10">
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-text-primary">
+            <h2 className="font-heading text-3xl font-bold text-text-primary">
               Our Impact
             </h2>
           </div>
@@ -175,8 +175,8 @@ export default function AboutPage() {
             { number: "10+", label: "Partner Organizations", desc: "Hospitals, rehab centers, and social service agencies across the state" },
           ].map((stat, index) => (
             <ScrollReveal key={stat.label} animation="scale-in" delay={index * 100}>
-              <div className="bg-white rounded-[3px] p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
-                <div className="text-5xl font-bold text-accent mb-2 font-[family-name:var(--font-display)]">
+              <div className="bg-white rounded-sm p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <div className="text-5xl font-bold text-accent mb-2 font-display">
                   {stat.number}
                 </div>
                 <div className="text-sm uppercase tracking-wider mb-3 text-text-light font-semibold">

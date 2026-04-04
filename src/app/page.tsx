@@ -8,42 +8,25 @@ import { Testimonials } from "@/components/home/testimonials";
 import { CredibilityBand } from "@/components/home/credibility-band";
 import { PhotoSection } from "@/components/home/photo-section";
 import { SectionWrapper } from "@/components/layout/section-wrapper";
-import { AnimatedSection } from "@/components/shared/animated-section";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <AnimatedSection>
-        <ImpactStats />
-      </AnimatedSection>
-      <AnimatedSection>
-        <AddressHoursBlock />
-      </AnimatedSection>
-      <AnimatedSection>
-        <ProblemSection />
-      </AnimatedSection>
-      <AnimatedSection>
-        <SectionWrapper bg="off-white">
-          <CTATrio />
-        </SectionWrapper>
-      </AnimatedSection>
-      <AnimatedSection>
-        <SectionWrapper bg="white">
-          <HowItWorksPreview />
-        </SectionWrapper>
-      </AnimatedSection>
-      <AnimatedSection>
-        <Testimonials />
-      </AnimatedSection>
-      <AnimatedSection>
-        <CredibilityBand />
-      </AnimatedSection>
-      <AnimatedSection>
-        <SectionWrapper bg="off-white">
-          <PhotoSection />
-        </SectionWrapper>
-      </AnimatedSection>
+      <ImpactStats />
+      <AddressHoursBlock />
+      <ProblemSection />
+      <SectionWrapper bg="off-white">
+        <CTATrio />
+      </SectionWrapper>
+      <SectionWrapper bg="white">
+        <HowItWorksPreview />
+      </SectionWrapper>
+      <Testimonials />
+      <CredibilityBand />
+      <SectionWrapper bg="off-white">
+        <PhotoSection />
+      </SectionWrapper>
     </>
   );
 }

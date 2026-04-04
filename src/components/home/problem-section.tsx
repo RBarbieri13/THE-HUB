@@ -42,7 +42,7 @@ export function ProblemSection() {
               <div className="text-accent font-bold text-sm uppercase tracking-[0.15em] mb-4">
                 The Problem
               </div>
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl font-bold text-text-primary leading-tight">
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary leading-tight">
                 The Equipment Gap Is a <span className="text-accent">Crisis</span>
               </h2>
               <p className="text-text-body text-lg mt-6 leading-relaxed">
@@ -71,11 +71,11 @@ export function ProblemSection() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {CRISIS_STATS.map((item, i) => (
               <ScrollReveal key={item.label} animation="fade-up" delay={i * 100}>
-                <div className="p-6 rounded-[3px] border border-[#E5E5E5] bg-off-white hover:shadow-md hover:border-accent/30 transition-all duration-300 group">
+                <div className="p-6 rounded-sm border border-border bg-off-white hover:shadow-md hover:border-accent/30 transition-all duration-300 group">
                   <div className="bg-accent/10 rounded-full p-2.5 w-fit mb-4 group-hover:bg-accent/20 transition-colors">
                     <item.icon className="h-5 w-5 text-accent" />
                   </div>
-                  <div className="font-[family-name:var(--font-display)] text-2xl font-bold text-text-primary">
+                  <div className="font-display text-2xl font-bold text-text-primary">
                     {item.stat}
                   </div>
                   <div className="text-text-primary text-sm font-semibold mt-1.5">

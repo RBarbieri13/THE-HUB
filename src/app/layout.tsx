@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Montserrat, Source_Sans_3, Roboto } from "next/font/google";
+import { Montserrat, Source_Sans_3 } from "next/font/google";
 import { SITE_NAME, ORG_NAME, SITE_DESCRIPTION } from "@/lib/constants";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -16,14 +16,7 @@ const montserrat = Montserrat({
 const sourceSans3 = Source_Sans_3({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
-  variable: "--font-heading",
-  display: "swap",
-});
-
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "700"],
-  variable: "--font-paragraph",
+  variable: "--font-body",
   display: "swap",
 });
 
@@ -52,7 +45,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${montserrat.variable} ${sourceSans3.variable} ${roboto.variable}`}
+      className={`${montserrat.variable} ${sourceSans3.variable}`}
     >
       <body className="min-h-screen flex flex-col antialiased">
         <ToastProvider>

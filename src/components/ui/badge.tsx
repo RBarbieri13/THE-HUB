@@ -16,7 +16,7 @@ const variantStyles: Record<BadgeVariant, string> = {
 };
 
 const baseStyles =
-  "inline-block font-body text-xs font-semibold uppercase tracking-[0.05em] px-2.5 py-1 rounded-[3px] text-white";
+  "inline-block font-body text-xs font-semibold uppercase tracking-[0.05em] px-2.5 py-1 rounded-sm text-white";
 
 const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
   ({ className, variant = "primary", ...props }, ref) => {

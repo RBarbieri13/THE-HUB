@@ -89,7 +89,7 @@ export default function PartnersPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl">
           {REFERRAL_SOURCES.map((source, index) => (
             <ScrollReveal key={source.label} animation="fade-up" delay={index * 60}>
-              <div className="flex items-center gap-3 bg-off-white border border-[#E5E5E5] rounded-[3px] p-4 hover:border-accent/30 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-300">
+              <div className="flex items-center gap-3 bg-off-white border border-border rounded-sm p-4 hover:border-accent/30 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-300">
                 <div className="flex-shrink-0 w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
                   <source.icon className="w-4 h-4 text-primary-dark" aria-hidden="true" />
                 </div>
@@ -185,12 +185,12 @@ export default function PartnersPage() {
             },
           ].map((partner, index) => (
             <ScrollReveal key={partner.name} animation="fade-up" delay={index * 100}>
-              <div className="bg-white border border-[#E5E5E5] rounded-[3px] p-6 shadow-sm hover:shadow-md hover:border-accent/30 hover:-translate-y-0.5 transition-all duration-300">
+              <div className="bg-white border border-border rounded-sm p-6 shadow-sm hover:shadow-md hover:border-accent/30 hover:-translate-y-0.5 transition-all duration-300">
                 <div className="flex items-start justify-between gap-4 mb-3">
-                  <h3 className="font-[family-name:var(--font-heading)] text-lg font-bold text-text-primary">
+                  <h3 className="font-heading text-lg font-bold text-text-primary">
                     {partner.name}
                   </h3>
-                  <span className="shrink-0 text-xs font-semibold uppercase tracking-wider bg-primary/15 text-primary-dark px-2 py-1 rounded-[3px]">
+                  <span className="shrink-0 text-xs font-semibold uppercase tracking-wider bg-primary/15 text-primary-dark px-2 py-1 rounded-sm">
                     {partner.badge}
                   </span>
                 </div>

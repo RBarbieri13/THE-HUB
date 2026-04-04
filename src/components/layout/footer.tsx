@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Phone, Mail, Facebook, Instagram, Linkedin } from "lucide-react";
+import { MapPin, Phone, Mail } from "lucide-react";
 import { FOOTER_LINKS, CONTACT, ORG_NAME } from "@/lib/constants";
 
 export function Footer() {
@@ -30,29 +30,7 @@ export function Footer() {
             <p className="mt-3 text-xs text-[#888888]">
               Funded by the Craig H. Neilsen Foundation
             </p>
-            <div className="flex items-center gap-3 mt-4">
-              <a
-                href="#"
-                aria-label="Facebook"
-                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-accent hover:text-white transition-all duration-200 text-[#AAAAAA]"
-              >
-                <Facebook className="h-4 w-4" />
-              </a>
-              <a
-                href="#"
-                aria-label="Instagram"
-                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-accent hover:text-white transition-all duration-200 text-[#AAAAAA]"
-              >
-                <Instagram className="h-4 w-4" />
-              </a>
-              <a
-                href="#"
-                aria-label="LinkedIn"
-                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-accent hover:text-white transition-all duration-200 text-[#AAAAAA]"
-              >
-                <Linkedin className="h-4 w-4" />
-              </a>
-            </div>
+            {/* TODO: Add social links when real URLs are available */}
           </div>
 
           {/* Quick Links */}
@@ -65,7 +43,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-[#CCCCCC] no-underline hover:text-white transition-all duration-200 hover:pl-1"
+                    className="text-[#CCCCCC] no-underline hover:text-white transition-colors duration-200"
                   >
                     {link.label}
                   </Link>
@@ -84,7 +62,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-[#CCCCCC] no-underline hover:text-white transition-all duration-200 hover:pl-1"
+                    className="text-[#CCCCCC] no-underline hover:text-white transition-colors duration-200"
                   >
                     {link.label}
                   </Link>
@@ -125,9 +103,9 @@ export function Footer() {
 
         {/* Tagline & Copyright */}
         <div className="border-t border-[#444444] mt-12 pt-8 text-center">
-          <p className="text-white/40 text-sm mb-6">Empowering independence through adaptive equipment — proudly serving Tennessee.</p>
+          <p className="text-white/60 text-sm mb-6">Empowering independence through adaptive equipment — proudly serving Tennessee.</p>
         </div>
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-[13px] text-white/40">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-[13px] text-white/60">
           <p>
             &copy; {year} {ORG_NAME}. All rights reserved.
           </p>

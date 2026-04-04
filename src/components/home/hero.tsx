@@ -37,25 +37,25 @@ export function Hero() {
           </div>
 
           {/* Title */}
-          <h1 className="font-[family-name:var(--font-display)] text-7xl md:text-8xl lg:text-9xl font-bold text-white leading-[1.0] tracking-[-0.04em]">
+          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.0] tracking-[-0.03em]">
             The Hub
           </h1>
 
           {/* Tagline */}
-          <p className="text-xl md:text-2xl text-accent font-semibold mt-3 font-[family-name:var(--font-display)] tracking-wide">
+          <p className="text-xl md:text-2xl text-accent font-semibold mt-3 font-display tracking-wide">
             Adaptive Equipment Resource Center
           </p>
 
           {/* Org pill */}
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 mt-6">
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse-glow" />
-            <span className="text-white/80 text-sm font-semibold tracking-wide">
+            <span className="w-2 h-2 rounded-full bg-accent" />
+            <span className="text-white/90 text-sm font-semibold tracking-wide">
               {ORG_NAME}
             </span>
           </div>
 
           {/* Description */}
-          <p className="text-lg md:text-xl text-white/70 mt-8 max-w-xl font-[family-name:var(--font-paragraph)] leading-relaxed">
+          <p className="text-lg md:text-xl text-white/85 mt-8 max-w-xl font-body leading-relaxed">
             Free refurbished wheelchairs, mobility devices, and adaptive
             equipment for people with spinal cord injuries and related
             disabilities.
@@ -82,7 +82,7 @@ export function Hero() {
 
           <Link
             href="/how-it-works"
-            className="inline-flex items-center gap-1.5 mt-8 text-white/50 hover:text-white text-sm font-semibold transition-colors no-underline"
+            className="inline-flex items-center gap-1.5 mt-8 text-white/80 hover:text-white text-sm font-semibold transition-colors no-underline"
           >
             Learn how the process works <ChevronRight className="h-4 w-4" />
           </Link>

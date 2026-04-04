@@ -125,7 +125,7 @@ export function SignupForm() {
                 type={showPassword ? "text" : "password"}
                 id="password"
                 autoComplete="new-password"
-                className="w-full rounded-[3px] border border-[#E5E5E5] px-3 py-2.5 text-sm focus:border-primary-dark focus:outline-none pr-10"
+                className="w-full rounded-sm border border-border px-3 py-2.5 text-sm focus:border-primary-dark focus:outline-none pr-10"
               />
               <button
                 type="button"
@@ -149,7 +149,7 @@ export function SignupForm() {
                 type={showConfirmPassword ? "text" : "password"}
                 id="confirmPassword"
                 autoComplete="new-password"
-                className="w-full rounded-[3px] border border-[#E5E5E5] px-3 py-2.5 text-sm focus:border-primary-dark focus:outline-none pr-10"
+                className="w-full rounded-sm border border-border px-3 py-2.5 text-sm focus:border-primary-dark focus:outline-none pr-10"
               />
               <button
                 type="button"

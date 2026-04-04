@@ -46,7 +46,7 @@ export default function InventoryPage() {
               <ScrollReveal key={category} animation="fade-up" delay={(index % 5) * 80}>
                 <Card
                   hoverable
-                  className="p-6 text-center border border-[#E5E5E5] hover:border-accent/30 hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+                  className="p-6 text-center border border-border hover:border-accent/30 hover:shadow-md hover:-translate-y-1 transition-all duration-300"
                 >
                   {/* Icon in colored circle */}
                   <div className="w-12 h-12 rounded-full bg-primary-dark/10 flex items-center justify-center mx-auto mb-3">
@@ -65,7 +65,7 @@ export default function InventoryPage() {
       {/* Login prompt — dark card with gradient overlay for depth */}
       <SectionWrapper bg="off-white">
         <ScrollReveal animation="fade-up">
-          <div className="relative overflow-hidden rounded-[3px] shadow-xl border-t-4 border-t-accent">
+          <div className="relative overflow-hidden rounded-sm shadow-xl border-t-4 border-t-accent">
             {/* Gradient overlay for depth */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(255,255,255,0.06),transparent_60%)]" aria-hidden="true" />
             <Card variant="dark" className="relative p-8 md:p-12 text-center border-0">

@@ -55,7 +55,7 @@ export function EquipmentRequestForm() {
 
   if (submitted) {
     return (
-      <div className="bg-success/10 border border-success p-6 rounded-[3px] animate-fade-in">
+      <div className="bg-success/10 border border-success p-6 rounded-sm animate-fade-in">
         <CheckCircle2 className="h-6 w-6 text-success mb-3" />
         <h3 className="font-heading text-lg font-semibold text-text-primary mb-2">
           Request Submitted
@@ -70,7 +70,7 @@ export function EquipmentRequestForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6">
-      <div className="bg-primary/10 border-l-4 border-primary-dark rounded-[3px] p-4 mb-6">
+      <div className="bg-primary/10 border-l-4 border-primary-dark rounded-sm p-4 mb-6">
         <p className="text-text-primary text-sm font-semibold">What to expect</p>
         <p className="text-text-body text-sm mt-1">
           Requests are reviewed within 3–5 business days. A team member will contact you to discuss equipment availability and next steps.
@@ -78,112 +78,115 @@ export function EquipmentRequestForm() {
       </div>
 
       {serverError && (
-        <div role="alert" className="bg-error/10 border border-error p-4 rounded-[3px] text-error text-sm">
+        <div role="alert" className="bg-error/10 border border-error p-4 rounded-sm text-error text-sm">
           {serverError}
         </div>
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <FormField label="Full Name" required error={errors.name?.message}>
+        <FormField label="Full Name" htmlFor="name" required error={errors.name?.message}>
           <Input
             {...register("name")}
+            id="name"
             type="text"
             placeholder="Your full name"
-            error={errors.name?.message}
           />
         </FormField>
 
-        <FormField label="Email" required error={errors.email?.message}>
+        <FormField label="Email" htmlFor="email" required error={errors.email?.message}>
           <Input
             {...register("email")}
+            id="email"
             type="email"
             placeholder="you@example.com"
-            error={errors.email?.message}
           />
         </FormField>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <FormField label="Phone" required error={errors.phone?.message} hint="Format: (615) 555-1234">
+        <FormField label="Phone" htmlFor="phone" required error={errors.phone?.message} hint="Format: (615) 555-1234">
           <Input
             {...register("phone")}
+            id="phone"
             type="tel"
             placeholder="(615) 555-0100"
-            error={errors.phone?.message}
           />
         </FormField>
 
-        <FormField label="City" required error={errors.city?.message}>
+        <FormField label="City" htmlFor="city" required error={errors.city?.message}>
           <Input
             {...register("city")}
+            id="city"
             type="text"
             placeholder="Your city"
-            error={errors.city?.message}
           />
         </FormField>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <FormField label="County (Tennessee)" required error={errors.county?.message}>
+        <FormField label="County (Tennessee)" htmlFor="county" required error={errors.county?.message}>
           <Input
             {...register("county")}
+            id="county"
             type="text"
             placeholder="Your county"
-            error={errors.county?.message}
           />
         </FormField>
 
-        <FormField label="Your Role / Relationship to Patient" required error={errors.role?.message}>
+        <FormField label="Your Role / Relationship to Patient" htmlFor="role" required error={errors.role?.message}>
           <Select
             {...register("role")}
+            id="role"
             options={roleOptions}
             placeholder="Select your role"
-            error={errors.role?.message}
           />
         </FormField>
       </div>
 
       <FormField
         label="Equipment Needed"
+        htmlFor="equipment_needed"
         required
         error={errors.equipment_needed?.message}
       >
         <Textarea
           {...register("equipment_needed")}
+          id="equipment_needed"
           placeholder="Describe the equipment you need, including size or specifications if known"
-          error={errors.equipment_needed?.message}
         />
       </FormField>
 
-      <FormField label="Urgency" required error={errors.urgency?.message} hint="Select based on medical necessity">
+      <FormField label="Urgency" htmlFor="urgency" required error={errors.urgency?.message} hint="Select based on medical necessity">
         <Select
           {...register("urgency")}
+          id="urgency"
           options={urgencyOptions}
           placeholder="Select urgency level"
-          error={errors.urgency?.message}
         />
       </FormField>
 
-      <FormField label="Additional Notes" error={errors.notes?.message}>
+      <FormField label="Additional Notes" htmlFor="notes" error={errors.notes?.message}>
         <Textarea
           {...register("notes")}
+          id="notes"
           placeholder="Any other details that may help us assist you"
-          error={errors.notes?.message}
         />
       </FormField>
 
       <FormField
         label="Tennessee Residency"
+        htmlFor="tn_resident"
         required
         error={errors.tn_resident?.message}
       >
         <label className="flex items-center gap-2 cursor-pointer">
           <input
             {...register("tn_resident")}
+            id="tn_resident"
             type="checkbox"
-            className="h-4 w-4 rounded-[3px] border border-[#E5E5E5] accent-primary-dark"
+            className="h-4 w-4 rounded-sm border border-border accent-primary-dark"
           />
-          <span className="text-sm text-text-secondary">
+          <span className="text-sm text-text-body">
             I confirm I am a Tennessee resident
           </span>
         </label>

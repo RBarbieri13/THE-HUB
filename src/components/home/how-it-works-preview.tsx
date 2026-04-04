@@ -34,7 +34,7 @@ export function HowItWorksPreview() {
       <ScrollReveal animation="fade-up">
         <div className="text-center mb-14">
           <div className="section-divider mx-auto mb-5" />
-          <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl font-bold text-text-primary">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary">
             How It Works
           </h2>
           <p className="text-text-body text-lg mt-3 max-w-lg mx-auto">
@@ -55,7 +55,7 @@ export function HowItWorksPreview() {
               <div className="text-accent font-bold text-sm uppercase tracking-wider mt-5 mb-2">
                 Step {step.number}
               </div>
-              <h4 className="font-[family-name:var(--font-heading)] text-xl font-bold text-text-primary">
+              <h4 className="font-heading text-xl font-bold text-text-primary">
                 {step.title}
               </h4>
               <p className="text-text-body mt-3 leading-relaxed">{step.description}</p>

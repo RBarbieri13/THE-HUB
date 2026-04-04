@@ -43,7 +43,7 @@ export function DisclaimerNotice({
 
   return (
     <div className={cn(
-      "border-l-4 p-6 rounded-[3px] relative overflow-hidden transition-all duration-200 hover:shadow-sm",
+      "border-l-4 p-6 rounded-sm relative overflow-hidden transition-all duration-200 hover:shadow-sm",
       container
     )}>
       {/* Subtle left-to-right gradient tint */}

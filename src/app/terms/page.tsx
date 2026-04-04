@@ -22,7 +22,7 @@ export default function TermsPage() {
       <SectionWrapper bg="white">
         <ScrollReveal animation="fade-up">
         <div className="max-w-3xl mx-auto prose prose-headings:font-heading prose-headings:text-text-heading prose-p:text-text-body prose-li:text-text-body">
-          <div className="inline-flex items-center gap-2 bg-off-white border border-[#E5E5E5] rounded-[3px] px-4 py-2 mb-8">
+          <div className="inline-flex items-center gap-2 bg-off-white border border-border rounded-sm px-4 py-2 mb-8">
             <span className="text-xs font-semibold uppercase tracking-wider text-text-light">Last Updated</span>
             <span className="text-sm text-text-body font-medium">March 9, 2026</span>
           </div>

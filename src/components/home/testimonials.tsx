@@ -26,24 +26,17 @@ const TESTIMONIALS = [
 
 export function Testimonials() {
   return (
-    <section className="bg-primary-dark py-20 md:py-28 relative overflow-hidden">
-      {/* Decorative background pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-10 left-10 w-40 h-40 rounded-full border-2 border-white" />
-        <div className="absolute bottom-20 right-20 w-60 h-60 rounded-full border-2 border-white" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full border border-white" />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 relative">
+    <section className="bg-primary-dark py-20 md:py-28">
+      <div className="max-w-7xl mx-auto px-6">
         <ScrollReveal animation="fade-up">
           <div className="text-center mb-14">
             <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mx-auto mb-5">
               <Quote className="h-5 w-5 text-accent" />
             </div>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl font-bold text-white">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-white">
               Stories From Our Community
             </h2>
-            <p className="text-white/60 text-lg mt-3 max-w-2xl mx-auto">
+            <p className="text-white/80 text-lg mt-3 max-w-2xl mx-auto">
               Real impact. Real people. Hear from those whose lives The Hub has touched.
             </p>
           </div>
@@ -51,8 +44,8 @@ export function Testimonials() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {TESTIMONIALS.map((t, i) => (
             <ScrollReveal key={t.name} animation="fade-up" delay={i * 120}>
-              <div className="bg-white/[0.07] backdrop-blur-sm rounded-[3px] p-8 flex flex-col h-full border border-white/10 hover:bg-white/[0.12] transition-all duration-300 hover:-translate-y-1">
-                <div className="text-accent text-5xl font-[family-name:var(--font-display)] leading-none mb-4">
+              <div className="bg-white/[0.07] backdrop-blur-sm rounded-sm p-8 flex flex-col h-full border border-white/10 hover:bg-white/[0.12] transition-all duration-300 hover:-translate-y-1">
+                <div className="text-accent text-5xl font-display leading-none mb-4">
                   &ldquo;
                 </div>
                 <p className="text-white/85 text-base leading-relaxed flex-1">
@@ -66,7 +59,7 @@ export function Testimonials() {
             </ScrollReveal>
           ))}
         </div>
-        <p className="text-white/30 text-xs text-center mt-10">
+        <p className="text-white/60 text-xs text-center mt-10">
           * Stories are representative of community experiences. Names changed for privacy.
         </p>
       </div>

@@ -64,7 +64,7 @@ export default function GetEquipmentPage() {
               {ELIGIBILITY_ITEMS.map((item) => (
                 <div
                   key={item}
-                  className="border border-[#E5E5E5] rounded-[3px] p-4 bg-white flex items-start gap-3 hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+                  className="border border-border rounded-sm p-4 bg-white flex items-start gap-3 hover:shadow-md hover:-translate-y-1 transition-all duration-300"
                 >
                   <CheckCircle className="h-5 w-5 text-success shrink-0 mt-0.5" />
                   <span>{item}</span>
@@ -115,13 +115,13 @@ export default function GetEquipmentPage() {
               availability, but our team will review every submission and follow
               up.
             </p>
-            <div className="bg-primary/5 border-l-4 border-primary-dark rounded-[3px] p-5 mb-8">
+            <div className="bg-primary/5 border-l-4 border-primary-dark rounded-sm p-5 mb-8">
               <p className="text-sm font-semibold text-primary-dark">
                 Requests are typically reviewed within 3&ndash;5 business days.
                 All equipment is provided free of charge.
               </p>
             </div>
-            <div className="bg-white rounded-[3px] shadow-lg p-8 md:p-10">
+            <div className="bg-white rounded-sm shadow-lg p-8 md:p-10">
               <EquipmentRequestForm />
             </div>
           </div>

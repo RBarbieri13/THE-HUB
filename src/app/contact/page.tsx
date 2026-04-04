@@ -37,7 +37,7 @@ export default function ContactPage() {
 
               <div className="flex flex-col gap-4 mt-8">
                 {/* Address */}
-                <div className="p-5 rounded-[3px] bg-off-white border border-[#E5E5E5] flex items-start gap-4 hover:border-primary-dark/30 transition-all duration-300">
+                <div className="p-5 rounded-sm bg-off-white border border-border flex items-start gap-4 hover:border-primary-dark/30 transition-all duration-300">
                   <div className="bg-primary-dark/10 rounded-full p-3 shrink-0">
                     <MapPin className="h-5 w-5 text-primary-dark" />
                   </div>
@@ -54,7 +54,7 @@ export default function ContactPage() {
                 </div>
 
                 {/* Phone */}
-                <div className="p-5 rounded-[3px] bg-off-white border border-[#E5E5E5] flex items-start gap-4 hover:border-primary-dark/30 transition-all duration-300">
+                <div className="p-5 rounded-sm bg-off-white border border-border flex items-start gap-4 hover:border-primary-dark/30 transition-all duration-300">
                   <div className="bg-primary-dark/10 rounded-full p-3 shrink-0">
                     <Phone className="h-5 w-5 text-primary-dark" />
                   </div>
@@ -72,7 +72,7 @@ export default function ContactPage() {
                 </div>
 
                 {/* Email */}
-                <div className="p-5 rounded-[3px] bg-off-white border border-[#E5E5E5] flex items-start gap-4 hover:border-primary-dark/30 transition-all duration-300">
+                <div className="p-5 rounded-sm bg-off-white border border-border flex items-start gap-4 hover:border-primary-dark/30 transition-all duration-300">
                   <div className="bg-primary-dark/10 rounded-full p-3 shrink-0">
                     <Mail className="h-5 w-5 text-primary-dark" />
                   </div>
@@ -90,10 +90,10 @@ export default function ContactPage() {
                 </div>
 
                 {/* Divider */}
-                <div className="border-t border-[#E5E5E5] my-2" />
+                <div className="border-t border-border my-2" />
 
                 {/* Hours of Operation */}
-                <div className="p-5 rounded-[3px] bg-off-white border border-[#E5E5E5] flex items-start gap-4 hover:border-primary-dark/30 transition-all duration-300">
+                <div className="p-5 rounded-sm bg-off-white border border-border flex items-start gap-4 hover:border-primary-dark/30 transition-all duration-300">
                   <div className="bg-primary-dark/10 rounded-full p-3 shrink-0">
                     <Clock className="h-5 w-5 text-primary-dark" />
                   </div>
@@ -108,7 +108,7 @@ export default function ContactPage() {
                 </div>
 
                 {/* Embedded map */}
-                <div className="rounded-[3px] overflow-hidden border border-[#E5E5E5] mt-2">
+                <div className="rounded-sm overflow-hidden border border-border mt-2">
                   <iframe
                     title="The Hub — 955 Woodland St, Nashville, TN 37206"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3221.8!2d-86.7555!3d36.1745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8864669e1a4b0e45%3A0x0!2s955+Woodland+St%2C+Nashville%2C+TN+37206!5e0!3m2!1sen!2sus!4v1"

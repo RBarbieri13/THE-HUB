@@ -55,7 +55,7 @@ export function DonationForm() {
 
   if (submitted) {
     return (
-      <div className="bg-success/10 border border-success p-6 rounded-[3px] animate-fade-in">
+      <div className="bg-success/10 border border-success p-6 rounded-sm animate-fade-in">
         <CheckCircle2 className="h-6 w-6 text-success mb-3" />
         <h3 className="font-heading text-lg font-semibold text-text-primary mb-2">
           Donation Inquiry Submitted
@@ -70,7 +70,7 @@ export function DonationForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6">
-      <div className="bg-primary/10 border-l-4 border-primary-dark rounded-[3px] p-4 mb-6">
+      <div className="bg-primary/10 border-l-4 border-primary-dark rounded-sm p-4 mb-6">
         <p className="text-text-primary text-sm font-semibold">Donation Process</p>
         <p className="text-text-body text-sm mt-1">
           After submitting, our team will contact you within 2–3 business days to arrange pickup or drop-off of your equipment.
@@ -78,103 +78,106 @@ export function DonationForm() {
       </div>
 
       {serverError && (
-        <div role="alert" className="bg-error/10 border border-error p-4 rounded-[3px] text-error text-sm">
+        <div role="alert" className="bg-error/10 border border-error p-4 rounded-sm text-error text-sm">
           {serverError}
         </div>
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <FormField label="Full Name" required error={errors.name?.message}>
+        <FormField label="Full Name" htmlFor="donor-name" required error={errors.name?.message}>
           <Input
             {...register("name")}
+            id="donor-name"
             type="text"
             placeholder="Your full name"
-            error={errors.name?.message}
           />
         </FormField>
 
         <FormField
           label="Organization (if applicable)"
+          htmlFor="org_name"
           error={errors.org_name?.message}
         >
           <Input
             {...register("org_name")}
+            id="org_name"
             type="text"
             placeholder="Organization name"
-            error={errors.org_name?.message}
           />
         </FormField>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <FormField label="Email" required error={errors.email?.message}>
+        <FormField label="Email" htmlFor="donor-email" required error={errors.email?.message}>
           <Input
             {...register("email")}
+            id="donor-email"
             type="email"
             placeholder="you@example.com"
-            error={errors.email?.message}
           />
         </FormField>
 
-        <FormField label="Phone" required error={errors.phone?.message}>
+        <FormField label="Phone" htmlFor="donor-phone" required error={errors.phone?.message}>
           <Input
             {...register("phone")}
+            id="donor-phone"
             type="tel"
             placeholder="(615) 555-0100"
-            error={errors.phone?.message}
           />
         </FormField>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <FormField label="Item Type" required error={errors.item_type?.message}>
+        <FormField label="Item Type" htmlFor="item_type" required error={errors.item_type?.message}>
           <Select
             {...register("item_type")}
+            id="item_type"
             options={categoryOptions}
             placeholder="Select item type"
-            error={errors.item_type?.message}
           />
         </FormField>
 
         <FormField
           label="Condition"
+          htmlFor="condition"
           required
           error={errors.condition?.message}
         >
           <Select
             {...register("condition")}
+            id="condition"
             options={conditionOptions}
             placeholder="Select condition"
-            error={errors.condition?.message}
           />
         </FormField>
       </div>
 
-      <FormField label="Brand / Model" error={errors.brand_model?.message}>
+      <FormField label="Brand / Model" htmlFor="brand_model" error={errors.brand_model?.message}>
         <Input
           {...register("brand_model")}
+          id="brand_model"
           type="text"
           placeholder="e.g., Quickie QM-710"
-          error={errors.brand_model?.message}
         />
       </FormField>
 
-      <FormField label="Additional Notes" error={errors.notes?.message}>
+      <FormField label="Additional Notes" htmlFor="donor-notes" error={errors.notes?.message}>
         <Textarea
           {...register("notes")}
+          id="donor-notes"
           placeholder="Any other details about the item (age, accessories, modifications, etc.)"
-          error={errors.notes?.message}
         />
       </FormField>
 
-      <FormField label="Pickup Assistance" error={errors.pickup_needed?.message}>
+      <FormField label="Pickup Assistance" htmlFor="pickup_needed" error={errors.pickup_needed?.message}>
         <label className="flex items-center gap-2 cursor-pointer">
           <input
             {...register("pickup_needed")}
+            id="pickup_needed"
             type="checkbox"
-            className="h-4 w-4 rounded-[3px] border border-[#E5E5E5] accent-primary-dark"
+            className="h-4 w-4 rounded-sm border border-border accent-primary-dark"
           />
-          <span className="text-sm text-text-secondary">
+          <span className="text-sm text-text-body">
             I need pickup assistance
           </span>
         </label>

@@ -13,7 +13,7 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error(error);
+    // TODO: Send to error reporting service (e.g., Sentry)
   }, [error]);
 
   return (
@@ -22,7 +22,7 @@ export default function Error({
         <div className="flex justify-center mb-6">
           <AlertTriangle className="h-16 w-16 text-accent" strokeWidth={1.5} />
         </div>
-        <h1 className="font-[family-name:var(--font-display)] text-3xl font-bold text-text-primary mb-3">
+        <h1 className="font-display text-3xl font-bold text-text-primary mb-3">
           Something went wrong
         </h1>
         <p className="text-text-body max-w-md mx-auto mb-8 leading-relaxed">

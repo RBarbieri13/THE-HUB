@@ -64,7 +64,7 @@ function Toast({ toast: toastData, onDismiss }: ToastProps) {
     <div
       role="alert"
       className={cn(
-        "flex items-start gap-3 rounded-[3px] border-l-4 bg-white px-4 py-3 shadow-md transition-all duration-200",
+        "flex items-start gap-3 rounded-sm border-l-4 bg-white px-4 py-3 shadow-md transition-all duration-200",
         variantBorderColors[toastData.variant]
       )}
     >
@@ -88,7 +88,7 @@ function ToastContainer({ toasts, onDismiss }: { toasts: ToastMessage[]; onDismi
   if (toasts.length === 0) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 w-[360px] max-w-[calc(100vw-2rem)]">
+    <div aria-live="polite" aria-relevant="additions" className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 w-[360px] max-w-[calc(100vw-2rem)]">
       {toasts.map((t) => (
         <Toast key={t.id} toast={t} onDismiss={onDismiss} />
       ))}

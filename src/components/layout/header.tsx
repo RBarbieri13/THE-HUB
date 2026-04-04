@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -36,6 +36,8 @@ const NAV_ICONS: Record<string, React.ElementType> = {
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -44,11 +46,32 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const closeDropdown = useCallback(() => setDropdownOpen(null), []);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        closeDropdown();
+      }
+    }
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === "Escape") closeDropdown();
+    }
+    if (dropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleEscape);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+        document.removeEventListener("keydown", handleEscape);
+      };
+    }
+  }, [dropdownOpen, closeDropdown]);
+
   return (
     <header className="sticky top-0 z-50">
       <nav
         className={cn(
-          "bg-gradient-to-r from-primary-dark via-primary-dark to-[#0a3d3d] border-b border-white/10 transition-all duration-300",
+          "bg-primary-dark border-b border-white/10 transition-shadow duration-300",
           scrolled ? "shadow-lg" : ""
         )}
       >
@@ -61,7 +84,7 @@ export function Header() {
               width={600}
               height={180}
               className={cn(
-                "w-auto block transition-all duration-300",
+                "w-auto block transition-[height] duration-300",
                 scrolled ? "h-[40px]" : "h-[50px]"
               )}
               priority
@@ -73,51 +96,59 @@ export function Header() {
             {NAV_ITEMS.map((item) => {
               const Icon = NAV_ICONS[item.label];
               return (
-                <div key={item.label} className="relative group">
+                <div key={item.label} className="relative" ref={"children" in item && item.children ? dropdownRef : undefined}>
                   {"children" in item && item.children ? (
                     <>
                       <button
+                        onClick={() => setDropdownOpen(dropdownOpen === item.label ? null : item.label)}
+                        aria-expanded={dropdownOpen === item.label}
+                        aria-haspopup="true"
                         className={cn(
-                          "flex items-center gap-1.5 px-3 py-2",
+                          "flex items-center gap-1.5 px-3 py-3",
                           "font-heading text-sm font-semibold",
                           "text-white/80 hover:text-white transition-colors"
                         )}
                       >
                         {Icon && <Icon className="h-3.5 w-3.5" />}
                         {item.label}
-                        <ChevronDown className="h-3 w-3 opacity-60" />
+                        <ChevronDown className={cn(
+                          "h-3 w-3 opacity-60 transition-transform duration-200",
+                          dropdownOpen === item.label && "rotate-180"
+                        )} />
                       </button>
-                      <div
-                        className={cn(
-                          "absolute left-0 top-full z-50 hidden group-hover:block",
-                          "bg-white shadow-xl border border-[#E5E5E5] rounded-md py-3 px-4 min-w-[200px]"
-                        )}
-                      >
-                        {item.children.map((child) => (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            className={cn(
-                              "block py-2 px-2 text-sm font-medium rounded",
-                              "text-text-primary hover:text-primary-dark hover:bg-primary-dark/5",
-                              "transition-all duration-200"
-                            )}
-                          >
-                            {child.label}
-                          </Link>
-                        ))}
-                      </div>
+                      {dropdownOpen === item.label && (
+                        <div
+                          role="menu"
+                          className="absolute left-0 top-full z-50 bg-white shadow-xl border border-border rounded-md py-3 px-4 min-w-[200px]"
+                        >
+                          {item.children.map((child) => (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              role="menuitem"
+                              onClick={closeDropdown}
+                              className={cn(
+                                "block py-2 px-2 text-sm font-medium rounded",
+                                "text-text-primary hover:text-primary-dark hover:bg-primary-dark/5",
+                                "transition-colors duration-200"
+                              )}
+                            >
+                              {child.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
                     </>
                   ) : (
                     <Link
                       href={item.href}
                       className={cn(
-                        "flex items-center gap-1.5 px-3 py-2",
+                        "flex items-center gap-1.5 px-3 py-3",
                         "font-heading text-sm font-semibold",
                         "relative transition-colors",
                         pathname === item.href
                           ? "text-white"
-                          : "text-white/70 hover:text-white"
+                          : "text-white/80 hover:text-white"
                       )}
                     >
                       {Icon && <Icon className="h-3.5 w-3.5" />}
@@ -144,20 +175,20 @@ export function Header() {
           <div className="hidden lg:flex items-center gap-3">
             <a
               href={`tel:${CONTACT.phone}`}
-              className="flex items-center gap-1 text-white/70 hover:text-white text-xs font-semibold transition-colors"
+              className="flex items-center gap-1 text-white/80 hover:text-white text-sm font-semibold transition-colors py-2"
             >
-              <Phone className="h-3 w-3" />
+              <Phone className="h-3.5 w-3.5" />
               <span>{CONTACT.phone}</span>
             </a>
             <Link
               href="/login"
-              className="text-white/70 hover:text-white text-xs font-semibold transition-colors"
+              className="text-white/80 hover:text-white text-sm font-semibold transition-colors py-2"
             >
               Login
             </Link>
             <Link
               href="/donate-equipment"
-              className="bg-accent text-white px-4 py-1.5 rounded-sm text-sm font-bold shadow-md shadow-accent/25 hover:bg-[#D45F1F] hover:shadow-lg hover:shadow-accent/30 transition-all duration-200 hover:scale-[1.03]"
+              className="bg-accent text-white px-4 py-2 rounded-sm text-sm font-bold shadow-md shadow-accent/25 hover:bg-[#D45F1F] transition-colors duration-200"
             >
               Donate
             </Link>

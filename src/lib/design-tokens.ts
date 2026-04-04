@@ -11,6 +11,7 @@ export const colors = {
   offWhite: "#F4F4F4",
   textPrimary: "#333333",
   textBody: "#444444",
+  textSecondary: "#666666",
   textLight: "#999999",
   dark: "#222222",
   black: "#000000",
@@ -20,13 +21,16 @@ export const colors = {
   warning: "#F0AD4E",
   error: "#DC3545",
   info: "#40D9F1",
+  border: "#E5E5E5",
+  borderHover: "#CCCCCC",
+  accentHover: "#D45F1F",
+  primaryDarker: "#166D7D",
 } as const
 
 export const gradients = {
   brand: "linear-gradient(135deg, #40D9F1, #1E899D)",
   accent: "linear-gradient(135deg, #EE732F, #D45F1F)",
   hero: "linear-gradient(135deg, #1E899D, #40D9F1)",
-  text: "linear-gradient(135deg, #EE732F, #1E899D)",
 } as const
 
 export const shadows = {

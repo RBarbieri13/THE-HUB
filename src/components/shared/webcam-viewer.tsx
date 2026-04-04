@@ -13,7 +13,7 @@ export function WebcamViewer({ src, mode = "iframe" }: WebcamViewerProps) {
     return (
       <iframe
         src={src}
-        className="w-full aspect-video rounded-[3px]"
+        className="w-full aspect-video rounded-sm"
         title="Live closet webcam feed"
         allowFullScreen
       />
@@ -25,13 +25,13 @@ export function WebcamViewer({ src, mode = "iframe" }: WebcamViewerProps) {
       <img
         src={src}
         alt="Live closet webcam snapshot"
-        className="w-full aspect-video object-cover rounded-[3px]"
+        className="w-full aspect-video object-cover rounded-sm"
       />
     );
   }
 
   return (
-    <div className="aspect-video bg-gradient-to-br from-dark to-dark/90 flex flex-col items-center justify-center text-center p-8 rounded-[3px]">
+    <div className="aspect-video bg-gradient-to-br from-dark to-dark/90 flex flex-col items-center justify-center text-center p-8 rounded-sm">
       <div className="bg-white/10 rounded-full p-5 mb-4 animate-pulse">
         <Camera className="h-12 w-12 text-white/40" />
       </div>

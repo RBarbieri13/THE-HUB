@@ -16,14 +16,14 @@ export function ImpactStats() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {STATS.map((stat, i) => (
             <ScrollReveal key={stat.label} animation="fade-up" delay={i * 100}>
-              <div className="text-center p-6 rounded-[3px] border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-colors">
-                <div className="font-[family-name:var(--font-display)] text-4xl md:text-5xl lg:text-6xl font-bold text-accent leading-none">
+              <div className="text-center p-6 rounded-sm border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-colors">
+                <div className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-accent leading-none">
                   {stat.number}
                 </div>
                 <div className="text-white font-semibold text-base mt-3">
                   {stat.label}
                 </div>
-                <div className="text-white/40 text-sm mt-1">
+                <div className="text-white/70 text-sm mt-1">
                   {stat.sublabel}
                 </div>
               </div>

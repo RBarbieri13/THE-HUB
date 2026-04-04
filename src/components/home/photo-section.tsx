@@ -28,7 +28,7 @@ export function PhotoSection() {
       <ScrollReveal animation="fade-up">
         <div className="text-center mb-10">
           <div className="section-divider mx-auto mb-5" />
-          <h2 className="font-[family-name:var(--font-heading)] text-3xl md:text-4xl font-bold text-text-primary">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary">
             Our Community
           </h2>
           <p className="text-text-body text-lg mt-3 max-w-2xl mx-auto">
@@ -38,7 +38,7 @@ export function PhotoSection() {
         </div>
       </ScrollReveal>
       <ScrollReveal animation="scale-in">
-        <div className="relative aspect-[16/7] rounded-[3px] overflow-hidden mb-2 shadow-lg">
+        <div className="relative aspect-[16/7] rounded-sm overflow-hidden mb-2 shadow-lg">
           <Image
             src="/images/stock/community-event.jpg"
             alt="United Spinal Association of Tennessee community members gathered together at a Hub event — many in wheelchairs"
@@ -54,7 +54,7 @@ export function PhotoSection() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {STOCK_PHOTOS.map((photo, i) => (
           <ScrollReveal key={photo.src} animation="fade-up" delay={i * 100}>
-            <div className="relative aspect-[4/3] rounded-[3px] overflow-hidden shadow-md group">
+            <div className="relative aspect-[4/3] rounded-sm overflow-hidden shadow-md group">
               <Image
                 src={photo.src}
                 alt={photo.alt}

@@ -9,7 +9,7 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const variantStyles: Record<CardVariant, string> = {
-  default: "bg-white border-none rounded-[3px] overflow-hidden shadow-[var(--shadow-card)]",
+  default: "bg-white border-none rounded-sm overflow-hidden shadow-[var(--shadow-card)]",
   dark: "bg-dark text-white rounded-none",
   "info-panel": "bg-dark text-white rounded-none p-[30px]",
 };
@@ -21,7 +21,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
         ref={ref}
         className={cn(
           variantStyles[variant],
-          "transition-all duration-300 ease-out",
+          "transition-[box-shadow,transform] duration-300 ease-out",
           hoverable && "hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-1",
           className
         )}

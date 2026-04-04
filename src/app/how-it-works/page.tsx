@@ -123,13 +123,13 @@ export default function HowItWorksPage() {
       {/* Typical Timeline — prominent info card */}
       <SectionWrapper bg="white">
         <ScrollReveal animation="fade-up">
-          <div className="max-w-2xl mx-auto bg-primary/5 border border-primary/20 rounded-[3px] p-6">
+          <div className="max-w-2xl mx-auto bg-primary/5 border border-primary/20 rounded-sm p-6">
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
                 <Info className="w-5 h-5 text-primary" aria-hidden="true" />
               </div>
               <div>
-                <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-text-primary mb-2">
+                <h3 className="font-heading text-xl font-bold text-text-primary mb-2">
                   Typical Timeline
                 </h3>
                 <p className="text-text-body">

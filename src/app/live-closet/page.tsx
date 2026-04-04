@@ -34,7 +34,7 @@ export default function LiveClosetPage() {
           </ScrollReveal>
 
           <ScrollReveal animation="fade-right">
-            <div className="bg-white border border-[#E5E5E5] rounded-[3px] shadow-md p-6">
+            <div className="bg-white border border-border rounded-sm shadow-md p-6">
               <h3 className="font-heading text-xl font-bold text-text-heading">
                 What&apos;s Available
               </h3>
@@ -46,7 +46,7 @@ export default function LiveClosetPage() {
                 {EQUIPMENT_CATEGORIES.map((category) => (
                   <div
                     key={category}
-                    className="flex justify-between py-2 border-b border-[#E5E5E5] text-sm"
+                    className="flex justify-between py-2 border-b border-border text-sm"
                   >
                     <span>{category}</span>
                     <span className="text-text-light">&mdash;</span>

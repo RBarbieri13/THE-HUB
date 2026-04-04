@@ -49,7 +49,7 @@ export function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="bg-success/10 border border-success p-6 rounded-[3px] animate-fade-in">
+      <div className="bg-success/10 border border-success p-6 rounded-sm animate-fade-in">
         <CheckCircle2 className="h-6 w-6 text-success mb-3" />
         <h3 className="font-heading text-lg font-semibold text-text-primary mb-2">
           Message Sent
@@ -65,45 +65,45 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6">
       {serverError && (
-        <div role="alert" className="bg-error/10 border border-error p-4 rounded-[3px] text-error text-sm">
+        <div role="alert" className="bg-error/10 border border-error p-4 rounded-sm text-error text-sm">
           {serverError}
         </div>
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <FormField label="Full Name" required error={errors.name?.message}>
+        <FormField label="Full Name" htmlFor="contact-name" required error={errors.name?.message}>
           <Input
             {...register("name")}
+            id="contact-name"
             type="text"
             placeholder="Your full name"
-            error={errors.name?.message}
           />
         </FormField>
 
-        <FormField label="Email" required error={errors.email?.message}>
+        <FormField label="Email" htmlFor="contact-email" required error={errors.email?.message}>
           <Input
             {...register("email")}
+            id="contact-email"
             type="email"
             placeholder="you@example.com"
-            error={errors.email?.message}
           />
         </FormField>
       </div>
 
-      <FormField label="Category" required error={errors.category?.message}>
+      <FormField label="Category" htmlFor="contact-category" required error={errors.category?.message}>
         <Select
           {...register("category")}
+          id="contact-category"
           options={categoryOptions}
           placeholder="Select a category"
-          error={errors.category?.message}
         />
       </FormField>
 
-      <FormField label="Message" required error={errors.message?.message}>
+      <FormField label="Message" htmlFor="contact-message" required error={errors.message?.message}>
         <Textarea
           {...register("message")}
+          id="contact-message"
           placeholder="How can we help you?"
-          error={errors.message?.message}
         />
       </FormField>
 

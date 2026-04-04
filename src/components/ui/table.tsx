@@ -20,7 +20,7 @@ const TableHeader = forwardRef<HTMLTableSectionElement, HTMLAttributes<HTMLTable
     return (
       <thead
         ref={ref}
-        className={cn("bg-off-white border-b border-[#E5E5E5]", className)}
+        className={cn("bg-off-white border-b border-border", className)}
         {...props}
       />
     );
@@ -43,7 +43,7 @@ const TableRow = forwardRef<HTMLTableRowElement, HTMLAttributes<HTMLTableRowElem
       <tr
         ref={ref}
         className={cn(
-          "border-b border-[#E5E5E5] hover:bg-[#FAFAFA] transition-colors duration-150",
+          "border-b border-border hover:bg-[#FAFAFA] transition-colors duration-150",
           className
         )}
         {...props}

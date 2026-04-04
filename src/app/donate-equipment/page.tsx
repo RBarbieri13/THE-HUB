@@ -75,7 +75,7 @@ export default function DonateEquipmentPage() {
           <div className="section-divider mb-5" />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Accepted column */}
-            <div className="bg-success/5 border border-success/20 rounded-[3px] p-6">
+            <div className="bg-success/5 border border-success/20 rounded-sm p-6">
               <h2 className="mb-2">What We Accept</h2>
               <p className="mt-2 mb-6 text-sm">
                 We accept a wide range of adaptive and mobility equipment in
@@ -93,7 +93,7 @@ export default function DonateEquipmentPage() {
             </div>
 
             {/* Not accepted column */}
-            <div className="bg-error/5 border border-error/20 rounded-[3px] p-6">
+            <div className="bg-error/5 border border-error/20 rounded-sm p-6">
               <h2 className="mb-2">What We May Not Accept</h2>
               <p className="mt-2 mb-6 text-sm">
                 Due to space and safety constraints, we may not be able to
@@ -150,7 +150,7 @@ export default function DonateEquipmentPage() {
               Let us know about the equipment you&apos;d like to donate. Our
               team will follow up to coordinate next steps.
             </p>
-            <div className="bg-white rounded-[3px] shadow-lg p-8 md:p-10">
+            <div className="bg-white rounded-sm shadow-lg p-8 md:p-10">
               <DonationForm />
             </div>
           </div>
