@@ -89,7 +89,7 @@ export default function PartnersPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl">
           {REFERRAL_SOURCES.map((source, index) => (
             <ScrollReveal key={source.label} animation="fade-up" delay={index * 60}>
-              <div className="flex items-center gap-3 bg-off-white border border-border rounded-sm p-4 hover:border-accent/30 hover:shadow-sm hover:-translate-y-0.5 transition-all duration-300">
+              <div className="flex items-center gap-3 bg-off-white rounded-xl p-4 shadow-[0_4px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 transition-shadow duration-300">
                 <div className="flex-shrink-0 w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
                   <source.icon className="w-4 h-4 text-primary-dark" aria-hidden="true" />
                 </div>
@@ -185,7 +185,7 @@ export default function PartnersPage() {
             },
           ].map((partner, index) => (
             <ScrollReveal key={partner.name} animation="fade-up" delay={index * 100}>
-              <div className="bg-white border border-border rounded-lg p-8 shadow-sm hover:shadow-md hover:border-accent/30 hover:-translate-y-0.5 transition-all duration-300">
+              <div className="bg-white rounded-xl p-8 shadow-[0_4px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.1)] hover:-translate-y-0.5 transition-shadow duration-300">
                 <div className="flex items-start justify-between gap-4 mb-4">
                   <h3 className="font-heading text-xl font-bold text-text-primary">
                     {partner.name}

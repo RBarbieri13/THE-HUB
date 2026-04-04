@@ -35,7 +35,7 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-bold text-base mb-4 relative pb-3 after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-accent">
+            <h3 className="text-white font-bold text-base mb-4 tracking-wide relative pb-3 after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-accent">
               Quick Links
             </h3>
             <ul className="space-y-2">
@@ -54,7 +54,7 @@ export function Footer() {
 
           {/* Information */}
           <div>
-            <h3 className="text-white font-bold text-base mb-4 relative pb-3 after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-accent">
+            <h3 className="text-white font-bold text-base mb-4 tracking-wide relative pb-3 after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-accent">
               Information
             </h3>
             <ul className="space-y-2">
@@ -73,7 +73,7 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-white font-bold text-base mb-4 relative pb-3 after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-accent">Contact</h3>
+            <h3 className="text-white font-bold text-base mb-4 tracking-wide relative pb-3 after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-accent">Contact</h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-[#CCCCCC]" />

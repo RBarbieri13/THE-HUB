@@ -11,7 +11,7 @@ interface AccordionProps {
 
 function Accordion({ children, className }: AccordionProps) {
   return (
-    <div className={cn("divide-y divide-[#E5E5E5]", className)}>
+    <div className={cn("flex flex-col gap-2", className)}>
       {children}
     </div>
   );
@@ -54,13 +54,13 @@ function AccordionItem({ title, children, defaultOpen = false }: AccordionItemPr
 
   return (
     <div className={cn(
-      "transition-all duration-300",
-      isOpen && "border-l-[3px] border-l-accent pl-3 -ml-3"
+      "rounded-xl px-5 transition-all duration-300",
+      isOpen ? "bg-off-white/80 border-l-[3px] border-l-accent" : "bg-transparent hover:bg-off-white/50"
     )}>
       <button
         id={buttonId}
         type="button"
-        className="flex w-full items-center justify-between min-h-[48px] py-4 px-2 text-left font-heading font-semibold text-text-primary transition-colors duration-200 hover:bg-off-white/80 hover:text-primary-dark cursor-pointer rounded-sm"
+        className="flex w-full items-center justify-between min-h-[48px] py-4 text-left font-heading font-semibold text-text-primary transition-colors duration-200 hover:text-primary-dark cursor-pointer rounded-sm"
         onClick={() => setIsOpen((prev) => !prev)}
         aria-expanded={isOpen}
         aria-controls={panelId}

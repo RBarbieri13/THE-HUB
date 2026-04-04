@@ -78,7 +78,7 @@ export default function AboutPage() {
             </div>
           </ScrollReveal>
           <ScrollReveal animation="fade-left" delay={150}>
-            <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-lg">
+            <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.1)]">
               <Image
                 src="/images/stock/wheelchair-senior.jpg"
                 alt="Senior using a manual wheelchair, representing the people The Hub serves"
@@ -95,7 +95,7 @@ export default function AboutPage() {
       <SectionWrapper bg="off-white">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <ScrollReveal animation="fade-right">
-            <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-lg order-2 lg:order-1">
+            <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.1)] order-2 lg:order-1">
               <Image
                 src="/images/stock/wheelchair-room.jpg"
                 alt="Equipment room at The Hub filled with wheelchairs ready for distribution"
@@ -140,7 +140,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {OPERATION_STEPS.map((step, index) => (
             <ScrollReveal key={step.title} animation="fade-up" delay={index * 100}>
-              <Card className="border border-border hover:shadow-md hover:-translate-y-1 transition-all duration-300 h-full">
+              <Card className="shadow-[0_4px_32px_rgba(0,0,0,0.06)] rounded-xl hover:shadow-[0_8px_40px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 h-full">
                 <CardContent className="flex items-start gap-5 py-8 px-7">
                   <div className="flex-shrink-0 w-14 h-14 bg-primary-dark/10 rounded-full flex items-center justify-center">
                     <step.icon className="w-7 h-7 text-primary-dark" aria-hidden="true" />
@@ -204,7 +204,7 @@ export default function AboutPage() {
             { number: "10+", label: "Partner Organizations", desc: "Hospitals, rehab centers, and social service agencies across the state" },
           ].map((stat, index) => (
             <ScrollReveal key={stat.label} animation="scale-in" delay={index * 100}>
-              <div className="bg-white rounded-lg p-10 shadow-sm hover:shadow-md transition-shadow duration-300">
+              <div className="bg-white rounded-xl p-10 shadow-[0_4px_32px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.1)] transition-shadow duration-300">
                 <div className="text-5xl md:text-6xl font-bold text-accent mb-3 font-display tracking-tight">
                   {stat.number}
                 </div>

@@ -68,7 +68,7 @@ export default function GetEquipmentPage() {
                 {ELIGIBILITY_ITEMS.map((item) => (
                   <div
                     key={item}
-                    className="border border-border rounded-lg p-5 bg-white flex items-start gap-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                    className="rounded-xl p-5 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.06)] flex items-start gap-4 hover:shadow-[0_6px_28px_rgba(0,0,0,0.09)] hover:-translate-y-0.5 transition-all duration-300"
                   >
                     <CheckCircle className="h-6 w-6 text-success shrink-0 mt-0.5" />
                     <span className="text-text-body text-base leading-relaxed">{item}</span>
@@ -78,7 +78,7 @@ export default function GetEquipmentPage() {
             </div>
           </ScrollReveal>
           <ScrollReveal animation="fade-left" delay={200}>
-            <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-lg">
+            <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.1)]">
               <Image
                 src="/images/stock/wheelchair-walker.jpg"
                 alt="Person using adaptive equipment outdoors"
@@ -137,13 +137,13 @@ export default function GetEquipmentPage() {
               availability, but our team will review every submission and follow
               up.
             </p>
-            <div className="bg-primary/5 border-l-4 border-primary-dark rounded-lg p-6 mb-10">
+            <div className="bg-primary/10 rounded-xl p-6 mb-10">
               <p className="text-base font-semibold text-primary-dark leading-relaxed">
                 Requests are typically reviewed within 3&ndash;5 business days.
                 All equipment is provided free of charge.
               </p>
             </div>
-            <div className="bg-white rounded-lg shadow-lg p-8 md:p-10">
+            <div className="bg-white rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] p-8 md:p-10">
               <EquipmentRequestForm />
             </div>
           </div>

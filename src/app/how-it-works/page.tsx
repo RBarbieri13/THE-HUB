@@ -104,7 +104,7 @@ export default function HowItWorksPage() {
               >
                 {/* Image column */}
                 <div className="w-full md:w-1/2 flex-shrink-0">
-                  <div className="relative aspect-[16/10] rounded-lg overflow-hidden shadow-lg">
+                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.1)]">
                     <Image
                       src={step.image}
                       alt={step.imageAlt}
@@ -113,7 +113,7 @@ export default function HowItWorksPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-dark/30 to-transparent" />
                     {/* Step badge on image */}
-                    <div className="absolute top-5 left-5 w-14 h-14 rounded-full bg-accent text-white flex items-center justify-center text-xl font-bold shadow-lg shadow-accent/30">
+                    <div className="absolute top-5 left-5 w-14 h-14 rounded-full bg-accent text-white flex items-center justify-center text-xl font-bold shadow-[0_4px_16px_rgba(238,115,47,0.2)]">
                       {step.number}
                     </div>
                   </div>

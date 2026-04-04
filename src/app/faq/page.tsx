@@ -40,7 +40,7 @@ export default function FAQPage() {
       {/* Still have questions — styled as dark CTA card */}
       <SectionWrapper bg="off-white">
         <ScrollReveal animation="fade-up" delay={100}>
-          <div className="bg-primary-dark text-white p-10 md:p-12 rounded-lg text-center max-w-xl mx-auto shadow-lg">
+          <div className="bg-primary-dark text-white p-10 md:p-12 rounded-xl text-center max-w-xl mx-auto shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
             <h2 className="font-heading text-2xl md:text-3xl font-bold mb-4 tracking-tight">
               Still Have Questions?
             </h2>

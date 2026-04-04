@@ -52,7 +52,7 @@ export function HowItWorksPreview() {
           <ScrollReveal key={step.number} animation="fade-up" delay={i * 150}>
             <div className="group">
               {/* Image */}
-              <div className="relative aspect-[4/3] rounded-lg overflow-hidden mb-6 shadow-md">
+              <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-6 shadow-[0_4px_24px_rgba(0,0,0,0.08)]">
                 <Image
                   src={step.image}
                   alt={step.imageAlt}
@@ -61,7 +61,7 @@ export function HowItWorksPreview() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-dark/50 to-transparent" />
                 {/* Step badge */}
-                <div className="absolute top-4 left-4 w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center text-sm font-bold shadow-lg">
+                <div className="absolute top-4 left-4 w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center text-sm font-bold shadow-[0_4px_16px_rgba(238,115,47,0.2)]">
                   {step.number}
                 </div>
               </div>
@@ -71,7 +71,7 @@ export function HowItWorksPreview() {
                 <p className="text-accent font-bold text-sm uppercase tracking-wider mb-2">
                   Step {step.number}
                 </p>
-                <h3 className="font-heading text-xl md:text-2xl font-bold text-text-primary mb-3">
+                <h3 className="font-heading text-xl md:text-2xl font-bold text-text-primary mb-3 tracking-tight">
                   {step.title}
                 </h3>
                 <p className="text-text-body text-base leading-relaxed">{step.description}</p>

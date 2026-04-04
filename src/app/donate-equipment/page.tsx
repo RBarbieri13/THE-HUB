@@ -75,7 +75,7 @@ export default function DonateEquipmentPage() {
           <div className="section-divider mb-6" />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {/* Accepted column */}
-            <div className="bg-success/5 border border-success/20 rounded-lg p-8">
+            <div className="bg-success/8 rounded-xl p-8">
               <h2 className="font-heading text-2xl md:text-3xl font-bold text-text-primary mb-3 tracking-tight">
                 What We Accept
               </h2>
@@ -95,7 +95,7 @@ export default function DonateEquipmentPage() {
             </div>
 
             {/* Not accepted column */}
-            <div className="bg-error/5 border border-error/20 rounded-lg p-8">
+            <div className="bg-error/8 rounded-xl p-8">
               <h2 className="font-heading text-2xl md:text-3xl font-bold text-text-primary mb-3 tracking-tight">
                 What We May Not Accept
               </h2>
@@ -135,10 +135,10 @@ export default function DonateEquipmentPage() {
                   <p className="text-sm font-bold tracking-widest text-accent uppercase mb-3">
                     Step {i + 1}
                   </p>
-                  <div className="mx-auto w-16 h-16 rounded-full bg-accent text-white text-2xl font-bold flex items-center justify-center shadow-lg shadow-primary-dark/15 relative z-10">
+                  <div className="mx-auto w-20 h-20 rounded-full bg-accent text-white text-3xl font-bold flex items-center justify-center shadow-[0_8px_32px_rgba(238,115,47,0.15)] relative z-10">
                     {i + 1}
                   </div>
-                  <h3 className="font-heading text-xl md:text-2xl font-bold text-text-primary mt-5 mb-3">
+                  <h3 className="font-heading text-2xl font-bold text-text-primary mt-5 mb-3">
                     {step.title}
                   </h3>
                   <p className="text-text-body text-base leading-relaxed">{step.description}</p>
@@ -160,7 +160,7 @@ export default function DonateEquipmentPage() {
               Let us know about the equipment you&apos;d like to donate. Our
               team will follow up to coordinate next steps.
             </p>
-            <div className="bg-white rounded-lg shadow-lg p-8 md:p-10">
+            <div className="bg-white rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] p-10 md:p-12">
               <DonationForm />
             </div>
           </div>
@@ -177,7 +177,7 @@ export default function DonateEquipmentPage() {
               {EQUIPMENT_CATEGORIES.map((cat) => (
                 <span
                   key={cat}
-                  className="inline-flex items-center px-5 py-2.5 rounded-full bg-primary/10 text-primary-dark text-base font-semibold border border-primary/20 hover:bg-primary/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 cursor-default"
+                  className="inline-flex items-center px-5 py-2.5 rounded-full bg-primary/10 text-primary-dark text-base font-semibold border border-primary/20 shadow-sm hover:bg-primary/20 hover:shadow-[0_4px_16px_rgba(30,137,157,0.15)] hover:-translate-y-0.5 transition-all duration-300 cursor-default"
                 >
                   {cat}
                 </span>

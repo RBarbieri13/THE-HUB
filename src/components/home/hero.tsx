@@ -16,7 +16,7 @@ export function Hero() {
       />
       {/* Multi-layer gradient for depth */}
       <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/60 to-dark/30" />
-      <div className="absolute inset-0 bg-gradient-to-r from-dark/40 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-dark/85 via-dark/50 to-transparent" />
 
       {/* Decorative accent line */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent via-primary to-primary-dark" />
@@ -47,7 +47,7 @@ export function Hero() {
           </p>
 
           {/* Org pill */}
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 mt-6">
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mt-6">
             <span className="w-2 h-2 rounded-full bg-accent" />
             <span className="text-white/90 text-sm font-semibold tracking-wide">
               {ORG_NAME}
@@ -64,7 +64,11 @@ export function Hero() {
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 mt-10">
             <Link href="/get-equipment">
-              <Button variant="primary" size="lg" className="group">
+              <Button
+                variant="primary"
+                size="lg"
+                className="group bg-gradient-to-r from-accent to-accent-hover border-accent shadow-[0_8px_32px_rgba(238,115,47,0.25)] hover:shadow-[0_8px_40px_rgba(238,115,47,0.4)]"
+              >
                 Request Equipment
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
