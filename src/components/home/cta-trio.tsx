@@ -54,7 +54,7 @@ export function CTATrio() {
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary">
             How Can We Help?
           </h2>
-          <p className="text-text-body text-lg mt-3 max-w-xl mx-auto">
+          <p className="text-text-body text-lg md:text-xl mt-4 max-w-xl mx-auto leading-relaxed">
             Whether you need equipment, want to give back, or are looking for a
             loved one — we&apos;re here.
           </p>
@@ -71,7 +71,7 @@ export function CTATrio() {
                 <h3 className="font-heading text-2xl font-bold mt-1">
                   {card.title}
                 </h3>
-                <p className="text-text-body text-base mt-3 flex-1">{card.description}</p>
+                <p className="text-text-body text-base md:text-lg mt-4 flex-1 leading-relaxed">{card.description}</p>
                 <Link href={card.href} className="mt-8 no-underline">
                   <Button variant={card.buttonVariant} className="group/btn">
                     {card.buttonLabel}

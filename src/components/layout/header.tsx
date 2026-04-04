@@ -92,7 +92,7 @@ export function Header() {
           </Link>
 
           {/* Center — Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-0.5">
+          <div className="hidden lg:flex items-center gap-1">
             {NAV_ITEMS.map((item) => {
               const Icon = NAV_ICONS[item.label];
               return (
@@ -104,22 +104,22 @@ export function Header() {
                         aria-expanded={dropdownOpen === item.label}
                         aria-haspopup="true"
                         className={cn(
-                          "flex items-center gap-1.5 px-3 py-3",
-                          "font-heading text-sm font-semibold",
-                          "text-white/80 hover:text-white transition-colors"
+                          "flex items-center gap-2 px-3.5 py-3.5",
+                          "font-heading text-[0.9375rem] font-semibold",
+                          "text-white/85 hover:text-white transition-colors"
                         )}
                       >
-                        {Icon && <Icon className="h-3.5 w-3.5" />}
+                        {Icon && <Icon className="h-4 w-4" />}
                         {item.label}
                         <ChevronDown className={cn(
-                          "h-3 w-3 opacity-60 transition-transform duration-200",
+                          "h-3.5 w-3.5 opacity-60 transition-transform duration-200",
                           dropdownOpen === item.label && "rotate-180"
                         )} />
                       </button>
                       {dropdownOpen === item.label && (
                         <div
                           role="menu"
-                          className="absolute left-0 top-full z-50 bg-white shadow-xl border border-border rounded-md py-3 px-4 min-w-[200px]"
+                          className="absolute left-0 top-full z-50 bg-white shadow-xl border border-border rounded-md py-3 px-4 min-w-[220px]"
                         >
                           {item.children.map((child) => (
                             <Link
@@ -128,7 +128,7 @@ export function Header() {
                               role="menuitem"
                               onClick={closeDropdown}
                               className={cn(
-                                "block py-2 px-2 text-sm font-medium rounded",
+                                "block py-2.5 px-3 text-[0.9375rem] font-medium rounded",
                                 "text-text-primary hover:text-primary-dark hover:bg-primary-dark/5",
                                 "transition-colors duration-200"
                               )}
@@ -143,15 +143,15 @@ export function Header() {
                     <Link
                       href={item.href}
                       className={cn(
-                        "flex items-center gap-1.5 px-3 py-3",
-                        "font-heading text-sm font-semibold",
+                        "flex items-center gap-2 px-3.5 py-3.5",
+                        "font-heading text-[0.9375rem] font-semibold",
                         "relative transition-colors",
                         pathname === item.href
                           ? "text-white"
-                          : "text-white/80 hover:text-white"
+                          : "text-white/85 hover:text-white"
                       )}
                     >
-                      {Icon && <Icon className="h-3.5 w-3.5" />}
+                      {Icon && <Icon className="h-4 w-4" />}
                       {item.label}
                       {pathname === item.href && (
                         <motion.span
@@ -172,23 +172,23 @@ export function Header() {
           </div>
 
           {/* Right — Actions */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-4">
             <a
               href={`tel:${CONTACT.phone}`}
-              className="flex items-center gap-1 text-white/80 hover:text-white text-sm font-semibold transition-colors py-2"
+              className="flex items-center gap-1.5 text-white/85 hover:text-white text-[0.9375rem] font-semibold transition-colors py-2"
             >
-              <Phone className="h-3.5 w-3.5" />
+              <Phone className="h-4 w-4" />
               <span>{CONTACT.phone}</span>
             </a>
             <Link
               href="/login"
-              className="text-white/80 hover:text-white text-sm font-semibold transition-colors py-2"
+              className="text-white/85 hover:text-white text-[0.9375rem] font-semibold transition-colors py-2"
             >
               Login
             </Link>
             <Link
               href="/donate-equipment"
-              className="bg-accent text-white px-4 py-2 rounded-sm text-sm font-bold shadow-md shadow-accent/25 hover:bg-[#D45F1F] transition-colors duration-200"
+              className="bg-accent text-white px-5 py-2.5 rounded-sm text-[0.9375rem] font-bold shadow-md shadow-accent/25 hover:bg-[#D45F1F] transition-colors duration-200"
             >
               Donate
             </Link>

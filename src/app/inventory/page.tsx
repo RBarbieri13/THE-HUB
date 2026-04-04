@@ -30,10 +30,10 @@ export default function InventoryPage() {
       <SectionWrapper bg="white">
         <div className="section-divider mx-auto mb-5" />
         <ScrollReveal animation="fade-up">
-          <h2 className="font-heading text-2xl md:text-3xl font-bold text-text-heading">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary tracking-tight">
             Available Categories
           </h2>
-          <p className="mt-2 text-text-light">
+          <p className="mt-3 text-text-body text-lg leading-relaxed">
             Browse equipment by category. Create a free account to see full
             details and availability.
           </p>
@@ -52,7 +52,7 @@ export default function InventoryPage() {
                   <div className="w-12 h-12 rounded-full bg-primary-dark/10 flex items-center justify-center mx-auto mb-3">
                     <Icon className="h-6 w-6 text-primary-dark" aria-hidden="true" />
                   </div>
-                  <p className="font-heading font-semibold text-sm text-text-primary leading-tight">
+                  <p className="font-heading font-semibold text-base text-text-primary leading-tight">
                     {category}
                   </p>
                 </Card>
@@ -69,10 +69,10 @@ export default function InventoryPage() {
             {/* Gradient overlay for depth */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(255,255,255,0.06),transparent_60%)]" aria-hidden="true" />
             <Card variant="dark" className="relative p-8 md:p-12 text-center border-0">
-              <h2 className="font-heading text-2xl md:text-3xl font-bold text-white">
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-white tracking-tight">
                 See Full Inventory Details
               </h2>
-              <p className="mt-3 text-white/80 max-w-2xl mx-auto">
+              <p className="mt-4 text-white/85 text-lg max-w-2xl mx-auto leading-relaxed">
                 Create a free account to access our complete inventory portal with
                 search, filters, and detailed item information.
               </p>

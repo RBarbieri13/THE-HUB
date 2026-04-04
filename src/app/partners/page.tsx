@@ -68,10 +68,10 @@ export default function PartnersPage() {
       <SectionWrapper bg="white">
         <div className="section-divider mx-auto mb-5" />
         <ScrollReveal animation="fade-left">
-          <h2 className="font-heading text-2xl md:text-3xl font-bold text-text-primary mb-6">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary mb-6 tracking-tight">
             Referral Partners
           </h2>
-          <div className="max-w-3xl space-y-4 text-text-body mb-8">
+          <div className="max-w-3xl space-y-5 text-text-body text-base md:text-lg leading-relaxed mb-10">
             <p>
               If you work with individuals who have spinal cord injuries or
               related mobility disabilities, you can refer them to the Donation
@@ -93,7 +93,7 @@ export default function PartnersPage() {
                 <div className="flex-shrink-0 w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
                   <source.icon className="w-4 h-4 text-primary-dark" aria-hidden="true" />
                 </div>
-                <span className="text-sm font-medium text-text-primary leading-tight">
+                <span className="text-base font-medium text-text-primary leading-tight">
                   {source.label}
                 </span>
               </div>
@@ -106,7 +106,7 @@ export default function PartnersPage() {
       <SectionWrapper bg="off-white">
         <div className="section-divider mx-auto mb-5" />
         <ScrollReveal animation="fade-up">
-          <h2 className="font-heading text-2xl md:text-3xl font-bold text-text-primary mb-10 text-center">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary mb-12 text-center tracking-tight">
             How to Make a Referral
           </h2>
         </ScrollReveal>
@@ -122,10 +122,10 @@ export default function PartnersPage() {
                 <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-2">
                   Step {step.number}
                 </p>
-                <h3 className="font-heading text-lg font-semibold text-text-primary mb-2">
+                <h3 className="font-heading text-xl font-semibold text-text-primary mb-3">
                   {step.title}
                 </h3>
-                <p className="text-text-body text-sm">{step.description}</p>
+                <p className="text-text-body text-base leading-relaxed">{step.description}</p>
               </div>
             </ScrollReveal>
           ))}
@@ -145,10 +145,10 @@ export default function PartnersPage() {
       <SectionWrapper bg="white">
         <div className="section-divider mx-auto mb-5" />
         <ScrollReveal animation="fade-up">
-          <h2 className="font-heading text-2xl md:text-3xl font-bold text-text-primary mb-6 text-center">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary mb-6 text-center tracking-tight">
             Our Supporters
           </h2>
-          <p className="text-text-body text-center max-w-2xl mx-auto mb-10">
+          <p className="text-text-body text-lg text-center max-w-2xl mx-auto mb-12 leading-relaxed">
             The Hub is made possible through the generous support of
             the Craig H. Neilsen Foundation and our community partners. Their
             commitment helps us connect essential equipment with those who need
@@ -185,16 +185,16 @@ export default function PartnersPage() {
             },
           ].map((partner, index) => (
             <ScrollReveal key={partner.name} animation="fade-up" delay={index * 100}>
-              <div className="bg-white border border-border rounded-sm p-6 shadow-sm hover:shadow-md hover:border-accent/30 hover:-translate-y-0.5 transition-all duration-300">
-                <div className="flex items-start justify-between gap-4 mb-3">
-                  <h3 className="font-heading text-lg font-bold text-text-primary">
+              <div className="bg-white border border-border rounded-lg p-8 shadow-sm hover:shadow-md hover:border-accent/30 hover:-translate-y-0.5 transition-all duration-300">
+                <div className="flex items-start justify-between gap-4 mb-4">
+                  <h3 className="font-heading text-xl font-bold text-text-primary">
                     {partner.name}
                   </h3>
-                  <span className="shrink-0 text-xs font-semibold uppercase tracking-wider bg-primary/15 text-primary-dark px-2 py-1 rounded-sm">
+                  <span className="shrink-0 text-xs font-semibold uppercase tracking-wider bg-primary/15 text-primary-dark px-3 py-1.5 rounded-sm">
                     {partner.badge}
                   </span>
                 </div>
-                <p className="text-text-body text-sm leading-relaxed">{partner.description}</p>
+                <p className="text-text-body text-base leading-relaxed">{partner.description}</p>
               </div>
             </ScrollReveal>
           ))}
@@ -208,10 +208,10 @@ export default function PartnersPage() {
           <ScrollReveal animation="fade-up">
             <div className="relative max-w-2xl mx-auto text-center">
               <div className="section-divider mx-auto mb-5" />
-              <h2 className="font-heading text-2xl md:text-3xl font-bold mb-4">
+              <h2 className="font-heading text-3xl md:text-4xl font-bold mb-5 tracking-tight">
                 Become a Partner
               </h2>
-              <p className="text-white/90 text-lg mb-8 max-w-xl mx-auto">
+              <p className="text-white/90 text-lg md:text-xl mb-10 max-w-xl mx-auto leading-relaxed">
                 Interested in partnering with the Hub? Whether you
                 are a healthcare facility, community organization, or equipment
                 vendor, we would love to hear from you.

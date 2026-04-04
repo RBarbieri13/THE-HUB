@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { PageHeader } from "@/components/shared/page-header";
 import { SectionWrapper } from "@/components/layout/section-wrapper";
 import { EquipmentRequestForm } from "@/components/forms/equipment-request-form";
@@ -51,37 +52,54 @@ export default function GetEquipmentPage() {
       />
 
       <SectionWrapper bg="white">
-        <ScrollReveal animation="fade-up" delay={100}>
-          <div className="max-w-3xl">
-            <div className="section-divider mb-5" />
-            <h2>Who This Is For</h2>
-            <p className="mt-2 mb-6">
-              The Hub serves Tennesseans who need mobility-related equipment but
-              face barriers to access — whether due to insurance delays, cost,
-              or lack of availability.
-            </p>
-            <div className="flex flex-col gap-3">
-              {ELIGIBILITY_ITEMS.map((item) => (
-                <div
-                  key={item}
-                  className="border border-border rounded-sm p-4 bg-white flex items-start gap-3 hover:shadow-md hover:-translate-y-1 transition-all duration-300"
-                >
-                  <CheckCircle className="h-5 w-5 text-success shrink-0 mt-0.5" />
-                  <span>{item}</span>
-                </div>
-              ))}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <ScrollReveal animation="fade-right" delay={100}>
+            <div>
+              <div className="section-divider mb-5" />
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary mb-4 tracking-tight">
+                Who This Is For
+              </h2>
+              <p className="text-text-body text-base md:text-lg leading-relaxed mb-8">
+                The Hub serves Tennesseans who need mobility-related equipment but
+                face barriers to access — whether due to insurance delays, cost,
+                or lack of availability.
+              </p>
+              <div className="flex flex-col gap-4">
+                {ELIGIBILITY_ITEMS.map((item) => (
+                  <div
+                    key={item}
+                    className="border border-border rounded-lg p-5 bg-white flex items-start gap-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                  >
+                    <CheckCircle className="h-6 w-6 text-success shrink-0 mt-0.5" />
+                    <span className="text-text-body text-base leading-relaxed">{item}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+          <ScrollReveal animation="fade-left" delay={200}>
+            <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-lg">
+              <Image
+                src="/images/stock/wheelchair-walker.jpg"
+                alt="Person using adaptive equipment outdoors"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-dark/20 to-transparent" />
+            </div>
+          </ScrollReveal>
+        </div>
       </SectionWrapper>
 
       <SectionWrapper bg="off-white">
         <ScrollReveal animation="fade-up" delay={100}>
           <div className="section-divider mx-auto mb-5" />
-          <h2 className="text-center mb-10">How Requests Work</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+          <h2 className="text-center mb-12 font-heading text-3xl md:text-4xl font-bold text-text-primary tracking-tight">
+            How Requests Work
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 relative">
             {/* Connecting line between steps on desktop */}
-            <div className="hidden md:block absolute top-8 left-[calc(16.666%+1rem)] right-[calc(16.666%+1rem)] h-px bg-gradient-to-r from-accent/20 via-accent/50 to-accent/20" />
+            <div className="hidden md:block absolute top-10 left-[calc(16.666%+1rem)] right-[calc(16.666%+1rem)] h-px bg-gradient-to-r from-accent/20 via-accent/50 to-accent/20" />
             {PROCESS_STEPS.map((step, i) => (
               <ScrollReveal
                 key={step.title}
@@ -89,14 +107,16 @@ export default function GetEquipmentPage() {
                 delay={100 + i * 100}
               >
                 <div className="text-center relative">
-                  <p className="text-xs font-bold tracking-widest text-accent uppercase mb-3">
+                  <p className="text-sm font-bold tracking-widest text-accent uppercase mb-3">
                     Step {i + 1}
                   </p>
-                  <div className="mx-auto w-16 h-16 rounded-full bg-accent text-white text-2xl font-bold flex items-center justify-center shadow-lg shadow-primary-dark/15 hover:scale-105 transition-transform duration-300 relative z-10">
+                  <div className="mx-auto w-16 h-16 rounded-full bg-accent text-white text-2xl font-bold flex items-center justify-center shadow-lg shadow-primary-dark/15 relative z-10">
                     {i + 1}
                   </div>
-                  <h4 className="mt-4">{step.title}</h4>
-                  <p className="mt-2 text-sm">{step.description}</p>
+                  <h3 className="font-heading text-xl md:text-2xl font-bold text-text-primary mt-5 mb-3">
+                    {step.title}
+                  </h3>
+                  <p className="text-text-body text-base leading-relaxed">{step.description}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -108,20 +128,22 @@ export default function GetEquipmentPage() {
         <ScrollReveal animation="fade-up" delay={100}>
           <div className="max-w-3xl mx-auto">
             <div className="section-divider mb-5" />
-            <h2 className="mb-2">Submit a Request</h2>
-            <p className="mb-6">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary mb-3 tracking-tight">
+              Submit a Request
+            </h2>
+            <p className="text-text-body text-base md:text-lg leading-relaxed mb-8">
               Please provide as much detail as possible so we can best assist
               you. Submitting a request does not guarantee equipment
               availability, but our team will review every submission and follow
               up.
             </p>
-            <div className="bg-primary/5 border-l-4 border-primary-dark rounded-sm p-5 mb-8">
-              <p className="text-sm font-semibold text-primary-dark">
+            <div className="bg-primary/5 border-l-4 border-primary-dark rounded-lg p-6 mb-10">
+              <p className="text-base font-semibold text-primary-dark leading-relaxed">
                 Requests are typically reviewed within 3&ndash;5 business days.
                 All equipment is provided free of charge.
               </p>
             </div>
-            <div className="bg-white rounded-sm shadow-lg p-8 md:p-10">
+            <div className="bg-white rounded-lg shadow-lg p-8 md:p-10">
               <EquipmentRequestForm />
             </div>
           </div>

@@ -9,7 +9,7 @@ interface PageHeaderProps {
 export function PageHeader({ title, subtitle, breadcrumbs }: PageHeaderProps) {
   return (
     <>
-      <section className="bg-primary-dark py-12 md:py-16 text-white relative">
+      <section className="bg-primary-dark py-16 md:py-20 text-white relative">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-dark to-primary-dark/80" />
         <div className="max-w-7xl mx-auto px-6 relative">
           {breadcrumbs && breadcrumbs.length > 0 && (
@@ -31,11 +31,11 @@ export function PageHeader({ title, subtitle, breadcrumbs }: PageHeaderProps) {
               ))}
             </nav>
           )}
-          <h1 className="font-heading text-3xl md:text-4xl font-bold text-white mt-3 tracking-[-0.02em]">
+          <h1 className="font-heading text-4xl md:text-5xl font-bold text-white mt-4 tracking-[-0.025em]">
             {title}
           </h1>
           {subtitle && (
-            <p className="text-lg mt-2 text-white/80">{subtitle}</p>
+            <p className="text-lg md:text-xl mt-3 text-white/85 leading-relaxed max-w-2xl">{subtitle}</p>
           )}
         </div>
       </section>

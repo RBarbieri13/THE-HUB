@@ -78,10 +78,10 @@ export function ProblemSection() {
                   <div className="font-display text-2xl font-bold text-text-primary">
                     {item.stat}
                   </div>
-                  <div className="text-text-primary text-sm font-semibold mt-1.5">
+                  <div className="text-text-primary text-base font-semibold mt-2">
                     {item.label}
                   </div>
-                  <div className="text-text-light text-sm mt-1">
+                  <div className="text-text-secondary text-sm mt-1">
                     {item.detail}
                   </div>
                 </div>

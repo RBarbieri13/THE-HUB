@@ -35,18 +35,18 @@ export default function LiveClosetPage() {
 
           <ScrollReveal animation="fade-right">
             <div className="bg-white border border-border rounded-sm shadow-md p-6">
-              <h3 className="font-heading text-xl font-bold text-text-heading">
+              <h3 className="font-heading text-2xl font-bold text-text-primary">
                 What&apos;s Available
               </h3>
-              <p className="mt-1 text-sm text-text-light">
+              <p className="mt-2 text-text-body">
                 Quick counts by category:
               </p>
 
-              <div className="mt-4">
+              <div className="mt-5">
                 {EQUIPMENT_CATEGORIES.map((category) => (
                   <div
                     key={category}
-                    className="flex justify-between py-2 border-b border-border text-sm"
+                    className="flex justify-between py-3 border-b border-border text-base"
                   >
                     <span>{category}</span>
                     <span className="text-text-light">&mdash;</span>

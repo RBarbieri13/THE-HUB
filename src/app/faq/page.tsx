@@ -15,6 +15,7 @@ export default function FAQPage() {
     <>
       <PageHeader
         title="Frequently Asked Questions"
+        subtitle="Find answers to common questions about our equipment program"
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "FAQ" }]}
       />
 
@@ -22,11 +23,11 @@ export default function FAQPage() {
         <div className="max-w-3xl mx-auto">
           {/* Intro text */}
           <ScrollReveal animation="fade-up">
-            <p className="text-center text-text-body text-lg mb-6">
+            <p className="text-center text-text-body text-lg md:text-xl mb-8 leading-relaxed">
               Find answers to common questions about our equipment program,
               eligibility, and how we can help.
             </p>
-            <div className="section-divider mx-auto mb-8" />
+            <div className="section-divider mx-auto mb-10" />
           </ScrollReveal>
 
           {/* Accordion */}
@@ -39,11 +40,11 @@ export default function FAQPage() {
       {/* Still have questions — styled as dark CTA card */}
       <SectionWrapper bg="off-white">
         <ScrollReveal animation="fade-up" delay={100}>
-          <div className="bg-primary-dark text-white p-8 rounded-sm text-center max-w-xl mx-auto shadow-lg">
-            <h3 className="font-heading text-xl font-bold mb-3">
+          <div className="bg-primary-dark text-white p-10 md:p-12 rounded-lg text-center max-w-xl mx-auto shadow-lg">
+            <h2 className="font-heading text-2xl md:text-3xl font-bold mb-4 tracking-tight">
               Still Have Questions?
-            </h3>
-            <p className="text-white/80 mb-6">
+            </h2>
+            <p className="text-white/85 text-lg leading-relaxed mb-8">
               Our team is happy to help. Reach out and we will get back to you
               within 1–2 business days.
             </p>
@@ -51,7 +52,7 @@ export default function FAQPage() {
               <Button
                 variant="primary"
                 size="lg"
-                className="shadow-lg shadow-accent/30 hover:shadow-xl hover:shadow-accent/40 transition-all duration-300"
+                className="shadow-lg shadow-accent/30 hover:shadow-xl hover:shadow-accent/40 transition-shadow duration-300"
               >
                 Contact Us
               </Button>

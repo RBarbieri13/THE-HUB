@@ -36,7 +36,7 @@ export function Testimonials() {
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-white">
               Stories From Our Community
             </h2>
-            <p className="text-white/80 text-lg mt-3 max-w-2xl mx-auto">
+            <p className="text-white/85 text-lg md:text-xl mt-4 max-w-2xl mx-auto leading-relaxed">
               Real impact. Real people. Hear from those whose lives The Hub has touched.
             </p>
           </div>
@@ -48,12 +48,12 @@ export function Testimonials() {
                 <div className="text-accent text-5xl font-display leading-none mb-4">
                   &ldquo;
                 </div>
-                <p className="text-white/85 text-base leading-relaxed flex-1">
+                <p className="text-white/90 text-base md:text-lg leading-relaxed flex-1">
                   {t.quote}
                 </p>
                 <div className="mt-6 pt-5 border-t border-white/15">
-                  <div className="font-bold text-white text-sm">{t.name}</div>
-                  <div className="text-accent/80 text-xs mt-1 font-medium">{t.role}</div>
+                  <div className="font-bold text-white text-base">{t.name}</div>
+                  <div className="text-accent/80 text-sm mt-1 font-medium">{t.role}</div>
                 </div>
               </div>
             </ScrollReveal>

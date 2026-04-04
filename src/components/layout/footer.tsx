@@ -8,7 +8,7 @@ export function Footer() {
   const fullAddress = `${CONTACT.address.street}, ${CONTACT.address.city}, ${CONTACT.address.state} ${CONTACT.address.zip}`;
 
   return (
-    <footer className="bg-dark text-[#AAAAAA] font-body text-sm">
+    <footer className="bg-dark text-[#AAAAAA] font-body text-base">
       <div className="h-1 bg-gradient-to-r from-accent via-primary to-primary-dark" />
       <div className="max-w-7xl mx-auto py-20 px-6">
         {/* Columns */}

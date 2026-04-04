@@ -55,7 +55,7 @@ export function Hero() {
           </div>
 
           {/* Description */}
-          <p className="text-lg md:text-xl text-white/85 mt-8 max-w-xl font-body leading-relaxed">
+          <p className="text-lg md:text-xl lg:text-2xl text-white/85 mt-8 max-w-2xl font-body leading-relaxed">
             Free refurbished wheelchairs, mobility devices, and adaptive
             equipment for people with spinal cord injuries and related
             disabilities.
@@ -82,7 +82,7 @@ export function Hero() {
 
           <Link
             href="/how-it-works"
-            className="inline-flex items-center gap-1.5 mt-8 text-white/80 hover:text-white text-sm font-semibold transition-colors no-underline"
+            className="inline-flex items-center gap-1.5 mt-8 text-white/80 hover:text-white text-base font-semibold transition-colors no-underline"
           >
             Learn how the process works <ChevronRight className="h-4 w-4" />
           </Link>

@@ -72,38 +72,42 @@ export default function DonateEquipmentPage() {
 
       <SectionWrapper bg="white">
         <ScrollReveal animation="fade-up" delay={100}>
-          <div className="section-divider mb-5" />
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="section-divider mb-6" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {/* Accepted column */}
-            <div className="bg-success/5 border border-success/20 rounded-sm p-6">
-              <h2 className="mb-2">What We Accept</h2>
-              <p className="mt-2 mb-6 text-sm">
+            <div className="bg-success/5 border border-success/20 rounded-lg p-8">
+              <h2 className="font-heading text-2xl md:text-3xl font-bold text-text-primary mb-3 tracking-tight">
+                What We Accept
+              </h2>
+              <p className="text-text-body text-base leading-relaxed mb-6">
                 We accept a wide range of adaptive and mobility equipment in
                 usable condition. Items should be clean and functional, or
                 repairable.
               </p>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 {ACCEPTED_ITEMS.map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-success shrink-0 mt-0.5" />
-                    <span className="text-sm">{item}</span>
+                    <span className="text-text-body text-base">{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* Not accepted column */}
-            <div className="bg-error/5 border border-error/20 rounded-sm p-6">
-              <h2 className="mb-2">What We May Not Accept</h2>
-              <p className="mt-2 mb-6 text-sm">
+            <div className="bg-error/5 border border-error/20 rounded-lg p-8">
+              <h2 className="font-heading text-2xl md:text-3xl font-bold text-text-primary mb-3 tracking-tight">
+                What We May Not Accept
+              </h2>
+              <p className="text-text-body text-base leading-relaxed mb-6">
                 Due to space and safety constraints, we may not be able to
                 accept all donations. Not all items offered will be accepted.
               </p>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 {NOT_ACCEPTED.map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <XCircle className="h-5 w-5 text-error shrink-0 mt-0.5" />
-                    <span className="text-sm">{item}</span>
+                    <span className="text-text-body text-base">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -115,8 +119,10 @@ export default function DonateEquipmentPage() {
       <SectionWrapper bg="off-white">
         <ScrollReveal animation="fade-up" delay={100}>
           <div className="section-divider mx-auto mb-5" />
-          <h2 className="text-center mb-10">Donation Process</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+          <h2 className="text-center mb-12 font-heading text-3xl md:text-4xl font-bold text-text-primary tracking-tight">
+            Donation Process
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 relative">
             {/* Connecting line between steps */}
             <div className="hidden md:block absolute top-[3.25rem] left-[calc(16.666%+1rem)] right-[calc(16.666%+1rem)] h-px bg-gradient-to-r from-accent/20 via-accent/50 to-accent/20" />
             {DONATION_STEPS.map((step, i) => (
@@ -126,14 +132,16 @@ export default function DonateEquipmentPage() {
                 delay={100 + i * 100}
               >
                 <div className="text-center relative">
-                  <p className="text-xs font-bold tracking-widest text-accent uppercase mb-3">
+                  <p className="text-sm font-bold tracking-widest text-accent uppercase mb-3">
                     Step {i + 1}
                   </p>
-                  <div className="mx-auto w-16 h-16 rounded-full bg-accent text-white text-2xl font-bold flex items-center justify-center shadow-lg shadow-primary-dark/15 hover:scale-105 transition-transform duration-300 relative z-10">
+                  <div className="mx-auto w-16 h-16 rounded-full bg-accent text-white text-2xl font-bold flex items-center justify-center shadow-lg shadow-primary-dark/15 relative z-10">
                     {i + 1}
                   </div>
-                  <h4 className="mt-4">{step.title}</h4>
-                  <p className="mt-2 text-sm">{step.description}</p>
+                  <h3 className="font-heading text-xl md:text-2xl font-bold text-text-primary mt-5 mb-3">
+                    {step.title}
+                  </h3>
+                  <p className="text-text-body text-base leading-relaxed">{step.description}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -145,12 +153,14 @@ export default function DonateEquipmentPage() {
         <ScrollReveal animation="fade-up" delay={100}>
           <div className="max-w-3xl mx-auto">
             <div className="section-divider mb-5" />
-            <h2 className="mb-2">Submit a Donation Inquiry</h2>
-            <p className="mb-8">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary mb-3 tracking-tight">
+              Submit a Donation Inquiry
+            </h2>
+            <p className="text-text-body text-base md:text-lg leading-relaxed mb-10">
               Let us know about the equipment you&apos;d like to donate. Our
               team will follow up to coordinate next steps.
             </p>
-            <div className="bg-white rounded-sm shadow-lg p-8 md:p-10">
+            <div className="bg-white rounded-lg shadow-lg p-8 md:p-10">
               <DonationForm />
             </div>
           </div>
@@ -160,12 +170,14 @@ export default function DonateEquipmentPage() {
       <SectionWrapper bg="off-white">
         <ScrollReveal animation="fade-up" delay={100}>
           <div className="text-center">
-            <h3>Equipment Categories We Serve</h3>
-            <div className="flex flex-wrap justify-center gap-3 mt-6">
+            <h2 className="font-heading text-2xl md:text-3xl font-bold text-text-primary mb-8 tracking-tight">
+              Equipment Categories We Serve
+            </h2>
+            <div className="flex flex-wrap justify-center gap-3">
               {EQUIPMENT_CATEGORIES.map((cat) => (
                 <span
                   key={cat}
-                  className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary-dark text-sm font-semibold border border-primary/20 hover:bg-primary/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 cursor-default"
+                  className="inline-flex items-center px-5 py-2.5 rounded-full bg-primary/10 text-primary-dark text-base font-semibold border border-primary/20 hover:bg-primary/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 cursor-default"
                 >
                   {cat}
                 </span>
