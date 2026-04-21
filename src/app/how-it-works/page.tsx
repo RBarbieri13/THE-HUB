@@ -1,19 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  ClipboardList,
-  Search,
-  GitCompareArrows,
-  Wrench,
-  CalendarCheck,
-  CheckCircle,
-  ArrowRight,
-  Info,
-} from "lucide-react";
+import { ArrowRight, Info } from "lucide-react";
 import { SectionWrapper } from "@/components/layout/section-wrapper";
 import { PageHeader } from "@/components/shared/page-header";
-import { Button } from "@/components/ui/button";
 import { ScrollReveal } from "@/components/shared/scroll-reveal";
 
 export const metadata: Metadata = {
@@ -22,112 +12,97 @@ export const metadata: Metadata = {
 
 const STEPS = [
   {
-    number: 1,
-    title: "Submit a Request or Donation",
+    n: "01",
+    title: "Submit a request or donation",
     description:
-      "Fill out our simple online form to request equipment or offer a donation. Include as much detail as possible about the equipment you need or have available. Our forms are designed to capture the right information so we can help you quickly.",
-    icon: ClipboardList,
+      "Fill out the relevant form. Include as much detail as possible about the equipment you need or have available — type, size, condition, urgency.",
     image: "/images/stock/wheelchair-room.jpg",
     imageAlt: "Equipment room with wheelchairs and adaptive devices",
   },
   {
-    number: 2,
-    title: "Our Team Reviews",
+    n: "02",
+    title: "Our team reviews",
     description:
-      "Our staff reviews submissions and checks current inventory. We will reach out if we need additional information to process your request or donation. Every submission is carefully evaluated to ensure the best possible match.",
-    icon: Search,
+      "We review submissions against current inventory. We may reach out for additional information. Every submission is read — nothing goes into a black hole.",
     image: "/images/stock/community-event.jpg",
     imageAlt: "Team members reviewing and organizing equipment",
   },
   {
-    number: 3,
-    title: "Equipment Matching",
+    n: "03",
+    title: "Matching",
     description:
-      "For requests, we look for suitable matches in our inventory. For donations, we assess condition and determine where the equipment is needed most. Our goal is to connect the right equipment with the right person.",
-    icon: GitCompareArrows,
+      "For requests, we look for a fit in inventory. For donations, we assess condition and place it where it's most needed. We match people to equipment, not equipment to lists.",
     image: "/images/stock/wheelchair-home.jpg",
-    imageAlt: "Power wheelchair matched to a recipient's needs",
+    imageAlt: "Power wheelchair matched to a recipient",
   },
   {
-    number: 4,
-    title: "Preparation & Refurbishment",
+    n: "04",
+    title: "Refurbishment",
     description:
-      "Donated items are cleaned, inspected, and refurbished as needed to ensure safety and functionality before they go to a new owner. We take pride in delivering equipment that is reliable and ready to use.",
-    icon: Wrench,
+      "Donated items are cleaned, inspected, and refurbished before placement. Safety and function come first — nothing goes out that we wouldn't use ourselves.",
     image: "/images/stock/wheelchair-senior.jpg",
     imageAlt: "Senior using a refurbished manual wheelchair",
   },
   {
-    number: 5,
-    title: "Coordination & Scheduling",
+    n: "05",
+    title: "Coordination",
     description:
-      "We contact you to arrange pickup or delivery. Our Nashville location has regular hours for in-person visits, and we coordinate shipping for those further away. We work with your schedule to make the process as easy as possible.",
-    icon: CalendarCheck,
+      "We schedule pickup, delivery, or drop-off around your availability. Nashville pickup or statewide coordination — whichever works better for you.",
     image: "/images/stock/wheelchair-walker.jpg",
     imageAlt: "Person with adaptive equipment outdoors",
   },
   {
-    number: 6,
-    title: "Equipment Delivered",
+    n: "06",
+    title: "Equipment delivered",
     description:
-      "You receive the equipment at no cost. We follow up to make sure everything meets your needs and that you are satisfied with the match. Our support does not end at delivery — we are here to help.",
-    icon: CheckCircle,
+      "You receive the equipment — always at no cost. We follow up after delivery to make sure the fit is right and the equipment is working for you.",
     image: "/images/stock/community-event.jpg",
     imageAlt: "Community members receiving adaptive equipment",
   },
-] as const;
+];
 
 export default function HowItWorksPage() {
   return (
     <>
       <PageHeader
-        title="How It Works"
-        subtitle="From request to delivery in six straightforward steps"
+        eyebrow="How it works"
+        title="Six straightforward steps, from request to delivery."
+        subtitle="Here's what happens between submitting a form and the equipment arriving at your door — whether you're donating, requesting, or both."
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "How It Works" },
         ]}
       />
 
-      {STEPS.map((step) => {
-        const isEven = step.number % 2 === 0;
-        const bg = isEven ? "off-white" : "white";
-        const animation = isEven ? "fade-right" : "fade-left";
-
+      {STEPS.map((step, i) => {
+        const isEven = i % 2 === 1;
+        const bg = isEven ? "cream" : "white";
         return (
-          <SectionWrapper key={step.number} bg={bg}>
-            <ScrollReveal animation={animation}>
+          <SectionWrapper key={step.n} bg={bg}>
+            <ScrollReveal animation={isEven ? "fade-right" : "fade-left"}>
               <div
-                className={`flex flex-col md:flex-row items-center gap-10 md:gap-16 ${
-                  isEven ? "md:flex-row-reverse" : ""
+                className={`grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center ${
+                  isEven ? "md:[&>*:first-child]:order-2" : ""
                 }`}
               >
-                {/* Image column */}
-                <div className="w-full md:w-1/2 flex-shrink-0">
-                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.1)]">
-                    <Image
-                      src={step.image}
-                      alt={step.imageAlt}
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-dark/30 to-transparent" />
-                    {/* Step badge on image */}
-                    <div className="absolute top-5 left-5 w-14 h-14 rounded-full bg-accent text-white flex items-center justify-center text-xl font-bold shadow-[0_4px_16px_rgba(238,115,47,0.2)]">
-                      {step.number}
-                    </div>
+                <div className="relative aspect-[16/10] rounded-[12px] overflow-hidden shadow-[0_8px_20px_rgba(12,57,64,0.08)]">
+                  <Image
+                    src={step.image}
+                    alt={step.imageAlt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-[6px] font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.1em] text-ink-800">
+                    Step {step.n}
                   </div>
                 </div>
-
-                {/* Content column */}
-                <div className="w-full md:w-1/2">
-                  <p className="text-sm font-bold uppercase tracking-widest text-accent mb-2">
-                    Step {step.number}
-                  </p>
-                  <h3 className="font-heading text-2xl md:text-3xl font-bold text-text-primary mb-4 tracking-tight">
-                    {step.title}
-                  </h3>
-                  <p className="text-text-body text-base md:text-lg leading-relaxed">
+                <div>
+                  <div className="font-[family-name:var(--font-display)] text-[56px] font-medium text-orange-600 leading-none tracking-[-0.03em]">
+                    {step.n}
+                  </div>
+                  <h2 className="h2-editorial mt-5">{step.title}</h2>
+                  <p className="lead-editorial mt-5 max-w-[54ch]">
                     {step.description}
                   </p>
                 </div>
@@ -137,69 +112,59 @@ export default function HowItWorksPage() {
         );
       })}
 
-      {/* Typical Timeline — prominent info card */}
+      {/* Timeline box */}
       <SectionWrapper bg="white">
         <ScrollReveal animation="fade-up">
-          <div className="max-w-2xl mx-auto bg-primary/5 border border-primary/20 rounded-lg p-8">
-            <div className="flex items-start gap-5">
-              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <Info className="w-6 h-6 text-primary" aria-hidden="true" />
-              </div>
-              <div>
-                <h3 className="font-heading text-xl md:text-2xl font-bold text-text-primary mb-3">
-                  Typical Timeline
-                </h3>
-                <p className="text-text-body text-base md:text-lg leading-relaxed">
-                  Most equipment requests are matched and ready within{" "}
-                  <strong className="text-text-primary">2–4 weeks</strong> of
-                  submission, depending on inventory availability and equipment
-                  condition. Urgent medical needs are prioritized.
-                </p>
-              </div>
+          <div className="max-w-3xl mx-auto flex items-start gap-5 p-7 bg-teal-50 border border-teal-700/15 rounded-[12px]">
+            <div className="w-11 h-11 rounded-full bg-teal-700/10 flex items-center justify-center shrink-0">
+              <Info className="h-5 w-5 text-teal-800" />
+            </div>
+            <div>
+              <h3 className="font-[family-name:var(--font-display)] text-[22px] font-medium text-ink-900 tracking-[-0.015em]">
+                Typical timeline
+              </h3>
+              <p className="mt-2 text-ink-body text-[16px] leading-[1.6]">
+                Most equipment requests are matched within{" "}
+                <strong className="text-ink-900">2–4 weeks</strong> of
+                submission, depending on availability and refurbishment needs.
+                Urgent medical needs are prioritized.
+              </p>
             </div>
           </div>
         </ScrollReveal>
       </SectionWrapper>
 
-      {/* CTA section */}
+      {/* Closing CTA */}
       <SectionWrapper bg="dark">
         <ScrollReveal animation="fade-up">
-          <div className="max-w-2xl mx-auto text-center">
-            <div className="section-divider mx-auto mb-5" />
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-white mb-5 tracking-tight">
-              Ready to Get Started?
-            </h2>
-            <p className="text-white/85 text-lg mb-10 leading-relaxed">
-              Have questions about the process? We are here to help every step of the way.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/get-equipment">
-                <Button variant="primary" size="lg" className="group shadow-lg shadow-accent/20 hover:shadow-xl hover:shadow-accent/30 transition-shadow duration-300">
-                  Request Equipment
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
-                </Button>
-              </Link>
-              <Link href="/donate-equipment">
-                <Button variant="outline" size="lg" className="group border-white text-white hover:bg-white/10">
-                  Donate Equipment
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
-                </Button>
-              </Link>
+          <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 items-end">
+            <div>
+              <span className="inline-flex items-center gap-2.5 font-[family-name:var(--font-mono)] text-[12px] font-bold uppercase tracking-[0.14em] text-orange-400 mb-5">
+                <span className="w-7 h-[2px] bg-orange-400" />
+                Next step
+              </span>
+              <h2 className="font-[family-name:var(--font-display)] text-[40px] md:text-[48px] font-medium leading-[1.06] tracking-[-0.02em] text-white">
+                Ready to start?
+              </h2>
+              <p className="lead-editorial mt-5 text-white/80 max-w-[54ch]">
+                Have questions about the process? We&apos;re here to walk
+                through each step with you.
+              </p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-10 text-white/60 text-sm">
-              <a
-                href="tel:+16156691307"
-                className="font-semibold text-white/80 hover:text-white transition-colors"
+            <div className="flex flex-wrap gap-3 justify-start lg:justify-end">
+              <Link
+                href="/get-equipment"
+                className="group inline-flex items-center gap-2 px-6 py-3.5 bg-orange-600 hover:bg-orange-700 text-white font-semibold text-[15px] rounded-[6px] transition-colors"
               >
-                (615) 669-1307
-              </a>
-              <span className="hidden sm:inline">•</span>
-              <a
-                href="mailto:usatnthehub@gmail.com"
-                className="font-semibold text-white/80 hover:text-white transition-colors"
+                Request Equipment
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+              <Link
+                href="/donate-equipment"
+                className="inline-flex items-center px-6 py-3.5 bg-transparent border-[1.5px] border-white/40 hover:border-white text-white font-semibold text-[15px] rounded-[6px] transition-colors"
               >
-                usatnthehub@gmail.com
-              </a>
+                Donate Equipment
+              </Link>
             </div>
           </div>
         </ScrollReveal>

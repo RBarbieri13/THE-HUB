@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { SectionWrapper } from "@/components/layout/section-wrapper";
 import { PageHeader } from "@/components/shared/page-header";
-import { Button } from "@/components/ui/button";
 import { ScrollReveal } from "@/components/shared/scroll-reveal";
 import { FAQAccordion } from "./faq-accordion";
 
@@ -14,48 +14,42 @@ export default function FAQPage() {
   return (
     <>
       <PageHeader
-        title="Frequently Asked Questions"
-        subtitle="Find answers to common questions about our equipment program"
+        eyebrow="FAQ"
+        title="Frequently asked questions."
+        subtitle="Eligibility, process, and everything else — answered. If you don't see your question here, reach out and we'll get back within 1–2 business days."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "FAQ" }]}
       />
 
       <SectionWrapper bg="white">
         <div className="max-w-3xl mx-auto">
-          {/* Intro text */}
           <ScrollReveal animation="fade-up">
-            <p className="text-center text-text-body text-lg md:text-xl mb-8 leading-relaxed">
-              Find answers to common questions about our equipment program,
-              eligibility, and how we can help.
-            </p>
-            <div className="section-divider mx-auto mb-10" />
-          </ScrollReveal>
-
-          {/* Accordion */}
-          <ScrollReveal animation="fade-up" delay={100}>
             <FAQAccordion />
           </ScrollReveal>
         </div>
       </SectionWrapper>
 
-      {/* Still have questions — styled as dark CTA card */}
-      <SectionWrapper bg="off-white">
-        <ScrollReveal animation="fade-up" delay={100}>
-          <div className="bg-primary-dark text-white p-10 md:p-12 rounded-xl text-center max-w-xl mx-auto shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
-            <h2 className="font-heading text-2xl md:text-3xl font-bold mb-4 tracking-tight">
-              Still Have Questions?
-            </h2>
-            <p className="text-white/85 text-lg leading-relaxed mb-8">
-              Our team is happy to help. Reach out and we will get back to you
-              within 1–2 business days.
-            </p>
-            <Link href="/contact">
-              <Button
-                variant="primary"
-                size="lg"
-                className="shadow-lg shadow-accent/30 hover:shadow-xl hover:shadow-accent/40 transition-shadow duration-300"
-              >
-                Contact Us
-              </Button>
+      <SectionWrapper bg="cream">
+        <ScrollReveal animation="fade-up">
+          <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 items-center p-8 md:p-12 bg-ink-950 rounded-[16px] text-white">
+            <div>
+              <span className="inline-flex items-center gap-2.5 font-[family-name:var(--font-mono)] text-[11px] font-bold uppercase tracking-[0.14em] text-orange-400 mb-4">
+                <span className="w-7 h-[2px] bg-orange-400" />
+                Still stuck?
+              </span>
+              <h2 className="font-[family-name:var(--font-display)] text-[30px] md:text-[36px] font-medium leading-[1.1] tracking-[-0.015em] text-white">
+                Didn&apos;t find your answer?
+              </h2>
+              <p className="mt-4 text-white/80 text-[16px] leading-[1.6]">
+                Our team is happy to help. Reach out and we&apos;ll get back to
+                you within 1–2 business days.
+              </p>
+            </div>
+            <Link
+              href="/contact"
+              className="group inline-flex items-center gap-2 px-6 py-3.5 bg-orange-600 hover:bg-orange-700 text-white font-semibold text-[15px] rounded-[6px] transition-colors self-center shrink-0"
+            >
+              Contact Us
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
           </div>
         </ScrollReveal>

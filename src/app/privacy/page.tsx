@@ -122,10 +122,7 @@ export default function PrivacyPage() {
                   {CONTACT.phone}
                 </a>
               </li>
-              <li>
-                Mail: {CONTACT.address.street}, {CONTACT.address.city},{" "}
-                {CONTACT.address.state} {CONTACT.address.zip}
-              </li>
+              <li>Mail: {CONTACT.locationLabel}</li>
             </ul>
           </div>
         </ScrollReveal>

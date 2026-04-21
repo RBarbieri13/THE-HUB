@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { PageHeader } from "@/components/shared/page-header";
 import { SectionWrapper } from "@/components/layout/section-wrapper";
-import { Card, CardContent } from "@/components/ui/card";
 import { ContactForm } from "@/components/forms/contact-form";
 import { ScrollReveal } from "@/components/shared/scroll-reveal";
 import { CONTACT } from "@/lib/constants";
@@ -15,127 +14,105 @@ export default function ContactPage() {
   return (
     <>
       <PageHeader
-        title="Contact Us"
-        subtitle="Have questions about The Hub? We're here to help."
+        eyebrow="Contact"
+        title="Get in touch with The Hub."
+        subtitle="Questions about donating, requesting, or referring? Reach us by phone or email — we typically respond within one to two business days."
         breadcrumbs={[
           { label: "Home", href: "/" },
-          { label: "Contact Us" },
+          { label: "Contact" },
         ]}
       />
 
       <SectionWrapper bg="white">
-        <div className="section-divider mb-6" />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-12">
           {/* Left column — contact info */}
           <ScrollReveal animation="fade-right" delay={100}>
             <div>
-              <h2 className="font-heading text-3xl font-bold text-text-primary mb-3">
-                Get in Touch
+              <span className="eyebrow">Reach us</span>
+              <h2 className="h2-editorial mt-5">
+                Three ways to start a conversation.
               </h2>
-              <p className="text-text-body text-lg leading-relaxed mb-8">
-                Reach out by phone, email, or visit us in person. We typically respond within 1–2 business days.
-              </p>
-
-              <div className="flex flex-col gap-5">
-                {/* Address */}
-                <div className="p-6 rounded-xl bg-off-white shadow-[0_4px_24px_rgba(0,0,0,0.06)] flex items-start gap-5 transition-shadow duration-300 hover:shadow-[0_6px_28px_rgba(0,0,0,0.09)]">
-                  <div className="bg-primary-dark/10 rounded-full p-3 shrink-0">
-                    <MapPin className="h-5 w-5 text-primary-dark" />
+              <div className="mt-8 space-y-4">
+                {[
+                  {
+                    Icon: Phone,
+                    label: "Phone",
+                    value: CONTACT.phone,
+                    href: `tel:${CONTACT.phone}`,
+                    sub: "Voicemail is read daily",
+                  },
+                  {
+                    Icon: Mail,
+                    label: "Email",
+                    value: CONTACT.email,
+                    href: `mailto:${CONTACT.email}`,
+                    sub: "Best for detailed requests",
+                  },
+                  {
+                    Icon: MapPin,
+                    label: "Location",
+                    value: CONTACT.locationLabel,
+                    sub: CONTACT.serviceArea,
+                  },
+                  {
+                    Icon: Clock,
+                    label: "Hours",
+                    value: CONTACT.hours.weekdays,
+                    sub: `${CONTACT.hours.saturday} · ${CONTACT.hours.sunday}`,
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.label}
+                    className="flex items-start gap-4 p-5 bg-cream-50 border border-ink-900/10 rounded-[10px]"
+                  >
+                    <div className="w-10 h-10 rounded-full bg-teal-700/10 flex items-center justify-center shrink-0">
+                      <item.Icon className="h-4 w-4 text-teal-800" />
+                    </div>
+                    <div>
+                      <div className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.1em] text-ink-muted">
+                        {item.label}
+                      </div>
+                      {item.href ? (
+                        <a
+                          href={item.href}
+                          className="block text-[16px] font-medium text-ink-900 hover:text-orange-600 transition-colors mt-0.5"
+                        >
+                          {item.value}
+                        </a>
+                      ) : (
+                        <div className="text-[16px] font-medium text-ink-900 mt-0.5">
+                          {item.value}
+                        </div>
+                      )}
+                      <div className="text-[13px] text-ink-muted mt-0.5">
+                        {item.sub}
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-semibold text-text-primary mb-1">
-                      Address
-                    </p>
-                    <p className="text-text-body">{CONTACT.address.street}</p>
-                    <p className="text-text-body">
-                      {CONTACT.address.city}, {CONTACT.address.state}{" "}
-                      {CONTACT.address.zip}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Phone */}
-                <div className="p-6 rounded-xl bg-off-white shadow-[0_4px_24px_rgba(0,0,0,0.06)] flex items-start gap-5 transition-shadow duration-300 hover:shadow-[0_6px_28px_rgba(0,0,0,0.09)]">
-                  <div className="bg-primary-dark/10 rounded-full p-3 shrink-0">
-                    <Phone className="h-5 w-5 text-primary-dark" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-text-primary mb-1">
-                      Phone
-                    </p>
-                    <a
-                      href={`tel:${CONTACT.phone}`}
-                      className="text-text-body hover:text-primary-dark transition-colors"
-                    >
-                      {CONTACT.phone}
-                    </a>
-                  </div>
-                </div>
-
-                {/* Email */}
-                <div className="p-6 rounded-xl bg-off-white shadow-[0_4px_24px_rgba(0,0,0,0.06)] flex items-start gap-5 transition-shadow duration-300 hover:shadow-[0_6px_28px_rgba(0,0,0,0.09)]">
-                  <div className="bg-primary-dark/10 rounded-full p-3 shrink-0">
-                    <Mail className="h-5 w-5 text-primary-dark" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-text-primary mb-1">
-                      Email
-                    </p>
-                    <a
-                      href={`mailto:${CONTACT.email}`}
-                      className="text-text-body hover:text-primary-dark transition-colors"
-                    >
-                      {CONTACT.email}
-                    </a>
-                  </div>
-                </div>
-
-                {/* Hours of Operation */}
-                <div className="p-6 rounded-xl bg-off-white shadow-[0_4px_24px_rgba(0,0,0,0.06)] flex items-start gap-5 transition-shadow duration-300 hover:shadow-[0_6px_28px_rgba(0,0,0,0.09)]">
-                  <div className="bg-primary-dark/10 rounded-full p-3 shrink-0">
-                    <Clock className="h-5 w-5 text-primary-dark" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-text-primary mb-1">
-                      Hours of Operation
-                    </p>
-                    <p className="text-text-body">{CONTACT.hours.weekdays}</p>
-                    <p className="text-text-body">{CONTACT.hours.saturday}</p>
-                    <p className="text-text-body">{CONTACT.hours.sunday}</p>
-                  </div>
-                </div>
-
-                {/* Embedded map */}
-                <div className="rounded-xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.06)] mt-2">
-                  <iframe
-                    title="The Hub — 955 Woodland St, Nashville, TN 37206"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3221.8!2d-86.7555!3d36.1745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8864669e1a4b0e45%3A0x0!2s955+Woodland+St%2C+Nashville%2C+TN+37206!5e0!3m2!1sen!2sus!4v1"
-                    width="100%"
-                    height="0"
-                    style={{ aspectRatio: "16/9" }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    className="border-0"
-                  />
-                </div>
+                ))}
               </div>
+
+              <p className="mt-8 text-[13px] text-ink-muted max-w-[40ch] leading-[1.55]">
+                For the safety of our recipients and volunteers, the closet&apos;s
+                physical address is confirmed directly when scheduling a pickup
+                or drop-off.
+              </p>
             </div>
           </ScrollReveal>
 
           {/* Right column — contact form */}
           <ScrollReveal animation="fade-left" delay={200}>
-            <Card className="rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] overflow-hidden border-t-4 border-t-accent">
-              <CardContent className="p-8 md:p-10">
-                <h2 className="font-heading text-2xl md:text-3xl font-bold text-text-primary mb-3">
-                  Send Us a Message
-                </h2>
-                <p className="text-text-body text-base leading-relaxed mb-8">
-                  Fill out the form below and we&apos;ll get back to you within 1–2 business days.
-                </p>
+            <div className="bg-white border border-ink-900/10 rounded-[12px] shadow-[0_4px_16px_rgba(12,57,64,0.05)] p-8 md:p-10">
+              <span className="eyebrow">Message</span>
+              <h2 className="h2-editorial mt-5">Send us a message.</h2>
+              <p className="lead-editorial mt-4 text-[16px]">
+                Fill out the form and we&apos;ll get back to you within 1–2
+                business days.
+              </p>
+              <div className="mt-8">
                 <ContactForm />
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </ScrollReveal>
         </div>
       </SectionWrapper>

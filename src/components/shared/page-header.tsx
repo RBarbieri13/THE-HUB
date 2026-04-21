@@ -4,42 +4,48 @@ interface PageHeaderProps {
   title: string;
   subtitle?: string;
   breadcrumbs?: { label: string; href?: string }[];
+  eyebrow?: string;
 }
 
-export function PageHeader({ title, subtitle, breadcrumbs }: PageHeaderProps) {
+export function PageHeader({
+  title,
+  subtitle,
+  breadcrumbs,
+  eyebrow,
+}: PageHeaderProps) {
   return (
-    <>
-      <section className="bg-primary-dark py-16 md:py-20 text-white relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-dark to-primary-dark/80" />
-        <div className="max-w-7xl mx-auto px-6 relative">
-          {breadcrumbs && breadcrumbs.length > 0 && (
-            <nav
-              className="font-body text-sm text-primary/70"
-              aria-label="Breadcrumb"
-            >
-              {breadcrumbs.map((crumb, index) => (
-                <span key={crumb.label}>
-                  {index > 0 && <span className="text-white/30 mx-1.5">›</span>}
-                  {crumb.href ? (
-                    <Link href={crumb.href} className="hover:text-white">
-                      {crumb.label}
-                    </Link>
-                  ) : (
-                    <span>{crumb.label}</span>
-                  )}
-                </span>
-              ))}
-            </nav>
-          )}
-          <h1 className="font-heading text-4xl md:text-5xl font-bold text-white mt-4 tracking-[-0.025em]">
-            {title}
-          </h1>
-          {subtitle && (
-            <p className="text-lg md:text-xl mt-3 text-white/85 leading-relaxed max-w-2xl">{subtitle}</p>
-          )}
-        </div>
-      </section>
-      <div className="h-1 bg-gradient-to-r from-accent via-primary to-transparent" />
-    </>
+    <section className="bg-cream-50 border-b border-ink-900/10">
+      <div className="max-w-[1240px] mx-auto px-6 py-16 md:py-20">
+        {breadcrumbs && breadcrumbs.length > 0 && (
+          <nav
+            aria-label="Breadcrumb"
+            className="font-[family-name:var(--font-mono)] text-[12px] uppercase tracking-[0.1em] text-ink-muted"
+          >
+            {breadcrumbs.map((crumb, index) => (
+              <span key={crumb.label}>
+                {index > 0 && <span className="text-ink-muted/60 mx-2">/</span>}
+                {crumb.href ? (
+                  <Link
+                    href={crumb.href}
+                    className="hover:text-orange-600 transition-colors"
+                  >
+                    {crumb.label}
+                  </Link>
+                ) : (
+                  <span className="text-ink-900">{crumb.label}</span>
+                )}
+              </span>
+            ))}
+          </nav>
+        )}
+        {eyebrow && (
+          <span className="eyebrow mt-6 inline-flex">{eyebrow}</span>
+        )}
+        <h1 className="h1-editorial mt-5 max-w-[22ch]">{title}</h1>
+        {subtitle && (
+          <p className="lead-editorial mt-5 max-w-[60ch]">{subtitle}</p>
+        )}
+      </div>
+    </section>
   );
 }

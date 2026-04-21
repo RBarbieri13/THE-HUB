@@ -1,85 +1,89 @@
 "use client";
 
 import Link from "next/link";
-import { Armchair, Gift, Search, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { ArrowRight } from "lucide-react";
 import { ScrollReveal } from "@/components/shared/scroll-reveal";
+import { EquipmentMark } from "@/components/shared/equipment-mark";
 
-const cards = [
+const CARDS = [
   {
-    icon: Armchair,
-    iconBg: "bg-accent/10",
-    iconColor: "text-accent",
-    borderColor: "border-t-4 border-t-accent",
-    title: "Need Equipment?",
+    kind: "wheelchair" as const,
+    tone: "teal" as const,
+    phStripe: "ph-stripe",
+    eyebrow: "For recipients",
+    title: "Need equipment?",
     description:
-      "Our closet provides refurbished mobility equipment at no cost to eligible Tennesseans.",
-    buttonLabel: "Request Equipment",
-    buttonVariant: "primary" as const,
+      "Request refurbished mobility equipment from our closet at no cost. Tennessee residents eligible.",
+    cta: "Request Equipment",
     href: "/get-equipment",
+    ctaClass: "bg-orange-600 hover:bg-orange-700 text-white",
   },
   {
-    icon: Gift,
-    iconBg: "bg-primary-dark/10",
-    iconColor: "text-primary-dark",
-    borderColor: "border-t-4 border-t-primary-dark",
-    title: "Want to Donate?",
+    kind: "walker" as const,
+    tone: "orange" as const,
+    phStripe: "ph-stripe ph-stripe--orange",
+    eyebrow: "For donors",
+    title: "Have equipment to give?",
     description:
-      "Your donated equipment can help someone regain independence and mobility.",
-    buttonLabel: "Donate Equipment",
-    buttonVariant: "secondary" as const,
+      "Your donated wheelchair, walker, or adaptive device can change someone's life. We're building our inventory now.",
+    cta: "Donate Equipment",
     href: "/donate-equipment",
+    ctaClass: "bg-teal-700 hover:bg-teal-800 text-white",
   },
   {
-    icon: Search,
-    iconBg: "bg-primary/10",
-    iconColor: "text-primary-dark",
-    borderColor: "border-t-4 border-t-primary",
-    title: "Browse Inventory",
+    kind: "cushion" as const,
+    tone: "cream" as const,
+    phStripe: "ph-stripe ph-stripe--cream",
+    eyebrow: "For partners",
+    title: "Referring someone?",
     description:
-      "See what's currently available in our closet. Create an account for full access.",
-    buttonLabel: "View Inventory",
-    buttonVariant: "outline" as const,
-    href: "/inventory",
+      "Therapists, case managers, and clinicians: submit referrals on behalf of the people you serve.",
+    cta: "Start a Referral",
+    href: "/get-equipment",
+    ctaClass: "bg-ink-900 hover:bg-ink-800 text-white",
   },
-] as const;
+];
 
 export function CTATrio() {
   return (
     <div>
       <ScrollReveal animation="fade-up">
-        <div className="text-center mb-12">
-          <div className="section-divider mx-auto mb-5" />
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary">
-            How Can We Help?
-          </h2>
-          <p className="text-text-body text-lg md:text-xl mt-4 max-w-xl mx-auto leading-relaxed">
-            Whether you need equipment, want to give back, or are looking for a
-            loved one — we&apos;re here.
+        <div className="max-w-3xl">
+          <span className="eyebrow">Three ways in</span>
+          <h2 className="h2-editorial mt-5">How can we help?</h2>
+          <p className="lead-editorial mt-5 max-w-[62ch]">
+            Whether you need equipment, have equipment to give, or are
+            referring someone in need — here&apos;s where to start.
           </p>
         </div>
       </ScrollReveal>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {cards.map((card, i) => (
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+        {CARDS.map((card, i) => (
           <ScrollReveal key={card.title} animation="fade-up" delay={i * 120}>
-            <Card hoverable className={`${card.borderColor} group h-full`}>
-              <CardContent className="p-10 text-center flex flex-col items-center h-full">
-                <div className={`${card.iconBg} rounded-full p-5 mb-5 transition-transform duration-300 group-hover:scale-110`}>
-                  <card.icon className={`h-10 w-10 ${card.iconColor}`} />
+            <div className="group bg-white border border-ink-900/10 rounded-[10px] overflow-hidden h-full flex flex-col hover:shadow-md hover:border-ink-900/20 hover:-translate-y-0.5 transition-all duration-300">
+              <div className={`${card.phStripe} aspect-[5/3] relative flex items-center justify-center`}>
+                <EquipmentMark kind={card.kind} tone={card.tone} className="w-[55%] max-w-[180px]" />
+              </div>
+              <div className="p-7 flex flex-col flex-1">
+                <div className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.1em] text-orange-700 mb-2.5">
+                  {card.eyebrow}
                 </div>
-                <h3 className="font-heading text-2xl font-bold mt-1">
+                <h3 className="font-[family-name:var(--font-display)] text-[24px] font-medium text-ink-900 leading-[1.15] tracking-[-0.015em]">
                   {card.title}
                 </h3>
-                <p className="text-text-body text-base md:text-lg mt-4 flex-1 leading-relaxed">{card.description}</p>
-                <Link href={card.href} className="mt-8 no-underline">
-                  <Button variant={card.buttonVariant} className="group/btn">
-                    {card.buttonLabel}
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-                  </Button>
+                <p className="mt-3 text-ink-body text-[15px] leading-[1.55] flex-1">
+                  {card.description}
+                </p>
+                <Link
+                  href={card.href}
+                  className={`group/btn mt-6 inline-flex items-center justify-center gap-2 px-5 py-3 font-semibold text-[15px] rounded-[6px] transition-colors ${card.ctaClass}`}
+                >
+                  {card.cta}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-0.5" />
                 </Link>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </ScrollReveal>
         ))}
       </div>

@@ -3,15 +3,14 @@ export const ORG_NAME = "United Spinal Association of Tennessee";
 export const ORG_SHORT = "USAT";
 
 export const SITE_DESCRIPTION =
-  "The Hub — United Spinal Association of Tennessee's adaptive equipment resource center. Helping Tennesseans with spinal cord injuries and related mobility disabilities access refurbished wheelchairs, adaptive equipment, and supplies at no cost.";
+  "The Hub — United Spinal Association of Tennessee's adaptive equipment closet. We collect, refurbish, and redistribute donated mobility equipment to Tennesseans at no cost.";
+
+export const OPENING_DATE = "February 2026";
 
 export const CONTACT = {
-  address: {
-    street: "955 Woodland St",
-    city: "Nashville",
-    state: "TN",
-    zip: "37206",
-  },
+  // Donation Closet location is private for security — we do not publish a street address.
+  locationLabel: "Nashville, Tennessee",
+  serviceArea: "Serving all of Tennessee",
   phone: "(615) 669-1307",
   email: "usatnthehub@gmail.com",
   hours: {
@@ -24,15 +23,9 @@ export const CONTACT = {
 export const NAV_ITEMS = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  {
-    label: "Equipment",
-    href: "#",
-    children: [
-      { label: "Get Equipment", href: "/get-equipment" },
-      { label: "Donate Equipment", href: "/donate-equipment" },
-    ],
-  },
   { label: "Inventory", href: "/inventory" },
+  { label: "Request", href: "/get-equipment" },
+  { label: "Donate", href: "/donate-equipment" },
   { label: "Live Closet", href: "/live-closet" },
   { label: "How It Works", href: "/how-it-works" },
   { label: "FAQ", href: "/faq" },

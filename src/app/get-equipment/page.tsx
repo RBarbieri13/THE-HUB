@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { CheckCircle2 } from "lucide-react";
 import { PageHeader } from "@/components/shared/page-header";
 import { SectionWrapper } from "@/components/layout/section-wrapper";
 import { EquipmentRequestForm } from "@/components/forms/equipment-request-form";
 import { ScrollReveal } from "@/components/shared/scroll-reveal";
-import { CheckCircle, Users, Truck } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Request Equipment",
@@ -20,22 +19,22 @@ const ELIGIBILITY_ITEMS = [
 
 const PROCESS_STEPS = [
   {
-    icon: CheckCircle,
-    title: "Submit Your Request",
+    n: "01",
+    title: "Submit your request",
     description:
-      "Fill out the form below with details about the equipment you need. The more information you provide, the better we can help.",
+      "Fill out the form below. About four minutes. The more detail you share, the better we can match.",
   },
   {
-    icon: Users,
-    title: "We Review & Match",
+    n: "02",
+    title: "We review and match",
     description:
-      "Our team reviews your request and checks current inventory for suitable matches. We may reach out for additional information.",
+      "Our team checks inventory, refurbishes as needed, and follows up with you directly — usually within 3–5 business days.",
   },
   {
-    icon: Truck,
-    title: "Receive Equipment",
+    n: "03",
+    title: "You receive equipment",
     description:
-      "Once matched, arrange pickup from our Nashville location or coordinate delivery. All equipment is provided at no cost.",
+      "Pick up in Nashville, or coordinate delivery anywhere in Tennessee. No cost, no strings.",
   },
 ];
 
@@ -43,107 +42,95 @@ export default function GetEquipmentPage() {
   return (
     <>
       <PageHeader
-        title="Request Equipment"
-        subtitle="Access donated adaptive equipment at no cost"
+        eyebrow="Request equipment"
+        title="Adaptive equipment, at no cost."
+        subtitle="The Hub serves Tennesseans who need mobility-related equipment but face barriers — insurance delays, out-of-pocket costs, or lack of availability in their region."
         breadcrumbs={[
           { label: "Home", href: "/" },
-          { label: "Request Equipment" },
+          { label: "Request" },
         ]}
       />
 
+      {/* Who this is for */}
       <SectionWrapper bg="white">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <ScrollReveal animation="fade-right" delay={100}>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-14 lg:gap-20 items-start">
+          <ScrollReveal animation="fade-right">
             <div>
-              <div className="section-divider mb-5" />
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary mb-4 tracking-tight">
-                Who This Is For
+              <span className="eyebrow">Who this is for</span>
+              <h2 className="h2-editorial mt-5">
+                Open to anyone facing a barrier to equipment in Tennessee.
               </h2>
-              <p className="text-text-body text-base md:text-lg leading-relaxed mb-8">
-                The Hub serves Tennesseans who need mobility-related equipment but
-                face barriers to access — whether due to insurance delays, cost,
-                or lack of availability.
+              <p className="lead-editorial mt-5 max-w-[54ch]">
+                You don&apos;t need to have a finalized diagnosis or finished
+                insurance appeals to request. If you or someone you support
+                needs equipment to move through the day, start here.
               </p>
-              <div className="flex flex-col gap-4">
-                {ELIGIBILITY_ITEMS.map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-xl p-5 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.06)] flex items-start gap-4 hover:shadow-[0_6px_28px_rgba(0,0,0,0.09)] hover:-translate-y-0.5 transition-all duration-300"
-                  >
-                    <CheckCircle className="h-6 w-6 text-success shrink-0 mt-0.5" />
-                    <span className="text-text-body text-base leading-relaxed">{item}</span>
-                  </div>
-                ))}
-              </div>
             </div>
           </ScrollReveal>
-          <ScrollReveal animation="fade-left" delay={200}>
-            <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.1)]">
-              <Image
-                src="/images/stock/wheelchair-walker.jpg"
-                alt="Person using adaptive equipment outdoors"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-dark/20 to-transparent" />
-            </div>
+          <ScrollReveal animation="fade-left" delay={120}>
+            <ul className="space-y-3">
+              {ELIGIBILITY_ITEMS.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-4 p-5 bg-cream-50 border border-ink-900/10 rounded-[10px]"
+                >
+                  <CheckCircle2 className="h-5 w-5 text-teal-700 shrink-0 mt-0.5" />
+                  <span className="text-ink-body text-[16px] leading-[1.55]">
+                    {item}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </ScrollReveal>
         </div>
       </SectionWrapper>
 
-      <SectionWrapper bg="off-white">
-        <ScrollReveal animation="fade-up" delay={100}>
-          <div className="section-divider mx-auto mb-5" />
-          <h2 className="text-center mb-12 font-heading text-3xl md:text-4xl font-bold text-text-primary tracking-tight">
-            How Requests Work
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 relative">
-            {/* Connecting line between steps on desktop */}
-            <div className="hidden md:block absolute top-10 left-[calc(16.666%+1rem)] right-[calc(16.666%+1rem)] h-px bg-gradient-to-r from-accent/20 via-accent/50 to-accent/20" />
-            {PROCESS_STEPS.map((step, i) => (
-              <ScrollReveal
-                key={step.title}
-                animation="fade-up"
-                delay={100 + i * 100}
-              >
-                <div className="text-center relative">
-                  <p className="text-sm font-bold tracking-widest text-accent uppercase mb-3">
-                    Step {i + 1}
-                  </p>
-                  <div className="mx-auto w-16 h-16 rounded-full bg-accent text-white text-2xl font-bold flex items-center justify-center shadow-lg shadow-primary-dark/15 relative z-10">
-                    {i + 1}
-                  </div>
-                  <h3 className="font-heading text-xl md:text-2xl font-bold text-text-primary mt-5 mb-3">
-                    {step.title}
-                  </h3>
-                  <p className="text-text-body text-base leading-relaxed">{step.description}</p>
-                </div>
-              </ScrollReveal>
-            ))}
+      {/* Process */}
+      <SectionWrapper bg="cream">
+        <ScrollReveal animation="fade-up">
+          <div className="max-w-3xl">
+            <span className="eyebrow">Process</span>
+            <h2 className="h2-editorial mt-5">
+              Three steps between a request and a wheelchair.
+            </h2>
           </div>
         </ScrollReveal>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-12">
+          {PROCESS_STEPS.map((step, i) => (
+            <ScrollReveal key={step.n} animation="fade-up" delay={i * 120}>
+              <div className="pt-6 border-t-2 border-ink-900">
+                <div className="font-[family-name:var(--font-display)] text-[40px] font-medium text-orange-600 leading-none tracking-[-0.03em]">
+                  {step.n}
+                </div>
+                <h3 className="h3-editorial mt-3">{step.title}</h3>
+                <p className="mt-3 text-ink-body text-[15px] leading-[1.6]">
+                  {step.description}
+                </p>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
       </SectionWrapper>
 
+      {/* Form */}
       <SectionWrapper bg="white">
-        <ScrollReveal animation="fade-up" delay={100}>
+        <ScrollReveal animation="fade-up">
           <div className="max-w-3xl mx-auto">
-            <div className="section-divider mb-5" />
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary mb-3 tracking-tight">
-              Submit a Request
-            </h2>
-            <p className="text-text-body text-base md:text-lg leading-relaxed mb-8">
+            <span className="eyebrow">Submit</span>
+            <h2 className="h2-editorial mt-5">Submit a request</h2>
+            <p className="lead-editorial mt-5">
               Please provide as much detail as possible so we can best assist
               you. Submitting a request does not guarantee equipment
-              availability, but our team will review every submission and follow
-              up.
+              availability — our team reviews every submission and follows up.
             </p>
-            <div className="bg-primary/10 rounded-xl p-6 mb-10">
-              <p className="text-base font-semibold text-primary-dark leading-relaxed">
-                Requests are typically reviewed within 3&ndash;5 business days.
-                All equipment is provided free of charge.
-              </p>
+            <div className="mt-6 p-5 bg-teal-50 border border-teal-700/15 rounded-[10px] text-[15px] text-ink-body leading-[1.55]">
+              <strong className="text-teal-800">
+                Typical review: 3–5 business days.
+              </strong>{" "}
+              All equipment is provided free of charge.
             </div>
-            <div className="bg-white rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.06)] p-8 md:p-10">
+            <div className="mt-10 bg-white border border-ink-900/10 rounded-[12px] shadow-[0_4px_16px_rgba(12,57,64,0.05)] p-8 md:p-10">
               <EquipmentRequestForm />
             </div>
           </div>

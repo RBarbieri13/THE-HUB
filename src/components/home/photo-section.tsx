@@ -3,22 +3,26 @@
 import Image from "next/image";
 import { ScrollReveal } from "@/components/shared/scroll-reveal";
 
-const STOCK_PHOTOS = [
+const PHOTOS = [
   {
     src: "/images/stock/wheelchair-room.jpg",
-    alt: "Wheelchair storage area at The Hub",
+    alt: "Equipment storage area at The Hub closet",
+    caption: "Refurbishment bay",
   },
   {
     src: "/images/stock/wheelchair-home.jpg",
-    alt: "Power wheelchair user navigating independently",
+    alt: "Power wheelchair user navigating independently at home",
+    caption: "Equipment in use",
   },
   {
     src: "/images/stock/wheelchair-walker.jpg",
     alt: "Person using a rollator walker outdoors",
+    caption: "Mobility independence",
   },
   {
     src: "/images/stock/wheelchair-senior.jpg",
     alt: "Senior in a manual wheelchair on a sidewalk",
+    caption: "Statewide reach",
   },
 ];
 
@@ -26,35 +30,34 @@ export function PhotoSection() {
   return (
     <div>
       <ScrollReveal animation="fade-up">
-        <div className="text-center mb-10">
-          <div className="section-divider mx-auto mb-5" />
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary">
-            Our Community
+        <div className="max-w-3xl">
+          <span className="eyebrow">What we&apos;re building</span>
+          <h2 className="h2-editorial mt-5">
+            A community resource for Tennessee — built by the community it
+            serves.
           </h2>
-          <p className="text-text-body text-lg mt-3 max-w-2xl mx-auto">
-            Real people. Real impact. See who we serve and the equipment we provide
-            across Tennessee.
-          </p>
         </div>
       </ScrollReveal>
-      <ScrollReveal animation="scale-in">
-        <div className="relative aspect-[16/7] rounded-sm overflow-hidden mb-2 shadow-lg">
+
+      <ScrollReveal animation="scale-in" delay={100}>
+        <div className="relative aspect-[16/7] rounded-[12px] overflow-hidden mt-10 shadow-[0_8px_20px_rgba(12,57,64,0.08)]">
           <Image
             src="/images/stock/community-event.jpg"
-            alt="United Spinal Association of Tennessee community members gathered together at a Hub event — many in wheelchairs"
+            alt="United Spinal Association of Tennessee community members at an event"
             fill
             className="object-cover object-center hover:scale-[1.02] transition-transform duration-700"
             sizes="100vw"
           />
+          <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-[6px] px-3 py-1.5 font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.1em] text-ink-700">
+            USAT Community
+          </div>
         </div>
-        <p className="text-text-light text-sm text-center mb-8 italic">
-          United Spinal Association of Tennessee — Community Members
-        </p>
       </ScrollReveal>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {STOCK_PHOTOS.map((photo, i) => (
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-5">
+        {PHOTOS.map((photo, i) => (
           <ScrollReveal key={photo.src} animation="fade-up" delay={i * 100}>
-            <div className="relative aspect-[4/3] rounded-sm overflow-hidden shadow-md group">
+            <div className="relative aspect-[4/3] rounded-[10px] overflow-hidden group">
               <Image
                 src={photo.src}
                 alt={photo.alt}
@@ -62,9 +65,9 @@ export function PhotoSection() {
                 className="object-cover group-hover:scale-105 transition-transform duration-700"
                 sizes="(max-width: 768px) 50vw, 25vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 px-3 py-2">
-                <p className="text-white text-xs font-medium drop-shadow-md leading-snug">{photo.alt}</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-ink-950/60 via-transparent to-transparent" />
+              <div className="absolute bottom-3 left-3 font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.1em] text-white drop-shadow-md">
+                {photo.caption}
               </div>
             </div>
           </ScrollReveal>

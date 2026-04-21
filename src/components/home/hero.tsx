@@ -1,100 +1,128 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { ORG_NAME } from "@/lib/constants";
-import { ChevronRight, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { EquipmentMark } from "@/components/shared/equipment-mark";
 
 export function Hero() {
   return (
-    <section className="relative bg-dark min-h-[85vh] flex items-center overflow-hidden">
-      <Image
-        src="/images/stock/wheelchair-room.jpg"
-        alt=""
-        fill
-        className="object-cover opacity-25"
-        priority
-      />
-      {/* Multi-layer gradient for depth */}
-      <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/60 to-dark/30" />
-      <div className="absolute inset-0 bg-gradient-to-r from-dark/85 via-dark/50 to-transparent" />
-
-      {/* Decorative accent line */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent via-primary to-primary-dark" />
-
-      <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-28 w-full">
-        <div className="flex flex-col items-center text-center">
-          {/* Logo with glow */}
-          <div className="relative mb-8">
-            <div className="absolute inset-0 blur-3xl bg-white/10 rounded-full scale-150" />
-            <Image
-              src="/images/logos/logo-stacked.png"
-              alt="The Hub logo"
-              width={180}
-              height={180}
-              className="relative w-36 h-36 md:w-44 md:h-44 drop-shadow-2xl"
-              priority
-            />
-          </div>
-
-          {/* Title */}
-          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.0] tracking-[-0.03em]">
-            The Hub
-          </h1>
-
-          {/* Tagline */}
-          <p className="text-xl md:text-2xl text-accent font-semibold mt-3 font-display tracking-wide">
-            Adaptive Equipment Resource Center
-          </p>
-
-          {/* Org pill */}
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mt-6">
-            <span className="w-2 h-2 rounded-full bg-accent" />
-            <span className="text-white/90 text-sm font-semibold tracking-wide">
-              {ORG_NAME}
+    <section className="relative bg-cream-50 border-b border-ink-900/10 overflow-hidden">
+      <div className="max-w-[1240px] mx-auto px-6 py-24 md:py-28">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-12 lg:gap-16 items-stretch">
+          {/* Left column */}
+          <div className="flex flex-col justify-center">
+            <span className="eyebrow">
+              United Spinal Association of Tennessee
             </span>
-          </div>
 
-          {/* Description */}
-          <p className="text-lg md:text-xl lg:text-2xl text-white/85 mt-8 max-w-2xl font-body leading-relaxed">
-            Free refurbished wheelchairs, mobility devices, and adaptive
-            equipment for people with spinal cord injuries and related
-            disabilities.
-          </p>
+            <h1 className="display-headline mt-6">
+              Free adaptive equipment for <em>every</em> Tennessean who needs
+              it.
+            </h1>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 mt-10">
-            <Link href="/get-equipment">
-              <Button
-                variant="primary"
-                size="lg"
-                className="group bg-gradient-to-r from-accent to-accent-hover border-accent shadow-[0_8px_32px_rgba(238,115,47,0.25)] hover:shadow-[0_8px_40px_rgba(238,115,47,0.4)]"
+            <p className="lead-editorial mt-7 max-w-[54ch]">
+              The Hub is a new equipment closet from the United Spinal
+              Association of Tennessee. We collect, refurbish, and redistribute
+              wheelchairs, walkers, and mobility devices — so the wait for
+              independence isn&apos;t measured in insurance cycles.
+            </p>
+
+            <div className="flex flex-wrap gap-3 mt-9">
+              <Link
+                href="/get-equipment"
+                className="group inline-flex items-center gap-2 px-6 py-3.5 bg-orange-600 hover:bg-orange-700 text-white font-semibold text-[15px] rounded-[6px] transition-colors shadow-sm"
               >
                 Request Equipment
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
-            <Link href="/donate-equipment">
-              <Button
-                variant="outline"
-                size="lg"
-                className="text-white border-white/30 hover:bg-white hover:text-dark"
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+              <Link
+                href="/donate-equipment"
+                className="inline-flex items-center px-6 py-3.5 bg-teal-700 hover:bg-teal-800 text-white font-semibold text-[15px] rounded-[6px] transition-colors"
               >
                 Donate Equipment
-              </Button>
-            </Link>
+              </Link>
+            </div>
+
+            {/* Three fact rail */}
+            <div className="grid grid-cols-3 gap-6 mt-12 pt-7 border-t border-ink-900/10">
+              <div>
+                <div className="font-[family-name:var(--font-display)] text-[28px] font-medium text-ink-900 leading-none tracking-[-0.02em]">
+                  Feb 2026
+                </div>
+                <div className="text-[13px] text-ink-muted mt-1.5">
+                  Newly opened
+                </div>
+              </div>
+              <div>
+                <div className="font-[family-name:var(--font-display)] text-[28px] font-medium text-ink-900 leading-none tracking-[-0.02em]">
+                  $0
+                </div>
+                <div className="text-[13px] text-ink-muted mt-1.5">
+                  Cost to recipients
+                </div>
+              </div>
+              <div>
+                <div className="font-[family-name:var(--font-display)] text-[28px] font-medium text-ink-900 leading-none tracking-[-0.02em]">
+                  Statewide
+                </div>
+                <div className="text-[13px] text-ink-muted mt-1.5">
+                  All 95 TN counties
+                </div>
+              </div>
+            </div>
           </div>
 
-          <Link
-            href="/how-it-works"
-            className="inline-flex items-center gap-1.5 mt-8 text-white/80 hover:text-white text-base font-semibold transition-colors no-underline"
-          >
-            Learn how the process works <ChevronRight className="h-4 w-4" />
-          </Link>
+          {/* Right column — editorial art panel */}
+          <div className="relative">
+            <div className="relative w-full h-full min-h-[420px] rounded-[16px] overflow-hidden bg-teal-700">
+              {/* Striped pattern layer */}
+              <div className="ph-stripe absolute inset-0" />
+
+              {/* Equipment mark illustration */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <EquipmentMark
+                  kind="wheelchair"
+                  tone="orange"
+                  className="w-[55%] max-w-[320px]"
+                />
+              </div>
+
+              {/* Featured badge */}
+              <div className="absolute top-4 left-4">
+                <span className="inline-flex items-center gap-2 bg-teal-900/90 text-white px-3 py-1.5 rounded-full font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.1em]">
+                  Featured · Manual Wheelchair
+                </span>
+              </div>
+
+              {/* Card overlay */}
+              <div className="absolute left-4 right-4 bottom-4 bg-white rounded-[10px] shadow-[0_8px_20px_rgba(12,57,64,0.08)] p-4 flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center shrink-0">
+                  <Image
+                    src="/images/logos/logo-badge.png"
+                    alt=""
+                    width={40}
+                    height={40}
+                    className="w-9 h-9"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.1em] text-orange-700">
+                    New to the closet
+                  </div>
+                  <div className="font-[family-name:var(--font-display)] text-[18px] font-medium text-ink-900 truncate">
+                    Accepting donations now
+                  </div>
+                </div>
+                <Link
+                  href="/donate-equipment"
+                  className="shrink-0 text-teal-700 hover:text-orange-600 font-semibold text-[14px] whitespace-nowrap border-b-2 border-current pb-0.5 transition-colors"
+                >
+                  Donate →
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      {/* Bottom fade to next section */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-dark to-transparent" />
     </section>
   );
 }

@@ -1,87 +1,77 @@
 "use client";
 
-import { ScrollReveal } from "@/components/shared/scroll-reveal";
-import { DollarSign, Clock, TrendingDown, Users, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { ScrollReveal } from "@/components/shared/scroll-reveal";
 
 const CRISIS_STATS = [
   {
-    icon: DollarSign,
-    stat: "$15,000–$70,000",
-    label: "Average cost of a power wheelchair",
-    detail: "Out of reach for most families without insurance coverage",
+    stat: "$15K–$70K",
+    label: "Cost of a power wheelchair",
+    detail: "Out of reach without insurance coverage.",
   },
   {
-    icon: Clock,
-    stat: "6–12 Months",
-    label: "Typical insurance approval wait",
-    detail: "Leaving people without essential mobility equipment",
+    stat: "6–12 mo",
+    label: "Typical insurance wait",
+    detail: "People go months without essential mobility.",
   },
   {
-    icon: TrendingDown,
     stat: "40%",
     label: "Medicare claims denied",
-    detail: "Complex documentation requirements exclude eligible people",
+    detail: "Documentation hurdles exclude eligible people.",
   },
   {
-    icon: Users,
-    stat: "300,000+",
-    label: "Tennesseans with mobility disabilities",
-    detail: "Many unable to access equipment through traditional channels",
+    stat: "300K+",
+    label: "Tennesseans affected",
+    detail: "Many unable to access equipment traditionally.",
   },
 ];
 
 export function ProblemSection() {
   return (
-    <section className="bg-white py-20 md:py-28 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Left: Narrative */}
+    <section className="bg-white py-24 md:py-28 border-t border-ink-900/10">
+      <div className="max-w-[1240px] mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-14 lg:gap-20 items-start">
           <ScrollReveal animation="fade-right">
             <div>
-              <div className="text-accent font-bold text-sm uppercase tracking-[0.15em] mb-4">
-                The Problem
-              </div>
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-text-primary leading-tight">
-                The Equipment Gap Is a <span className="text-accent">Crisis</span>
+              <span className="eyebrow">The Problem</span>
+              <h2 className="h2-editorial mt-5">
+                Insurance shouldn&apos;t decide who gets to move.
               </h2>
-              <p className="text-text-body text-lg mt-6 leading-relaxed">
-                Millions of Americans with spinal cord injuries and mobility
-                disabilities need specialized equipment to live independently.
-                But rising costs, insurance barriers, and long wait times leave
-                too many people without the wheelchairs, walkers, and adaptive
-                devices they need.
-              </p>
-              <p className="text-text-body text-lg mt-4 leading-relaxed">
-                <strong className="text-text-primary">The Hub exists to close that gap.</strong>{" "}
-                We collect, refurbish, and redistribute equipment to Tennesseans
-                who need it — completely free of charge.
-              </p>
+              <div className="mt-7 space-y-5 text-ink-body text-[17px] leading-[1.65]">
+                <p>
+                  Tennesseans with spinal cord injuries and mobility
+                  disabilities often wait months — sometimes years — for a
+                  wheelchair. Insurance approvals are slow, denials are common,
+                  and out-of-pocket prices are out of reach for most families.
+                </p>
+                <p>
+                  Meanwhile, perfectly functional equipment sits unused in
+                  closets, garages, and clinics across the state. The Hub
+                  exists to close that gap.
+                </p>
+              </div>
               <Link
                 href="/about"
-                className="inline-flex items-center gap-2 mt-8 text-primary-dark font-bold hover:text-accent transition-colors no-underline group"
+                className="group inline-flex items-center gap-2 mt-8 text-teal-700 hover:text-orange-600 font-semibold border-b-2 border-current pb-0.5 transition-colors"
               >
                 Learn more about our mission
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </div>
           </ScrollReveal>
 
-          {/* Right: Stat cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {CRISIS_STATS.map((item, i) => (
-              <ScrollReveal key={item.label} animation="fade-up" delay={i * 100}>
-                <div className="p-6 rounded-sm border border-border bg-off-white hover:shadow-md hover:border-accent/30 transition-all duration-300 group">
-                  <div className="bg-accent/10 rounded-full p-2.5 w-fit mb-4 group-hover:bg-accent/20 transition-colors">
-                    <item.icon className="h-5 w-5 text-accent" />
-                  </div>
-                  <div className="font-display text-2xl font-bold text-text-primary">
+              <ScrollReveal key={item.label} animation="fade-up" delay={i * 80}>
+                <div className="bg-cream-50 border border-ink-900/10 rounded-[10px] p-6 h-full hover:shadow-md hover:border-orange-600/30 transition-all duration-300">
+                  <div className="data-num text-[34px] md:text-[38px]">
                     {item.stat}
                   </div>
-                  <div className="text-text-primary text-base font-semibold mt-2">
+                  <div className="text-ink font-semibold mt-2 text-[16px]">
                     {item.label}
                   </div>
-                  <div className="text-text-secondary text-sm mt-1">
+                  <div className="text-ink-muted text-[14px] mt-1.5 leading-[1.5]">
                     {item.detail}
                   </div>
                 </div>

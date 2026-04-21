@@ -5,45 +5,41 @@ import { FOOTER_LINKS, CONTACT, ORG_NAME } from "@/lib/constants";
 
 export function Footer() {
   const year = new Date().getFullYear();
-  const fullAddress = `${CONTACT.address.street}, ${CONTACT.address.city}, ${CONTACT.address.state} ${CONTACT.address.zip}`;
 
   return (
-    <footer className="bg-dark text-[#AAAAAA] font-body text-base">
-      <div className="h-1 bg-gradient-to-r from-accent via-primary to-primary-dark" />
-      <div className="max-w-7xl mx-auto py-20 px-6">
-        {/* Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+    <footer className="bg-ink-950 text-ink-300 font-[family-name:var(--font-body)] text-[15px]">
+      <div className="max-w-[1240px] mx-auto px-6 pt-20 pb-10">
+        <div className="grid grid-cols-1 md:grid-cols-[1.3fr_1fr_1fr_1fr] gap-12">
           {/* About */}
           <div>
             <Image
-              src="/images/logos/logo-stacked.png"
-              alt="The Hub — United Spinal Association of Tennessee"
-              width={140}
-              height={140}
-              className="h-28 w-auto mb-4 brightness-0 invert"
+              src="/images/logos/logo-horizontal.png"
+              alt="The Hub"
+              width={180}
+              height={54}
+              className="h-10 w-auto mb-5 brightness-0 invert"
             />
-            <p className="leading-relaxed">
-              Helping Tennesseans with spinal cord injuries and related mobility
-              disabilities access refurbished wheelchairs, adaptive equipment,
-              and supplies at no cost.
+            <p className="leading-relaxed text-ink-200 max-w-[38ch]">
+              A program of the United Spinal Association of Tennessee. We
+              collect, refurbish, and redistribute adaptive mobility equipment
+              to Tennesseans — at no cost.
             </p>
-            <p className="mt-3 text-xs text-[#888888]">
-              Funded by the Craig H. Neilsen Foundation
+            <p className="mt-4 text-[13px] text-ink-400">
+              Opened February 2026 · Funded by the Craig H. Neilsen Foundation
             </p>
-            {/* TODO: Add social links when real URLs are available */}
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-bold text-base mb-4 tracking-wide relative pb-3 after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-accent">
-              Quick Links
-            </h3>
-            <ul className="space-y-2">
+            <h5 className="text-white text-[13px] uppercase tracking-[0.1em] font-semibold mb-5">
+              Take action
+            </h5>
+            <ul className="space-y-1.5">
               {FOOTER_LINKS.quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-[#CCCCCC] no-underline hover:text-white transition-colors duration-200"
+                    className="text-ink-300 hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -52,17 +48,17 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Information */}
+          {/* About */}
           <div>
-            <h3 className="text-white font-bold text-base mb-4 tracking-wide relative pb-3 after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-accent">
-              Information
-            </h3>
-            <ul className="space-y-2">
+            <h5 className="text-white text-[13px] uppercase tracking-[0.1em] font-semibold mb-5">
+              About
+            </h5>
+            <ul className="space-y-1.5">
               {FOOTER_LINKS.about.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-[#CCCCCC] no-underline hover:text-white transition-colors duration-200"
+                    className="text-ink-300 hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -73,27 +69,35 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-white font-bold text-base mb-4 tracking-wide relative pb-3 after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-accent">Contact</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-2">
-                <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-[#CCCCCC]" />
-                <span>{fullAddress}</span>
+            <h5 className="text-white text-[13px] uppercase tracking-[0.1em] font-semibold mb-5">
+              Contact
+            </h5>
+            <ul className="space-y-3 text-ink-300">
+              <li className="flex items-start gap-2.5">
+                <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-ink-400" />
+                <span>
+                  {CONTACT.locationLabel}
+                  <br />
+                  <span className="text-ink-400 text-[13px]">
+                    {CONTACT.serviceArea}
+                  </span>
+                </span>
               </li>
               <li>
                 <a
                   href={`tel:${CONTACT.phone}`}
-                  className="flex items-center gap-2 text-[#CCCCCC] no-underline hover:text-white hover:underline"
+                  className="flex items-center gap-2.5 hover:text-white transition-colors"
                 >
-                  <Phone className="h-4 w-4 shrink-0" />
+                  <Phone className="h-4 w-4 shrink-0 text-ink-400" />
                   <span>{CONTACT.phone}</span>
                 </a>
               </li>
               <li>
                 <a
                   href={`mailto:${CONTACT.email}`}
-                  className="flex items-center gap-2 text-[#CCCCCC] no-underline hover:text-white hover:underline"
+                  className="flex items-center gap-2.5 hover:text-white transition-colors"
                 >
-                  <Mail className="h-4 w-4 shrink-0" />
+                  <Mail className="h-4 w-4 shrink-0 text-ink-400" />
                   <span>{CONTACT.email}</span>
                 </a>
               </li>
@@ -101,20 +105,16 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Tagline & Copyright */}
-        <div className="border-t border-[#444444] mt-12 pt-8 text-center">
-          <p className="text-white/60 text-sm mb-6">Empowering independence through adaptive equipment — proudly serving Tennessee.</p>
-        </div>
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-[13px] text-white/60">
+        <div className="border-t border-white/10 mt-16 pt-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-[13px] text-ink-400">
           <p>
-            &copy; {year} {ORG_NAME}. All rights reserved.
+            &copy; {year} {ORG_NAME}. 501(c)(3) nonprofit · All rights reserved.
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
             {FOOTER_LINKS.legal.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-[#888888] no-underline hover:text-white hover:underline"
+                className="hover:text-white transition-colors"
               >
                 {link.label}
               </Link>
