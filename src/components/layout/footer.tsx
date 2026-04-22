@@ -13,7 +13,7 @@ export function Footer() {
           {/* About */}
           <div>
             <div className="mb-6">
-              <Logo tone="light" />
+              <Logo size="lg" />
             </div>
             <p className="leading-relaxed text-ink-200 max-w-[38ch]">
               A program of the{" "}

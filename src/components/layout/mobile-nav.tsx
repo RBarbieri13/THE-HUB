@@ -95,7 +95,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
           >
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-ink-900/10">
-              <Logo />
+              <Logo size="sm" />
               <button
                 ref={closeButtonRef}
                 onClick={onClose}

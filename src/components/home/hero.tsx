@@ -112,13 +112,14 @@ export function Hero() {
 
               {/* Bottom overlay card */}
               <div className="absolute left-4 right-4 bottom-4 bg-white/95 backdrop-blur-sm rounded-[12px] shadow-[0_8px_24px_rgba(12,57,64,0.18)] p-4 flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center shrink-0 ring-1 ring-orange-200">
+                <div className="w-12 h-12 rounded-full bg-cream-50 flex items-center justify-center shrink-0 ring-1 ring-ink-900/10 overflow-hidden">
                   <Image
-                    src="/images/logos/logo-badge.png"
+                    src="/images/logos/logo-primary.png"
                     alt=""
-                    width={40}
-                    height={40}
-                    className="w-9 h-9"
+                    width={1254}
+                    height={1254}
+                    sizes="48px"
+                    className="w-11 h-11 object-contain"
                   />
                 </div>
                 <div className="flex-1 min-w-0">

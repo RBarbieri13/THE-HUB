@@ -16,10 +16,12 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 
         <div className="flex justify-center mb-6">
           <Image
-            src="/images/logos/logo-stacked.png"
-            alt="The Hub — United Spinal Association of Tennessee"
-            width={140}
-            height={70}
+            src="/images/logos/logo-primary.png"
+            alt="The Hub — Adaptive Equipment Closet, United Spinal of Tennessee"
+            width={1254}
+            height={1254}
+            sizes="120px"
+            className="w-28 h-28 object-contain"
             priority
           />
         </div>

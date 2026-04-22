@@ -67,7 +67,7 @@ export function Header() {
               "focus-visible:outline-2 focus-visible:outline-teal-700 focus-visible:outline-offset-2"
             )}
           >
-            <Logo />
+            <Logo size="md" priority />
           </Link>
 
           {/* Desktop primary nav */}
