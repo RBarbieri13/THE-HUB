@@ -10,9 +10,9 @@ interface LogoProps {
 }
 
 const SIZE_CLASSES: Record<LogoSize, string> = {
-  sm: "h-12 w-12", // 48px — mobile drawer
-  md: "h-16 w-16", // 64px — header
-  lg: "h-24 w-24", // 96px — footer / emphasis
+  sm: "h-36 w-36", // 144px — mobile drawer
+  md: "h-48 w-48", // 192px — header
+  lg: "h-72 w-72", // 288px — footer / emphasis
 };
 
 export function Logo({ size = "md", className, priority }: LogoProps) {
@@ -22,7 +22,7 @@ export function Logo({ size = "md", className, priority }: LogoProps) {
       alt="The Hub — Adaptive Equipment Closet, United Spinal of Tennessee"
       width={1254}
       height={1254}
-      sizes="96px"
+      sizes="288px"
       className={cn(SIZE_CLASSES[size], "object-contain", className)}
       priority={priority}
     />

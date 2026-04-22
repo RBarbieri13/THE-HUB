@@ -20,8 +20,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             alt="The Hub — Adaptive Equipment Closet, United Spinal of Tennessee"
             width={1254}
             height={1254}
-            sizes="120px"
-            className="w-28 h-28 object-contain"
+            sizes="336px"
+            className="w-[336px] h-[336px] object-contain"
             priority
           />
         </div>
