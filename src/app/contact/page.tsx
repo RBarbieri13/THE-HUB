@@ -21,6 +21,10 @@ export default function ContactPage() {
           { label: "Home", href: "/" },
           { label: "Contact" },
         ]}
+        image={{
+          src: "/images/stock/community-event.jpg",
+          alt: "United Spinal Association of Tennessee community members at a Hub event",
+        }}
       />
 
       <SectionWrapper bg="white">

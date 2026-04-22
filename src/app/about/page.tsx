@@ -46,6 +46,10 @@ export default function AboutPage() {
         title="A program built by the community it serves."
         subtitle="The Hub is a program of the United Spinal Association of Tennessee. We collect, refurbish, and redistribute mobility equipment — at no cost — to Tennesseans with spinal cord injuries and related mobility disabilities."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
+        image={{
+          src: "/images/stock/community-event.jpg",
+          alt: "USAT community members gathered at a Hub event",
+        }}
       />
 
       {/* Mission — editorial two column */}

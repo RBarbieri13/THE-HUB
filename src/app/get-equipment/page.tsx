@@ -49,6 +49,10 @@ export default function GetEquipmentPage() {
           { label: "Home", href: "/" },
           { label: "Request" },
         ]}
+        image={{
+          src: "/images/stock/wheelchair-home.jpg",
+          alt: "A recipient using a refurbished power wheelchair at home",
+        }}
       />
 
       {/* Who this is for */}

@@ -89,6 +89,10 @@ export default function PartnersPage() {
           { label: "Home", href: "/" },
           { label: "Partners" },
         ]}
+        image={{
+          src: "/images/stock/community-event.jpg",
+          alt: "Community partners and Hub members at an event",
+        }}
       />
 
       {/* Referral sources */}

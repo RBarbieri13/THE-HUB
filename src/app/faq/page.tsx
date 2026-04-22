@@ -18,6 +18,10 @@ export default function FAQPage() {
         title="Frequently asked questions."
         subtitle="Eligibility, process, and everything else — answered. If you don't see your question here, reach out and we'll get back within 1–2 business days."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "FAQ" }]}
+        image={{
+          src: "/images/stock/wheelchair-senior.jpg",
+          alt: "A recipient using a refurbished manual wheelchair outside",
+        }}
       />
 
       <SectionWrapper bg="white">

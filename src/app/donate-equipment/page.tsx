@@ -63,6 +63,10 @@ export default function DonateEquipmentPage() {
           { label: "Home", href: "/" },
           { label: "Donate" },
         ]}
+        image={{
+          src: "/images/stock/wheelchair-room.jpg",
+          alt: "Donated wheelchairs and adaptive equipment organized in The Hub's refurbishment bay",
+        }}
       />
 
       {/* Accept / Not accept */}

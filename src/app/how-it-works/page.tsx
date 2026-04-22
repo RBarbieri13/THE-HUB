@@ -72,6 +72,10 @@ export default function HowItWorksPage() {
           { label: "Home", href: "/" },
           { label: "How It Works" },
         ]}
+        image={{
+          src: "/images/stock/wheelchair-home.jpg",
+          alt: "A recipient in their home with adaptive equipment delivered by The Hub",
+        }}
       />
 
       {STEPS.map((step, i) => {

@@ -102,6 +102,10 @@ export default function InventoryPage() {
           { label: "Home", href: "/" },
           { label: "Inventory" },
         ]}
+        image={{
+          src: "/images/stock/wheelchair-walker.jpg",
+          alt: "A recipient using a rollator walker outside",
+        }}
       />
 
       {/* Category table */}

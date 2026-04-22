@@ -2,12 +2,12 @@
 
 import { useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { X, HandHeart, Heart, Phone, Mail } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { CONTACT } from "@/lib/constants";
+import { Logo } from "@/components/shared/logo";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
@@ -95,14 +95,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
           >
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-ink-900/10">
-              <Image
-                src="/images/logos/logo-horizontal.png"
-                alt="The Hub"
-                width={1536}
-                height={1024}
-                sizes="180px"
-                className="h-10 w-auto"
-              />
+              <Logo />
               <button
                 ref={closeButtonRef}
                 onClick={onClose}

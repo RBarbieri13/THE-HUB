@@ -1,7 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
 import { MapPin, Phone, Mail, ExternalLink } from "lucide-react";
 import { FOOTER_LINKS, CONTACT, ORG_NAME, ORG_URL } from "@/lib/constants";
+import { Logo } from "@/components/shared/logo";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -12,13 +12,9 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-[1.3fr_1fr_1fr_1fr] gap-12">
           {/* About */}
           <div>
-            <Image
-              src="/images/logos/logo-horizontal.png"
-              alt="The Hub"
-              width={180}
-              height={54}
-              className="h-10 w-auto mb-5 brightness-0 invert"
-            />
+            <div className="mb-6">
+              <Logo tone="light" />
+            </div>
             <p className="leading-relaxed text-ink-200 max-w-[38ch]">
               A program of the{" "}
               <a
