@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Phone, Mail } from "lucide-react";
-import { FOOTER_LINKS, CONTACT, ORG_NAME } from "@/lib/constants";
+import { MapPin, Phone, Mail, ExternalLink } from "lucide-react";
+import { FOOTER_LINKS, CONTACT, ORG_NAME, ORG_URL } from "@/lib/constants";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -20,9 +20,19 @@ export function Footer() {
               className="h-10 w-auto mb-5 brightness-0 invert"
             />
             <p className="leading-relaxed text-ink-200 max-w-[38ch]">
-              A program of the United Spinal Association of Tennessee. We
-              collect, refurbish, and redistribute adaptive mobility equipment
-              to Tennesseans — at no cost.
+              A program of the{" "}
+              <a
+                href={ORG_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-baseline gap-1 text-white underline decoration-orange-500/60 underline-offset-4 decoration-2 hover:decoration-orange-400 transition-colors focus-visible:outline-2 focus-visible:outline-orange-400 focus-visible:outline-offset-2 rounded-sm"
+              >
+                United Spinal Association of Tennessee
+                <ExternalLink className="h-3 w-3 opacity-70 self-center" aria-hidden="true" />
+                <span className="sr-only">(opens in new tab)</span>
+              </a>
+              . We collect, refurbish, and redistribute adaptive mobility
+              equipment to Tennesseans — at no cost.
             </p>
             <p className="mt-4 text-[13px] text-ink-400">
               Opened February 2026 · Funded by the Craig H. Neilsen Foundation
@@ -64,6 +74,18 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              <li className="pt-1">
+                <a
+                  href={ORG_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-ink-300 hover:text-white transition-colors"
+                >
+                  Visit USAT
+                  <ExternalLink className="h-3 w-3 opacity-70" aria-hidden="true" />
+                  <span className="sr-only">(opens in new tab)</span>
+                </a>
+              </li>
             </ul>
           </div>
 

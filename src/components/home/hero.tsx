@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, HandHeart, Heart } from "lucide-react";
+import { ArrowRight, ExternalLink, HandHeart, Heart } from "lucide-react";
+import { ORG_URL } from "@/lib/constants";
 
 export function Hero() {
   return (
@@ -15,9 +16,16 @@ export function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-12 lg:gap-16 items-center">
           {/* Left column */}
           <div className="flex flex-col">
-            <span className="eyebrow">
+            <a
+              href={ORG_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="eyebrow hover:text-orange-800 transition-colors focus-visible:outline-2 focus-visible:outline-orange-600 focus-visible:outline-offset-4 rounded-sm"
+            >
               United Spinal Association of Tennessee
-            </span>
+              <ExternalLink className="h-3 w-3 opacity-70" aria-hidden="true" />
+              <span className="sr-only">(opens in new tab)</span>
+            </a>
 
             <h1 className="display-headline mt-6">
               Free adaptive equipment for <em>every</em> Tennessean who needs

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import { SectionWrapper } from "@/components/layout/section-wrapper";
 import { PageHeader } from "@/components/shared/page-header";
 import { ScrollReveal } from "@/components/shared/scroll-reveal";
+import { ORG_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "About The Hub",
@@ -140,10 +141,20 @@ export default function AboutPage() {
             </div>
             <div className="space-y-5 text-white/85 text-[17px] leading-[1.65] max-w-[60ch]">
               <p>
-                The Hub is a program of the United Spinal Association of
-                Tennessee (USAT) — a 501(c)(3) nonprofit dedicated to improving
-                the quality of life for people with spinal cord injuries and
-                related disabilities.
+                The Hub is a program of the{" "}
+                <a
+                  href={ORG_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-baseline gap-1 text-white underline decoration-orange-500/60 underline-offset-4 decoration-2 hover:decoration-orange-400 transition-colors focus-visible:outline-2 focus-visible:outline-orange-400 focus-visible:outline-offset-2 rounded-sm"
+                >
+                  United Spinal Association of Tennessee (USAT)
+                  <ExternalLink className="h-3 w-3 opacity-70 self-center" aria-hidden="true" />
+                  <span className="sr-only">(opens in new tab)</span>
+                </a>{" "}
+                — a 501(c)(3) nonprofit dedicated to improving the quality of
+                life for people with spinal cord injuries and related
+                disabilities.
               </p>
               <p>
                 This program is made possible through the generous support of
@@ -151,6 +162,18 @@ export default function AboutPage() {
                 community helps ensure essential equipment reaches the people
                 who need it most.
               </p>
+              <div className="pt-2">
+                <a
+                  href={ORG_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2 h-12 px-5 bg-white hover:bg-cream-100 text-ink-900 font-bold text-[15px] rounded-md transition-all focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+                >
+                  Visit USAT
+                  <ExternalLink className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                  <span className="sr-only">(opens in new tab)</span>
+                </a>
+              </div>
             </div>
           </div>
         </ScrollReveal>

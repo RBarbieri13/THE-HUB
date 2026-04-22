@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, ExternalLink, Sparkles } from "lucide-react";
 import { ScrollReveal } from "@/components/shared/scroll-reveal";
+import { ORG_URL } from "@/lib/constants";
 
 export function NewlyOpened() {
   return (
@@ -44,10 +45,20 @@ export function NewlyOpened() {
           <ScrollReveal animation="fade-left" delay={150}>
             <div className="space-y-5 text-white/85 text-[17px] leading-[1.65] max-w-[60ch]">
               <p>
-                The Hub is a brand-new program of the United Spinal Association
-                of Tennessee. We&apos;re actively ramping up — accepting
-                donations, building out inventory, and opening the closet to
-                Tennesseans who need equipment right now.
+                The Hub is a brand-new program of the{" "}
+                <a
+                  href={ORG_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-baseline gap-1 text-white underline decoration-orange-500/60 underline-offset-4 decoration-2 hover:decoration-orange-400 hover:decoration-2 transition-colors focus-visible:outline-2 focus-visible:outline-orange-400 focus-visible:outline-offset-2 rounded-sm"
+                >
+                  United Spinal Association of Tennessee
+                  <ExternalLink className="h-3 w-3 opacity-70 self-center" aria-hidden="true" />
+                  <span className="sr-only">(opens in new tab)</span>
+                </a>
+                . We&apos;re actively ramping up — accepting donations,
+                building out inventory, and opening the closet to Tennesseans
+                who need equipment right now.
               </p>
               <p>
                 If you have gently-used adaptive equipment gathering dust, your

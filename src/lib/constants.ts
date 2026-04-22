@@ -1,6 +1,8 @@
 export const SITE_NAME = "The Hub";
 export const ORG_NAME = "United Spinal Association of Tennessee";
 export const ORG_SHORT = "USAT";
+export const ORG_URL =
+  "https://unitedspinal.org/chapter/united-spinal-association-of-tennessee/";
 
 export const SITE_DESCRIPTION =
   "The Hub — United Spinal Association of Tennessee's adaptive equipment closet. We collect, refurbish, and redistribute donated mobility equipment to Tennesseans at no cost.";
