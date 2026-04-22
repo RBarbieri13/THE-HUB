@@ -26,7 +26,6 @@ export const NAV_ITEMS = [
   { label: "Inventory", href: "/inventory" },
   { label: "Request", href: "/get-equipment" },
   { label: "Donate", href: "/donate-equipment" },
-  { label: "Live Closet", href: "/live-closet" },
   { label: "How It Works", href: "/how-it-works" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
@@ -43,7 +42,6 @@ export const FOOTER_LINKS = {
     { label: "Request Equipment", href: "/get-equipment" },
     { label: "Donate Equipment", href: "/donate-equipment" },
     { label: "View Inventory", href: "/inventory" },
-    { label: "Live Closet View", href: "/live-closet" },
     { label: "Contact Us", href: "/contact" },
   ],
   legal: [

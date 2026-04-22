@@ -9,7 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/get-equipment",
     "/donate-equipment",
     "/inventory",
-    "/live-closet",
     "/how-it-works",
     "/faq",
     "/contact",

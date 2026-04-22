@@ -1,21 +1,37 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { ScrollReveal } from "@/components/shared/scroll-reveal";
 
 export function NewlyOpened() {
   return (
-    <section className="bg-ink-950 text-white py-20 md:py-24 border-y border-white/10">
-      <div className="max-w-[1240px] mx-auto px-6">
+    <section
+      aria-labelledby="newly-opened-heading"
+      className="relative bg-ink-950 text-white py-20 md:py-24 border-y border-white/10 overflow-hidden"
+    >
+      {/* Decorative layered gradient + grid */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(238,115,47,0.18),transparent_55%),radial-gradient(ellipse_at_bottom_right,rgba(30,137,157,0.15),transparent_55%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.04] bg-[linear-gradient(rgba(255,255,255,0.4)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.4)_1px,transparent_1px)] bg-[size:44px_44px]"
+      />
+
+      <div className="relative max-w-[1240px] mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-12 lg:gap-16 items-start">
           <ScrollReveal animation="fade-right">
             <div>
-              <span className="inline-flex items-center gap-2.5 font-[family-name:var(--font-mono)] text-[12px] font-bold uppercase tracking-[0.14em] text-orange-500 mb-5">
-                <span className="w-7 h-[2px] bg-orange-500" />
+              <span className="inline-flex items-center gap-2.5 font-[family-name:var(--font-mono)] text-[12px] font-bold uppercase tracking-[0.14em] text-orange-400 mb-5">
+                <Sparkles className="h-3.5 w-3.5" strokeWidth={2.5} aria-hidden="true" />
                 Just opened
               </span>
-              <h2 className="font-[family-name:var(--font-display)] text-[40px] md:text-[52px] font-medium leading-[1.06] tracking-[-0.02em] text-white">
+              <h2
+                id="newly-opened-heading"
+                className="font-[family-name:var(--font-display)] text-[40px] md:text-[52px] font-medium leading-[1.06] tracking-[-0.02em] text-white"
+              >
                 We opened our doors in{" "}
                 <em className="text-orange-500 font-normal italic">
                   February&nbsp;2026
@@ -26,7 +42,7 @@ export function NewlyOpened() {
           </ScrollReveal>
 
           <ScrollReveal animation="fade-left" delay={150}>
-            <div className="space-y-5 text-white/80 text-[17px] leading-[1.65] max-w-[60ch]">
+            <div className="space-y-5 text-white/85 text-[17px] leading-[1.65] max-w-[60ch]">
               <p>
                 The Hub is a brand-new program of the United Spinal Association
                 of Tennessee. We&apos;re actively ramping up — accepting
@@ -41,14 +57,14 @@ export function NewlyOpened() {
               <div className="flex flex-wrap gap-3 pt-4">
                 <Link
                   href="/donate-equipment"
-                  className="group inline-flex items-center gap-2 px-6 py-3.5 bg-orange-600 hover:bg-orange-700 text-white font-semibold text-[15px] rounded-[6px] transition-colors"
+                  className="group inline-flex items-center gap-2 h-12 px-6 bg-orange-600 hover:bg-orange-700 text-white font-bold text-[15px] rounded-md transition-all focus-visible:outline-2 focus-visible:outline-orange-400 focus-visible:outline-offset-2"
                 >
                   Donate to the closet
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
                 </Link>
                 <Link
                   href="/get-equipment"
-                  className="inline-flex items-center px-6 py-3.5 bg-transparent border-[1.5px] border-white/40 hover:border-white text-white font-semibold text-[15px] rounded-[6px] transition-colors"
+                  className="inline-flex items-center h-12 px-6 bg-transparent border-[1.5px] border-white/40 hover:border-white hover:bg-white/5 text-white font-bold text-[15px] rounded-md transition-all focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
                 >
                   Request something
                 </Link>
